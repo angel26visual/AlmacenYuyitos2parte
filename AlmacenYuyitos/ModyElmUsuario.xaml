@@ -1,0 +1,46 @@
+﻿<mah:MetroWindow x:Class="AlmacenYuyitos.ModyElmUsuario"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"         
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AlmacenYuyitos"
+        mc:Ignorable="d"
+        Title="Gestión de Usuarios - Los Yuyitos" Height="536.656" Width="454.898" ResizeMode="NoResize" Icon="resources/logo.png">
+    <Grid Margin="0,0,51.4,15.2">
+        <Label x:Name="lblNombreUsuario" Content="Nombre :" HorizontalAlignment="Left" Margin="123,118,0,0" VerticalAlignment="Top" Height="31" Width="75"/>
+        <Label x:Name="lblApellido" Content="Apellido:" HorizontalAlignment="Left" Margin="123,155,0,0" VerticalAlignment="Top" Height="30" Width="71"/>
+        <Label x:Name="lblRut" Content="Rut:" HorizontalAlignment="Left" Margin="146,192,0,0" VerticalAlignment="Top" Height="30" Width="38"/>
+        <Label x:Name="lblFechaNacimiento" Content="" HorizontalAlignment="Left" Margin="37,228,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" FontStyle="Italic" Height="31" Width="12">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="-17.332"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="3.74"/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label x:Name="lblFechaDeNacimiento" Content="Fecha de Nacimiento:" HorizontalAlignment="Left" Margin="50,222,0,0" VerticalAlignment="Top" Height="31" Width="158"/>
+        <Label x:Name="lblCorreo" Content="Correo:" HorizontalAlignment="Left" Margin="123,259,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.211,0.593" Height="30" Width="61"/>
+        <Label x:Name="lblEstadoCivil" Content="Estado Civil:" HorizontalAlignment="Left" Margin="101,302,0,0" VerticalAlignment="Top" Height="30" Width="93"/>
+        <Label x:Name="lblCargo" Content="Cargo:" HorizontalAlignment="Left" Margin="128,338,0,0" VerticalAlignment="Top" Height="31" Width="57"/>
+        <Label x:Name="lblNombreDeUsuario" Content="Nombre de Usuario:" HorizontalAlignment="Left" Margin="57,375,0,0" VerticalAlignment="Top" Height="30" Width="147" RenderTransformOrigin="0.582,0.503"/>
+        <Label x:Name="lblContrasena" Content="Contraseña:" HorizontalAlignment="Left" Margin="103,412,0,-22" VerticalAlignment="Top" RenderTransformOrigin="0.56,-0.176" Height="30" Width="91"/>
+        <TextBox x:Name="txtNombre" HorizontalAlignment="Left" Height="31" Margin="204,118,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151"/>
+        <TextBox x:Name="txtApellido" HorizontalAlignment="Left" Height="31" Margin="204,155,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151"/>
+        <TextBox x:Name="txtRut" HorizontalAlignment="Left" Height="30" Margin="204,192,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151"/>
+        <DatePicker x:Name="dpFechaNacimiento" HorizontalAlignment="Left" Margin="204,222,0,0" VerticalAlignment="Top" Width="151" Height="31"/>
+        <TextBox x:Name="txtCorreo" HorizontalAlignment="Left" Height="31" Margin="204,259,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151"/>
+        <ComboBox x:Name="cboEstadoCivil" HorizontalAlignment="Left" Margin="204,302,0,0" VerticalAlignment="Top" Width="151" Height="30"/>
+        <ComboBox x:Name="cboCargo" HorizontalAlignment="Left" Margin="204,338,0,0" VerticalAlignment="Top" Width="151" Height="31"/>
+        <TextBox x:Name="txtNombreUsuario" HorizontalAlignment="Left" Height="31" Margin="204,375,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151"/>
+        <PasswordBox x:Name="txtContrasena" HorizontalAlignment="Left" Margin="204,412,0,-22" VerticalAlignment="Top" Width="151" Height="30"/>
+        <Image Source="resources/logo.png" Stretch="Fill" Margin="204,-3,92.4,403" />
+        <Button x:Name="btnModificar" Content="MODIFICAR" HorizontalAlignment="Left" Margin="28,465,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="btnEliminar" Content="ELIMINAR" HorizontalAlignment="Left" Margin="146,465,0,0" Width="75" />
+        <Button x:Name="btnCerrarSesion" Content="CERRAR SESIÓN" Margin="344,10,-35.6,0" VerticalAlignment="Top" RenderTransformOrigin="0.792,-0.41" Click="btnCerrarSesion_Click"/>
+        <Button x:Name="btnVolver" Content="VOLVER" HorizontalAlignment="Left" Margin="280,465,0,0" Width="75" Click="btnVolver_Click" />
+
+    </Grid>
+</mah:MetroWindow>
