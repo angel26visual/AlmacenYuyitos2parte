@@ -1,0 +1,132 @@
+﻿<Controls:MetroWindow x:Class="AlmacenYuyitos.Cuenta"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AlmacenYuyitos"
+        mc:Ignorable="d"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        Title="Cuenta" Height="450" Width="650" Icon="resources/logo.png">
+
+    <Grid>
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Vertical" Margin="20, 0, 0, 0" Width="280">
+                <Label Content="Información personal" HorizontalAlignment="Center" FontSize="22" Margin="0,20,0,0" />
+                <TextBox x:Name="txtNombre"
+                         Margin="0,10,0,0"
+                        Controls:TextBoxHelper.Watermark="Nombres"
+                        Controls:TextBoxHelper.UseFloatingWatermark="True"
+                        Controls:TextBoxHelper.ClearTextButton="True"
+                        VerticalContentAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        DataContext=""
+                        Height="40"
+                        />
+                <TextBox x:Name="txtApellido"  Margin="0,10,0,0"
+                     Controls:TextBoxHelper.Watermark="Apellidos"
+                     Controls:TextBoxHelper.UseFloatingWatermark="True"
+                     Controls:TextBoxHelper.ClearTextButton="True"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center"
+                     Height="40"
+                     />
+                <TextBox x:Name="txtMail"  Margin="0,10,0,0"
+                     Controls:TextBoxHelper.Watermark="Correo Electronico"
+                     Controls:TextBoxHelper.UseFloatingWatermark="True"
+                     Controls:TextBoxHelper.ClearTextButton="True"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center"
+                     Height="40"
+                     />
+                <ComboBox x:Name="cboEstadoCivil"  Margin="0,10,0,0"
+                     Controls:TextBoxHelper.Watermark="Seleccione Estado Civil"
+                     Controls:TextBoxHelper.UseFloatingWatermark="True"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center"
+                     Height="40" 
+                     />
+                <Button x:Name="btnModificar"
+                        Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
+                        Height="40" Width="40" Cursor="Hand"
+                        Margin="50,10,0,0"
+                        ToolTip="Modificar información">
+                    <iconPacks:PackIconModern
+                        Width="22" Height="22"
+                        Kind="Upload"/>
+                </Button>
+
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Margin="20, 0, 0, 0" Width="280">
+                <Label Content="Información de Usuario" HorizontalAlignment="Center" FontSize="22" Margin="0,20,0,0" />
+                <TextBox x:Name="txtUsuario"  Margin="0,10,0,0"
+                     Controls:TextBoxHelper.Watermark="Nombre de Usuario"
+                     Controls:TextBoxHelper.UseFloatingWatermark="True"
+                     Controls:TextBoxHelper.ClearTextButton="True"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center"
+                     Height="40" 
+                     />
+                <PasswordBox x:Name="txtContrasena" Margin="0,10,0,0"
+                            Controls:TextBoxHelper.Watermark="Contraseña"
+                             Controls:TextBoxHelper.UseFloatingWatermark="True"
+                            Controls:TextBoxHelper.ClearTextButton="True"
+                             Controls:TextBoxHelper.WatermarkAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Height="40"
+                             Width="280"
+                            Style="{StaticResource MetroButtonRevealedPasswordBox}"
+                            />
+
+                <PasswordBox x:Name="txtNuevaContrasena" Margin="0,10,0,0"
+                            Controls:TextBoxHelper.Watermark="Nueva Contraseña"
+                             Controls:TextBoxHelper.UseFloatingWatermark="True"
+                            Controls:TextBoxHelper.ClearTextButton="True"
+                             Controls:TextBoxHelper.WatermarkAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Height="40"
+                             Width="280"
+                            Style="{StaticResource MetroButtonRevealedPasswordBox}"
+                             KeyUp="txtConfirmarPass_KeyUp"
+                            />
+
+                <PasswordBox x:Name="txtConfirmarPass" Margin="0,10,0,0"
+                            Controls:TextBoxHelper.Watermark="Confirmar Contraseña"
+                             Controls:TextBoxHelper.UseFloatingWatermark="True"
+                            Controls:TextBoxHelper.ClearTextButton="True"
+                             Controls:TextBoxHelper.WatermarkAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Height="40"
+                             Width="280"
+                            Style="{StaticResource MetroButtonRevealedPasswordBox}"
+                            KeyUp="txtConfirmarPass_KeyUp" PreviewTextInput="txtConfirmarPass_PreviewTextInput"
+                            
+                            />
+
+                <Label x:Name="lbContrasena" Visibility="Hidden" Content="" HorizontalAlignment="Center" FontSize="15" Margin="0,20,0,0"/>
+
+                <Button x:Name="btnModificarUsuario"
+                        Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
+                        Height="40" Width="40" Cursor="Hand"
+                        Margin="50,10,0,0"
+                        ToolTip="Modificar información">
+                    <iconPacks:PackIconModern
+                        Width="22" Height="22"
+                        Kind="Upload"/>
+                </Button>
+            </StackPanel>
+            <Button x:Name="btnVolver" Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
+                Height="40" Width="40" Cursor="Hand" 
+                ToolTip="Volver al Menú" Margin="0,350,15,0" Click="btnVolver_Click">
+                <iconPacks:PackIconModern 
+                 Width="25" Height="25"
+                 Kind="Return"  />
+            </Button>
+        </StackPanel>
+
+    </Grid>
+</Controls:MetroWindow>
+  

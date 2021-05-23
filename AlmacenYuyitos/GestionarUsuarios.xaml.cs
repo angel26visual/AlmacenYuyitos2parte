@@ -17,7 +17,7 @@ namespace AlmacenYuyitos
     /// <summary>
     /// Lógica de interacción para GestionarUsuarios.xaml
     /// </summary>
-    public partial class GestionarUsuarios 
+    public partial class GestionarUsuarios
     {
         public GestionarUsuarios()
         {
@@ -36,7 +36,7 @@ namespace AlmacenYuyitos
             VisualizarUsuario vu = new VisualizarUsuario();
             vu.Show();
             this.Close();
-            
+
         }
 
         private void btnVolver_Click(object sender, RoutedEventArgs e)
@@ -54,3 +54,4 @@ namespace AlmacenYuyitos
         }
     }
 }
+

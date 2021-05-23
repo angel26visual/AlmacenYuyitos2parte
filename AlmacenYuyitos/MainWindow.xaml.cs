@@ -17,12 +17,14 @@ namespace AlmacenYuyitos
     /// <summary>
     /// Lógica de interacción para MainWindow.xaml
     /// </summary>
-    public partial class MainWindow 
+    public partial class MainWindow
     {
         public MainWindow()
         {
             InitializeComponent();
         }
+
+        public string nomUsuario { get; set; }
 
         private void Tile_Click(object sender, RoutedEventArgs e)
         {
@@ -35,7 +37,6 @@ namespace AlmacenYuyitos
             Login inicio = new Login();
             inicio.Show();
             this.Close();
-            
         }
 
         private void btnGestionarUsuarios_Click(object sender, RoutedEventArgs e)
@@ -99,6 +100,18 @@ namespace AlmacenYuyitos
         private void btnGestionPromociones_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void btnVerCuenta_Click(object sender, RoutedEventArgs e)
+        {
+            Cuenta cuenta = new Cuenta(nomUsuario);
+            cuenta.Show();
+            this.Close();
+        }
+
+        private void btnCuenta_Click(object sender, RoutedEventArgs e)
+        {
+            cuentaFlyouts.IsOpen = true;
         }
     }
 }

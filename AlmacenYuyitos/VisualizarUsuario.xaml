@@ -9,10 +9,10 @@
         Title="Visualizar Usuario - Los Yuyitos" Height="477.365" Width="822.804" ResizeMode="NoResize" Icon="resources/logo.png">
     <Grid>
         <Label Content="FILTRAR:" HorizontalAlignment="Left" Margin="93,108,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.622,-0.174"/>
-        <TextBox x:Name="btnFiltrarRut" HorizontalAlignment="Left" Height="23" Margin="152,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnBuscarPorRut" Content="BUSCAR RUT" HorizontalAlignment="Left" Margin="300,106,0,0" VerticalAlignment="Top" Width="99"/>
-        <ComboBox HorizontalAlignment="Left" Margin="468,106,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnFiltrarCargo" Content="FILTRAR POR CARGO" HorizontalAlignment="Left" Margin="618,104,0,0" VerticalAlignment="Top" Width="116"/>
+        <TextBox x:Name="txtFiltrarRut" HorizontalAlignment="Left" Height="23" Margin="152,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btnBuscarPorRut" Content="BUSCAR RUT" HorizontalAlignment="Left" Margin="300,106,0,0" VerticalAlignment="Top" Width="99" Click="btnBuscarPorRut_Click"/>
+        <ComboBox x:Name="cboCargo" HorizontalAlignment="Left" Margin="468,106,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btnFiltrarCargo" Content="FILTRAR POR CARGO" HorizontalAlignment="Left" Margin="618,104,0,0" VerticalAlignment="Top" Width="116" Click="btnFiltrarCargo_Click"/>
         <DataGrid x:Name="dgUsuarios" HorizontalAlignment="Left" Height="171" Margin="93,182,0,0" VerticalAlignment="Top" Width="641"/>
         <Button x:Name="btnVerUsuario" Content="VER USUARIO" HorizontalAlignment="Left" Margin="32,411,0,0" VerticalAlignment="Top" Width="89" Click="btnVerUsuario_Click"/>
         <Button x:Name="btnVolver" Content="VOLVER" HorizontalAlignment="Left" Margin="732,411,0,0" VerticalAlignment="Top" Width="75" Click="btnVolver_Click"/>
@@ -21,3 +21,4 @@
 
     </Grid>
 </mah:MetroWindow>
+
