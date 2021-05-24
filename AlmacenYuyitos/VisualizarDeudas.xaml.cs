@@ -26,9 +26,7 @@ namespace AlmacenYuyitos
 
         private void btnVolver_Click(object sender, RoutedEventArgs e)
         {
-            ModyElimCliente myec = new ModyElimCliente();
-            myec.Show();
-            this.Close();
+            
         }
 
         private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
