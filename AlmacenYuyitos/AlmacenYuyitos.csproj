@@ -113,9 +113,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AgregarClientes.xaml.cs">
-      <DependentUpon>AgregarClientes.xaml</DependentUpon>
-    </Compile>
     <Compile Include="AgregarProductos.xaml.cs">
       <DependentUpon>AgregarProductos.xaml</DependentUpon>
     </Compile>
@@ -158,9 +155,6 @@
     <Compile Include="MenuOrdenDePedidos.xaml.cs">
       <DependentUpon>MenuOrdenDePedidos.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ModyElimCliente.xaml.cs">
-      <DependentUpon>ModyElimCliente.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ModyElimProductos.xaml.cs">
       <DependentUpon>ModyElimProductos.xaml</DependentUpon>
     </Compile>
@@ -185,9 +179,6 @@
     <Compile Include="VerVenta.xaml.cs">
       <DependentUpon>VerVenta.xaml</DependentUpon>
     </Compile>
-    <Compile Include="VisualizarCliente.xaml.cs">
-      <DependentUpon>VisualizarCliente.xaml</DependentUpon>
-    </Compile>
     <Compile Include="VisualizarDeudas.xaml.cs">
       <DependentUpon>VisualizarDeudas.xaml</DependentUpon>
     </Compile>
@@ -203,10 +194,6 @@
     <Compile Include="VisualizarVentas.xaml.cs">
       <DependentUpon>VisualizarVentas.xaml</DependentUpon>
     </Compile>
-    <Page Include="AgregarClientes.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="AgregarProductos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -289,10 +276,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ModyElimCliente.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ModyElimProductos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -326,10 +309,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="VerVenta.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="VisualizarCliente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

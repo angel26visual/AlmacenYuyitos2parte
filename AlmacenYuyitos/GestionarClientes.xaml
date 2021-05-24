@@ -3,27 +3,160 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
         Title="Gestionar Clientes - Los Yuyitos" Height="450" Width="800" ResizeMode="NoResize" Icon="resources/logo.png">
-    <Grid>
-        <Button x:Name="btnAgregarClientes" Content="AGREGAR CLIENTES" HorizontalAlignment="Left" Margin="82,119,0,0" VerticalAlignment="Top" Width="250" Height="100" Background="DodgerBlue" Click="btnAgregarClientes_Click" >
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
+    <Grid Background="Blue">
+        <Button x:Name="btnCerrarSesion"
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                Margin="724,5,29.6,375"
+                Width="40" 
+                Height="40"
+                Cursor="Hand"
+                ToolTip="Cerrar Sesión" Click="btnCerrarSesion_Click" >
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="User"/>
+
         </Button>
-        <Button x:Name="btnVisualzarClientes" Content="VISUALIZAR  CLIENTES" HorizontalAlignment="Left" Margin="404,119,0,0" VerticalAlignment="Top" Width="250" Height="100" Background="DodgerBlue" Click="btnVisualzarClientes_Click" >
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
+        <Label Content="Rut:" HorizontalAlignment="Left" Margin="43,70,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Nombre:" HorizontalAlignment="Left" Margin="20,130,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Apellido:" HorizontalAlignment="Left" Margin="18,183,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Teléfono:" HorizontalAlignment="Left" Margin="16,245,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.531,-1.22" Foreground="White"/>
+        <Label Content="Correo" HorizontalAlignment="Left" Margin="27,296,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <TextBox x:Name="txtRutCliente" 
+                 HorizontalAlignment="Left" 
+                 Height="40"
+                 Margin="91,62,0,0" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top"
+                 Width="166"
+                 
+                 mah:TextBoxHelper.Watermark="Rut Cliente (sin puntos ni guión)"
+                 mah:TextBoxHelper.UseFloatingWatermark="True"
+                />
+        <TextBox x:Name="txtNombreCliente"
+                  HorizontalAlignment="Left" 
+                 Height="40"
+                 Margin="91,120,0,0" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top"
+                 Width="166"
+                 
+                 mah:TextBoxHelper.Watermark="Ingrese Nombre de Cliente"
+                 mah:TextBoxHelper.UseFloatingWatermark="True"
+                 
+                 
+                 />
+        <TextBox x:Name="txtApellidoCliente" 
+                 HorizontalAlignment="Left" 
+                 Height="40"
+                 Margin="93,176,0,0" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top"
+                 Width="166"
+                 
+                 mah:TextBoxHelper.Watermark="Ingrese Apellido Cliente"
+                 mah:TextBoxHelper.UseFloatingWatermark="True"
+                 
+                 
+                 />
+        <TextBox x:Name="txtTelefonoCliente"
+                 HorizontalAlignment="Left" 
+                 Height="40"
+                 Margin="91,234,0,0" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top"
+                 Width="166"
+                 
+                 mah:TextBoxHelper.Watermark="Ingrese Teléfono de Cliente"
+                 mah:TextBoxHelper.UseFloatingWatermark="True"
+                 
+                 />
+        <TextBox x:Name="txtCorreoCliente" 
+                 HorizontalAlignment="Left" 
+                 Height="40"
+                 Margin="94,290,0,0" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top"
+                 Width="166"
+                 
+                 mah:TextBoxHelper.Watermark="Ingrese Correo de Cliente"
+                 mah:TextBoxHelper.UseFloatingWatermark="True"
+                 
+                 
+                 
+                 />
+        <Button x:Name="btnAgregarCliente"
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                Margin="220,339,533.6,41"
+                Width="40" 
+                Height="40"
+                Cursor="Hand"
+                Click="btnRegistrar_Click"
+                ToolTip="Agregar Cliente" >
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="Add"/>
+
+
         </Button>
-        <Button x:Name="btnVolverAlMenu" Content="VOLVER AL MENÚ" HorizontalAlignment="Left" Margin="241,265,0,0" VerticalAlignment="Top" Width="250" Height="100" Background="White" Click="btnVolverAlMenu_Click" >
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
+        <Button x:Name="btnModificar"
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                Margin="155,338,598.6,42"
+                Width="40" 
+                Height="40"
+                Cursor="Hand"
+            
+                ToolTip="Modificar Cliente" Click="btnModificar_Click" >
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="New"/>
+
+
         </Button>
-        <Button x:Name="btnCerrarSesion" Content="CERRAR SESIÓN" HorizontalAlignment="Left" Margin="683,10,0,0" VerticalAlignment="Top" Width="101" Click="btnCerrarSesion_Click"/>
+        <Button x:Name="btnEliminarCliente"  
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                Margin="93,339,660.6,41"
+                Width="40" 
+                Height="40"
+                Cursor="Hand"
+                ToolTip="Eliminar Cliente" Click="btnEliminarCliente_Click" >
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="Delete"/>
+        </Button>
+        <Button x:Name="btnLimpiar"
+               Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                Margin="30,339,723.6,41"
+                Width="40" 
+                Height="40"
+                Cursor="Hand"
+                ToolTip="Limpiar Campos" Click="btnLimpiar_Click" >
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="Refresh"/>
+
+
+        </Button>
+        <DataGrid x:Name="dgClientes" HorizontalAlignment="Left" Height="267" Margin="324,61,0,0" VerticalAlignment="Top" Width="442" Loaded="dgClientes_Loaded" SelectionChanged="dgClientes_SelectionChanged"/>
+        <Button x:Name="btnVolverAlMenu" 
+                
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                Margin="722,340,31.6,40"
+                Width="40" 
+                Height="40"
+                Cursor="Hand"
+                ToolTip="Volver al Menú Principal" Click="btnVolverAlMenu_Click_1"  >
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="Return"/>
+
+        </Button>
+
 
     </Grid>
 </mah:MetroWindow>
