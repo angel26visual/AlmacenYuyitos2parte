@@ -11,7 +11,20 @@
         
         Title="Gestionar Proveedor - Los Yuyitos" Height="499.907" Width="1116.217" ResizeMode="NoResize" Icon="resources/logo.png" Closed="MetroWindow_Closed">
     <Grid Background="blue">
-        <Button x:Name="btnCerrarSesión" Content="CERRAR SESIÓN" HorizontalAlignment="Left" Margin="1008,10,0,0" VerticalAlignment="Top" Width="92" Click="btnCerrarSesión_Click" Height="30"/>
+        <Button x:Name="btnCerrarSesión" 
+                  Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                HorizontalAlignment="Left"
+                Margin="1060,10,0,0"
+                VerticalAlignment="Top" 
+                Width="40" Height="40" 
+                ToolTip="Regresar al Login"
+                Click="btnCerrarSesión_Click">
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="User"/>
+
+
+        </Button>
         <Label Content="Rut:" HorizontalAlignment="Left" Margin="110,39,0,0" VerticalAlignment="Top" Foreground="White"/>
         <Label Content="Nombre:" HorizontalAlignment="Left" Margin="84,84,0,0" VerticalAlignment="Top" Foreground="White"/>
         <Label Content="Dirección:" HorizontalAlignment="Left" Margin="75,129,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.16,0.499" Foreground="White"/>
@@ -102,27 +115,68 @@
         <DataGrid x:Name="dgProveedor" HorizontalAlignment="Left" Height="212" Margin="360,39,0,0" VerticalAlignment="Top" Width="618" Loaded="dgProveedor_Loaded" SelectionChanged="dgProveedor_SelectionChanged"/>
         <Image Source="/resources/logo.png" Width="200" Height="200" Margin="536,225,373.6,-5" />
         <Button x:Name="btnRegistrar" 
-                
-                Content="REGISTRAR"
-                HorizontalAlignment="Left" 
-                Margin="153,373,0,0"
-                VerticalAlignment="Top"
-                Width="120" 
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                Margin="283,368,786.6,62.4"
+                Width="40" 
                 Height="40"
+                Cursor="Hand"
                 Click="btnRegistrar_Click"
-                
-                />
+                ToolTip="Agregar Proveedor" >
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="Add"/>
+
+        </Button>
         <Button x:Name="btnEliminar"
-                Content="ELIMINAR" 
-                HorizontalAlignment="Left" 
-                Margin="10,376,0,0" 
-                VerticalAlignment="Top"
-                Width="120" 
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                Margin="157,368,912.6,62.4"
+                Width="40" 
+                Height="40"
+                Cursor="Hand"
                 Click="btnEliminar_Click"
-                Height="36"/>
-        <Button x:Name="btnActualizar" Content="ACTUALIZAR" HorizontalAlignment="Left" Margin="153,417,0,0" VerticalAlignment="Top" Width="120" Click="btnActualizar_Click" Height="43"/>
-        <Button x:Name="btnLimpiar" Content="LIMPIAR" HorizontalAlignment="Left" Margin="10,417,0,0" VerticalAlignment="Top" Width="120" Click="btnLimpiar_Click" Height="43"/>
-        <Button x:Name="btnAtras" Content="ATRÁS" HorizontalAlignment="Left" Margin="1008,391,0,0" VerticalAlignment="Top" Width="92" Height="29" Click="btnAtras_Click"/>
+                ToolTip="Eliminar Proveedor">
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="Delete" />
+        </Button>
+        <Button x:Name="btnActualizar"
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                Margin="222,368,847.6,62.4"
+                Width="40" 
+                Height="40"
+                Cursor="Hand"
+                Click="btnActualizar_Click" 
+                ToolTip="Actualizar Proveedor">
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="New" />
+
+        </Button>
+        <Button x:Name="btnLimpiar" 
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                Margin="94,368,975.6,62.4"
+                Width="40" 
+                Height="40"
+                Cursor="Hand"
+                ToolTip="Limpiar Campos"
+                Click="btnLimpiar_Click">
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="Refresh" />
+
+
+        </Button>
+        <Button x:Name="btnAtras" 
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
+                Margin="1058,370,14.6,0"
+                VerticalAlignment="Top" Height="40" 
+                Click="btnAtras_Click"
+                ToolTip="Regresar al Menú Principal">
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="LayerArrangeSendtoback" />
+
+        </Button>
 
     </Grid>
 </mah:MetroWindow>
