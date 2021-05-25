@@ -16,6 +16,7 @@ using Oracle.ManagedDataAccess.Types;
 using System.Configuration;
 using MahApps.Metro.Controls.Dialogs;
 using System.Data;
+using Microsoft.Win32;
 
 namespace AlmacenYuyitos
 {
@@ -303,6 +304,18 @@ namespace AlmacenYuyitos
             MainWindow mw = new MainWindow();
             mw.Show();
             this.Close();
+        }
+
+        private void btnCargarImagen_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Filter = "Archivos de imágen (.jpg)|*.jpg|All Files (*.*)|*.*";
+
+            openFileDialog1.FilterIndex = 1;
+            openFileDialog1.Multiselect = true;
+            bool? respuesta = openFileDialog1.ShowDialog();
+
+            imgFoto.Source = new BitmapImage(new Uri(openFileDialog1.FileName));
         }
     }
     }

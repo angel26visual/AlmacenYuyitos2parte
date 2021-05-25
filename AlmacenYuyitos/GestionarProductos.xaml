@@ -219,7 +219,7 @@
                 Kind="Return" />
         </Button>
 
-        <Button x:Name="btnCargarImagen" Content="Cargar Imagen" Grid.Column="3" HorizontalAlignment="Left" Margin="75.8,349,0,0" VerticalAlignment="Top" Width="91"/>
+        <Button x:Name="btnCargarImagen" Content="Cargar Imagen" Grid.Column="3" HorizontalAlignment="Left" Margin="75.8,349,0,0" VerticalAlignment="Top" Width="91" Click="btnCargarImagen_Click"/>
         <Image Grid.Column="3" x:Name="imgFoto" HorizontalAlignment="Left" Height="151" Margin="197.8,339,0,0" VerticalAlignment="Top" Width="108" OpacityMask="Black"/>
         <TextBox x:Name="tburlFoto" IsReadOnly="False"   Grid.Column="3" HorizontalAlignment="Left" Height="23" Margin="190.8,499,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Background="{x:Null}"/>
         <Label Content="Marca de Producto:" Grid.Column="3" HorizontalAlignment="Left" Margin="61.8,243,0,0" VerticalAlignment="Top" Foreground="White"/>
