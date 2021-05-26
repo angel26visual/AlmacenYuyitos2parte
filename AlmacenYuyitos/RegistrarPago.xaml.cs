@@ -24,13 +24,6 @@ namespace AlmacenYuyitos
             InitializeComponent();
         }
 
-        private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
-        {
-            Login log = new Login();
-            log.Show();
-            this.Close();
-        }
-
         private void btnVolver_Click(object sender, RoutedEventArgs e)
         {
             GestionarVentas gv = new GestionarVentas();

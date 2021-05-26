@@ -164,11 +164,9 @@
         </Button>
         <Button x:Name="btnRegistrarProducto" 
             Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
-            Margin="127.4,370,1097.4,159"
-            Width="40" 
-            Height="40"
+            Margin="10,433,67,124"
             Cursor="Hand"
-            ToolTip="Agregar Producto" Grid.ColumnSpan="2" Grid.Column="2" Click="btnRegistrarProducto_Click" >
+            ToolTip="Agregar Producto" Grid.Column="2" Click="btnRegistrarProducto_Click" >
             <iconPacks:PackIconModern
                 Width="22" Height="22"
                 Kind="Add"/>

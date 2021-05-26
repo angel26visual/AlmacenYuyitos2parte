@@ -6,24 +6,53 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         Title="Registrar Venta - Los Yuyitos " Height="480.405" Width="800" ResizeMode="NoResize" Icon="resources/logo.png">
     <Grid>
-        <Button x:Name="btnCerrarSesion" Content="CERRAR SESIÓN" HorizontalAlignment="Left" Margin="694,10,0,0" VerticalAlignment="Top" Width="90" Click="btnCerrarSesion_Click"/>
-        <Button x:Name="btnVolver" Content="VOLVER" HorizontalAlignment="Left" Margin="709,410,0,10.2" Width="75" Click="btnVolver_Click"/>
-        <Label Content="Categoría:" HorizontalAlignment="Left" Margin="28,85,0,0" VerticalAlignment="Top"/>
-        <Label Content="Producto:" HorizontalAlignment="Left" Margin="31,116,0,0" VerticalAlignment="Top"/>
-        <Label Content="Cantidad:" HorizontalAlignment="Left" Margin="31,147,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cboCategoria" HorizontalAlignment="Left" Margin="97,85,0,0" VerticalAlignment="Top" Width="60"/>
+
+
+        <!--<ComboBox x:Name="cboCategoria" HorizontalAlignment="Left" Margin="97,85,0,0" VerticalAlignment="Top" Width="60"/>
         <ComboBox HorizontalAlignment="Left" Margin="97,116,0,0" VerticalAlignment="Top" Width="60"/>
-        <TextBox x:Name="txtCantidad" HorizontalAlignment="Left" Height="23" Margin="97,155,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60"/>
-        <DataGrid x:Name="dgProductos" HorizontalAlignment="Left" Height="214" Margin="217,85,0,0" VerticalAlignment="Top" Width="415"/>
-        <Button x:Name="btnAgregarProducto" Content="AGREGAR PRODUCTO" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Margin="28,202,0,0"/>
-        <Label Content="TOTAL:" HorizontalAlignment="Left" Margin="461,317,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtTotal" HorizontalAlignment="Left" Height="23" Margin="512,317,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+
+
+        <TextBox x:Name="txtTotal" Margin="10,41,596,152" TextChanged="txtTotal_TextChanged"
+                 
+                 />
         <Button x:Name="btnRegistrarFiado" Content="REGISTRAR FIADO" HorizontalAlignment="Left" Margin="512,348,0,0" VerticalAlignment="Top" Width="120"/>
         <Button x:Name="btnRealizarPago" Content="REALIZAR PAGO" HorizontalAlignment="Left" Margin="654,348,0,0" VerticalAlignment="Top" Width="92" Click="btnRealizarPago_Click"/>
-        <Button x:Name="btnEliminarDeLista" Content="ELIMINAR" HorizontalAlignment="Left" Margin="654,116,0,0" VerticalAlignment="Top" Width="92"/>
+        <Button x:Name="btnEliminarDeLista" Content="ELIMINAR" HorizontalAlignment="Left" Margin="654,116,0,0" VerticalAlignment="Top" Width="92"/>-->
         <Image Source="/resources/logo.png" Width="100" Height="100 " Margin="346,-15,347.6,366.2"/>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" Margin="38,92,494,147" >
+            <TextBox x:Name="txtCodigoBarra" 
+                     Margin="10,10,10,10"
+                     mah:TextBoxHelper.Watermark="Código de barra"
+                     mah:TextBoxHelper.UseFloatingWatermark="True"
+                     mah:TextBoxHelper.ClearTextButton="True"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center" Height="40"/>
+            <TextBox x:Name="txtCantidad" 
+                     Margin="10,10,10,10"
+                     mah:TextBoxHelper.Watermark="Cantidad"
+                     mah:TextBoxHelper.UseFloatingWatermark="True"
+                     mah:TextBoxHelper.ClearTextButton="True"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center" Height="40"/>
+        </StackPanel>
+        <Button x:Name="btnVolver" Margin="732,392,22,24" 
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Width="40" Cursor="Hand" 
+                ToolTip="Volver" Click="btnVolver_Click">
+            <iconPacks:PackIconModern 
+                 Width="25" Height="25"
+                 Kind="Return"  />
+        </Button>
+        <ListView HorizontalAlignment="Left" Height="192" Margin="378,112,0,0" VerticalAlignment="Top" Width="321">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
 
     </Grid>
 </mah:MetroWindow>
