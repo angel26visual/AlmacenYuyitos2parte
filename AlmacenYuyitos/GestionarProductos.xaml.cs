@@ -49,13 +49,14 @@ namespace AlmacenYuyitos
             try
             {
                 OracleCommand cmd = con.CreateCommand();
-                cmd.CommandText = "SELECT CODIGO_PRODUCTO , NOMBRE_PRODUCT , PRECIO_COMPRA , PRECIO_VENTA " +
+                cmd.CommandText = "SELECT CODIGO_PRODUCTO , NOMBRE_PRODUCT , PRECIO_COMPRA , PRECIO_VENTA, " +
                     "STOCK , STOCK_CRITICO ,FECH_ELABO_PRODUCT , FECH_VENCI_PRODUCT, MARCA, COD_BARRA_PRODUCT , IMG_PRODUC ,TIPO_PRODUCTO_ID_TIPPRODUC,  PROVEEDOR_RUT_PROVEE " +
                     "FROM PRODUCTO";
                 cmd.CommandType = CommandType.Text;
                 OracleDataReader dr = cmd.ExecuteReader();
+                OracleDataAdapter adapter = new OracleDataAdapter(cmd);
                 DataTable dt = new DataTable();
-                dt.Load(dr);
+                adapter.Fill(dt);
                 dgProductos.ItemsSource = dt.DefaultView;
                 dr.Close();
 

@@ -113,6 +113,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ConsultarProductos.xaml.cs">
+      <DependentUpon>ConsultarProductos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ConsultarPromociones.xaml.cs">
       <DependentUpon>ConsultarPromociones.xaml</DependentUpon>
     </Compile>
@@ -183,6 +186,10 @@
       <DependentUpon>VisualizarVentas.xaml</DependentUpon>
     </Compile>
     <Page Include="AgregarUsuario.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ConsultarProductos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

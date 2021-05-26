@@ -54,7 +54,7 @@ namespace AlmacenYuyitos
 
         private void btnConsultarProducto_Click(object sender, RoutedEventArgs e)
         {
-            GestionarProductos cp = new GestionarProductos();
+            ConsultarProductos cp = new ConsultarProductos();
             cp.Show();
             this.Close();
         }

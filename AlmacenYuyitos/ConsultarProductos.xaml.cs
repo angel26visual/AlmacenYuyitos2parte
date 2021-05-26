@@ -22,7 +22,7 @@ namespace AlmacenYuyitos
     /// <summary>
     /// Lógica de interacción para ConsultarProductos.xaml
     /// </summary>
-    public partial class ConsultarProductos 
+    public partial class ConsultarProductos
     {
         OracleConnection con = null;
         public string nomUsusario { get; set; }
@@ -64,7 +64,7 @@ namespace AlmacenYuyitos
             {
                 await this.ShowMessageAsync("Error", "Ha ocurrido un error");
             }
-            
+
         }
 
         private async void AUD(String sql_stmt, int state)
@@ -138,7 +138,8 @@ namespace AlmacenYuyitos
             {
                 await this.ShowMessageAsync("Error", "Ha ocurrido un error");
             }
-            
+
         }
     }
 }
+

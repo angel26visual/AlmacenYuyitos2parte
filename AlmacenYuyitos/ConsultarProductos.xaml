@@ -30,7 +30,7 @@
                     Height="40" Width="40" Cursor="Hand"
                     Margin="10,10,10,10"
                     ToolTip="Buscar producto" Click="btnFiltrarNombreProducto_Click">
-                    <iconPacks:PackIconModern
+                <iconPacks:PackIconModern
                             Width="22" Height="22"
                             Kind="Filter"/>
 
