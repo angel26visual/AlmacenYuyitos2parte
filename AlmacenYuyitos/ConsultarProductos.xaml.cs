@@ -1,5 +1,10 @@
-﻿using System;
+﻿using MahApps.Metro.Controls.Dialogs;
+using Oracle.ManagedDataAccess.Client;
+using Oracle.ManagedDataAccess.Types;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +24,26 @@ namespace AlmacenYuyitos
     /// </summary>
     public partial class ConsultarProductos 
     {
+        OracleConnection con = null;
+        public string nomUsusario { get; set; }
         public ConsultarProductos()
         {
+            this.setConnection();
             InitializeComponent();
+        }
+
+        private async void setConnection()
+        {
+            String connectionString = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
+            con = new OracleConnection(connectionString);
+            try
+            {
+                con.Open();
+            }
+            catch (Exception)
+            {
+                await this.ShowMessageAsync("Error", "No hay conexión con la base de datos");
+            }
         }
 
         private void btnAtras_Click(object sender, RoutedEventArgs e)
@@ -31,11 +53,92 @@ namespace AlmacenYuyitos
             this.Close();
         }
 
-        private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
+        private async void txtCodigoP_KeyUp(object sender, KeyEventArgs e)
         {
-            Login log = new Login();
-            log.Show();
-            this.Close();
+            try
+            {
+                String sql = "SELECT CODIGO_PRODUCTO, IMG_PRODUC, NOMBRE_PRODUCT, PRECIO_VENTA, STOCK, MARCA, COD_BARRA_PRODUCT FROM PRODUCTO WHERE COD_BARRA_PRODUCT = :CODIGO";
+                this.AUD(sql, 0);
+            }
+            catch (Exception)
+            {
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
+            
+        }
+
+        private async void AUD(String sql_stmt, int state)
+        {
+            OracleCommand cmd = con.CreateCommand();
+            cmd.CommandText = sql_stmt;
+            cmd.CommandType = CommandType.Text;
+
+            switch (state)
+            {
+                case 0:
+                    cmd.Parameters.Add("CODIGO", OracleDbType.Varchar2, 20).Value = txtCodigoP.Text;
+                    try
+                    {
+                        OracleDataReader reader = cmd.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            OracleDataAdapter adapter = new OracleDataAdapter(cmd);
+                            DataTable dt = new DataTable();
+                            adapter.Fill(dt);
+                            dgProductos.ItemsSource = dt.DefaultView;
+                            reader.Close();
+                        }
+                        else
+                        {
+                            dgProductos.ItemsSource = null;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+                    }
+                    break;
+                case 1:
+                    cmd.Parameters.Add("NOMBRE", OracleDbType.Varchar2, 50).Value = txtNombreProducto.Text;
+                    try
+                    {
+                        OracleDataReader reader = cmd.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            OracleDataAdapter adapter = new OracleDataAdapter(cmd);
+                            DataTable dt = new DataTable();
+                            adapter.Fill(dt);
+                            dgProductos.ItemsSource = dt.DefaultView;
+                            reader.Close();
+                        }
+                        else
+                        {
+                            dgProductos.ItemsSource = null;
+                            await this.ShowMessageAsync("Productos", "No hay productos que coinicidan con el nombre ingresado");
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+                    }
+
+                    break;
+
+            }
+        }
+
+        private async void btnFiltrarNombreProducto_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                String sql = "SELECT CODIGO_PRODUCTO, IMG_PRODUC, NOMBRE_PRODUCT, PRECIO_VENTA, STOCK, MARCA, COD_BARRA_PRODUCT FROM PRODUCTO WHERE LOWER(NOMBRE_PRODUCT) LIKE LOWER('%' || :NOMBRE || '%')";
+                this.AUD(sql, 1);
+            }
+            catch (Exception)
+            {
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
+            
         }
     }
 }

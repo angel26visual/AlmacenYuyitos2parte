@@ -19,8 +19,7 @@
                         Controls:TextBoxHelper.UseFloatingWatermark="True"
                         Controls:TextBoxHelper.ClearTextButton="True"
                         VerticalContentAlignment="Center"
-                        HorizontalContentAlignment="Center"
-                        DataContext=""
+                        HorizontalContentAlignment="Center" IsEnabled="False"
                         Height="40"
                         />
                 <TextBox x:Name="txtApellido"  Margin="0,10,0,0"
@@ -28,7 +27,7 @@
                      Controls:TextBoxHelper.UseFloatingWatermark="True"
                      Controls:TextBoxHelper.ClearTextButton="True"
                      VerticalContentAlignment="Center"
-                     HorizontalContentAlignment="Center"
+                     HorizontalContentAlignment="Center" IsEnabled="False"
                      Height="40"
                      />
                 <TextBox x:Name="txtMail"  Margin="0,10,0,0"
@@ -50,7 +49,7 @@
                         Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
                         Height="40" Width="40" Cursor="Hand"
                         Margin="50,10,0,0"
-                        ToolTip="Modificar información">
+                        ToolTip="Modificar información" Click="btnModificar_Click">
                     <iconPacks:PackIconModern
                         Width="22" Height="22"
                         Kind="Upload"/>
@@ -112,7 +111,7 @@
                         Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
                         Height="40" Width="40" Cursor="Hand"
                         Margin="50,10,0,0"
-                        ToolTip="Modificar información">
+                        ToolTip="Modificar información" Click="btnModificarUsuario_Click">
                     <iconPacks:PackIconModern
                         Width="22" Height="22"
                         Kind="Upload"/>

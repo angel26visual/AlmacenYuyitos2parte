@@ -5,20 +5,47 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AlmacenYuyitos"
-      
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         Title="Consultar Productos - Los Yuyitos" Height="450" Width="800" ResizeMode="NoResize" Icon="resources/logo.png">
     <Grid>
-        <Label Content="Código de Producto" Margin="50,101,626.6,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtCodigoDeProducto" HorizontalAlignment="Left" Height="23" Margin="172,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnFiltrarPorCodProducto" Content="FILTRAR" HorizontalAlignment="Left" Margin="315,101,0,0" VerticalAlignment="Top" Width="75"/>
-        <Label Content="Nombre de Producto" HorizontalAlignment="Left" Margin="428,103,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtNombreProducto" HorizontalAlignment="Left" Height="23" Margin="557,103,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnFiltrarNombreProducto" Content="FILTRAR" HorizontalAlignment="Left" Margin="682,101,0,0" VerticalAlignment="Top" Width="75"/>
-        <DataGrid x:Name="dgProductos" HorizontalAlignment="Left" Height="185" Margin="50,157,0,0" VerticalAlignment="Top" Width="707"/>
-        <Button x:Name="btnAtras" Content="ATRÁS" HorizontalAlignment="Left" Margin="709,383,0,0" VerticalAlignment="Top" Width="75" Click="btnAtras_Click"/>
-        <Button x:Name="btnCerrarSesion" Content="CERRAR SESIÓN" HorizontalAlignment="Left" Margin="667,10,0,0" VerticalAlignment="Top" Width="90" Click="btnCerrarSesion_Click"/>
-        <Image Source="/resources/logo.png" Width="120" Height="120" Margin="337,-19,336.6,319" />
+        <StackPanel Orientation="Horizontal" Margin="10,86,37,262">
+            <TextBox x:Name="txtCodigoP"
+                        Margin="117,10,150,10"
+                        mah:TextBoxHelper.Watermark="Código de barra"
+                        mah:TextBoxHelper.UseFloatingWatermark="True"
+                        mah:TextBoxHelper.ClearTextButton="True"
+                        VerticalContentAlignment="Center"
+                        HorizontalContentAlignment="Center" KeyUp="txtCodigoP_KeyUp" Width="159" 
+                        />
+            <TextBox x:Name="txtNombreProducto"
+                     mah:TextBoxHelper.Watermark="Nombre del producto"
+                     mah:TextBoxHelper.UseFloatingWatermark="True"
+                     mah:TextBoxHelper.ClearTextButton="True"
+                     Margin="10"
+                     VerticalContentAlignment="Center" 
+                     HorizontalContentAlignment="Center" Width="159" Height="50"/>
+            <Button x:Name="btnFiltrarNombreProducto" 
+                    Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
+                    Height="40" Width="40" Cursor="Hand"
+                    Margin="10,10,10,10"
+                    ToolTip="Buscar producto" Click="btnFiltrarNombreProducto_Click">
+                    <iconPacks:PackIconModern
+                            Width="22" Height="22"
+                            Kind="Filter"/>
 
+            </Button>
+        </StackPanel>
+        <DataGrid x:Name="dgProductos" HorizontalAlignment="Left" Height="177" Margin="50,183,0,0" VerticalAlignment="Top" Width="707"/>
+        <Button x:Name="btnAtras" Margin="709,353,0,0" 
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
+                Height="40" Width="40" Cursor="Hand" 
+                ToolTip="Volver"
+                Click="btnAtras_Click">
+            <iconPacks:PackIconModern 
+                 Width="25" Height="25"
+                 Kind="Return"  />
+        </Button>
+        <Image Source="/resources/logo.png" Width="120" Height="120" Margin="337,-19,336.6,319" />
     </Grid>
 </mah:MetroWindow>

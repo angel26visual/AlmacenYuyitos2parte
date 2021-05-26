@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MahApps.Metro.Controls.Dialogs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,8 @@ namespace AlmacenYuyitos
         public ConsultarPromociones()
         {
             InitializeComponent();
+            txtInicio.SelectedDate = DateTime.Today;
+            txtTermino.SelectedDate = DateTime.Today;
         }
 
         private void btnAtras_Click(object sender, RoutedEventArgs e)
@@ -32,11 +35,13 @@ namespace AlmacenYuyitos
 
         }
 
-        private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
+        private void btnFiltrarInicio_Click(object sender, RoutedEventArgs e)
         {
-            Login log = new Login();
-            log.Show();
-            this.Close();
+
+        }
+
+        private void btnFiltrarTermino_Click(object sender, RoutedEventArgs e)
+        {
 
         }
     }

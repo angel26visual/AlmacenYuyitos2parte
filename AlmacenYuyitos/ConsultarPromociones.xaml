@@ -6,12 +6,57 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         Title="Consultar Promociones - Los Yuyitos" Height="450" Width="800" ResizeMode="NoResize" Icon="resources/logo.png">
     <Grid>
-        <Label Content="PROMOCIONES" HorizontalAlignment="Left" Margin="318,75,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold"/>
+        <StackPanel Orientation="Horizontal" Margin="60,86,37,262">
+            <DatePicker x:Name="txtInicio"  Margin="120,10,22,10"
+                     mah:TextBoxHelper.Watermark="FECHA DE INICIO"
+                     mah:TextBoxHelper.UseFloatingWatermark="True"
+                     mah:TextBoxHelper.ClearTextButton="True"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center"
+                     />
+            <Button x:Name="btnFiltrarInicio" 
+                    Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
+                    Height="40" Width="40" Cursor="Hand"
+                    Margin="10,10,40,10"
+                    ToolTip="Filtrar por fecha de inicio" Click="btnFiltrarInicio_Click">
+                <iconPacks:PackIconModern
+                            Width="22" Height="22"
+                            Kind="Filter"/>
+
+            </Button>
+            <DatePicker x:Name="txtTermino"  Margin="10"
+                     mah:TextBoxHelper.Watermark="FECHA DE TERMINO"
+                     mah:TextBoxHelper.UseFloatingWatermark="True"
+                     mah:TextBoxHelper.ClearTextButton="True"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center"
+                     />
+            <Button x:Name="btnFiltrarTermino" 
+                    Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
+                    Height="40" Width="40" Cursor="Hand"
+                    Margin="10,10,10,10"
+                    ToolTip="Filtrar por fecha de termino" Click="btnFiltrarTermino_Click">
+                <iconPacks:PackIconModern
+                            Width="22" Height="22"
+                            Kind="Filter"/>
+
+            </Button>
+        </StackPanel>
+        <DataGrid x:Name="dgProductos" HorizontalAlignment="Left" Height="177" Margin="50,183,0,0" VerticalAlignment="Top" Width="707"/>
+        <Button x:Name="btnAtras" Margin="709,353,0,0" 
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
+                Height="40" Width="40" Cursor="Hand" 
+                ToolTip="Volver"
+                Click="btnAtras_Click">
+            <iconPacks:PackIconModern 
+                 Width="25" Height="25"
+                 Kind="Return"  />
+        </Button>
         <Image Source="/resources/logo.png" Width="120" Height="120" Margin="338,-19,335.6,319" />
-        <Button x:Name="btnAtras" Content="ATRÁS" HorizontalAlignment="Left" Margin="695,385,0,0" VerticalAlignment="Top" Width="75" Click="btnAtras_Click"/>
-        <Button x:Name="btnCerrarSesion" Content="CERRAR SESIÓN" HorizontalAlignment="Left" Margin="675,10,0,0" VerticalAlignment="Top" Width="95" Click="btnCerrarSesion_Click"/>
+
 
     </Grid>
 </mah:MetroWindow>

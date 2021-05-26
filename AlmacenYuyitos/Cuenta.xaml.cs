@@ -27,13 +27,14 @@ namespace AlmacenYuyitos
     {
         OracleConnection con = null;
         string nomUsuario = string.Empty;
+        string rut = string.Empty;
         public Cuenta(string usuario)
         {
             nomUsuario = usuario;
             this.setConnection();
             InitializeComponent();
             actualizarEstadoC();
-            String sql = "SELECT NOMBRE_TRAB, APELLIDO_TRAB, CORREO, NOM_USUARIO, ESTADO_CIVIL_ID_ESTAC FROM TRABAJADOR WHERE NOM_USUARIO = :USUARIO";
+            String sql = "SELECT RUT_TRAB, NOMBRE_TRAB, APELLIDO_TRAB, CORREO, NOM_USUARIO, ESTADO_CIVIL_ID_ESTAC FROM TRABAJADOR WHERE NOM_USUARIO = :USUARIO";
             this.AUD(sql, 0);
         }
 
@@ -71,6 +72,7 @@ namespace AlmacenYuyitos
                             txtMail.Text = reader["CORREO"].ToString();
                             txtUsuario.Text = reader["NOM_USUARIO"].ToString();
                             cboEstadoCivil.SelectedValue = Convert.ToInt32(reader["ESTADO_CIVIL_ID_ESTAC"].ToString());
+                            rut = reader["RUT_TRAB"].ToString();
                         }
                         else
                         {
@@ -79,10 +81,40 @@ namespace AlmacenYuyitos
 
                         break;
                     case 1:
-                        //cmd.Parameters.Add("CORREO", OracleDbType.Varchar2, 100).Value = txtCorreo.Text;
-                        OracleDataReader reader2 = cmd.ExecuteReader();
-                        if (reader2.Read())
-                        { }
+                        cmd.Parameters.Add("CORREO", OracleDbType.Varchar2, 100).Value = txtMail.Text;
+                        cmd.Parameters.Add("estadocivil", OracleDbType.Int32, 10).Value = cboEstadoCivil.SelectedValue;
+                        cmd.Parameters.Add("RUT", OracleDbType.Varchar2, 9).Value = rut.ToString();
+                        try
+                        {
+                            int n = cmd.ExecuteNonQuery();
+                            if (n > 0)
+                            {
+                                await this.ShowMessageAsync("Información de contacto", "Se ha actualizado la información");
+
+                            }
+                        }
+                        catch (Exception expe)
+                        {
+                            await this.ShowMessageAsync("Información de contacto", "No se a podido actualizar los registros");
+                        }
+                        break;
+                    case 2:
+                        cmd.Parameters.Add("USUARIO", OracleDbType.Varchar2, 100).Value = txtUsuario.Text;
+                        cmd.Parameters.Add("contrasena", OracleDbType.Varchar2, 100).Value = txtNuevaContrasena.Password;
+                        cmd.Parameters.Add("RUT", OracleDbType.Varchar2, 9).Value = rut.ToString();
+                        try
+                        {
+                            int n = cmd.ExecuteNonQuery();
+                            if (n > 0)
+                            {
+                                await this.ShowMessageAsync("Información de contacto", "Se ha actualizado la información");
+
+                            }
+                        }
+                        catch (Exception expe)
+                        {
+                            await this.ShowMessageAsync("Información de contacto", "No se a podido actualizar los registros");
+                        }
                         break;
 
                 }
@@ -174,6 +206,18 @@ namespace AlmacenYuyitos
             {
                 e.Handled = false;
             }
+        }
+
+        private void btnModificar_Click(object sender, RoutedEventArgs e)
+        {
+            String sql = "UPDATE TRABAJADOR SET CORRE0 = :CORREO, ESTADO_CIVIL_ID_ESTAC = :ESTADOCIVIL WHERE RUT_TRAB = :RUT";
+            this.AUD(sql, 1);
+        }
+
+        private void btnModificarUsuario_Click(object sender, RoutedEventArgs e)
+        {
+            String sql = "UPDATE TRABAJADOR SET NOM_USUARIO = :USUARIO, CONTRASENA_USUARIO = :CONTRASENA WHERE RUT_TRAB = :RUT";
+            this.AUD(sql, 2);
         }
 
 
