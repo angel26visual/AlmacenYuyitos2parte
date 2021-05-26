@@ -113,12 +113,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AgregarProductos.xaml.cs">
-      <DependentUpon>AgregarProductos.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ConsultarProductos.xaml.cs">
-      <DependentUpon>ConsultarProductos.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ConsultarPromociones.xaml.cs">
       <DependentUpon>ConsultarPromociones.xaml</DependentUpon>
     </Compile>
@@ -155,9 +149,6 @@
     <Compile Include="MenuOrdenDePedidos.xaml.cs">
       <DependentUpon>MenuOrdenDePedidos.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ModyElimProductos.xaml.cs">
-      <DependentUpon>ModyElimProductos.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ModyElmUsuario.xaml.cs">
       <DependentUpon>ModyElmUsuario.xaml</DependentUpon>
     </Compile>
@@ -185,24 +176,13 @@
     <Compile Include="VisualizarPedidoDelivery.xaml.cs">
       <DependentUpon>VisualizarPedidoDelivery.xaml</DependentUpon>
     </Compile>
-    <Compile Include="VisualizarProductos.xaml.cs">
-      <DependentUpon>VisualizarProductos.xaml</DependentUpon>
-    </Compile>
     <Compile Include="VisualizarUsuario.xaml.cs">
       <DependentUpon>VisualizarUsuario.xaml</DependentUpon>
     </Compile>
     <Compile Include="VisualizarVentas.xaml.cs">
       <DependentUpon>VisualizarVentas.xaml</DependentUpon>
     </Compile>
-    <Page Include="AgregarProductos.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="AgregarUsuario.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ConsultarProductos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -276,10 +256,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ModyElimProductos.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ModyElmUsuario.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -317,10 +293,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="VisualizarPedidoDelivery.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="VisualizarProductos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

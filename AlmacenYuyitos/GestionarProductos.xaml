@@ -3,31 +3,238 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
-        Title="Gestionar Productos - Los Yuyitos" Height="450" Width="800" ResizeMode="NoResize" Icon="resources/logo.png">
-    <Grid>
+        Title="Gestionar Productos - Los Yuyitos" Height="621.766" Width="1444.124" ResizeMode="NoResize" Icon="resources/logo.png">
+    <Grid Background="Blue">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="261*"/>
-          
-        </Grid.ColumnDefinitions>
-        <Button x:Name="btnAgregarProducto" Content="AGREGAR PRODUCTOS" HorizontalAlignment="Left" Margin="82,119,0,0" VerticalAlignment="Top" Width="250" Height="100" Background="DodgerBlue" Click="btnAgregarProducto_Click">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
-        </Button>
-        <Button x:Name="btnVisualizarProducto" Content="VISUALIZAR PRODUCTOS" HorizontalAlignment="Left" Margin="437,119,0,0" VerticalAlignment="Top"  Height="100" Width="250" Background="DodgerBlue" Click="btnVisualizarProducto_Click">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
-        </Button>
-        <Button x:Name="btnVolver" Content="VOLVER AL MENÚ" HorizontalAlignment="Left" Margin="262,275,0,0" VerticalAlignment="Top" Width="250" Height="100" Click="btnVolver_Click">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
-        </Button>
-        <Button x:Name="btnCerrarSesion" Content="CERRAR SESIÓN" HorizontalAlignment="Left" Margin="682,10,0,0" VerticalAlignment="Top" Width="102" Click="btnCerrarSesion_Click"/>
+            <ColumnDefinition Width="154*"/>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="166*"/>
+            <ColumnDefinition Width="1099*"/>
 
+        </Grid.ColumnDefinitions>
+        <Button x:Name="btnCerrarSesion" 
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                Margin="1050.357,3,8.843,526"
+                Cursor="Hand"
+                Height="40"
+                Width="40"
+                ToolTip="Cerrar Sesión" 
+                Click="btnCerrarSesion_Click" Grid.Column="3">
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="User"/>
+
+
+
+        </Button>
+        <Label Content="Nombre Producto:" HorizontalAlignment="Left" Margin="31,113,0,0" VerticalAlignment="Top" Height="26" Width="109" Foreground="White"/>
+        <Label Content="Precio de Venta:" HorizontalAlignment="Left" Margin="47,209,0,0" VerticalAlignment="Top" Height="26" Width="94" Foreground="White"/>
+        <Label Content="Precio de Compra:" HorizontalAlignment="Left" Margin="31,166,0,0" VerticalAlignment="Top" Height="26" Width="107" Foreground="White"/>
+        <TextBox x:Name="txtNombreDeProducto"
+                 HorizontalAlignment="Left" 
+                 Height="40"
+                 Margin="153,108,0,0" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top"
+                 Width="173"
+                 
+                 mah:TextBoxHelper.Watermark="Nombre de Producto"
+                 mah:TextBoxHelper.UseFloatingWatermark="True" Grid.ColumnSpan="3"
+                 />
+        <TextBox x:Name="txtPrecioDeVenta" 
+                 HorizontalAlignment="Left" 
+                 Height="40"
+                 Margin="154,207,0,0" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top"
+                 Width="175"
+                 
+                 mah:TextBoxHelper.Watermark="Ingrese Precio de Venta"
+                 mah:TextBoxHelper.UseFloatingWatermark="True" Grid.ColumnSpan="4"
+                 
+                 
+                 />
+        <TextBox x:Name="txtPrecioDeCompra"
+                 HorizontalAlignment="Left" 
+                 Height="40"
+                 Margin="152,158,0,0" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top"
+                 Width="175"
+                 
+                 mah:TextBoxHelper.Watermark="Ingrese Precio de Compra"
+                 mah:TextBoxHelper.UseFloatingWatermark="True" Grid.ColumnSpan="3"
+                 
+                 
+                 />
+        <Label Content="Stock:" HorizontalAlignment="Left" Margin="100,265,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.749,0.652" Height="26" Width="42" Foreground="White"/>
+        <Label Content="Stock Crítico:" HorizontalAlignment="Left" Margin="64,311,0,0" VerticalAlignment="Top" Height="26" Width="79" Foreground="White"/>
+        <Label Content="Código de Producto:" HorizontalAlignment="Left" Margin="25,58,0,0" VerticalAlignment="Top" Height="26" Width="121" Foreground="White"/>
+        <Label Content="Tipo de Producto:" HorizontalAlignment="Left" Margin="68.357,66,0,0" VerticalAlignment="Top" Grid.Column="3" Height="26" Width="104" Foreground="White"/>
+        <Label Content="Fecha de Vencimiento:" HorizontalAlignment="Left" Margin="47.357,143,0,0" VerticalAlignment="Top" Grid.Column="3" Height="26" Width="128" Foreground="White"/>
+        <TextBox x:Name="txtStock" 
+                 HorizontalAlignment="Left" 
+                 Height="40"
+                 Margin="1.921,258,0,0" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top"
+                 Width="174"
+                 
+                 mah:TextBoxHelper.Watermark="Ingrese Stock"
+                 mah:TextBoxHelper.UseFloatingWatermark="True" Grid.Column="1" Grid.ColumnSpan="3"
+                 
+                 
+                 />
+        <TextBox x:Name="txtStockCritico" 
+                 HorizontalAlignment="Left" 
+                 Height="40"
+                 Margin="0.921,309,0,0" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top"
+                 Width="174"
+                 
+                 mah:TextBoxHelper.Watermark="Ingrese Stock Crítico"
+                 mah:TextBoxHelper.UseFloatingWatermark="True" Grid.ColumnSpan="3" Grid.Column="1"
+                 
+                 
+                 />
+        <TextBox x:Name="txtCodigoProducto"
+                 HorizontalAlignment="Left" 
+                 Height="40"
+                 Margin="154,59,0,0" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top"
+                 Width="172"
+                 
+                 mah:TextBoxHelper.Watermark="Ingrese Código de Producto"
+                 mah:TextBoxHelper.UseFloatingWatermark="True" Grid.ColumnSpan="3"
+                 
+                 
+                 />
+        <DatePicker x:Name="dpFechaDeVencimiento" HorizontalAlignment="Left" Margin="179.357,138,0,0" VerticalAlignment="Top" Width="171" Height="38" Grid.Column="3"/>
+        <ComboBox x:Name="cboTipoDeProducto" HorizontalAlignment="Left" Margin="180.357,56,0,0" VerticalAlignment="Top" Width="169" Height="39" Grid.Column="3" Loaded="cboTipoDeProducto_Loaded"/>
+        <Image Source="resources/logo.png" RenderTransformOrigin="0.315,-0.602" Margin="293.8,354,470.4,-11" Grid.Column="3"/>
+        <DataGrid x:Name="dgProductos" HorizontalAlignment="Left" Height="280" Margin="424.357,55,0,0" VerticalAlignment="Top" Width="623" Grid.Column="3" Loaded="dgProductos_Loaded" SelectionChanged="dgProductos_SelectionChanged"/>
+        <DatePicker x:Name="dpFechaElaboracion" Grid.Column="3" HorizontalAlignment="Left" Margin="179.357,97,0,0" VerticalAlignment="Top" Width="169" Height="36"/>
+        <Label Content="Fecha de Elaboración:" Grid.Column="3" HorizontalAlignment="Left" Margin="48.357,103,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="White"/>
+        <TextBox x:Name="txtCodigoBarraProducto"
+            HorizontalAlignment="Left" 
+            Height="40"
+            Margin="179.8,185,0,0" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top"
+            Width="172"
+                 
+            Controls:TextBoxHelper.Watermark="Genere Código de  Barra de Producto"
+            Controls:TextBoxHelper.UseFloatingWatermark="True" Grid.Column="3"
+                 
+                 />
+
+        <TextBox x:Name="txtMarcaProducto"
+            HorizontalAlignment="Left" 
+            Height="40"
+            Margin="180.8,238,0,0" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top"
+            Width="172"
+                 
+            Controls:TextBoxHelper.Watermark="Ingrese Marca de Producto"
+            Controls:TextBoxHelper.UseFloatingWatermark="True" Grid.Column="3"
+                 
+                 />
+        <Label Content="Código de Barra de Producto:" Grid.Column="3" HorizontalAlignment="Left" Margin="9.357,192,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Button x:Name="btnGenerarCodBarra"
+             Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                HorizontalAlignment="Left"
+                Margin="363.8,186,0,0"
+                VerticalAlignment="Top" 
+                ToolTip="Generar Código de Barra de Producto"
+                Width="40" Height="40" 
+                
+                Grid.Column="3">
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="CodeXml"/>
+
+        </Button>
+        <Button x:Name="btnRegistrarProducto" 
+            Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+            Margin="127.4,370,1097.4,159"
+            Width="40" 
+            Height="40"
+            Cursor="Hand"
+            ToolTip="Agregar Producto" Grid.ColumnSpan="2" Grid.Column="2" Click="btnRegistrarProducto_Click" >
+            <iconPacks:PackIconModern
+                Width="22" Height="22"
+                Kind="Add"/>
+
+        </Button>
+        <Button x:Name="btnEliminarProducto"
+            Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+            Margin="1.6,370,131.2,159"
+            Width="40" 
+            Height="40"
+            Cursor="Hand"
+            ToolTip="Eliminar Producto" Grid.ColumnSpan="2" Grid.Column="1" Click="btnEliminarProducto_Click">
+            <iconPacks:PackIconModern
+                Width="22" Height="22"
+                Kind="Delete" />
+        </Button>
+        <Button x:Name="btnActualizarProducto"
+            Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+            Margin="59.4,370,66.2,159"
+            Width="40" 
+            Height="40"
+            Cursor="Hand"
+            ToolTip="Actualizar Producto" Grid.Column="2" Click="btnActualizarProducto_Click">
+            <iconPacks:PackIconModern
+                Width="22" Height="22"
+                Kind="New" />
+        </Button>
+        <Button x:Name="btnLimpiarCampos" 
+            Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+            Margin="90,370,24.4,159"
+            Width="40" 
+            Height="40"
+            Cursor="Hand"
+            ToolTip="Limpiar Campos" Click="btnLimpiarCampos_Click">
+            <iconPacks:PackIconModern
+                Width="22" Height="22"
+                Kind="Refresh" />
+        </Button>
+        <Button x:Name="btnVolver" 
+            Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+            Margin="1002.4,383,65.6,169"
+            Width="40" 
+            Height="40"
+            Cursor="Hand"
+            ToolTip="Volver al Menú Principal" Grid.Column="3" Click="btnVolver_Click_1">
+            <iconPacks:PackIconModern
+                Width="22" Height="22"
+                Kind="Return" />
+        </Button>
+
+        <Button x:Name="btnCargarImagen" Content="Cargar Imagen" Grid.Column="3" HorizontalAlignment="Left" Margin="75.8,349,0,0" VerticalAlignment="Top" Width="91" Click="btnCargarImagen_Click"/>
+        <Image Grid.Column="3" x:Name="imgFoto" HorizontalAlignment="Left" Height="151" Margin="197.8,339,0,0" VerticalAlignment="Top" Width="108" OpacityMask="Black"/>
+        <TextBox x:Name="tburlFoto" IsReadOnly="False"   Grid.Column="3" HorizontalAlignment="Left" Height="23" Margin="190.8,499,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Background="{x:Null}"/>
+        <Label Content="Marca de Producto:" Grid.Column="3" HorizontalAlignment="Left" Margin="61.8,243,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Rut Proveedor:" Grid.Column="3" HorizontalAlignment="Left" Margin="84.8,303,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="White"/>
+        <TextBox x:Name="txtRutProveedor" 
+                 HorizontalAlignment="Left" 
+            Height="40"
+            Margin="179.8,288,0,0" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top"
+            Width="172"
+                 
+            Controls:TextBoxHelper.Watermark="Ingrese Rut del Proveedor"
+            Controls:TextBoxHelper.UseFloatingWatermark="True" Grid.Column="3"
+                 
+                 />
     </Grid>
 </mah:MetroWindow>
