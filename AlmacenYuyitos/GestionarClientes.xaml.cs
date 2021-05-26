@@ -240,5 +240,13 @@ namespace AlmacenYuyitos
             log.Show();
             this.Close();
         }
+
+        private void btnDeudas_Click(object sender, RoutedEventArgs e)
+        {
+            VisualizarDeudas vd = new VisualizarDeudas(txtRutCliente.Text);
+
+            vd.Show();
+            this.Close();
+        }
     }
 }

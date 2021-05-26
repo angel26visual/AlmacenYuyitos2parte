@@ -142,6 +142,7 @@
 
 
         </Button>
+        <Button x:Name="btnDeudas" Content="VER DEUDAS" HorizontalAlignment="Left" Margin="324,358,0,0" VerticalAlignment="Top" Width="92" RenderTransformOrigin="0.191,0.544" Click="btnDeudas_Click"/>
         <DataGrid x:Name="dgClientes" HorizontalAlignment="Left" Height="267" Margin="324,61,0,0" VerticalAlignment="Top" Width="442" Loaded="dgClientes_Loaded" SelectionChanged="dgClientes_SelectionChanged"/>
         <Button x:Name="btnVolverAlMenu" 
                 
