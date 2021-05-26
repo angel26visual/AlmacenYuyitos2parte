@@ -44,8 +44,19 @@
                             Kind="Filter"/>
 
             </Button>
+
+            <Button x:Name="btnFiltrarFechas" 
+                    Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
+                    Height="40" Width="40" Cursor="Hand"
+                    Margin="20,10,10,10"
+                    ToolTip="Filtrar por ambas fechas" Click="btnFiltrarFechas_Click">
+                <iconPacks:PackIconModern
+                            Width="22" Height="22"
+                            Kind="Filter"/>
+
+            </Button>
         </StackPanel>
-        <DataGrid x:Name="dgProductos" HorizontalAlignment="Left" Height="177" Margin="50,183,0,0" VerticalAlignment="Top" Width="707"/>
+        <DataGrid x:Name="dgPromociones" HorizontalAlignment="Left" Height="177" Margin="50,183,0,0" VerticalAlignment="Top" Width="707"/>
         <Button x:Name="btnAtras" Margin="709,353,0,0" 
                 Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
                 Height="40" Width="40" Cursor="Hand" 
