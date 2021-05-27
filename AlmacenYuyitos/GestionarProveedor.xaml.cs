@@ -15,6 +15,7 @@ using System.Data;
 using Oracle.ManagedDataAccess.Client;
 using Oracle.ManagedDataAccess.Types;
 using System.Configuration;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace AlmacenYuyitos
 {
@@ -139,7 +140,7 @@ namespace AlmacenYuyitos
             this.resetAll();
         }
 
-        private void AUD(String sql_stm, int estado)
+        private async void AUD(String sql_stm, int estado)
         {
             String msg = "";
             OracleCommand cmd = con.CreateCommand();
@@ -180,7 +181,7 @@ namespace AlmacenYuyitos
                 int n = cmd.ExecuteNonQuery();
                 if (n > 0)
                 {
-                    MessageBox.Show(msg);
+                    await this.ShowMessageAsync("ATENCIÓN ",msg);
                     this.ActualizarDataGrid();
                 }
             }
