@@ -81,11 +81,56 @@ namespace AlmacenYuyitos
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
 
-                cmd.Parameters.Add("RUT_CLI", OracleDbType.Varchar2, 100).Value = txtRutCliente.Text;
-                cmd.Parameters.Add("NOMBRE_CLI", OracleDbType.Varchar2, 100).Value = txtNombreCliente.Text;
-                cmd.Parameters.Add("APELLIDO_CLI", OracleDbType.Varchar2, 100).Value = txtApellidoCliente.Text;
-                cmd.Parameters.Add("FONO_CLI", OracleDbType.Int32, 20).Value = txtTelefonoCliente.Text;
-                cmd.Parameters.Add("CORREO_CLI", OracleDbType.Varchar2, 100).Value = txtCorreoCliente.Text;
+                if (ValidarRut(txtRutCliente.Text))
+                { cmd.Parameters.Add("RUT_CLI", OracleDbType.Varchar2, 100).Value = txtRutCliente.Text; }
+                else
+                {
+                    await this.ShowMessageAsync("Error", "debe ingresar un rut valido!");
+                    return;
+
+                }
+
+                if (txtNombreCliente.Text.Replace(" ", string.Empty).Length >= 3)
+                {
+                    cmd.Parameters.Add("NOMBRE_CLI", OracleDbType.Varchar2, 100).Value = txtNombreCliente.Text;
+                }
+                else
+                {
+                    await this.ShowMessageAsync("Error", "el nombre del/la cliente(a) debe tener mas de 3 caracteres!");
+                    return;
+
+                }
+
+                if (txtApellidoCliente.Text.Replace(" ", string.Empty).Length >= 3)
+                {
+                    cmd.Parameters.Add("APELLIDO_CLI", OracleDbType.Varchar2, 100).Value = txtApellidoCliente.Text;
+                }
+                else
+                {
+                    await this.ShowMessageAsync("Error", "el Apellido del/la cliente(a) debe tener mas de 3 caracteres!");
+                    return;
+
+                }
+                if (txtTelefonoCliente.Text.Replace(" ", string.Empty).Length == 9)
+                {
+                    cmd.Parameters.Add("FONO_CLI", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtTelefonoCliente.Text);
+                }
+                else
+                {
+                    await this.ShowMessageAsync("Error", "el Teléfono debe tener 9 dígitos!");
+                    return;
+                }
+
+                if (txtCorreoCliente.Text.Replace(" ", string.Empty).Length >= 3)
+                {
+                    cmd.Parameters.Add("CORREO_CLI", OracleDbType.Varchar2, 100).Value = txtCorreoCliente.Text;
+                }
+                else
+                {
+                    await this.ShowMessageAsync("Error", "el correo debe tener mas de 3 caracteres!");
+                    return;
+
+                }
 
                 cmd.CommandText = "update CLIENTE set rut_cli =:RUT_CLI,nombre_cli=:NOMBRE_CLI,apellido_cli=:APELLIDO_CLI,fono_cli=:FONO_CLI,correo_cli=:CORREO_CLI where rut_cli=:RUT_CLI";
 
@@ -202,11 +247,58 @@ namespace AlmacenYuyitos
                 cmd.CommandType = CommandType.Text;
                 cmd.BindByName = true;
 
-                cmd.Parameters.Add("RUT_CLI", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtRutCliente.Text);
-                cmd.Parameters.Add("NOMBRE_CLI", OracleDbType.Varchar2, 100).Value = txtNombreCliente.Text;
-                cmd.Parameters.Add("APELLIDO_CLI", OracleDbType.Varchar2, 100).Value = txtApellidoCliente.Text;
-                cmd.Parameters.Add("FONO_CLI", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtTelefonoCliente.Text);
-                cmd.Parameters.Add("CORREO_CLI", OracleDbType.Varchar2, 100).Value = txtCorreoCliente.Text;
+                if (ValidarRut(txtRutCliente.Text))
+                { cmd.Parameters.Add("RUT_CLI", OracleDbType.Varchar2, 100).Value = txtRutCliente.Text; }
+                else
+                {
+                    await this.ShowMessageAsync("Error", "debe ingresar un rut valido!");
+                    return;
+
+                }
+
+                if (txtNombreCliente.Text.Replace(" ", string.Empty).Length >= 3)
+                {
+                    cmd.Parameters.Add("NOMBRE_CLI", OracleDbType.Varchar2, 100).Value = txtNombreCliente.Text;
+                }
+                else
+                {
+                    await this.ShowMessageAsync("Error", "el nombre del/la cliente(a) debe tener mas de 3 caracteres!");
+                    return;
+
+                }
+
+                if (txtApellidoCliente.Text.Replace(" ", string.Empty).Length >= 3)
+                {
+                    cmd.Parameters.Add("APELLIDO_CLI", OracleDbType.Varchar2, 100).Value = txtApellidoCliente.Text;
+                }
+                else
+                {
+                    await this.ShowMessageAsync("Error", "el Apellido del/la cliente(a) debe tener mas de 3 caracteres!");
+                    return;
+
+                }
+                if (txtTelefonoCliente.Text.Replace(" ", string.Empty).Length == 9)
+                {
+                    cmd.Parameters.Add("FONO_CLI", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtTelefonoCliente.Text);
+                }
+                else
+                {
+                    await this.ShowMessageAsync("Error", "el Teléfono debe tener 9 dígitos!");
+                    return;
+                }
+
+                if (txtCorreoCliente.Text.Replace(" ", string.Empty).Length >= 3)
+                {
+                    cmd.Parameters.Add("CORREO_CLI", OracleDbType.Varchar2, 100).Value = txtCorreoCliente.Text;
+                }
+                else
+                {
+                    await this.ShowMessageAsync("Error", "el correo debe tener mas de 3 caracteres!");
+                    return;
+
+                }
+
+                
 
                 cmd.CommandText = "INSERT INTO CLIENTE(RUT_CLI , NOMBRE_CLI, APELLIDO_CLI , FONO_CLI , CORREO_CLI) " +
                                    "VALUES(:RUT_CLI,:NOMBRE_CLI ,:APELLIDO_CLI , :FONO_CLI , :CORREO_CLI)";
@@ -247,6 +339,35 @@ namespace AlmacenYuyitos
 
             vd.Show();
             this.Close();
+        }
+
+        public bool ValidarRut(string rut)
+        {
+
+            bool validacion = false;
+            try
+            {
+                rut = rut.ToUpper();
+                rut = rut.Replace(".", "");
+                rut = rut.Replace("-", "");
+                int rutAux = int.Parse(rut.Substring(0, rut.Length - 1));
+
+                char dv = char.Parse(rut.Substring(rut.Length - 1, 1));
+
+                int m = 0, s = 1;
+                for (; rutAux != 0; rutAux /= 10)
+                {
+                    s = (s + rutAux % 10 * (9 - m++ % 6)) % 11;
+                }
+                if (dv == (char)(s != 0 ? s + 47 : 75))
+                {
+                    validacion = true;
+                }
+            }
+            catch (Exception)
+            {
+            }
+            return validacion;
         }
     }
 }

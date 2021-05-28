@@ -99,7 +99,9 @@ namespace AlmacenYuyitos
 
         private void btnGestionPromociones_Click(object sender, RoutedEventArgs e)
         {
-
+            GestionarPromociones gp = new GestionarPromociones();
+            gp.Show();
+            this.Close();
         }
 
         private void btnVerCuenta_Click(object sender, RoutedEventArgs e)

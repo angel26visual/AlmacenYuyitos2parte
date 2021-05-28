@@ -122,31 +122,78 @@ namespace AlmacenYuyitos
                 cmd.CommandType = CommandType.Text;
                 if (ValidarRut(txtRut.Text))
                 { cmd.Parameters.Add("RUT_TRAB", OracleDbType.Varchar2, 100).Value = txtRut.Text; }
-                else { await this.ShowMessageAsync("Error", "debe ingresar un rut valido!"); }
+                else {
+                    await this.ShowMessageAsync("Error", "debe ingresar un rut valido!");
+                    return;
+                
+                }
                 if (txtNombre.Text.Replace(" ", string.Empty).Length >= 3)
-                { cmd.Parameters.Add("NOMBRE_TRAB", OracleDbType.Varchar2, 100).Value = txtNombre.Text; }
-                else { await this.ShowMessageAsync("Error", "el nombre debe tener mas de 3 caracteres!"); }
+                { 
+                    cmd.Parameters.Add("NOMBRE_TRAB", OracleDbType.Varchar2, 100).Value = txtNombre.Text; 
+                }
+                else { 
+                    await this.ShowMessageAsync("Error", "el nombre debe tener mas de 3 caracteres!");
+                    return;
+                
+                }
                 if (txtApellido.Text.Replace(" ", string.Empty).Length >= 3)
-                { cmd.Parameters.Add("APELLIDO_TRAB", OracleDbType.Varchar2, 100).Value = txtApellido.Text; }
-                else { await this.ShowMessageAsync("Error", "el apellido debe tener mas de 3 caracteres!"); }
+                { 
+                    cmd.Parameters.Add("APELLIDO_TRAB", OracleDbType.Varchar2, 100).Value = txtApellido.Text; 
+                }
+                else {
+                    await this.ShowMessageAsync("Error", "el apellido debe tener mas de 3 caracteres!");
+                    return;
+                
+                }
                 if (dpFechaNacimiento.SelectedDate != null)
-                { cmd.Parameters.Add("FECHA_NACIMIENTO", OracleDbType.Date).Value = dpFechaNacimiento.SelectedDate; }
-                else { await this.ShowMessageAsync("Error", "la fecha de nacimiento debe ser valida!"); }
+                { 
+                    cmd.Parameters.Add("FECHA_NACIMIENTO", OracleDbType.Date).Value = dpFechaNacimiento.SelectedDate; 
+                }
+                else { 
+                    await this.ShowMessageAsync("Error", "la fecha de nacimiento debe ser valida!");
+                    return;
+                
+                }
                 if (txtCorreo.Text.Replace(" ", string.Empty) != null)
-                { cmd.Parameters.Add("CORREO", OracleDbType.Varchar2, 100).Value = txtCorreo.Text; }
-                else { await this.ShowMessageAsync("Error", "debe ingresar un correo!"); }
+                { 
+                    cmd.Parameters.Add("CORREO", OracleDbType.Varchar2, 100).Value = txtCorreo.Text; 
+                }
+                else { 
+                    await this.ShowMessageAsync("Error", "debe ingresar un correo!");
+                    return;
+                }
                 if (txtNombreUsuario.Text.Replace(" ", string.Empty).Length >= 3)
-                { cmd.Parameters.Add("NOM_USUARIO", OracleDbType.Varchar2, 100).Value = txtNombreUsuario.Text; }
-                else { await this.ShowMessageAsync("Error", "el usuario debe tener mas de 3 caracteres!"); }
+                { 
+                    cmd.Parameters.Add("NOM_USUARIO", OracleDbType.Varchar2, 100).Value = txtNombreUsuario.Text; 
+                }
+                else {
+                    await this.ShowMessageAsync("Error", "el usuario debe tener mas de 3 caracteres!");
+                    return;
+                }
                 if (txtContrasena.Password.Replace(" ", string.Empty).Length >= 6)
-                { cmd.Parameters.Add("CONTRASENA_USUARIO", OracleDbType.Varchar2, 100).Value = txtContrasena.Password; }
-                else { await this.ShowMessageAsync("Error", "la contraseña debe tener mas de 6 caracteres!"); }
+                { 
+                    cmd.Parameters.Add("CONTRASENA_USUARIO", OracleDbType.Varchar2, 100).Value = txtContrasena.Password; 
+                }
+                else { 
+                    await this.ShowMessageAsync("Error", "la contraseña debe tener mas de 6 caracteres!");
+                    return;
+                }
                 if (cboEstadoCivil.SelectedValue != null)
-                { cmd.Parameters.Add("ESTADO_CIVIL_ID_ESTAC", OracleDbType.Int32, 20).Value = cboEstadoCivil.SelectedValue; }
-                else { await this.ShowMessageAsync("Error", "debe seleccionar un estado civil!"); }
+                { 
+                    cmd.Parameters.Add("ESTADO_CIVIL_ID_ESTAC", OracleDbType.Int32, 20).Value = cboEstadoCivil.SelectedValue; 
+                }
+                else {
+                    await this.ShowMessageAsync("Error", "debe seleccionar un estado civil!");
+                    return;
+                }
                 if (cboCargo.SelectedValue != null)
-                { cmd.Parameters.Add("CARGO_TRABAJADOR_ID_CARGO", OracleDbType.Int32, 20).Value = cboCargo.SelectedValue; }
-                else { await this.ShowMessageAsync("Error", "debe seleccionar un cargo!"); }
+                { 
+                    cmd.Parameters.Add("CARGO_TRABAJADOR_ID_CARGO", OracleDbType.Int32, 20).Value = cboCargo.SelectedValue; 
+                }
+                else {
+                    await this.ShowMessageAsync("Error", "debe seleccionar un cargo!");
+                    return;
+                }
 
                 cmd.CommandText = "INSERT INTO TRABAJADOR(RUT_TRAB,NOMBRE_TRAB,APELLIDO_TRAB,FECHA_NACIMIENTO," +
                 "CORREO,NOM_USUARIO ,CONTRASENA_USUARIO,CARGO_TRABAJADOR_ID_CARGO, ESTADO_CIVIL_ID_ESTAC) VALUES(:RUT_TRAB,:NOMBRE_TRAB,:APELLIDO_TRAB," +

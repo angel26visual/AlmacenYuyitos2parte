@@ -137,6 +137,9 @@
     <Compile Include="GestionarProductos.xaml.cs">
       <DependentUpon>GestionarProductos.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GestionarPromociones.xaml.cs">
+      <DependentUpon>GestionarPromociones.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GestionarProveedor.xaml.cs">
       <DependentUpon>GestionarProveedor.xaml</DependentUpon>
     </Compile>
@@ -218,6 +221,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GestionarProductos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GestionarPromociones.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
