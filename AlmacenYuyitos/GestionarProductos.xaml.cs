@@ -105,7 +105,7 @@ namespace AlmacenYuyitos
             this.Close();
         }
 
-       
+
 
 
         private async void btnRegistrarProducto_Click(object sender, RoutedEventArgs e)
@@ -124,19 +124,19 @@ namespace AlmacenYuyitos
                 cmd.Parameters.Add("STOCK_CRITICO", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtStockCritico.Text);
                 cmd.Parameters.Add("FECH_ELABO_PRODUCT", OracleDbType.Date).Value = dpFechaElaboracion.SelectedDate;
                 cmd.Parameters.Add("FECH_VENCI_PRODUCT", OracleDbType.Date).Value = dpFechaDeVencimiento.SelectedDate;
-            cmd.Parameters.Add("MARCA", OracleDbType.Varchar2, 100).Value = txtMarcaProducto.Text;
-            cmd.Parameters.Add("PROVEEDOR_RUT_PROVEE", OracleDbType.Varchar2, 100).Value = txtRutProveedor.Text;
-            cmd.Parameters.Add("COD_BARRA_PRODUCT", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtCodigoBarraProducto.Text);
-            //IMAGEN
-            cmd.Parameters.Add("TIPO_PRODUCTO_ID_TIPPRODUC", OracleDbType.Int32, 20).Value = cboTipoDeProducto.SelectedValue;
+                cmd.Parameters.Add("MARCA", OracleDbType.Varchar2, 100).Value = txtMarcaProducto.Text;
+                cmd.Parameters.Add("PROVEEDOR_RUT_PROVEE", OracleDbType.Varchar2, 100).Value = txtRutProveedor.Text;
+                cmd.Parameters.Add("COD_BARRA_PRODUCT", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtCodigoBarraProducto.Text);
+                //IMAGEN
+                cmd.Parameters.Add("TIPO_PRODUCTO_ID_TIPPRODUC", OracleDbType.Int32, 20).Value = cboTipoDeProducto.SelectedValue;
 
 
 
 
-            cmd.CommandText = "INSERT INTO PRODUCTO(CODIGO_PRODUCTO , NOMBRE_PRODUCT , PRECIO_COMPRA , PRECIO_VENTA , STOCK, STOCK_CRITICO , FECH_ELABO_PRODUCT , FECH_VENCI_PRODUCT, MARCA, PROVEEDOR_RUT_PROVEE, COD_BARRA_PRODUCT , IMG_PRODUC, TIPO_PRODUCTO_ID_TIPPRODUC) VALUES(:CODIGO_PRODUCTO , :NOMBRE_PRODUCT , :PRECIO_COMPRA , :PRECIO_VENTA , :STOCK, :STOCK_CRITICO , :FECH_ELABO_PRODUCT , :FECH_VENCI_PRODUCT, :MARCA, :PROVEEDOR_RUT_PROVEE, :COD_BARRA_PRODUCT , EMPTY_BLOB(), :TIPO_PRODUCTO_ID_TIPPRODUC)";
-            try
-            {
-            int n = cmd.ExecuteNonQuery();
+                cmd.CommandText = "INSERT INTO PRODUCTO(CODIGO_PRODUCTO , NOMBRE_PRODUCT , PRECIO_COMPRA , PRECIO_VENTA , STOCK, STOCK_CRITICO , FECH_ELABO_PRODUCT , FECH_VENCI_PRODUCT, MARCA, PROVEEDOR_RUT_PROVEE, COD_BARRA_PRODUCT , IMG_PRODUC, TIPO_PRODUCTO_ID_TIPPRODUC) VALUES(:CODIGO_PRODUCTO , :NOMBRE_PRODUCT , :PRECIO_COMPRA , :PRECIO_VENTA , :STOCK, :STOCK_CRITICO , :FECH_ELABO_PRODUCT , :FECH_VENCI_PRODUCT, :MARCA, :PROVEEDOR_RUT_PROVEE, :COD_BARRA_PRODUCT , EMPTY_BLOB(), :TIPO_PRODUCTO_ID_TIPPRODUC)";
+                try
+                {
+                    int n = cmd.ExecuteNonQuery();
                     if (n > 0)
                     {
                         await this.ShowMessageAsync("Agregado", "Producto se agregó correctamente");
@@ -157,11 +157,11 @@ namespace AlmacenYuyitos
                 await this.ShowMessageAsync("Error", e.ToString());
             }
         }
-    
 
 
-            private void resetAll()
-                 {
+
+        private void resetAll()
+        {
             txtCodigoProducto.Text = "";
             txtNombreDeProducto.Text = "";
             txtPrecioDeCompra.Text = "";
@@ -184,75 +184,82 @@ namespace AlmacenYuyitos
             {
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
+                cmd.BindByName = true;
 
-                cmd.Parameters.Add("CODIGO_PRODUCTO", OracleDbType.Int32, 20).Value = txtCodigoProducto.Text;
+                cmd.Parameters.Add("CODIGO_PRODUCTO", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtCodigoProducto.Text);
                 cmd.Parameters.Add("NOMBRE_PRODUCT", OracleDbType.Varchar2, 100).Value = txtNombreDeProducto.Text;
-                cmd.Parameters.Add("PRECIO_COMPRA", OracleDbType.Int32, 20).Value = txtPrecioDeCompra.Text;
-                cmd.Parameters.Add("PRECIO_VENTA", OracleDbType.Int32, 20).Value = txtPrecioDeVenta.Text;
-                cmd.Parameters.Add("STOCK", OracleDbType.Int32, 20).Value = txtStock.Text;
-                cmd.Parameters.Add("STOCK_CRITICO", OracleDbType.Int32, 20).Value = txtStockCritico.Text;
-                cmd.Parameters.Add("FECH_ELABO_PRODUCT", OracleDbType.Date).Value = dpFechaElaboracion.Text;
-                cmd.Parameters.Add("FECH_VENCI_PRODUCT", OracleDbType.Date).Value = dpFechaDeVencimiento.Text;
+                cmd.Parameters.Add("PRECIO_COMPRA", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtPrecioDeCompra.Text);
+                cmd.Parameters.Add("PRECIO_VENTA", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtPrecioDeVenta.Text);
+                cmd.Parameters.Add("STOCK", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtStock.Text);
+                cmd.Parameters.Add("STOCK_CRITICO", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtStockCritico.Text);
+                cmd.Parameters.Add("FECH_ELABO_PRODUCT", OracleDbType.Date).Value = dpFechaElaboracion.SelectedDate;
+                cmd.Parameters.Add("FECH_VENCI_PRODUCT", OracleDbType.Date).Value = dpFechaDeVencimiento.SelectedDate;
                 cmd.Parameters.Add("MARCA", OracleDbType.Varchar2, 100).Value = txtMarcaProducto.Text;
                 cmd.Parameters.Add("PROVEEDOR_RUT_PROVEE", OracleDbType.Varchar2, 100).Value = txtRutProveedor.Text;
-                cmd.Parameters.Add("COD_BARRA_PRODUCT", OracleDbType.Int32, 20).Value = txtCodigoBarraProducto.Text;
-                cmd.Parameters.Add("TIPO_PRODUCTO_ID_TIPPRODUC ", OracleDbType.Int32, 20).Value = cboTipoDeProducto.Text;
+                cmd.Parameters.Add("COD_BARRA_PRODUCT", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtCodigoBarraProducto.Text);
+                //IMAGEN
+                cmd.Parameters.Add("TIPO_PRODUCTO_ID_TIPPRODUC", OracleDbType.Int32, 20).Value = cboTipoDeProducto.SelectedValue;
 
-                cmd.CommandText = "update PRODUCTO set CODIGO_PRODUCTO=:CODIGO_PRODUCTO , NOMBRE_PRODUCT:=NOMBRE_PRODUCT , PRECIO_COMPRA=:PRECIO_COMPRA , PRECIO_VENTA:=PRECIO_VENTA , STOCK:=STOCK , " +
-                                    "STOCK_CRTICO=:STOCK_CRITICO , FECH_ELABO_PRODUCT=:FECH_ELABO_PRODUCT , FECH_VENCI_PRODUCT=:FECH_VENCI_PRODUCT , MARCA=:MARCA,PROVEEDOR_RUT_PROVEE=:PROVEEDOR_RUT_PROVEE, COD_BARRA_PRODUCT=:COD_BARRA_PRODUCT , TIPO_PRODUCTO=:TIPO_PRODUCTO WHERE CODIGO_PRODUCTO=:CODIGO_PRODUCTO";
-
+                cmd.CommandText = "UPDATE PRODUCTO SET NOMBRE_PRODUCT=:NOMBRE_PRODUCT , PRECIO_COMPRA=:PRECIO_COMPRA , PRECIO_VENTA=:PRECIO_VENTA , STOCK=:STOCK , STOCK_CRITICO=:STOCK_CRITICO , FECH_ELABO_PRODUCT=:FECH_ELABO_PRODUCT , FECH_VENCI_PRODUCT=:FECH_VENCI_PRODUCT , MARCA=:MARCA , PROVEEDOR_RUT_PROVEE=:PROVEEDOR_RUT_PROVEE , COD_BARRA_PRODUCT=:COD_BARRA_PRODUCT , TIPO_PRODUCTO_ID_TIPPRODUC=:TIPO_PRODUCTO_ID_TIPPRODUC WHERE CODIGO_PRODUCTO=:CODIGO_PRODUCTO";
                 try
                 {
                     int n = cmd.ExecuteNonQuery();
-                    if (n > 0)
+                    if (n >= 0)
                     {
-                        await this.ShowMessageAsync("actualizado", "PRODUCTO actualizado correctamente");
+                        await this.ShowMessageAsync("ACTUALIZADO", "Producto Actualizado correctamente");
                         this.ActualizarDataGrid();
-
+                        resetAll();
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    await this.ShowMessageAsync("Error", "no se pudo actualizar");
+                    await this.ShowMessageAsync("Error", ex.ToString());
                 }
+
             }
-            catch (Exception)
+
+
+
+            catch (Exception ex)
             {
 
-                throw;
+                await this.ShowMessageAsync("Error", e.ToString());
             }
 
         }
+    
+
 
         private async void btnEliminarProducto_Click(object sender, RoutedEventArgs e)
-        {
-            try
             {
-                OracleCommand cmd = con.CreateCommand();
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.Add("CODIGO_PRODUCTO", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtCodigoProducto.Text);
-                cmd.CommandText = "delete from producto where codigo_producto = :CODIGO_PRODUCTO";
                 try
                 {
-                    int n = cmd.ExecuteNonQuery();
-                    if (n > 0)
+                    OracleCommand cmd = con.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.Add("CODIGO_PRODUCTO", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtCodigoProducto.Text);
+                    cmd.CommandText = "delete from producto where codigo_producto = :CODIGO_PRODUCTO";
+                    try
                     {
-                        await this.ShowMessageAsync("eliminado", "Producto eliminado correctamente");
-                        this.ActualizarDataGrid();
-                        this.resetAll();
+                        int n = cmd.ExecuteNonQuery();
+                        if (n > 0)
+                        {
+                            await this.ShowMessageAsync("eliminado", "Producto eliminado correctamente");
+                            this.ActualizarDataGrid();
+                            this.resetAll();
 
+                        }
+                    }
+
+                    catch (Exception)
+                    {
+                        await this.ShowMessageAsync("Error", "no se pudo eliminar");
                     }
                 }
                 catch (Exception)
                 {
-                    await this.ShowMessageAsync("Error", "no se pudo eliminar");
+                    throw;
                 }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+            } 
 
         private void btnLimpiarCampos_Click(object sender, RoutedEventArgs e)
         {
@@ -286,8 +293,8 @@ namespace AlmacenYuyitos
                 txtMarcaProducto.Text = dr["MARCA"].ToString();
                 txtRutProveedor.Text = dr["PROVEEDOR_RUT_PROVEE"].ToString();
                 txtCodigoBarraProducto.Text = dr["COD_BARRA_PRODUCT"].ToString();
-                tburlFoto.Text = dr["IMG_PRODUC"].ToString();
-                cboTipoDeProducto.Text = dr["TIPO_PRODUCTO_ID_TIPPRODUC"].ToString();
+                //tburlFoto.Text = dr["IMG_PRODUC"].ToString();
+                cboTipoDeProducto.SelectedValue = dr["TIPO_PRODUCTO_ID_TIPPRODUC"].ToString();
 
                 btnRegistrarProducto.IsEnabled = false;
                 btnActualizarProducto.IsEnabled = true;
