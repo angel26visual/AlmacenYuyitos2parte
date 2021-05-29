@@ -8,32 +8,32 @@
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
-        Title="Gestionar Promociones - Los Yuyitos" Height="503.836" Width="1042.777">
+        Title="Gestionar Promociones - Los Yuyitos" Height="503.836" Width="1516.777">
     <Grid Margin="0,0,0,-181.6">
-        <Label Content="Id Promoción:" HorizontalAlignment="Left" Margin="157,37,0,0" VerticalAlignment="Top"/>
-        <Label Content="Imagen Promoción:" HorizontalAlignment="Left" Margin="130,86,0,0" VerticalAlignment="Top"/>
-        <Label Content="Fecha de Inicio:" HorizontalAlignment="Left" Margin="151,188,0,0" VerticalAlignment="Top"/>
-        <Label Content="Fecha de Término:" HorizontalAlignment="Left" Margin="136,246,0,0" VerticalAlignment="Top"/>
-        <Label Content="Cantidad de Producto:" HorizontalAlignment="Left" Margin="560,38,0,0" VerticalAlignment="Top"/>
-        <Label Content="Porcentaje de Descuento:" HorizontalAlignment="Left" Margin="549,91,0,0" VerticalAlignment="Top"/>
-        <Label Content="Tipo de Producto:" HorizontalAlignment="Left" Margin="586,149,0,0" VerticalAlignment="Top"/>
-        <Label Content="Tipo de Promoción:" HorizontalAlignment="Left" Margin="576,208,0,0" VerticalAlignment="Top"/>
+        <Label Content="Id Promoción:" HorizontalAlignment="Left" Margin="47,49,0,0" VerticalAlignment="Top"/>
+        <Label Content="Imagen Promoción:" HorizontalAlignment="Left" Margin="20,98,0,0" VerticalAlignment="Top"/>
+        <Label Content="Fecha de Inicio:" HorizontalAlignment="Left" Margin="41,200,0,0" VerticalAlignment="Top"/>
+        <Label Content="Fecha de Término:" HorizontalAlignment="Left" Margin="26,258,0,0" VerticalAlignment="Top"/>
+        <Label Content="Cantidad de Producto:" HorizontalAlignment="Left" Margin="416,50,0,0" VerticalAlignment="Top"/>
+        <Label Content="Porcentaje de Descuento:" HorizontalAlignment="Left" Margin="405,103,0,0" VerticalAlignment="Top"/>
+        <Label Content="Tipo de Producto:" HorizontalAlignment="Left" Margin="448,211,0,0" VerticalAlignment="Top"/>
+        <Label Content="Tipo de Promoción:" HorizontalAlignment="Left" Margin="438,270,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtIdPromocion" 
                 HorizontalAlignment="Left" 
                  Height="40"
-                 Margin="251,32,0,0" 
+                 Margin="141,44,0,0" 
                  TextWrapping="Wrap" 
                  VerticalAlignment="Top"
                  Width="172"
                  
                  mah:TextBoxHelper.Watermark="Ingrese ID de Promoción"
                  mah:TextBoxHelper.UseFloatingWatermark="True"/>
-        <DatePicker x:Name="dpFechaDeInicio" HorizontalAlignment="Left" Margin="250,184,0,0" Height="40" Width="172" VerticalAlignment="Top"/>
-        <DatePicker HorizontalAlignment="Left" Margin="248,236,0,0" VerticalAlignment="Top" Height="40" Width="172"/>
+        <DatePicker x:Name="dpFechaDeInicio" HorizontalAlignment="Left" Margin="140,196,0,0" Height="40" Width="172" VerticalAlignment="Top"/>
+        <DatePicker x:Name="dpFechaTermino" HorizontalAlignment="Left" Margin="138,248,0,0" VerticalAlignment="Top" Height="40" Width="172"/>
         <TextBox x:Name="txtCantidadDeProductos" 
                  HorizontalAlignment="Left" 
                  Height="40"
-                 Margin="699,29,0,0" 
+                 Margin="555,41,0,0" 
                  TextWrapping="Wrap" 
                  VerticalAlignment="Top"
                  Width="172"
@@ -43,25 +43,25 @@
         <TextBox x:Name="txtPorcentajeDescuento"
                  HorizontalAlignment="Left" 
                  Height="40"
-                 Margin="700,84,0,0" 
+                 Margin="556,96,0,0" 
                  TextWrapping="Wrap" 
                  VerticalAlignment="Top"
                  Width="55"
                  
                  mah:TextBoxHelper.Watermark="Ingrese Porcentaje de Descuento (Número):"
                  mah:TextBoxHelper.UseFloatingWatermark="True"/>
-        <ComboBox x:Name="cboTipoDeProducto" HorizontalAlignment="Left" Margin="699,142,0,0" VerticalAlignment="Top" Width="172" Height="40" Loaded="cboTipoDeProducto_Loaded"/>
-        <ComboBox x:Name="cboTipoDePromocion" HorizontalAlignment="Left" Margin="702,198,0,0" VerticalAlignment="Top" Width="172" Height="40" Loaded="cboTipoDePromocion_Loaded"/>
-        <Label Content="%" HorizontalAlignment="Left" Margin="764,93,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.362,0.087"/>
-        <Image Source="/resources/logo.png" Margin="642,249,93,196" />
+        <ComboBox x:Name="cboTipoDeProducto" HorizontalAlignment="Left" Margin="561,204,0,0" VerticalAlignment="Top" Width="172" Height="40" Loaded="cboTipoDeProducto_Loaded"/>
+        <ComboBox x:Name="cboTipoDePromocion" HorizontalAlignment="Left" Margin="564,260,0,0" VerticalAlignment="Top" Width="172" Height="40" Loaded="cboTipoDePromocion_Loaded"/>
+        <Label Content="%" HorizontalAlignment="Left" Margin="620,105,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.362,0.087"/>
+        <Image Source="/resources/logo.png" Margin="268,292,467.4,153" />
         <Button x:Name="btnAgregarPromocion" 
                 Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
-                Margin="394,305,602,311"
+                Margin="317,393,1153.4,223"
                 Width="40" 
                 Height="40"
                 Cursor="Hand"
                 
-                ToolTip="Agregar Promocion" >
+                ToolTip="Agregar Promocion" Click="btnAgregarPromocion_Click" >
             <iconPacks:PackIconModern
                          Width="22" Height="22"
                          Kind="Add" />
@@ -69,12 +69,12 @@
         </Button>
         <Button x:Name="btnModificarPromocion" 
                   Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
-                Margin="336,305,660,311"
+                Margin="259,393,1211.4,223"
                 Width="40" 
                 Height="40"
                 Cursor="Hand"
                 
-                ToolTip="Actualizar Promocion" >
+                ToolTip="Actualizar Promocion" Click="btnModificarPromocion_Click" >
             <iconPacks:PackIconModern
                          Width="22" Height="22"
                          Kind="New" />
@@ -83,12 +83,12 @@
         </Button>
         <Button x:Name="btnEliminarPromocion" 
                 Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
-                Margin="280,305,716,311"
+                Margin="203,393,1267.4,223"
                 Width="40" 
                 Height="40"
                 Cursor="Hand"
                 
-                ToolTip="Eliminar Promocion" >
+                ToolTip="Eliminar Promocion" Click="btnEliminarPromocion_Click" >
             <iconPacks:PackIconModern
                          Width="22" Height="22"
                          Kind="Delete" />
@@ -96,12 +96,12 @@
         </Button>
         <Button x:Name="btnLimpiarCampos" 
                  Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
-                Margin="224,306,772,310"
+                Margin="147,394,1323.4,222"
                 Width="40" 
                 Height="40"
                 Cursor="Hand"
                 
-                ToolTip="Limpiar Campos" >
+                ToolTip="Limpiar Campos" Click="btnLimpiarCampos_Click" >
             <iconPacks:PackIconModern
                          Width="22" Height="22"
                          Kind="Refresh" />
@@ -109,7 +109,7 @@
         </Button>
         <Button x:Name="btnVolverAlMenu" 
                   Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
-                Margin="957,408,39,195"
+                Margin="1446,419,24.4,197"
                 Width="40" 
                 Height="40"
                 Cursor="Hand"
@@ -121,6 +121,21 @@
 
 
         </Button>
+        <Label Content="Descripción Promoción:" HorizontalAlignment="Left" Margin="-6,325,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtDescripcion" HorizontalAlignment="Left" Height="53" Margin="139,327,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="169" RenderTransformOrigin="-1.682,0.191"/>
+        <Label Content="Descuento Efectivo:" HorizontalAlignment="Left" Margin="437,161,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtDescEfectivo"
+                 HorizontalAlignment="Left" 
+                 Height="40"
+                 Margin="561,152,0,0" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top"
+                 Width="173"
+                 
+                 mah:TextBoxHelper.Watermark="Ingrese Porcentaje de Descuento (Número):"
+                 mah:TextBoxHelper.UseFloatingWatermark="True"
+                 />
+        <DataGrid x:Name="dgPromociones" HorizontalAlignment="Left" Height="243" Margin="774,46,0,0" VerticalAlignment="Top" Width="641" Loaded="dgPromociones_Loaded" SelectionChanged="dgPromociones_SelectionChanged"/>
 
 
 
