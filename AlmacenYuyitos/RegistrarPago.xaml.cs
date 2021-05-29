@@ -15,6 +15,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BibliotecaLosYuyitos;
+using System.Data;
 
 namespace AlmacenYuyitos
 {
@@ -58,6 +60,38 @@ namespace AlmacenYuyitos
             RealizarPagoVenta rpv = new RealizarPagoVenta();
             rpv.Show();
             this.Close();
+        }
+
+        private void btnAgregarProducto_Click(object sender, RoutedEventArgs e)
+        {
+            Detalle_boleta detalle_Boleta = new Detalle_boleta(int.Parse(txtNroBoleta.Text), int.Parse(txtCodigoBarra.Text), int.Parse(txtCantidad.Text));
+            List<Detalle_boleta> listDboleta = new List<Detalle_boleta>();
+        }
+
+        private async void GenerarNroBoleta()
+        {
+            try
+            {
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandText = "SELECT MAX(NRO_BOLETA) FROM BOLETA";
+                cmd.CommandType = CommandType.Text;
+                OracleDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    int nro_boleta = int.Parse(reader["NRO_BOLETA"].ToString()) + 1;
+                    txtNroBoleta.Text = nro_boleta.ToString();
+                }
+                else
+                {
+                    await this.ShowMessageAsync("BOLETA", "No se ha podido obtener el número de la boleta");
+                }
+            }
+            catch (Exception)
+            {
+
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
+            
         }
     }
 }

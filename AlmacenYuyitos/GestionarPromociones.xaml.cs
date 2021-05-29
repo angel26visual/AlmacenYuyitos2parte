@@ -196,7 +196,7 @@ namespace AlmacenYuyitos
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
 
-                cmd.Parameters.Add("ID_PROMOCION", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtIdPromocion.Text);
+                
 
                 cmd.Parameters.Add("FECHA_INICIO_PROMO", OracleDbType.Date).Value = dpFechaDeInicio.SelectedDate;
                 cmd.Parameters.Add("FECHA_FIN_PROMO", OracleDbType.Date).Value = dpFechaTermino.SelectedDate;
@@ -206,6 +206,7 @@ namespace AlmacenYuyitos
                 cmd.Parameters.Add("DESCUENTO_EFECTIVO", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtDescEfectivo.Text);
                 cmd.Parameters.Add("TIPO_PRODUCTO_ID_TIPPRODUC", OracleDbType.Int32, 20).Value = cboTipoDeProducto.SelectedValue;
                 cmd.Parameters.Add("TIPO_PROMOCION_ID_TIPOPROMO", OracleDbType.Int32, 20).Value = cboTipoDePromocion.SelectedValue;
+                cmd.Parameters.Add("ID_PROMOCION", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtIdPromocion.Text);
 
                 cmd.CommandText = "UPDATE PROMOCION SET FECHA_INICIO_PROMO=:FECHA_INICIO_PROMO , FECHA_FIN_PROMO=:FECHA_FIN_PROMO , DESCRIP_PROMO=:DESCRIP_PROMO , CANT_PRODUCTO=:CANT_PRODUCTO, DESCUENTO_PORCENTAJE=:DESCUENTO_PORCENTAJE , DESCUENTO_EFECTIVO=:DESCUENTO_EFECTIVO , TIPO_PRODUCTO_ID_TIPPRODUC=:TIPO_PRODUCTO_ID_TIPPRODUC , TIPO_PROMOCION_ID_TIPOPROMO=:TIPO_PROMOCION_ID_TIPOPROMO WHERE ID_PROMOCION =:ID_PROOMOCION";
 

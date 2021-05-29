@@ -18,6 +18,13 @@
                      HorizontalContentAlignment="Center"
                     IsEnabled="False"
                      />
+        <TextBox x:Name="txtNroBoleta" 
+                     Margin="69,18,597,413"
+                     mah:TextBoxHelper.Watermark="NRO. BOLETA"
+                     mah:TextBoxHelper.UseFloatingWatermark="True"
+                     mah:TextBoxHelper.ClearTextButton="True"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center"/>
         <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" Margin="38,71,494,199" >
             <TextBox x:Name="txtCodigoBarra" 
                      Margin="10,10,10,10"
@@ -37,7 +44,7 @@
             <Button x:Name="btnAgregarProducto" Margin="10,10,10,10" 
                 Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Width="40" 
                     Cursor="Hand" 
-                ToolTip="AgregarProducto">
+                ToolTip="AgregarProducto" Click="btnAgregarProducto_Click">
                 <iconPacks:PackIconModern 
                  Width="25" Height="25"
                  Kind="ListAdd"  />
