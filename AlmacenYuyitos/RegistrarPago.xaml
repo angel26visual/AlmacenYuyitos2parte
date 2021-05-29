@@ -7,29 +7,26 @@
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        Title="Registrar Venta - Los Yuyitos " Height="480.405" Width="800" ResizeMode="NoResize" Icon="resources/logo.png">
-    <Grid>
-
-
-        <!--<ComboBox x:Name="cboCategoria" HorizontalAlignment="Left" Margin="97,85,0,0" VerticalAlignment="Top" Width="60"/>
-        <ComboBox HorizontalAlignment="Left" Margin="97,116,0,0" VerticalAlignment="Top" Width="60"/>
-
-
-        <TextBox x:Name="txtTotal" Margin="10,41,596,152" TextChanged="txtTotal_TextChanged"
-                 
-                 />
-        <Button x:Name="btnRegistrarFiado" Content="REGISTRAR FIADO" HorizontalAlignment="Left" Margin="512,348,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnRealizarPago" Content="REALIZAR PAGO" HorizontalAlignment="Left" Margin="654,348,0,0" VerticalAlignment="Top" Width="92" Click="btnRealizarPago_Click"/>
-        <Button x:Name="btnEliminarDeLista" Content="ELIMINAR" HorizontalAlignment="Left" Margin="654,116,0,0" VerticalAlignment="Top" Width="92"/>-->
+        Title="Registrar Venta - Los Yuyitos " Height="508.664" Width="800" ResizeMode="NoResize" Icon="resources/logo.png">
+    <Grid Margin="0,0,0,1">
         <Image Source="/resources/logo.png" Width="100" Height="100 " Margin="346,-15,347.6,366.2"/>
-        <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" Margin="38,92,494,147" >
+        <DatePicker x:Name="txtFechaVenta"  Margin="602,18,40,405"
+                     mah:TextBoxHelper.Watermark="FECHA DE VENTA"
+                     mah:TextBoxHelper.UseFloatingWatermark="True"
+                     mah:TextBoxHelper.ClearTextButton="True"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center"
+                    IsEnabled="False"
+                     />
+        <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" Margin="38,71,494,199" >
             <TextBox x:Name="txtCodigoBarra" 
                      Margin="10,10,10,10"
                      mah:TextBoxHelper.Watermark="Código de barra"
                      mah:TextBoxHelper.UseFloatingWatermark="True"
                      mah:TextBoxHelper.ClearTextButton="True"
                      VerticalContentAlignment="Center"
-                     HorizontalContentAlignment="Center" Height="40"/>
+                     HorizontalContentAlignment="Center" 
+                     Height="40"/>
             <TextBox x:Name="txtCantidad" 
                      Margin="10,10,10,10"
                      mah:TextBoxHelper.Watermark="Cantidad"
@@ -37,21 +34,87 @@
                      mah:TextBoxHelper.ClearTextButton="True"
                      VerticalContentAlignment="Center"
                      HorizontalContentAlignment="Center" Height="40"/>
+            <Button x:Name="btnAgregarProducto" Margin="10,10,10,10" 
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Width="40" 
+                    Cursor="Hand" 
+                ToolTip="AgregarProducto">
+                <iconPacks:PackIconModern 
+                 Width="25" Height="25"
+                 Kind="ListAdd"  />
+            </Button>
         </StackPanel>
-        <Button x:Name="btnVolver" Margin="732,392,22,24" 
-                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Width="40" Cursor="Hand" 
+        <Button x:Name="btnVolver" Margin="714,415,40,24" 
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Width="40" 
+                Cursor="Hand" 
                 ToolTip="Volver" Click="btnVolver_Click">
             <iconPacks:PackIconModern 
                  Width="25" Height="25"
                  Kind="Return"  />
         </Button>
-        <ListView HorizontalAlignment="Left" Height="192" Margin="378,112,0,0" VerticalAlignment="Top" Width="321">
+        <ListView HorizontalAlignment="Left" Height="209" 
+                  Margin="378,89,0,0" VerticalAlignment="Top" Width="376">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
+        <StackPanel Orientation="Horizontal" Margin="361,303,40,91">
+            <TextBox x:Name="txtTotalDescuento" 
+                     Margin="20,3,10,0"
+                     mah:TextBoxHelper.Watermark="Descuentos Totales"
+                     mah:TextBoxHelper.UseFloatingWatermark="True"
+                     mah:TextBoxHelper.ClearTextButton="True"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center" 
+                     Height="40" Width="154"/>
+            <TextBox x:Name="txtTotalVenta" 
+                     Margin="20,3,10,0"
+                     mah:TextBoxHelper.Watermark="Total a pagar"
+                     mah:TextBoxHelper.UseFloatingWatermark="True"
+                     mah:TextBoxHelper.ClearTextButton="True"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center" 
+                     Height="40" Width="141"/>
+        </StackPanel>
+        <StackPanel Margin="38,252,467,10">
+            <CheckBox x:Name="checkFiado" RenderTransformOrigin="0.5,0.5" Height="29" Margin="10,10,10,10"  
+                      >
+                <CheckBox.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="2.862"/>
+                        <RotateTransform/>
+                        <TranslateTransform X="0.45"/>
+                    </TransformGroup>
+                </CheckBox.RenderTransform>
+                <Label Content="VENTA FIADO"  Width="240" />
+
+            </CheckBox>
+            <ComboBox x:Name="cboMedioPago" Margin="10, 10, 10, 10"
+                     mah:TextBoxHelper.Watermark="SELECCIONE MEDIO DE PAGO"
+                     mah:TextBoxHelper.UseFloatingWatermark="True"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center" 
+                      Height="30"/>
+            <TextBox x:Name="txtPago" 
+                     Margin="10,10,10,10"
+                     mah:TextBoxHelper.Watermark="Cantidad"
+                     mah:TextBoxHelper.UseFloatingWatermark="True"
+                     mah:TextBoxHelper.ClearTextButton="True"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center" 
+                     Height="40"/>
+            <Button x:Name="btnRegistrarVenta" 
+                    Margin="10,10,10,10" 
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Width="40" 
+                    Cursor="Hand" 
+                ToolTip="Realizar Venta">
+                <iconPacks:PackIconModern 
+                 Width="25" Height="25"
+                 Kind="Forsale"/>
+            </Button>
+        </StackPanel>
 
 
     </Grid>

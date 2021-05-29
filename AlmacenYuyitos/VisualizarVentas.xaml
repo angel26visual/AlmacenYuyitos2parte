@@ -6,17 +6,70 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         Title="Visualizar Ventas - Los Yuyitos" Height="450" Width="800" Icon="resources/logo.png" ResizeMode="NoResize">
     <Grid>
-        <Label Content="FECHA DE VENTA:" HorizontalAlignment="Left" Margin="63,87,0,0" VerticalAlignment="Top"/>
-        <DatePicker x:Name="dpFechaDeVenta" HorizontalAlignment="Left" Margin="174,87,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnFiltrarFechaVenta" Content="FILTRAR" HorizontalAlignment="Left" Margin="352,87,0,0" VerticalAlignment="Top" Width="75"/>
-        <ComboBox x:Name="cboTipoDeVenta" HorizontalAlignment="Left" Margin="465,89,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnFiltrarTipoVenta" Content="FILTRAR" HorizontalAlignment="Left" Margin="606,89,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="btnCerrarSesión" Content="CERRAR SESIÓN" HorizontalAlignment="Left" Margin="684,10,0,0" VerticalAlignment="Top" Width="92" Click="btnCerrarSesión_Click"/>
-        <Button x:Name="btnVolver" Content="VOLVER" HorizontalAlignment="Left" Margin="701,383,0,0" VerticalAlignment="Top" Width="75" Click="btnVolver_Click"/>
-        <Grid x:Name="dgVentas" HorizontalAlignment="Left" Height="179" Margin="69,154,0,0" VerticalAlignment="Top" Width="612"/>
-        <Button x:Name="btnVerVentas" Content="VER INFORMACIÓN" HorizontalAlignment="Left" Margin="63,383,0,0" VerticalAlignment="Top" Width="106" Click="btnVerVentas_Click"/>
+        <StackPanel Margin="84,68,65,280" Orientation="Horizontal">
+            <DatePicker x:Name="txtFechaDeVenta" Margin="100,10,10,10"
+                        mah:TextBoxHelper.Watermark="FECHA DE BOLETA"
+                     mah:TextBoxHelper.UseFloatingWatermark="True"
+                     mah:TextBoxHelper.ClearTextButton="True"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center"/>
+            <Button x:Name="btnFiltrarFechaVenta" Margin="10,10,10,20" 
+                    Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
+                    Height="40" Width="40" Cursor="Hand"
+                    ToolTip="Filtrar POR FECHA" >
+                <iconPacks:PackIconModern
+                            Width="22" Height="22"
+                            Kind="Filter"/>
+
+            </Button>
+            <TextBox x:Name="txtNroBoleta"
+                     mah:TextBoxHelper.Watermark="Nro Boleta"
+                     mah:TextBoxHelper.UseFloatingWatermark="True"
+                     mah:TextBoxHelper.ClearTextButton="True"
+                     Margin="80, 10, 10, 10"
+                     VerticalContentAlignment="Center" 
+                     HorizontalContentAlignment="Center" Width="150" Height="50"/>
+            <Button x:Name="btnFiltrarTipoVenta" Margin="10,10,10,10"
+                    Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
+                    Height="40" Width="40" Cursor="Hand"
+                    ToolTip="FILTRAR POR NRO BOLETA">
+                <iconPacks:PackIconModern
+                            Width="22" Height="22"
+                            Kind="Filter"/>
+
+            </Button>
+
+        </StackPanel>
+        <DataGrid x:Name="dgVenta" HorizontalContentAlignment="Center" Margin="68,163,18,88" Width="707">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="btnVer"
+                                            Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
+                                            Height="20" Width="20" Cursor="Hand"
+                                            Margin="20,10,0,0" Click="btnVer_Click"
+                                            ToolTip="Ver Venta">
+                                <iconPacks:PackIconModern 
+                                                Width="8" Height="8"
+                                                Kind="Upload"/>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="btnVolver" Margin="728,358,26,22" 
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Width="40" Cursor="Hand" 
+                ToolTip="Volver"
+                Click="btnVolver_Click">
+            <iconPacks:PackIconModern 
+                 Width="25" Height="25"
+                 Kind="Return"  />
+        </Button>
         <Image Source="/resources/logo.png" Width="100" Height="100" Margin="352,-13,341.6,333"/>
 
     </Grid>
