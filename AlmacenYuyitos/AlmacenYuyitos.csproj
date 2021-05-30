@@ -158,9 +158,6 @@
     <Compile Include="ModyElmUsuario.xaml.cs">
       <DependentUpon>ModyElmUsuario.xaml</DependentUpon>
     </Compile>
-    <Compile Include="RealizarPagoVenta.xaml.cs">
-      <DependentUpon>RealizarPagoVenta.xaml</DependentUpon>
-    </Compile>
     <Compile Include="RegistrarPago.xaml.cs">
       <DependentUpon>RegistrarPago.xaml</DependentUpon>
     </Compile>
@@ -275,10 +272,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PaginaInicio.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="RealizarPagoVenta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -27,11 +27,17 @@ namespace AlmacenYuyitos
     {
         OracleConnection con = null;
         public string nomUsusario { get; set; }
+        List<Detalle_boleta> listDboleta = new List<Detalle_boleta>();
+        DateTime fecha = DateTime.Today;
+        int monto_total = 0;
         public RegistrarPago()
         {
             this.setConnection();
             InitializeComponent();
-            txtFechaVenta.SelectedDate = DateTime.Today;
+            txtFechaVenta.SelectedDate = fecha;
+            GenerarNroBoleta();
+            txtTotalDescuento.Text = 0.ToString();
+            txtTotalVenta.Text = 0.ToString();
         }
 
         private async void setConnection()
@@ -57,15 +63,121 @@ namespace AlmacenYuyitos
 
         private void btnRealizarPago_Click(object sender, RoutedEventArgs e)
         {
-            RealizarPagoVenta rpv = new RealizarPagoVenta();
-            rpv.Show();
-            this.Close();
+            if (checkFiado.IsChecked == true)
+            {
+
+            }
+            else
+            {
+
+            }
         }
 
-        private void btnAgregarProducto_Click(object sender, RoutedEventArgs e)
+        private async void btnAgregarProducto_Click(object sender, RoutedEventArgs e)
         {
-            Detalle_boleta detalle_Boleta = new Detalle_boleta(int.Parse(txtNroBoleta.Text), int.Parse(txtCodigoBarra.Text), int.Parse(txtCantidad.Text));
-            List<Detalle_boleta> listDboleta = new List<Detalle_boleta>();
+            try
+            {
+                int precio = 0;
+                int tipo = 0;
+                int total = 0;
+                string nombre = null;
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandText = "SELECT STOCK, NOMBRE_PRODUCT, PRECIO_VENTA, TIPO_PRODUCTO_ID_TIPPRODUC AS TIPO FROM PRODUCTO WHERE CODIGO_PRODUCTO = :CODIGO";
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.Add("CODIGO", OracleDbType.Int32, 40).Value = int.Parse(txtCodigoProducto.Text);
+                OracleDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    if (int.Parse(reader["STOCK"].ToString()) > 0 && int.Parse(reader["STOCK"].ToString()) >= int.Parse(txtCantidad.Text))
+                    {
+                        nombre = reader["NOMBRE_PRODUCT"].ToString();
+                        precio = int.Parse(reader["PRECIO_VENTA"].ToString());
+                        total = total + (precio * int.Parse(txtCantidad.Text));
+                        tipo = int.Parse(reader["TIPO"].ToString());
+                        Detalle_boleta detalle_Boleta = new Detalle_boleta(int.Parse(txtNroBoleta.Text), int.Parse(txtCodigoProducto.Text), nombre, int.Parse(txtCantidad.Text), precio);
+                        listDboleta.Add(detalle_Boleta);
+                        dgVerProductos.ItemsSource = null;
+                        dgVerProductos.ItemsSource = listDboleta;
+                        CalcularPromocion(tipo, precio);
+                        txtTotalVenta.Text = (int.Parse(txtTotalVenta.Text) + total).ToString();
+                        monto_total = monto_total + total;
+                    }
+                    else
+                    {
+                        await this.ShowMessageAsync("PRODUCTO", "Producto con stock insuficiente");
+                    }
+                    
+                }
+                else
+                {
+                    await this.ShowMessageAsync("PRODUCTO", "El producto no esta registrado");
+                }
+
+                
+            }
+            catch (Exception)
+            {
+
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error"); 
+            }
+            
+        }
+
+        private async void CalcularPromocion(int tipo, int precio)
+        {
+            int porcentaje = 0;
+            int efectivo = 0;
+            try
+            {
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandText = "SELECT NVL(SUM(DESCUENTO_PORCENTAJE)/100, 0) AS PORCENTAJE, NVL(SUM(DESCUENTO_EFECTIVO), 0) AS EFECTIVO FROM PROMOCION WHERE FECHA_INICIO_PROMO >= :FECHA_INICIO AND FECHA_FIN_PROMO <= :FECHA_FIN AND TIPO_PRODUCTO_ID_TIPPRODUC = :TIPO_PRODUCTO AND TIPO_PROMOCION_ID_TIPOPROMO = 1";
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.Add("FECHA_INICIO", OracleDbType.Date).Value = fecha;
+                cmd.Parameters.Add("FECHA_FIN", OracleDbType.Date).Value = fecha;
+                cmd.Parameters.Add("TIPO_PRODUCTO", OracleDbType.Int32, 40).Value = tipo;
+                OracleDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    porcentaje = porcentaje + (precio * int.Parse(reader["PORCENTAJE"].ToString()));
+                    efectivo = efectivo + int.Parse(reader["EFECTIVO"].ToString());
+                }
+                OracleCommand cmd2 = con.CreateCommand();
+                cmd2.CommandText = "SELECT NVL(SUM(DESCUENTO_PORCENTAJE)/100, 0) AS PORCENTAJE, NVL(SUM(DESCUENTO_EFECTIVO), 0) AS EFECTIVO FROM PROMOCION WHERE FECHA_INICIO_PROMO >= :FECHA_INICIO AND FECHA_FIN_PROMO <= :FECHA_FIN AND TIPO_PRODUCTO_ID_TIPPRODUC = :TIPO_PRODUCTO AND CANT_PRODUCTO >= :CANTIDAD AND TIPO_PROMOCION_ID_TIPOPROMO = 2";
+                cmd2.CommandType = CommandType.Text;
+                cmd2.Parameters.Add("FECHA_INICIO", OracleDbType.Date).Value = fecha;
+                cmd2.Parameters.Add("FECHA_FIN", OracleDbType.Date).Value = fecha;
+                cmd2.Parameters.Add("TIPO_PRODUCTO", OracleDbType.Int32, 40).Value = tipo;
+                cmd2.Parameters.Add("CANTIDAD", OracleDbType.Int32, 40).Value = int.Parse(txtCantidad.Text);
+                OracleDataReader reader2 = cmd.ExecuteReader();
+                if (reader2.Read())
+                {
+
+                    porcentaje = porcentaje + (precio * int.Parse(reader2["PORCENTAJE"].ToString()));
+                    efectivo = efectivo + int.Parse(reader2["EFECTIVO"].ToString());
+                }
+                OracleCommand cmd3 = con.CreateCommand();
+                cmd3.CommandText = "SELECT NVL(SUM(DESCUENTO_PORCENTAJE)/100, 0) AS PORCENTAJE, NVL(SUM(DESCUENTO_EFECTIVO), 0) AS EFECTIVO FROM PROMOCION WHERE FECHA_INICIO_PROMO >= :FECHA_INICIO AND FECHA_FIN_PROMO <= :FECHA_FIN AND CANT_PRODUCTO >= :CANTIDAD AND TIPO_PROMOCION_ID_TIPOPROMO = 2";
+                cmd3.CommandType = CommandType.Text;
+                cmd3.Parameters.Add("FECHA_INICIO", OracleDbType.Date).Value = fecha;
+                cmd3.Parameters.Add("FECHA_FIN", OracleDbType.Date).Value = fecha;
+                cmd3.Parameters.Add("CANTIDAD", OracleDbType.Int32, 40).Value = int.Parse(txtCantidad.Text);
+                OracleDataReader reader3 = cmd.ExecuteReader();
+                if (reader3.Read())
+                {
+
+                    porcentaje = porcentaje + (precio * int.Parse(reader3["PORCENTAJE"].ToString()));
+                    efectivo = efectivo + int.Parse(reader3["EFECTIVO"].ToString());
+                }
+
+                txtTotalDescuento.Text = (porcentaje + efectivo).ToString();
+                txtTotalVenta.Text = (int.Parse(txtTotalVenta.Text) + int.Parse(txtTotalDescuento.Text)).ToString();
+            }
+            catch (Exception)
+            {
+
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
+
         }
 
         private async void GenerarNroBoleta()
@@ -78,7 +190,8 @@ namespace AlmacenYuyitos
                 OracleDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
-                    int nro_boleta = int.Parse(reader["NRO_BOLETA"].ToString()) + 1;
+                    int nro_boleta = int.Parse(reader["MAX(NRO_BOLETA)"].ToString());
+                    nro_boleta = nro_boleta + 1;
                     txtNroBoleta.Text = nro_boleta.ToString();
                 }
                 else

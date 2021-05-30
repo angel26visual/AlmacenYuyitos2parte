@@ -24,11 +24,11 @@
                      mah:TextBoxHelper.UseFloatingWatermark="True"
                      mah:TextBoxHelper.ClearTextButton="True"
                      VerticalContentAlignment="Center"
-                     HorizontalContentAlignment="Center"/>
+                     HorizontalContentAlignment="Center" IsEnabled="False"/>
         <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" Margin="38,71,494,199" >
-            <TextBox x:Name="txtCodigoBarra" 
+            <TextBox x:Name="txtCodigoProducto" 
                      Margin="10,10,10,10"
-                     mah:TextBoxHelper.Watermark="Código de barra"
+                     mah:TextBoxHelper.Watermark="Código de Producto"
                      mah:TextBoxHelper.UseFloatingWatermark="True"
                      mah:TextBoxHelper.ClearTextButton="True"
                      VerticalContentAlignment="Center"
@@ -58,14 +58,7 @@
                  Width="25" Height="25"
                  Kind="Return"  />
         </Button>
-        <ListView HorizontalAlignment="Left" Height="209" 
-                  Margin="378,89,0,0" VerticalAlignment="Top" Width="376">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <DataGrid x:Name="dgVerProductos" HorizontalAlignment="Left" Height="213" Margin="332,90,0,0" VerticalAlignment="Top" Width="433"/>
         <StackPanel Orientation="Horizontal" Margin="361,303,40,91">
             <TextBox x:Name="txtTotalDescuento" 
                      Margin="20,3,10,0"
@@ -74,7 +67,7 @@
                      mah:TextBoxHelper.ClearTextButton="True"
                      VerticalContentAlignment="Center"
                      HorizontalContentAlignment="Center" 
-                     Height="40" Width="154"/>
+                     Height="40" Width="154" IsEnabled="False"/>
             <TextBox x:Name="txtTotalVenta" 
                      Margin="20,3,10,0"
                      mah:TextBoxHelper.Watermark="Total a pagar"
@@ -82,7 +75,7 @@
                      mah:TextBoxHelper.ClearTextButton="True"
                      VerticalContentAlignment="Center"
                      HorizontalContentAlignment="Center" 
-                     Height="40" Width="141"/>
+                     Height="40" Width="141" IsEnabled="False"/>
         </StackPanel>
         <StackPanel Margin="38,252,467,10">
             <CheckBox x:Name="checkFiado" RenderTransformOrigin="0.5,0.5" Height="29" Margin="10,10,10,10"  
