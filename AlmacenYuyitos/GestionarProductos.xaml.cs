@@ -17,6 +17,7 @@ using System.Configuration;
 using MahApps.Metro.Controls.Dialogs;
 using System.Data;
 using Microsoft.Win32;
+using System.IO;
 
 namespace AlmacenYuyitos
 {
@@ -26,6 +27,7 @@ namespace AlmacenYuyitos
     public partial class GestionarProductos
     {
         OracleConnection con = null;
+        string ruta_imagen = null;
         public GestionarProductos()
         {
             this.setConnection();
@@ -86,7 +88,7 @@ namespace AlmacenYuyitos
             catch (Exception)
             {
 
-                throw;
+
             }
         }
 
@@ -110,11 +112,19 @@ namespace AlmacenYuyitos
 
         private async void btnRegistrarProducto_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
+            //try
+            //{
+                FileStream fs = new FileStream(ruta_imagen, FileMode.Open, FileAccess.Read);
+                byte[] blob = new byte[fs.Length];
+                fs.Read(blob, 0, Convert.ToInt32(fs.Length));
+                fs.Close();
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.BindByName = true;
+                OracleParameter blobParameter = new OracleParameter();
+                blobParameter.OracleDbType = OracleDbType.Blob;
+                blobParameter.ParameterName = "FOTO";
+                blobParameter.Value = blob;
 
                 cmd.Parameters.Add("CODIGO_PRODUCTO", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtCodigoProducto.Text);
                 cmd.Parameters.Add("NOMBRE_PRODUCT", OracleDbType.Varchar2, 100).Value = txtNombreDeProducto.Text;
@@ -127,13 +137,9 @@ namespace AlmacenYuyitos
                 cmd.Parameters.Add("MARCA", OracleDbType.Varchar2, 100).Value = txtMarcaProducto.Text;
                 cmd.Parameters.Add("PROVEEDOR_RUT_PROVEE", OracleDbType.Varchar2, 100).Value = txtRutProveedor.Text;
                 cmd.Parameters.Add("COD_BARRA_PRODUCT", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtCodigoBarraProducto.Text);
-                //IMAGEN
+                cmd.Parameters.Add(blobParameter);
                 cmd.Parameters.Add("TIPO_PRODUCTO_ID_TIPPRODUC", OracleDbType.Int32, 20).Value = cboTipoDeProducto.SelectedValue;
-
-
-
-
-                cmd.CommandText = "INSERT INTO PRODUCTO(CODIGO_PRODUCTO , NOMBRE_PRODUCT , PRECIO_COMPRA , PRECIO_VENTA , STOCK, STOCK_CRITICO , FECH_ELABO_PRODUCT , FECH_VENCI_PRODUCT, MARCA, PROVEEDOR_RUT_PROVEE, COD_BARRA_PRODUCT , IMG_PRODUC, TIPO_PRODUCTO_ID_TIPPRODUC) VALUES(:CODIGO_PRODUCTO , :NOMBRE_PRODUCT , :PRECIO_COMPRA , :PRECIO_VENTA , :STOCK, :STOCK_CRITICO , :FECH_ELABO_PRODUCT , :FECH_VENCI_PRODUCT, :MARCA, :PROVEEDOR_RUT_PROVEE, :COD_BARRA_PRODUCT , EMPTY_BLOB(), :TIPO_PRODUCTO_ID_TIPPRODUC)";
+                cmd.CommandText = "INSERT INTO PRODUCTO(CODIGO_PRODUCTO , NOMBRE_PRODUCT , PRECIO_COMPRA , PRECIO_VENTA , STOCK, STOCK_CRITICO , FECH_ELABO_PRODUCT , FECH_VENCI_PRODUCT, MARCA, PROVEEDOR_RUT_PROVEE, COD_BARRA_PRODUCT , IMG_PRODUC, TIPO_PRODUCTO_ID_TIPPRODUC) VALUES(:CODIGO_PRODUCTO , :NOMBRE_PRODUCT , :PRECIO_COMPRA , :PRECIO_VENTA , :STOCK, :STOCK_CRITICO , :FECH_ELABO_PRODUCT , :FECH_VENCI_PRODUCT, :MARCA, :PROVEEDOR_RUT_PROVEE, :COD_BARRA_PRODUCT , :FOTO, :TIPO_PRODUCTO_ID_TIPPRODUC)";
                 try
                 {
                     int n = cmd.ExecuteNonQuery();
@@ -150,12 +156,12 @@ namespace AlmacenYuyitos
                 }
 
 
-            }
-            catch (Exception ex)
-            {
+            //}
+            //catch (Exception ex)
+            //{
 
-                await this.ShowMessageAsync("Error", e.ToString());
-            }
+              //  await this.ShowMessageAsync("Error", e.ToString());
+            //}
         }
 
 
@@ -227,39 +233,39 @@ namespace AlmacenYuyitos
             }
 
         }
-    
+
 
 
         private async void btnEliminarProducto_Click(object sender, RoutedEventArgs e)
+        {
+            try
             {
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.Add("CODIGO_PRODUCTO", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtCodigoProducto.Text);
+                cmd.CommandText = "delete from producto where codigo_producto = :CODIGO_PRODUCTO";
                 try
                 {
-                    OracleCommand cmd = con.CreateCommand();
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.Add("CODIGO_PRODUCTO", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtCodigoProducto.Text);
-                    cmd.CommandText = "delete from producto where codigo_producto = :CODIGO_PRODUCTO";
-                    try
+                    int n = cmd.ExecuteNonQuery();
+                    if (n > 0)
                     {
-                        int n = cmd.ExecuteNonQuery();
-                        if (n > 0)
-                        {
-                            await this.ShowMessageAsync("eliminado", "Producto eliminado correctamente");
-                            this.ActualizarDataGrid();
-                            this.resetAll();
+                        await this.ShowMessageAsync("eliminado", "Producto eliminado correctamente");
+                        this.ActualizarDataGrid();
+                        this.resetAll();
 
-                        }
-                    }
-
-                    catch (Exception)
-                    {
-                        await this.ShowMessageAsync("Error", "no se pudo eliminar");
                     }
                 }
+
                 catch (Exception)
                 {
-                    throw;
+                    await this.ShowMessageAsync("Error", "no se pudo eliminar");
                 }
-            } 
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
         private void btnLimpiarCampos_Click(object sender, RoutedEventArgs e)
         {
@@ -318,9 +324,12 @@ namespace AlmacenYuyitos
             openFileDialog1.FilterIndex = 1;
             openFileDialog1.Multiselect = true;
             bool? respuesta = openFileDialog1.ShowDialog();
-
+            ruta_imagen = openFileDialog1.FileName;
             imgFoto.Source = new BitmapImage(new Uri(openFileDialog1.FileName));
-        }
+
+        } 
+
+        
     }
-    }
+ }
 
