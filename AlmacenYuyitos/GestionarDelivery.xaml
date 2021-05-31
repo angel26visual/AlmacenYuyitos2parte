@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
         Title="Gestionar Delivery - Los Yuyitos" Height="450" Width="800" Icon="resources/logo.png" ResizeMode="NoResize">
-    <Grid>
+    <Grid Background="LightBlue">
         <Button x:Name="btnRegistrarDelivey" Content="REGISTRAR PEDIDO (DELIVERY)" HorizontalAlignment="Left" Margin="94,119,0,0" VerticalAlignment="Top" Width="250" Height="100" Background="DodgerBlue" Click="btnRegistrarDelivey_Click" >
             <Button.Effect>
                 <DropShadowEffect/>

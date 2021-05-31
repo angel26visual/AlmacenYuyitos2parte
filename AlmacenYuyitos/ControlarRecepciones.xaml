@@ -7,8 +7,8 @@
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
         Title="Controlar Recepciones - Los Yuyitos" Height="450" Width="800" Icon="resources/logo.png" ResizeMode="NoResize">
-    <Grid>
-        <DataGrid x:Name="dgRecepciones" HorizontalAlignment="Left" Height="200" Margin="39,132,0,0" VerticalAlignment="Top" Width="679"/>
+    <Grid Background="LightBlue">
+        <DataGrid x:Name="dgRecepciones" HorizontalAlignment="Left" Height="200" Margin="39,132,0,0" VerticalAlignment="Top" Width="679" IsReadOnly="True"/>
         <Button x:Name="btnIngresarRecepcion" Content="INGRESAR RECEPCIÓN" HorizontalAlignment="Left" Margin="39,383,0,0" VerticalAlignment="Top" Width="133" Click="btnIngresarRecepcion_Click"/>
         <Button x:Name="btnAtras" Content="ATRÁS" HorizontalAlignment="Left" Margin="709,383,0,0" VerticalAlignment="Top" Width="75" Click="btnAtras_Click"/>
         <Button x:Name="btnFiltrar" Content="FILTRAR" HorizontalAlignment="Left" Margin="349,109,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.222,0.269"/>

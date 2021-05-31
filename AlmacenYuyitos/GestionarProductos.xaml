@@ -9,7 +9,7 @@
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
         Title="Gestionar Productos - Los Yuyitos" Height="621.766" Width="1444.124" ResizeMode="NoResize" Icon="resources/logo.png">
-    <Grid Background="DeepSkyBlue">
+    <Grid Background="LightBlue">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="154*"/>
             <ColumnDefinition Width="7*"/>
@@ -119,7 +119,7 @@
         <DatePicker x:Name="dpFechaDeVencimiento" HorizontalAlignment="Left" Margin="179.357,138,0,0" VerticalAlignment="Top" Width="171" Height="38" Grid.Column="3"/>
         <ComboBox x:Name="cboTipoDeProducto" HorizontalAlignment="Left" Margin="180.357,56,0,0" VerticalAlignment="Top" Width="169" Height="39" Grid.Column="3" Loaded="cboTipoDeProducto_Loaded"/>
         <Image Source="resources/logo.png" RenderTransformOrigin="0.315,-0.602" Margin="293.8,354,470.4,-11" Grid.Column="3"/>
-        <DataGrid x:Name="dgProductos" HorizontalAlignment="Left" Height="280" Margin="424.357,55,0,0" VerticalAlignment="Top" Width="623" Grid.Column="3" Loaded="dgProductos_Loaded" SelectionChanged="dgProductos_SelectionChanged"/>
+        <DataGrid x:Name="dgProductos" HorizontalAlignment="Left" Height="280" Margin="424.357,55,0,0" VerticalAlignment="Top" Width="623" Grid.Column="3" Loaded="dgProductos_Loaded" SelectionChanged="dgProductos_SelectionChanged" IsReadOnly="True"/>
         <DatePicker x:Name="dpFechaElaboracion" Grid.Column="3" HorizontalAlignment="Left" Margin="179.357,97,0,0" VerticalAlignment="Top" Width="169" Height="36"/>
         <Label Content="Fecha de Elaboración:" Grid.Column="3" HorizontalAlignment="Left" Margin="48.357,103,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="White"/>
         <TextBox x:Name="txtCodigoBarraProducto"

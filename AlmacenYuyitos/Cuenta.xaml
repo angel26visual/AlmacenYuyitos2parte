@@ -9,7 +9,7 @@
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         Title="Cuenta" Height="450" Width="650" Icon="resources/logo.png">
 
-    <Grid>
+    <Grid Background="LightBlue">
         <StackPanel Orientation="Horizontal">
             <StackPanel Orientation="Vertical" Margin="20, 0, 0, 0" Width="280">
                 <Label Content="Información personal" HorizontalAlignment="Center" FontSize="22" Margin="0,20,0,0" />

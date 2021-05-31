@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         Title="Registrar Venta - Los Yuyitos " Height="508.664" Width="877.126" ResizeMode="NoResize" Icon="resources/logo.png">
-    <Grid Margin="0,0,0,1">
+    <Grid Margin="0,0,0,1" Background="LightBlue">
         <Image Source="/resources/logo.png" Width="100" Height="100 " Margin="346,-15,347.6,366.2"/>
         <DatePicker x:Name="txtFechaVenta"  Margin="602,18,79,405"
                      mah:TextBoxHelper.Watermark="FECHA DE VENTA"

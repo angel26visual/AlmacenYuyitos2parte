@@ -8,7 +8,7 @@
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
         Title="Menu Vendedor -Los Yuyitos" Height="450" Width="800" ResizeMode="NoResize" Icon="resources/logo.png">
-    <Grid>
+    <Grid Background="LightBlue">
         <Button x:Name="btnGestionarPagos" Content="Gestionar Pagos" HorizontalAlignment="Left" Margin="132,122,0,0" VerticalAlignment="Top" Width="230" Height="200" Background="DodgerBlue">
             <Button.Effect>
                 <DropShadowEffect/>

@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
         Title="Gestión de Usuarios - Los Yuyitos" Height="536.656" Width="454.898" ResizeMode="NoResize" Icon="resources/logo.png">
-    <Grid Margin="0,0,51.4,15.2">
+    <Grid Margin="0,0,0.8,0.2" Background="LightBlue">
         <Label x:Name="lblNombreUsuario" Content="Nombre :" HorizontalAlignment="Left" Margin="123,118,0,0" VerticalAlignment="Top" Height="31" Width="75"/>
         <Label x:Name="lblApellido" Content="Apellido:" HorizontalAlignment="Left" Margin="123,155,0,0" VerticalAlignment="Top" Height="30" Width="71"/>
         <Label x:Name="lblRut" Content="Rut:" HorizontalAlignment="Left" Margin="146,192,0,0" VerticalAlignment="Top" Height="30" Width="38"/>
@@ -37,10 +37,10 @@
         <TextBox x:Name="txtNombreUsuario" HorizontalAlignment="Left" Height="31" Margin="204,375,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151"/>
         <PasswordBox x:Name="txtContrasena" HorizontalAlignment="Left" Margin="204,412,0,-22" VerticalAlignment="Top" Width="151" Height="30"/>
         <Image Source="resources/logo.png" Stretch="Fill" Margin="204,-3,92.4,403" />
-        <Button x:Name="btnModificar" Content="MODIFICAR" HorizontalAlignment="Left" Margin="28,465,0,8" Width="75" Click="btnModificar_Click"/>
-        <Button x:Name="btnEliminar" Content="ELIMINAR" HorizontalAlignment="Left" Margin="146,465,0,0" Width="75" Click="btnEliminar_Click" />
+        <Button x:Name="btnModificar" Content="MODIFICAR" HorizontalAlignment="Left" Margin="152,469,0,9" Width="75" Click="btnModificar_Click"/>
+        <Button x:Name="btnEliminar" Content="ELIMINAR" HorizontalAlignment="Left" Margin="243,469,0,10" Width="75" Click="btnEliminar_Click" />
         <Button x:Name="btnCerrarSesion" Content="CERRAR SESIÓN" Margin="344,10,-35.6,0" VerticalAlignment="Top" RenderTransformOrigin="0.792,-0.41" Click="btnCerrarSesion_Click"/>
-        <Button x:Name="btnVolver" Content="VOLVER" HorizontalAlignment="Left" Margin="280,465,0,0" Width="75" Click="btnVolver_Click" />
+        <Button x:Name="btnVolver" Content="VOLVER" HorizontalAlignment="Left" Margin="366,469,0,7" Width="75" Click="btnVolver_Click" />
 
     </Grid>
 </mah:MetroWindow>

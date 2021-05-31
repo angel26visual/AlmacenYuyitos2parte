@@ -140,7 +140,7 @@
     </Controls:MetroWindow.RightWindowCommands>
 
 
-    <Grid Margin="0,0,3.6,39.8">
+    <Grid Margin="0,0,4,2.4" Background="LightBlue">
         <Image Source="/resources/logo.png" Stretch="Fill"  />
 
     </Grid>

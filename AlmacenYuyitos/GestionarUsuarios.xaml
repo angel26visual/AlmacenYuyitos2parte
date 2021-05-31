@@ -8,7 +8,7 @@
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
         Title="Gestionar Usuarios - Los Yuyitos" Height="450" Width="800" Icon="resources/logo.png">
-    <Grid>
+    <Grid Background="LightBlue">
         <Button x:Name="btnAgregarUsuario" Content="AGREGAR USUARIOS" HorizontalAlignment="Left" Margin="100,107,0,0" VerticalAlignment="Top" Width="250" Height="100" Background="DodgerBlue" Click="btnAgregarUsuario_Click">
             <Button.Effect>
                 <DropShadowEffect/>

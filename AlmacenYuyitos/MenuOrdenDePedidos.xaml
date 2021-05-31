@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
         Title="Menu Orden De Pedidos - Los Yuyitos" Height="450" Width="800" Icon="resources/logo.png" ResizeMode="NoResize">
-    <Grid>
+    <Grid Background="LightBlue">
         <Button x:Name="btnGenerarOrdenDePedidos" Content="GENERAR ORDEN DE PEDIDOS" HorizontalAlignment="Left" Margin="100,107,0,0" VerticalAlignment="Top" Width="250" Height="100" Background="DodgerBlue" Click="btnGenerarOrdenDePedidos_Click" >
             <Button.Effect>
                 <DropShadowEffect/>
