@@ -130,7 +130,7 @@ namespace AlmacenYuyitos
             try
             {
                 OracleCommand cmd = con.CreateCommand();
-                cmd.CommandText = "SELECT NVL(SUM(DESCUENTO_PORCENTAJE)/100, 0) AS PORCENTAJE, NVL(SUM(DESCUENTO_EFECTIVO), 0) AS EFECTIVO FROM PROMOCION WHERE FECHA_INICIO_PROMO >= :FECHA_INICIO AND FECHA_FIN_PROMO <= :FECHA_FIN AND TIPO_PRODUCTO_ID_TIPPRODUC = :TIPO_PRODUCTO AND TIPO_PROMOCION_ID_TIPOPROMO = 1";
+                cmd.CommandText = "SELECT NVL(SUM(DESCUENTO_PORCENTAJE)/100, 0) AS PORCENTAJE, NVL(SUM(DESCUENTO_EFECTIVO), 0) AS EFECTIVO FROM PROMOCION WHERE FECHA_INICIO_PROMO <= :FECHA_INICIO AND FECHA_FIN_PROMO >= :FECHA_FIN AND TIPO_PRODUCTO_ID_TIPPRODUC = :TIPO_PRODUCTO AND TIPO_PROMOCION_ID_TIPOPROMO = 1";
                 cmd.CommandType = CommandType.Text;
                 cmd.Parameters.Add("FECHA_INICIO", OracleDbType.Date).Value = fecha;
                 cmd.Parameters.Add("FECHA_FIN", OracleDbType.Date).Value = fecha;
@@ -142,7 +142,7 @@ namespace AlmacenYuyitos
                     efectivo = efectivo + int.Parse(reader["EFECTIVO"].ToString());
                 }
                 OracleCommand cmd2 = con.CreateCommand();
-                cmd2.CommandText = "SELECT NVL(SUM(DESCUENTO_PORCENTAJE)/100, 0) AS PORCENTAJE, NVL(SUM(DESCUENTO_EFECTIVO), 0) AS EFECTIVO FROM PROMOCION WHERE FECHA_INICIO_PROMO >= :FECHA_INICIO AND FECHA_FIN_PROMO <= :FECHA_FIN AND TIPO_PRODUCTO_ID_TIPPRODUC = :TIPO_PRODUCTO AND CANT_PRODUCTO >= :CANTIDAD AND TIPO_PROMOCION_ID_TIPOPROMO = 2";
+                cmd2.CommandText = "SELECT NVL(SUM(DESCUENTO_PORCENTAJE)/100, 0) AS PORCENTAJE, NVL(SUM(DESCUENTO_EFECTIVO), 0) AS EFECTIVO FROM PROMOCION WHERE FECHA_INICIO_PROMO <= :FECHA_INICIO AND FECHA_FIN_PROMO >= :FECHA_FIN AND TIPO_PRODUCTO_ID_TIPPRODUC = :TIPO_PRODUCTO AND CANT_PRODUCTO >= :CANTIDAD AND TIPO_PROMOCION_ID_TIPOPROMO = 2";
                 cmd2.CommandType = CommandType.Text;
                 cmd2.Parameters.Add("FECHA_INICIO", OracleDbType.Date).Value = fecha;
                 cmd2.Parameters.Add("FECHA_FIN", OracleDbType.Date).Value = fecha;
@@ -156,7 +156,7 @@ namespace AlmacenYuyitos
                     efectivo = efectivo + int.Parse(reader2["EFECTIVO"].ToString());
                 }
                 OracleCommand cmd3 = con.CreateCommand();
-                cmd3.CommandText = "SELECT NVL(SUM(DESCUENTO_PORCENTAJE)/100, 0) AS PORCENTAJE, NVL(SUM(DESCUENTO_EFECTIVO), 0) AS EFECTIVO FROM PROMOCION WHERE FECHA_INICIO_PROMO >= :FECHA_INICIO AND FECHA_FIN_PROMO <= :FECHA_FIN AND CANT_PRODUCTO >= :CANTIDAD AND TIPO_PROMOCION_ID_TIPOPROMO = 2";
+                cmd3.CommandText = "SELECT NVL(SUM(DESCUENTO_PORCENTAJE)/100, 0) AS PORCENTAJE, NVL(SUM(DESCUENTO_EFECTIVO), 0) AS EFECTIVO FROM PROMOCION WHERE FECHA_INICIO_PROMO <= :FECHA_INICIO AND FECHA_FIN_PROMO >= :FECHA_FIN AND CANT_PRODUCTO >= :CANTIDAD AND TIPO_PROMOCION_ID_TIPOPROMO = 2";
                 cmd3.CommandType = CommandType.Text;
                 cmd3.Parameters.Add("FECHA_INICIO", OracleDbType.Date).Value = fecha;
                 cmd3.Parameters.Add("FECHA_FIN", OracleDbType.Date).Value = fecha;
@@ -205,6 +205,36 @@ namespace AlmacenYuyitos
                 await this.ShowMessageAsync("Error", "Ha ocurrido un error");
             }
             
+        }
+
+        private async void cboMedioPago_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandText = "SELECT ID_MEDIOPAGO , DESCRIP_MEDIOPAGO FROM MEDIO_PAGO";
+                cmd.CommandType = CommandType.Text;
+
+                OracleDataReader dr = cmd.ExecuteReader();
+                cmd.ExecuteNonQuery();
+                OracleDataAdapter oda = new OracleDataAdapter(cmd);
+
+                DataTable dt = new DataTable();
+                oda.Fill(dt);
+                cboMedioPago.ItemsSource = dt.AsDataView();
+                cboMedioPago.DisplayMemberPath = "DESCRIP_MEDIOPAGO";
+                cboMedioPago.SelectedValuePath = "ID_MEDIOPAGO";
+            }
+            catch (Exception)
+            {
+
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
+        }
+
+        private void btnEiminarProducto_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

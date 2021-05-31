@@ -7,10 +7,10 @@
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        Title="Registrar Venta - Los Yuyitos " Height="508.664" Width="800" ResizeMode="NoResize" Icon="resources/logo.png">
+        Title="Registrar Venta - Los Yuyitos " Height="508.664" Width="877.126" ResizeMode="NoResize" Icon="resources/logo.png">
     <Grid Margin="0,0,0,1">
         <Image Source="/resources/logo.png" Width="100" Height="100 " Margin="346,-15,347.6,366.2"/>
-        <DatePicker x:Name="txtFechaVenta"  Margin="602,18,40,405"
+        <DatePicker x:Name="txtFechaVenta"  Margin="602,18,79,405"
                      mah:TextBoxHelper.Watermark="FECHA DE VENTA"
                      mah:TextBoxHelper.UseFloatingWatermark="True"
                      mah:TextBoxHelper.ClearTextButton="True"
@@ -25,7 +25,7 @@
                      mah:TextBoxHelper.ClearTextButton="True"
                      VerticalContentAlignment="Center"
                      HorizontalContentAlignment="Center" IsEnabled="False"/>
-        <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" Margin="38,71,494,199" >
+        <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" Margin="38,71,564,199" >
             <TextBox x:Name="txtCodigoProducto" 
                      Margin="10,10,10,10"
                      mah:TextBoxHelper.Watermark="Código de Producto"
@@ -58,7 +58,7 @@
                  Width="25" Height="25"
                  Kind="Return"  />
         </Button>
-        <DataGrid x:Name="dgVerProductos" HorizontalAlignment="Left" Height="213" Margin="332,90,0,0" VerticalAlignment="Top" Width="433"/>
+        <DataGrid x:Name="dgVerProductos"  HorizontalAlignment="Left" Height="213" Margin="332,90,0,0" VerticalAlignment="Top" Width="433" IsReadOnly="True"/>
         <StackPanel Orientation="Horizontal" Margin="361,303,40,91">
             <TextBox x:Name="txtTotalDescuento" 
                      Margin="20,3,10,0"
@@ -77,7 +77,7 @@
                      HorizontalContentAlignment="Center" 
                      Height="40" Width="141" IsEnabled="False"/>
         </StackPanel>
-        <StackPanel Margin="38,252,467,10">
+        <StackPanel Margin="38,252,564,10">
             <CheckBox x:Name="checkFiado" RenderTransformOrigin="0.5,0.5" Height="29" Margin="10,10,10,10"  
                       >
                 <CheckBox.RenderTransform>
@@ -96,7 +96,7 @@
                      mah:TextBoxHelper.UseFloatingWatermark="True"
                      VerticalContentAlignment="Center"
                      HorizontalContentAlignment="Center" 
-                      Height="30"/>
+                      Height="30" Loaded="cboMedioPago_Loaded"/>
             <TextBox x:Name="txtPago" 
                      Margin="10,10,10,10"
                      mah:TextBoxHelper.Watermark="Cantidad"
@@ -115,6 +115,14 @@
                  Kind="Forsale"/>
             </Button>
         </StackPanel>
+        <Button x:Name="btnEiminarProducto" 
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Width="40" 
+                    Cursor="Hand" 
+                ToolTip="Eliminar Producto" Margin="791,130,40,305" Click="btnEiminarProducto_Click">
+            <iconPacks:PackIconModern 
+                 Width="25" Height="25"
+                 Kind="ListDelete"/>
+        </Button>
 
 
     </Grid>
