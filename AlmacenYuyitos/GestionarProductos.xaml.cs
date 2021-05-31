@@ -127,14 +127,40 @@ namespace AlmacenYuyitos
                 blobParameter.Value = blob;
 
                 cmd.Parameters.Add("CODIGO_PRODUCTO", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtCodigoProducto.Text);
+
+            if (txtNombreDeProducto.Text.Replace(" ", string.Empty).Length >= 3)
+            {
                 cmd.Parameters.Add("NOMBRE_PRODUCT", OracleDbType.Varchar2, 100).Value = txtNombreDeProducto.Text;
-                cmd.Parameters.Add("PRECIO_COMPRA", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtPrecioDeCompra.Text);
+
+
+            }
+            else
+            {
+                await this.ShowMessageAsync("Error", "el nombre del producto debe tener mas de 3 caracteres!");
+                btnRegistrarProducto.IsEnabled = true;
+                return;
+
+            }
+            cmd.Parameters.Add("PRECIO_COMPRA", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtPrecioDeCompra.Text);
                 cmd.Parameters.Add("PRECIO_VENTA", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtPrecioDeVenta.Text);
                 cmd.Parameters.Add("STOCK", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtStock.Text);
                 cmd.Parameters.Add("STOCK_CRITICO", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtStockCritico.Text);
                 cmd.Parameters.Add("FECH_ELABO_PRODUCT", OracleDbType.Date).Value = dpFechaElaboracion.SelectedDate;
                 cmd.Parameters.Add("FECH_VENCI_PRODUCT", OracleDbType.Date).Value = dpFechaDeVencimiento.SelectedDate;
+
+            if (txtMarcaProducto.Text.Replace(" ", string.Empty).Length >= 3)
+            {
                 cmd.Parameters.Add("MARCA", OracleDbType.Varchar2, 100).Value = txtMarcaProducto.Text;
+            }
+            else
+            {
+                await this.ShowMessageAsync("Error", "La Marca del producto debe tener mas de 3 caracteres!");
+                btnRegistrarProducto.IsEnabled = true;
+                return;
+
+            }
+
+
                 cmd.Parameters.Add("PROVEEDOR_RUT_PROVEE", OracleDbType.Varchar2, 100).Value = txtRutProveedor.Text;
                 cmd.Parameters.Add("COD_BARRA_PRODUCT", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtCodigoBarraProducto.Text);
                 cmd.Parameters.Add(blobParameter);
@@ -188,12 +214,32 @@ namespace AlmacenYuyitos
         {
             try
             {
+                FileStream fs = new FileStream(ruta_imagen, FileMode.Open, FileAccess.Read);
+                byte[] blob = new byte[fs.Length];
+                fs.Read(blob, 0, Convert.ToInt32(fs.Length));
+                fs.Close();
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.BindByName = true;
+                OracleParameter blobParameter = new OracleParameter();
+                blobParameter.OracleDbType = OracleDbType.Blob;
+                blobParameter.ParameterName = "FOTO";
+                blobParameter.Value = blob;
 
                 cmd.Parameters.Add("CODIGO_PRODUCTO", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtCodigoProducto.Text);
-                cmd.Parameters.Add("NOMBRE_PRODUCT", OracleDbType.Varchar2, 100).Value = txtNombreDeProducto.Text;
+
+                if (txtNombreDeProducto.Text.Replace(" ", string.Empty).Length >= 3)
+                {
+                    cmd.Parameters.Add("NOMBRE_PRODUCT", OracleDbType.Varchar2, 100).Value = txtNombreDeProducto.Text;
+                }
+                else
+                {
+                    await this.ShowMessageAsync("Error", "el nombre del producto debe tener mas de 3 caracteres!");
+                    btnRegistrarProducto.IsEnabled = true;
+                    return;
+
+                }
+
                 cmd.Parameters.Add("PRECIO_COMPRA", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtPrecioDeCompra.Text);
                 cmd.Parameters.Add("PRECIO_VENTA", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtPrecioDeVenta.Text);
                 cmd.Parameters.Add("STOCK", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtStock.Text);
@@ -203,10 +249,10 @@ namespace AlmacenYuyitos
                 cmd.Parameters.Add("MARCA", OracleDbType.Varchar2, 100).Value = txtMarcaProducto.Text;
                 cmd.Parameters.Add("PROVEEDOR_RUT_PROVEE", OracleDbType.Varchar2, 100).Value = txtRutProveedor.Text;
                 cmd.Parameters.Add("COD_BARRA_PRODUCT", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtCodigoBarraProducto.Text);
-                //IMAGEN
+                cmd.Parameters.Add(blobParameter);
                 cmd.Parameters.Add("TIPO_PRODUCTO_ID_TIPPRODUC", OracleDbType.Int32, 20).Value = cboTipoDeProducto.SelectedValue;
 
-                cmd.CommandText = "UPDATE PRODUCTO SET NOMBRE_PRODUCT=:NOMBRE_PRODUCT , PRECIO_COMPRA=:PRECIO_COMPRA , PRECIO_VENTA=:PRECIO_VENTA , STOCK=:STOCK , STOCK_CRITICO=:STOCK_CRITICO , FECH_ELABO_PRODUCT=:FECH_ELABO_PRODUCT , FECH_VENCI_PRODUCT=:FECH_VENCI_PRODUCT , MARCA=:MARCA , PROVEEDOR_RUT_PROVEE=:PROVEEDOR_RUT_PROVEE , COD_BARRA_PRODUCT=:COD_BARRA_PRODUCT , TIPO_PRODUCTO_ID_TIPPRODUC=:TIPO_PRODUCTO_ID_TIPPRODUC WHERE CODIGO_PRODUCTO=:CODIGO_PRODUCTO";
+                cmd.CommandText = "UPDATE PRODUCTO SET NOMBRE_PRODUCT=:NOMBRE_PRODUCT , PRECIO_COMPRA=:PRECIO_COMPRA , PRECIO_VENTA=:PRECIO_VENTA , STOCK=:STOCK , STOCK_CRITICO=:STOCK_CRITICO , FECH_ELABO_PRODUCT=:FECH_ELABO_PRODUCT , FECH_VENCI_PRODUCT=:FECH_VENCI_PRODUCT , MARCA=:MARCA , PROVEEDOR_RUT_PROVEE=:PROVEEDOR_RUT_PROVEE , COD_BARRA_PRODUCT=:COD_BARRA_PRODUCT, IMG_PRODUC=:FOTO , TIPO_PRODUCTO_ID_TIPPRODUC=:TIPO_PRODUCTO_ID_TIPPRODUC WHERE CODIGO_PRODUCTO=:CODIGO_PRODUCTO";
                 try
                 {
                     int n = cmd.ExecuteNonQuery();
@@ -299,7 +345,6 @@ namespace AlmacenYuyitos
                 txtMarcaProducto.Text = dr["MARCA"].ToString();
                 txtRutProveedor.Text = dr["PROVEEDOR_RUT_PROVEE"].ToString();
                 txtCodigoBarraProducto.Text = dr["COD_BARRA_PRODUCT"].ToString();
-                //tburlFoto.Text = dr["IMG_PRODUC"].ToString();
                 cboTipoDeProducto.SelectedValue = dr["TIPO_PRODUCTO_ID_TIPPRODUC"].ToString();
 
                 btnRegistrarProducto.IsEnabled = false;
@@ -327,9 +372,39 @@ namespace AlmacenYuyitos
             ruta_imagen = openFileDialog1.FileName;
             imgFoto.Source = new BitmapImage(new Uri(openFileDialog1.FileName));
 
-        } 
+        }
 
+        private async void btnImprimir_Click(object sender, RoutedEventArgs e)
+        {
+            PrintDialog dialog = new PrintDialog();
+            MessageDialogResult respuesta= await this.ShowMessageAsync("Imprimir", "¿Desea Imprimir el código del producto?", MessageDialogStyle.AffirmativeAndNegative);
+            if (respuesta == MessageDialogResult.Affirmative)
+            {
+                if(dialog.ShowDialog() == true)
+                {
+           
+
+                    String texto = txtCodigoBarraProducto.Text;
+                    string nombre = txtNombreDeProducto.Text;
+                    Run r = new Run(texto);
+                    Run a = new Run(nombre);
+                    string union = nombre + "  " + texto;
+                    Paragraph parrafo = new Paragraph();
+                    parrafo.Inlines.Add(a);
+                    
+                    parrafo.Inlines.Add(r);
+                    FlowDocument doc = new FlowDocument(parrafo);
+                    doc.PagePadding = new Thickness(100);
+                    dialog.PrintDocument(((IDocumentPaginatorSource)doc).DocumentPaginator, union);
+                    
         
+                    return;
+                }
+            }
+            else if(respuesta == MessageDialogResult.Negative){
+                return;
+            }
+        }
     }
  }
 

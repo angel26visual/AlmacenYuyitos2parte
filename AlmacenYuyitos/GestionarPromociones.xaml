@@ -8,12 +8,12 @@
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
-        Title="Gestionar Promociones - Los Yuyitos" Height="503.836" Width="1516.777">
-    <Grid Margin="0,0,0,-181.6">
-        <Label Content="Id Promoción:" HorizontalAlignment="Left" Margin="47,49,0,0" VerticalAlignment="Top"/>
+        Title="Gestionar Promociones - Los Yuyitos" Height="556.636" Width="1516.777" ResizeMode="NoResize">
+    <Grid Margin="0,0,0.4,12.4">
+        <Label Content="Id Promoción:" HorizontalAlignment="Left" Margin="58,31,0,0" VerticalAlignment="Top"/>
         <Label Content="Imagen Promoción:" HorizontalAlignment="Left" Margin="20,98,0,0" VerticalAlignment="Top"/>
-        <Label Content="Fecha de Inicio:" HorizontalAlignment="Left" Margin="41,200,0,0" VerticalAlignment="Top"/>
-        <Label Content="Fecha de Término:" HorizontalAlignment="Left" Margin="26,258,0,0" VerticalAlignment="Top"/>
+        <Label Content="Fecha de Inicio:" HorizontalAlignment="Left" Margin="52,252,0,0" VerticalAlignment="Top"/>
+        <Label Content="Fecha de Término:" HorizontalAlignment="Left" Margin="37,310,0,0" VerticalAlignment="Top"/>
         <Label Content="Cantidad de Producto:" HorizontalAlignment="Left" Margin="416,50,0,0" VerticalAlignment="Top"/>
         <Label Content="Porcentaje de Descuento:" HorizontalAlignment="Left" Margin="405,103,0,0" VerticalAlignment="Top"/>
         <Label Content="Tipo de Producto:" HorizontalAlignment="Left" Margin="448,211,0,0" VerticalAlignment="Top"/>
@@ -21,15 +21,15 @@
         <TextBox x:Name="txtIdPromocion" 
                 HorizontalAlignment="Left" 
                  Height="40"
-                 Margin="141,44,0,0" 
+                 Margin="152,26,0,0" 
                  TextWrapping="Wrap" 
                  VerticalAlignment="Top"
                  Width="172"
                  
                  mah:TextBoxHelper.Watermark="Ingrese ID de Promoción"
                  mah:TextBoxHelper.UseFloatingWatermark="True"/>
-        <DatePicker x:Name="dpFechaDeInicio" HorizontalAlignment="Left" Margin="140,196,0,0" Height="40" Width="172" VerticalAlignment="Top"/>
-        <DatePicker x:Name="dpFechaTermino" HorizontalAlignment="Left" Margin="138,248,0,0" VerticalAlignment="Top" Height="40" Width="172"/>
+        <DatePicker x:Name="dpFechaDeInicio" HorizontalAlignment="Left" Margin="151,248,0,0" Height="40" Width="172" VerticalAlignment="Top"/>
+        <DatePicker x:Name="dpFechaTermino" HorizontalAlignment="Left" Margin="149,300,0,0" VerticalAlignment="Top" Height="40" Width="172"/>
         <TextBox x:Name="txtCantidadDeProductos" 
                  HorizontalAlignment="Left" 
                  Height="40"
@@ -53,10 +53,10 @@
         <ComboBox x:Name="cboTipoDeProducto" HorizontalAlignment="Left" Margin="561,204,0,0" VerticalAlignment="Top" Width="172" Height="40" Loaded="cboTipoDeProducto_Loaded"/>
         <ComboBox x:Name="cboTipoDePromocion" HorizontalAlignment="Left" Margin="564,260,0,0" VerticalAlignment="Top" Width="172" Height="40" Loaded="cboTipoDePromocion_Loaded"/>
         <Label Content="%" HorizontalAlignment="Left" Margin="620,105,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.362,0.087"/>
-        <Image Source="/resources/logo.png" Margin="268,292,467.4,153" />
+        <Image Source="/resources/logo.png" Margin="465,341,414,-3.2" />
         <Button x:Name="btnAgregarPromocion" 
                 Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
-                Margin="317,393,1153.4,223"
+                Margin="275,471,1195,3.8"
                 Width="40" 
                 Height="40"
                 Cursor="Hand"
@@ -69,7 +69,7 @@
         </Button>
         <Button x:Name="btnModificarPromocion" 
                   Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
-                Margin="259,393,1211.4,223"
+                Margin="159,470,1311,4.8"
                 Width="40" 
                 Height="40"
                 Cursor="Hand"
@@ -83,7 +83,7 @@
         </Button>
         <Button x:Name="btnEliminarPromocion" 
                 Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
-                Margin="203,393,1267.4,223"
+                Margin="219,470,1251,4.8"
                 Width="40" 
                 Height="40"
                 Cursor="Hand"
@@ -96,7 +96,7 @@
         </Button>
         <Button x:Name="btnLimpiarCampos" 
                  Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
-                Margin="147,394,1323.4,222"
+                Margin="102,470,1368,4.8"
                 Width="40" 
                 Height="40"
                 Cursor="Hand"
@@ -121,8 +121,8 @@
 
 
         </Button>
-        <Label Content="Descripción Promoción:" HorizontalAlignment="Left" Margin="-6,325,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtDescripcion" HorizontalAlignment="Left" Height="53" Margin="139,327,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="169" RenderTransformOrigin="-1.682,0.191"/>
+        <Label Content="Descripción Promoción:" HorizontalAlignment="Left" Margin="5,377,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtDescripcion" HorizontalAlignment="Left" Height="53" Margin="150,379,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="169" RenderTransformOrigin="-1.682,0.191"/>
         <Label Content="Descuento Efectivo:" HorizontalAlignment="Left" Margin="437,161,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtDescEfectivo"
                  HorizontalAlignment="Left" 
@@ -137,7 +137,21 @@
                  />
         <DataGrid x:Name="dgPromociones" HorizontalAlignment="Left" Height="243" Margin="774,46,0,0" VerticalAlignment="Top" Width="641" Loaded="dgPromociones_Loaded" SelectionChanged="dgPromociones_SelectionChanged"/>
 
+        <Image x:Name="imgFoto" HorizontalAlignment="Left" Height="151" Margin="175,81,0,0" VerticalAlignment="Top" Width="108" OpacityMask="Black"/>
+        <Button x:Name="btnCargarImagen" Content="CARGAR IMAGEN" HorizontalAlignment="Left" Margin="31,134,0,0" VerticalAlignment="Top" Width="99" Click="btnCargarImagen_Click"/>
+        <Button x:Name="btnVolver"
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                Margin="1373,471,97,3.8"
+                Width="40" 
+                Height="40"
+                Cursor="Hand"
+                
+                ToolTip="Volver al Menú Principal"  >
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="Return" />
 
+        </Button>
 
     </Grid>
 </mah:MetroWindow>

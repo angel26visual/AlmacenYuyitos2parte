@@ -17,6 +17,7 @@ using System.Configuration;
 using MahApps.Metro.Controls.Dialogs;
 using System.Data;
 using Microsoft.Win32;
+using System.IO;
 
 namespace AlmacenYuyitos
 {
@@ -25,6 +26,7 @@ namespace AlmacenYuyitos
     /// </summary>
     public partial class GestionarPromociones
     {
+        string ruta_imagen = null;
         OracleConnection con = null;
         public GestionarPromociones()
         {
@@ -135,13 +137,21 @@ namespace AlmacenYuyitos
 
         private async void btnAgregarPromocion_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                OracleCommand cmd = con.CreateCommand();
-                cmd.CommandType = CommandType.Text;
+
+                FileStream fs = new FileStream(ruta_imagen, FileMode.Open, FileAccess.Read);
+                 byte[] blob = new byte[fs.Length];
+                 fs.Read(blob, 0, Convert.ToInt32(fs.Length));
+                 fs.Close();
+                 OracleCommand cmd = con.CreateCommand();
+                 cmd.CommandType = CommandType.Text;
+                 cmd.BindByName = true;
+                  OracleParameter blobParameter = new OracleParameter();
+                 blobParameter.OracleDbType = OracleDbType.Blob;
+                 blobParameter.ParameterName = "FOTO";
+                 blobParameter.Value = blob;
 
                 cmd.Parameters.Add("ID_PROMOCION", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtIdPromocion.Text);
-
+                cmd.Parameters.Add(blobParameter);
                 cmd.Parameters.Add("FECHA_INICIO_PROMO", OracleDbType.Date).Value = dpFechaDeInicio.SelectedDate;
                 cmd.Parameters.Add("FECHA_FIN_PROMO", OracleDbType.Date).Value = dpFechaTermino.SelectedDate;
                 cmd.Parameters.Add("DESCRIP_PROMO", OracleDbType.Varchar2, 100).Value = txtDescripcion.Text;
@@ -152,7 +162,7 @@ namespace AlmacenYuyitos
                 cmd.Parameters.Add("TIPO_PROMOCION_ID_TIPOPROMO", OracleDbType.Int32, 20).Value = cboTipoDePromocion.SelectedValue;
 
                 cmd.CommandText = "INSERT INTO PROMOCION(ID_PROMOCION, IMAGEN_PROMO , FECHA_INICIO_PROMO , FECHA_FIN_PROMO , DESCRIP_PROMO , CANT_PRODUCTO, DESCUENTO_PORCENTAJE , DESCUENTO_EFECTIVO , TIPO_PRODUCTO_ID_TIPPRODUC , TIPO_PROMOCION_ID_TIPOPROMO)  VALUES" +
-                    "(:ID_PROMOCION, EMPTY_BLOB() ,:FECHA_INICIO_PROMO , :FECHA_FIN_PROMO , :DESCRIP_PROMO ,:CANT_PRODUCTO , :DESCUENTO_PORCENTAJE , :DESCUENTO_EFECTIVO , :TIPO_PRODUCTO_ID_TIPPRODUC , :TIPO_PROMOCION_ID_TIPOPROMO)";
+                    "(:ID_PROMOCION, :FOTO ,:FECHA_INICIO_PROMO , :FECHA_FIN_PROMO , :DESCRIP_PROMO ,:CANT_PRODUCTO , :DESCUENTO_PORCENTAJE , :DESCUENTO_EFECTIVO , :TIPO_PRODUCTO_ID_TIPPRODUC , :TIPO_PROMOCION_ID_TIPOPROMO)";
 
 
                 try
@@ -162,18 +172,15 @@ namespace AlmacenYuyitos
                     {
                         await this.ShowMessageAsync("Agregada", "Promocion se agregó correctamente");
                         Limpiar();
+                        this.ActualizarDataGrid();
                     }
                 }
                 catch (Exception ex)
                 {
                     await this.ShowMessageAsync("Error", ex.ToString());
                 }
-            }
-            catch (Exception ex)
-            {
-
-                await this.ShowMessageAsync("Error", ex.ToString());
-            }
+            
+          
 
         }
         public void Limpiar()
@@ -182,6 +189,8 @@ namespace AlmacenYuyitos
             txtCantidadDeProductos.Text = "";
             txtPorcentajeDescuento.Text = "";
             txtDescEfectivo.Text = "";
+            txtIdPromocion .Text= "";
+            
         }
 
         private void btnLimpiarCampos_Click(object sender, RoutedEventArgs e)
@@ -193,22 +202,42 @@ namespace AlmacenYuyitos
         {
             try
             {
+                FileStream fs = new FileStream(ruta_imagen, FileMode.Open, FileAccess.Read);
+                byte[] blob = new byte[fs.Length];
+                fs.Read(blob, 0, Convert.ToInt32(fs.Length));
+                fs.Close();
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
+                cmd.BindByName = true;
+                OracleParameter blobParameter = new OracleParameter();
+                blobParameter.OracleDbType = OracleDbType.Blob;
+                blobParameter.ParameterName = "FOTO";
+                blobParameter.Value = blob;
 
-                
+
 
                 cmd.Parameters.Add("FECHA_INICIO_PROMO", OracleDbType.Date).Value = dpFechaDeInicio.SelectedDate;
+                cmd.Parameters.Add(blobParameter);
                 cmd.Parameters.Add("FECHA_FIN_PROMO", OracleDbType.Date).Value = dpFechaTermino.SelectedDate;
-                cmd.Parameters.Add("DESCRIP_PROMO", OracleDbType.Varchar2, 100).Value = txtDescripcion.Text;
-                cmd.Parameters.Add("CANT_PRODUCTO", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtCantidadDeProductos.Text);
+                if (txtDescripcion.Text.Replace(" ", string.Empty).Length >= 3)
+                {
+                    cmd.Parameters.Add("DESCRIP_PROMO", OracleDbType.Varchar2, 100).Value = txtDescripcion.Text;
+                }
+                else
+                {
+                    await this.ShowMessageAsync("Error", "La descripción de la promoción debe tener mas de 3 caracteres!");
+                    btnAgregarPromocion.IsEnabled = true;
+                    return;
+
+                }
+                    cmd.Parameters.Add("CANT_PRODUCTO", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtCantidadDeProductos.Text);
                 cmd.Parameters.Add("DESCUENTO_PORCENTAJE", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtPorcentajeDescuento.Text);
                 cmd.Parameters.Add("DESCUENTO_EFECTIVO", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtDescEfectivo.Text);
                 cmd.Parameters.Add("TIPO_PRODUCTO_ID_TIPPRODUC", OracleDbType.Int32, 20).Value = cboTipoDeProducto.SelectedValue;
                 cmd.Parameters.Add("TIPO_PROMOCION_ID_TIPOPROMO", OracleDbType.Int32, 20).Value = cboTipoDePromocion.SelectedValue;
                 cmd.Parameters.Add("ID_PROMOCION", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtIdPromocion.Text);
 
-                cmd.CommandText = "UPDATE PROMOCION SET FECHA_INICIO_PROMO=:FECHA_INICIO_PROMO , FECHA_FIN_PROMO=:FECHA_FIN_PROMO , DESCRIP_PROMO=:DESCRIP_PROMO , CANT_PRODUCTO=:CANT_PRODUCTO, DESCUENTO_PORCENTAJE=:DESCUENTO_PORCENTAJE , DESCUENTO_EFECTIVO=:DESCUENTO_EFECTIVO , TIPO_PRODUCTO_ID_TIPPRODUC=:TIPO_PRODUCTO_ID_TIPPRODUC , TIPO_PROMOCION_ID_TIPOPROMO=:TIPO_PROMOCION_ID_TIPOPROMO WHERE ID_PROMOCION =:ID_PROOMOCION";
+                cmd.CommandText = "UPDATE PROMOCION SET IMAGEN_PROMO=:FOTO ,FECHA_INICIO_PROMO=:FECHA_INICIO_PROMO , FECHA_FIN_PROMO=:FECHA_FIN_PROMO , DESCRIP_PROMO=:DESCRIP_PROMO , CANT_PRODUCTO=:CANT_PRODUCTO, DESCUENTO_PORCENTAJE=:DESCUENTO_PORCENTAJE , DESCUENTO_EFECTIVO=:DESCUENTO_EFECTIVO , TIPO_PRODUCTO_ID_TIPPRODUC=:TIPO_PRODUCTO_ID_TIPPRODUC , TIPO_PROMOCION_ID_TIPOPROMO=:TIPO_PROMOCION_ID_TIPOPROMO WHERE ID_PROMOCION =:ID_PROMOCION";
 
 
 
@@ -293,6 +322,25 @@ namespace AlmacenYuyitos
             {
                 throw;
             }
+        }
+
+        private void btnCargarImagen_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Filter = "Archivos de imágen (.jpg)|*.jpg|All Files (*.*)|*.*";
+
+            openFileDialog1.FilterIndex = 1;
+            openFileDialog1.Multiselect = true;
+            bool? respuesta = openFileDialog1.ShowDialog();
+            ruta_imagen = openFileDialog1.FileName;
+            imgFoto.Source = new BitmapImage(new Uri(openFileDialog1.FileName));
+        }
+
+        private void btnVolver_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mw = new MainWindow();
+            mw.Show();
+            this.Close();
         }
     }
 }
