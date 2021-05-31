@@ -9,7 +9,7 @@
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
         Title="Gestionar Productos - Los Yuyitos" Height="621.766" Width="1444.124" ResizeMode="NoResize" Icon="resources/logo.png">
-    <Grid Background="Blue">
+    <Grid Background="DeepSkyBlue">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="154*"/>
             <ColumnDefinition Width="7*"/>
@@ -38,7 +38,7 @@
         <TextBox x:Name="txtNombreDeProducto"
                  HorizontalAlignment="Left" 
                  Height="40"
-                 Margin="153,108,0,0" 
+                 Margin="155,108,0,0" 
                  TextWrapping="Wrap" 
                  VerticalAlignment="Top"
                  Width="173"
@@ -62,13 +62,13 @@
         <TextBox x:Name="txtPrecioDeCompra"
                  HorizontalAlignment="Left" 
                  Height="40"
-                 Margin="152,158,0,0" 
+                 Margin="155,157,0,0" 
                  TextWrapping="Wrap" 
                  VerticalAlignment="Top"
                  Width="175"
                  
                  mah:TextBoxHelper.Watermark="Ingrese Precio de Compra"
-                 mah:TextBoxHelper.UseFloatingWatermark="True" Grid.ColumnSpan="3"
+                 mah:TextBoxHelper.UseFloatingWatermark="True" Grid.ColumnSpan="4"
                  
                  
                  />
@@ -106,7 +106,7 @@
         <TextBox x:Name="txtCodigoProducto"
                  HorizontalAlignment="Left" 
                  Height="40"
-                 Margin="154,59,0,0" 
+                 Margin="155,59,0,0" 
                  TextWrapping="Wrap" 
                  VerticalAlignment="Top"
                  Width="172"
@@ -148,12 +148,12 @@
                  
                  />
         <Label Content="Código de Barra de Producto:" Grid.Column="3" HorizontalAlignment="Left" Margin="9.357,192,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <Button x:Name="btnGenerarCodBarra"
+        <Button x:Name="btnGenerarCodProducto"
              Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
                 HorizontalAlignment="Left"
-                Margin="363.8,186,0,0"
+                Margin="7.4,59,0,0"
                 VerticalAlignment="Top" 
-                ToolTip="Generar Código de Barra de Producto"
+                ToolTip="Generar Código de Producto"
                 Width="40" Height="40" 
                 
                 Grid.Column="3">
@@ -164,7 +164,9 @@
         </Button>
         <Button x:Name="btnRegistrarProducto" 
             Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
-            Margin="10,433,67,124"
+            Margin="122.6,381,4.6,171"
+            Height="40"
+            Width="40"
             Cursor="Hand"
             ToolTip="Agregar Producto" Grid.Column="2" Click="btnRegistrarProducto_Click" >
             <iconPacks:PackIconModern
@@ -217,7 +219,18 @@
                 Kind="Return" />
         </Button>
 
-        <Button x:Name="btnCargarImagen" Content="Cargar Imagen" Grid.Column="3" HorizontalAlignment="Left" Margin="75.8,349,0,0" VerticalAlignment="Top" Width="91" Click="btnCargarImagen_Click"/>
+        <Button x:Name="btnCargarImagen" 
+                 Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+            Margin="121.4,374,946.6,178"
+            Width="40" 
+            Height="40"
+            Cursor="Hand"
+            ToolTip="Cargar Imagen" Grid.Column="3" Click="btnCargarImagen_Click">
+            <iconPacks:PackIconModern
+                Width="22" Height="22"
+                Kind="Image" />
+        </Button>
+
         <Image Grid.Column="3" x:Name="imgFoto" HorizontalAlignment="Left" Height="151" Margin="197.8,339,0,0" VerticalAlignment="Top" Width="108" OpacityMask="Black"/>
         <Label Content="Marca de Producto:" Grid.Column="3" HorizontalAlignment="Left" Margin="61.8,243,0,0" VerticalAlignment="Top" Foreground="White"/>
         <Label Content="Rut Proveedor:" Grid.Column="3" HorizontalAlignment="Left" Margin="84.8,303,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="White"/>
@@ -233,5 +246,21 @@
             Controls:TextBoxHelper.UseFloatingWatermark="True" Grid.Column="3"
                  
                  />
+        <Button x:Name="btnImprimir"
+              Click="btnImprimir_Click"
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                HorizontalAlignment="Left"
+                Margin="365.4,183,0,0"
+                VerticalAlignment="Top" 
+                ToolTip="Imprimir Código de Producto"
+                Width="40" Height="40" 
+                
+                Grid.Column="3">
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="Printer"/>
+
+
+        </Button>
     </Grid>
 </mah:MetroWindow>
