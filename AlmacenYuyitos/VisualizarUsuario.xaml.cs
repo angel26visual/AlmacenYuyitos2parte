@@ -143,6 +143,11 @@ namespace AlmacenYuyitos
 
         }
 
-
+        private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
+        {
+            Login log = new Login();
+            log.Show();
+            this.Close();
+        }
     }
 }

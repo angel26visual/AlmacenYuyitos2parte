@@ -2,21 +2,90 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
         Title="Visualizar Usuario - Los Yuyitos" Height="477.365" Width="822.804" ResizeMode="NoResize" Icon="resources/logo.png">
     <Grid Background="LightBlue">
         <Label Content="FILTRAR:" HorizontalAlignment="Left" Margin="93,108,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.622,-0.174"/>
-        <TextBox x:Name="txtFiltrarRut" HorizontalAlignment="Left" Height="23" Margin="152,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnBuscarPorRut" Content="BUSCAR RUT" HorizontalAlignment="Left" Margin="300,106,0,0" VerticalAlignment="Top" Width="99" Click="btnBuscarPorRut_Click"/>
-        <ComboBox x:Name="cboCargo" HorizontalAlignment="Left" Margin="468,106,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnFiltrarCargo" Content="FILTRAR POR CARGO" HorizontalAlignment="Left" Margin="618,104,0,0" VerticalAlignment="Top" Width="116" Click="btnFiltrarCargo_Click"/>
+        <TextBox x:Name="txtFiltrarRut"
+                  HorizontalAlignment="Left" 
+                 Height="40"
+                 Margin="151,102,0,0" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top"
+                 Width="140"
+                 
+                 mah:TextBoxHelper.Watermark="Ingrese Rut a Filtrar"
+                 mah:TextBoxHelper.UseFloatingWatermark="True"
+                 />
+        <Button x:Name="btnBuscarPorRut"
+                Click="btnBuscarPorRut_Click"
+                 Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                HorizontalAlignment="Left"
+                Margin="301,103,0,0"
+                VerticalAlignment="Top" 
+                Width="40" Height="40" 
+                ToolTip="Filtrar Por Rut">
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="MagnifyBrowse"/>
+
+        </Button>
+        <ComboBox x:Name="cboCargo" HorizontalAlignment="Left" Margin="468,101,0,0" VerticalAlignment="Top" Width="140" Height="40"/>
+        <Button x:Name="btnFiltrarCargo"
+                Click="btnFiltrarCargo_Click"
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                HorizontalAlignment="Left"
+                Margin="621,101,0,0"
+                VerticalAlignment="Top" 
+                Width="40" Height="40" 
+                ToolTip="Filtrar Por Cargo">
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="MagnifyBrowse"/>
+        </Button>
         <DataGrid x:Name="dgUsuarios" HorizontalAlignment="Left" Height="171" Margin="93,182,0,0" VerticalAlignment="Top" Width="641" IsReadOnly="True"/>
-        <Button x:Name="btnVerUsuario" Content="VER USUARIO" HorizontalAlignment="Left" Margin="32,411,0,0" VerticalAlignment="Top" Width="89" Click="btnVerUsuario_Click"/>
-        <Button x:Name="btnVolver" Content="VOLVER" HorizontalAlignment="Left" Margin="732,411,0,0" VerticalAlignment="Top" Width="75" Click="btnVolver_Click"/>
+        <Button x:Name="btnVerUsuario"
+                Click="btnVerUsuario_Click"
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                HorizontalAlignment="Left"
+                Margin="6,396,0,0"
+                VerticalAlignment="Top" 
+                Width="40" Height="40" 
+                ToolTip="Ver Usuario">
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="PageSearch"/>
+        </Button>
+        <Button x:Name="btnVolver" 
+                Click="btnVolver_Click"
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                HorizontalAlignment="Left"
+                Margin="768,396,0,0"
+                VerticalAlignment="Top" 
+                Width="40" Height="40" 
+                ToolTip="Volver">
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="Return"/>
+        </Button>
         <Image Source="/resources/logo.png" Margin="326,-19,327.8,342" />
+        <Button x:Name="btnCerrarSesion" 
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                HorizontalAlignment="Left"
+                Margin="768,9,0,0"
+                VerticalAlignment="Top" 
+                Width="40" Height="40" 
+                ToolTip="Cerrar Sesion" Click="btnCerrarSesion_Click">
+             <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="User"/>
+        </Button>
 
 
     </Grid>

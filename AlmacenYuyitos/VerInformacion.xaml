@@ -3,27 +3,127 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
         Title="Ver Informacion de Deuda - Los Yuyitos" Height="450" Width="450.338" Icon="resources/logo.png" ResizeMode="NoResize">
     <Grid Background="LightBlue">
-        <Label Content="Rut del Cliente:" HorizontalAlignment="Left" Margin="97,95,0,0" VerticalAlignment="Top"/>
-        <Label Content="Número de Boleta:" HorizontalAlignment="Left" Margin="78,126,0,0" VerticalAlignment="Top"/>
-        <Label Content="ID Deuda:" HorizontalAlignment="Left" Margin="124,157,0,0" VerticalAlignment="Top"/>
-        <Label Content="Fecha de Deuda:" HorizontalAlignment="Left" Margin="89,188,0,0" VerticalAlignment="Top"/>
-        <Label Content="Monto de Deuda:" HorizontalAlignment="Left" Margin="84,219,0,0" VerticalAlignment="Top"/>
-        <Label Content="Estado:" HorizontalAlignment="Left" Margin="139,250,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtRutlienteDeuda" HorizontalAlignment="Left" Height="23" Margin="212,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
-        <TextBox x:Name="txtNumeroDeBoleta" HorizontalAlignment="Left" Height="23" Margin="212,126,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtDeudaId" HorizontalAlignment="Left" Height="23" Margin="212,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
-        <DatePicker x:Name="dpFechaDeuda" HorizontalAlignment="Left" Margin="212,183,0,0" VerticalAlignment="Top" Width="120" Height="31"/>
-        <TextBox x:Name="txtMontoDeuda" HorizontalAlignment="Left" Height="23" Margin="212,219,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <ComboBox x:Name="cboEstado" HorizontalAlignment="Left" Margin="212,250,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnModificarDeuda" Content="MODIFICAR" HorizontalAlignment="Left" Margin="139,308,0,0" VerticalAlignment="Top" Width="75" Click="btnModificarDeuda_Click"/>
-        <Button x:Name="btnEliminarDeuda" Content="ELIMINAR" HorizontalAlignment="Left" Margin="257,308,0,0" VerticalAlignment="Top" Width="75" Click="btnEliminarDeuda_Click"/>
-        <Button x:Name="btnVolver" Content="VOLVER" HorizontalAlignment="Left" Margin="359,358,0,0" VerticalAlignment="Top" Width="75" Click="btnVolver_Click"/>
-        <Button x:Name="btnCerrarSesion" Content="CERRAR SESIÓN" HorizontalAlignment="Left" Margin="338,10,0,0" VerticalAlignment="Top" Width="96" Click="btnCerrarSesion_Click"/>
+        <Label Content="Rut del Cliente:" HorizontalAlignment="Left" Margin="91,80,0,0" VerticalAlignment="Top"/>
+        <Label Content="Número de Boleta:" HorizontalAlignment="Left" Margin="74,122,0,0" VerticalAlignment="Top"/>
+        <Label Content="ID Deuda:" HorizontalAlignment="Left" Margin="119,170,0,0" VerticalAlignment="Top"/>
+        <Label Content="Fecha de Deuda:" HorizontalAlignment="Left" Margin="85,221,0,0" VerticalAlignment="Top"/>
+        <Label Content="Monto de Deuda:" HorizontalAlignment="Left" Margin="80,267,0,0" VerticalAlignment="Top"/>
+        <Label Content="Estado:" HorizontalAlignment="Left" Margin="135,317,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtRutlienteDeuda" 
+                 HorizontalAlignment="Left" 
+                 Height="40"
+                 Margin="186,72,0,0" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top"
+                 Width="166"
+                 
+                 mah:TextBoxHelper.Watermark="Rut Cliente"
+                 mah:TextBoxHelper.UseFloatingWatermark="True"
+                 />
+        <TextBox x:Name="txtNumeroDeBoleta" 
+                 HorizontalAlignment="Left" 
+                 Height="40"
+                 Margin="187,118,0,0" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top"
+                 Width="166"
+                 
+                 mah:TextBoxHelper.Watermark="Número de Boleta"
+                 mah:TextBoxHelper.UseFloatingWatermark="True"
+                 
+                 
+                 />
+        <TextBox x:Name="txtDeudaId" 
+                 HorizontalAlignment="Left" 
+                 Height="40"
+                 Margin="187,168,0,0" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top"
+                 Width="166"
+                 
+                 mah:TextBoxHelper.Watermark="ID deuda"
+                 mah:TextBoxHelper.UseFloatingWatermark="True"
+                 
+                 />
+        <DatePicker x:Name="dpFechaDeuda" HorizontalAlignment="Left" Margin="189,216,0,0" VerticalAlignment="Top" Width="166" Height="40"/>
+        <TextBox x:Name="txtMontoDeuda" 
+                 HorizontalAlignment="Left" 
+                 Height="40"
+                 Margin="189,262,0,0" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top"
+                 Width="166"
+                 
+                 mah:TextBoxHelper.Watermark="Monto de Deuda"
+                 mah:TextBoxHelper.UseFloatingWatermark="True"
+                 
+                 />
+        <ComboBox x:Name="cboEstado" HorizontalAlignment="Left" Margin="189,311,0,0" VerticalAlignment="Top" Width="166" Height="40"/>
+        <Button x:Name="btnModificarDeuda" 
+                Click="btnModificarDeuda_Click"
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                HorizontalAlignment="Left"
+                Margin="281,364,0,0"
+                VerticalAlignment="Top" 
+                Width="40" Height="40" 
+                ToolTip="Modificar Deuda">
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="New"/>
+
+
+        </Button>
+        <Button x:Name="btnEliminarDeuda"
+                Click="btnEliminarDeuda_Click"
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                HorizontalAlignment="Left"
+                Margin="207,365,0,0"
+                VerticalAlignment="Top" 
+                Width="40" Height="40" 
+                ToolTip="Eliminar Deuda">
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="Return"/>
+
+
+
+        </Button>
+        <Button x:Name="btnVolver"
+                Click="btnVolver_Click"
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                HorizontalAlignment="Left"
+                Margin="396,367,0,0"
+                VerticalAlignment="Top" 
+                Width="40" Height="40" 
+                ToolTip="Volver">
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="Return"/>
+
+
+        </Button>
+
+        <Button x:Name="btnCerrarSesion" 
+                Click="btnCerrarSesion_Click"
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                HorizontalAlignment="Left"
+                Margin="397,7,0,0"
+                VerticalAlignment="Top" 
+                Width="40" Height="40" 
+                ToolTip="Cerrar Sesión">
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="Delete"/>
+
+
+        </Button>
 
     </Grid>
 </mah:MetroWindow>
