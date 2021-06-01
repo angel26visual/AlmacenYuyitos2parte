@@ -25,13 +25,13 @@
 
 
         </Button>
-        <Label Content="Rut:" HorizontalAlignment="Left" Margin="110,39,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <Label Content="Nombre:" HorizontalAlignment="Left" Margin="84,84,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <Label Content="Dirección:" HorizontalAlignment="Left" Margin="75,129,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.16,0.499" Foreground="White"/>
-        <Label Content="Teléfono de Contato 1:" HorizontalAlignment="Left" Margin="11,174,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <Label Content="Teléfono de Contacto 2:" HorizontalAlignment="Left" Margin="4,225,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <Label Content="Nombre del Servidor:" HorizontalAlignment="Left" Margin="9,278,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <Label Content="Teléfono del Servidor:" HorizontalAlignment="Left" Margin="7,323,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Rut:" HorizontalAlignment="Left" Margin="126,46,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Nombre:" HorizontalAlignment="Left" Margin="107,92,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Dirección:" HorizontalAlignment="Left" Margin="102,137,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.16,0.499" Foreground="White"/>
+        <Label Content="Teléfono de Contato 1 (+56):" HorizontalAlignment="Left" Margin="1,178,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Teléfono de Contacto 2 (+56):" HorizontalAlignment="Left" Margin="-2,225,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Nombre del Servidor:" HorizontalAlignment="Left" Margin="37,278,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Teléfono del Servidor(+56):" HorizontalAlignment="Left" Margin="7,323,0,0" VerticalAlignment="Top" Foreground="White"/>
         <TextBox x:Name="txtRutProveedor"
                  HorizontalAlignment="Left" 
                  Height="40"
