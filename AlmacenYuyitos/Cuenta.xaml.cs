@@ -34,7 +34,7 @@ namespace AlmacenYuyitos
             this.setConnection();
             InitializeComponent();
             actualizarEstadoC();
-            String sql = "SELECT RUT_TRAB, NOMBRE_TRAB, APELLIDO_TRAB, CORREO, NOM_USUARIO, ESTADO_CIVIL_ID_ESTAC FROM TRABAJADOR WHERE NOM_USUARIO = :USUARIO";
+            String sql = "SELECT NOMBRE_TRAB, APELLIDO_TRAB, CORREO, NOM_USUARIO, ESTADO_CIVIL_ID_ESTAC, CARGO_TRABAJADOR_ID_CARGO FROM TRABAJADOR WHERE NOM_USUARIO = :USUARIO";
             this.AUD(sql, 0);
         }
 
@@ -67,6 +67,7 @@ namespace AlmacenYuyitos
                         OracleDataReader reader = cmd.ExecuteReader();
                         if (reader.Read())
                         {
+                            btnCuenta.Content = "Bienvenido/a " + reader["NOMBRE_TRAB"] + " " + reader["APELLIDO_TRAB"];
                             txtNombre.Text = reader["NOMBRE_TRAB"].ToString();
                             txtApellido.Text = reader["APELLIDO_TRAB"].ToString();
                             txtMail.Text = reader["CORREO"].ToString();
@@ -76,7 +77,7 @@ namespace AlmacenYuyitos
                         }
                         else
                         {
-                            await this.ShowMessageAsync("Información de contacto", "No se a podido traer la información");
+                            await this.ShowMessageAsync("Información de contacto", "No se a podido traer la información del usuario");
                         }
 
                         break;
@@ -220,15 +221,23 @@ namespace AlmacenYuyitos
             this.AUD(sql, 2);
         }
 
-
-
-
-
-
-
-        /*private void cboEstadoCivil_Loaded(object sender, RoutedEventArgs e)
+        private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
         {
-            actualizarEstadoC();
-        }*/
+            Login login = new Login();
+            login.Show();
+            this.Close();
+        }
+
+        private void btnCuenta_Click(object sender, RoutedEventArgs e)
+        {
+            if (cuentaFlyouts.IsOpen == true)
+            {
+                cuentaFlyouts.IsOpen = false;
+            }
+            else
+            {
+                cuentaFlyouts.IsOpen = true;
+            }
+        }
     }
 }

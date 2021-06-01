@@ -25,6 +25,8 @@ namespace AlmacenYuyitos
     /// </summary>
     public partial class ModyElmUsuario
     {
+        public string nomUsuario { get; set; }
+        public int Cargo { get; set; }
         OracleConnection con = null;
         public ModyElmUsuario()
         {
@@ -32,6 +34,7 @@ namespace AlmacenYuyitos
             InitializeComponent();
             ActualizarCargo();
             ActualizarEstado();
+            DatosUsuarios();
         }
         private void setConnection()
         {
@@ -44,6 +47,33 @@ namespace AlmacenYuyitos
             }
             catch (Exception exp) { }
         }
+
+        private async void DatosUsuarios()
+        {
+            OracleCommand cmd = con.CreateCommand();
+            cmd.CommandText = "SELECT NOMBRE_TRAB, APELLIDO_TRAB, CARGO_TRABAJADOR_ID_CARGO FROM TRABAJADOR WHERE NOM_USUARIO = :USUARIO";
+            cmd.CommandType = CommandType.Text;
+            try
+            {
+                cmd.Parameters.Add("USUARIO", OracleDbType.Varchar2, 100).Value = nomUsuario.ToString();
+                OracleDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    btnCuenta.Content = "Bienvenido/a " + reader["NOMBRE_TRAB"] + " " + reader["APELLIDO_TRAB"];
+                    Cargo = int.Parse(reader["CARGO_TRABAJADOR_ID_CARGO"].ToString());
+                }
+                else
+                {
+                    await this.ShowMessageAsync("Información de contacto", "No se a podido traer la información del usuario");
+                }
+            }
+            catch (Exception)
+            {
+
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
+        }
+
         private void ActualizarCargo()
         {
             try
@@ -103,6 +133,7 @@ namespace AlmacenYuyitos
         {
             VisualizarUsuario vu = new VisualizarUsuario();
             vu.Show();
+            vu.nomUsuario = nomUsuario;
             this.Close();
         }
 
@@ -194,6 +225,18 @@ namespace AlmacenYuyitos
             {
 
                 throw;
+            }
+        }
+
+        private void btnCuenta_Click(object sender, RoutedEventArgs e)
+        {
+            if (cuentaFlyouts.IsOpen == true)
+            {
+                cuentaFlyouts.IsOpen = false;
+            }
+            else
+            {
+                cuentaFlyouts.IsOpen = true;
             }
         }
     }

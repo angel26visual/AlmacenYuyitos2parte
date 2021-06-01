@@ -43,6 +43,7 @@ namespace AlmacenYuyitos
         {
             GestionarUsuarios gu = new GestionarUsuarios();
             gu.Show();
+            gu.nomUsuario = nomUsuario;
             this.Close();
             
         }
@@ -113,7 +114,14 @@ namespace AlmacenYuyitos
 
         private void btnCuenta_Click(object sender, RoutedEventArgs e)
         {
-            cuentaFlyouts.IsOpen = true;
+            if (cuentaFlyouts.IsOpen == true){
+                cuentaFlyouts.IsOpen = false;
+            }
+            else
+            {
+                cuentaFlyouts.IsOpen = true;
+            }
+            
         }
     }
 }

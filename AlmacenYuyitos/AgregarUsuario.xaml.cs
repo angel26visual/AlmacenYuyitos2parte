@@ -15,12 +15,40 @@ namespace AlmacenYuyitos
     public partial class AgregarUsuario
     {
         OracleConnection con = null;
+        public string nomUsuario { get; set; }
+        public int Cargo { get; set; }
         public AgregarUsuario()
         {
             this.setConnection();
             InitializeComponent();
             ActualizarCargo();
             ActualizarEstado();
+        }
+
+        private async void DatosUsuarios()
+        {
+            OracleCommand cmd = con.CreateCommand();
+            cmd.CommandText = "SELECT NOMBRE_TRAB, APELLIDO_TRAB, CARGO_TRABAJADOR_ID_CARGO FROM TRABAJADOR WHERE NOM_USUARIO = :USUARIO";
+            cmd.CommandType = CommandType.Text;
+            try
+            {
+                cmd.Parameters.Add("USUARIO", OracleDbType.Varchar2, 100).Value = nomUsuario.ToString();
+                OracleDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    btnCuenta.Content = "Bienvenido/a " + reader["NOMBRE_TRAB"] + " " + reader["APELLIDO_TRAB"];
+                    Cargo = int.Parse(reader["CARGO_TRABAJADOR_ID_CARGO"].ToString());
+                }
+                else
+                {
+                    await this.ShowMessageAsync("Información de contacto", "No se a podido traer la información del usuario");
+                }
+            }
+            catch (Exception)
+            {
+
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
         }
 
         private void btnVolver_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -262,6 +290,17 @@ namespace AlmacenYuyitos
             txtContrasena.Password = string.Empty;
         }
 
+        private void btnCuenta_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (cuentaFlyouts.IsOpen == true)
+            {
+                cuentaFlyouts.IsOpen = false;
+            }
+            else
+            {
+                cuentaFlyouts.IsOpen = true;
+            }
+        }
     }
 }
 
