@@ -24,7 +24,7 @@ namespace AlmacenYuyitos
     /// <summary>
     /// Lógica de interacción para RegistrarPedidoDelivery.xaml
     /// </summary>
-    public partial class RegistrarPedidoDelivery 
+    public partial class RegistrarPedidoDelivery
     {
         OracleConnection con = null;
         public string nomUsusario { get; set; }
@@ -473,3 +473,4 @@ namespace AlmacenYuyitos
         }
     }
 }
+

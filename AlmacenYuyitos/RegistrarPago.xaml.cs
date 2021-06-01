@@ -23,7 +23,7 @@ namespace AlmacenYuyitos
     /// <summary>
     /// Lógica de interacción para RegistrarPago.xaml
     /// </summary>
-    public partial class RegistrarPago 
+    public partial class RegistrarPago
     {
         OracleConnection con = null;
         public string nomUsusario { get; set; }
@@ -64,7 +64,7 @@ namespace AlmacenYuyitos
         }
 
         private async void btnRealizarPago_Click(object sender, RoutedEventArgs e)
-        {   
+        {
             if (checkFiado.IsChecked == true)
             {
                 if (VerificarClienteflyouts.IsOpen == true)
@@ -92,7 +92,7 @@ namespace AlmacenYuyitos
                     cmd.Parameters.Add("MONTO", OracleDbType.Int32, 30).Value = monto_total;
                     cmd.Parameters.Add("MONTOPAGO", OracleDbType.Int32, 20).Value = int.Parse(txtPago.Text);
                     cmd.Parameters.Add("RUTTRAB", OracleDbType.Varchar2, 20).Value = rutTrab;
-                    cmd.Parameters.Add("MEDIOPAGO", OracleDbType.Int32, 20).Value = cboMedioPago.SelectedValue;                    
+                    cmd.Parameters.Add("MEDIOPAGO", OracleDbType.Int32, 20).Value = cboMedioPago.SelectedValue;
                     int n = cmd.ExecuteNonQuery();
                     if (n > 0)
                     {
@@ -123,7 +123,7 @@ namespace AlmacenYuyitos
                 int cantidadVieja = 0;
                 int cantidadNueva = 0;
                 int productoEnlista = 0;
-                if(int.Parse(txtCantidad.Text) > 0)
+                if (int.Parse(txtCantidad.Text) > 0)
                 {
                     OracleCommand cmd = con.CreateCommand();
                     cmd.CommandText = "SELECT STOCK, NOMBRE_PRODUCT, PRECIO_VENTA, TIPO_PRODUCTO_ID_TIPPRODUC AS TIPO FROM PRODUCTO WHERE CODIGO_PRODUCTO = :CODIGO";
@@ -165,25 +165,25 @@ namespace AlmacenYuyitos
                         if (productoEnlista == 0)
                         {
                             if (int.Parse(reader["STOCK"].ToString()) >= int.Parse(txtCantidad.Text))
-                                {
-                                    nombre = reader["NOMBRE_PRODUCT"].ToString();
-                                    precio = int.Parse(reader["PRECIO_VENTA"].ToString());
-                                    total = total + (precio * int.Parse(txtCantidad.Text));
-                                    tipo = int.Parse(reader["TIPO"].ToString());
-                                    Detalle_boleta detalle_Boleta = new Detalle_boleta(int.Parse(txtNroBoleta.Text), int.Parse(txtCodigoProducto.Text), nombre, int.Parse(txtCantidad.Text), precio);
-                                    listDboleta.Add(detalle_Boleta);
-                                    dgVerProductos.ItemsSource = null;
-                                    dgVerProductos.ItemsSource = listDboleta;
-                                    cantidadNueva = int.Parse(txtCantidad.Text);
-                                    CalcularPromocionTipo(tipo, precio);
-                                    CalcularPromocionCantidad(tipo, precio, cantidadVieja, cantidadNueva);
-                                    txtTotalVenta.Text = (int.Parse(txtTotalVenta.Text) + total).ToString();
-                                    monto_total = monto_total + total;
-                                }
-                                else
-                                {
-                                    await this.ShowMessageAsync("PRODUCTO", "Producto con stock insuficiente");
-                                }
+                            {
+                                nombre = reader["NOMBRE_PRODUCT"].ToString();
+                                precio = int.Parse(reader["PRECIO_VENTA"].ToString());
+                                total = total + (precio * int.Parse(txtCantidad.Text));
+                                tipo = int.Parse(reader["TIPO"].ToString());
+                                Detalle_boleta detalle_Boleta = new Detalle_boleta(int.Parse(txtNroBoleta.Text), int.Parse(txtCodigoProducto.Text), nombre, int.Parse(txtCantidad.Text), precio);
+                                listDboleta.Add(detalle_Boleta);
+                                dgVerProductos.ItemsSource = null;
+                                dgVerProductos.ItemsSource = listDboleta;
+                                cantidadNueva = int.Parse(txtCantidad.Text);
+                                CalcularPromocionTipo(tipo, precio);
+                                CalcularPromocionCantidad(tipo, precio, cantidadVieja, cantidadNueva);
+                                txtTotalVenta.Text = (int.Parse(txtTotalVenta.Text) + total).ToString();
+                                monto_total = monto_total + total;
+                            }
+                            else
+                            {
+                                await this.ShowMessageAsync("PRODUCTO", "Producto con stock insuficiente");
+                            }
                         }
 
                     }
@@ -200,9 +200,9 @@ namespace AlmacenYuyitos
             catch (Exception)
             {
 
-                await this.ShowMessageAsync("Error", "Ha ocurrido un error"); 
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
             }
-            
+
         }
 
         private async void CalcularPromocionTipo(int tipo, int precio)
@@ -237,7 +237,7 @@ namespace AlmacenYuyitos
         {
             int porcentaje = 0;
             int efectivo = 0;
-            try 
+            try
             {
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandText = "SELECT NVL(SUM(DESCUENTO_PORCENTAJE)/100, 0) AS PORCENTAJE, NVL(SUM(DESCUENTO_EFECTIVO), 0) AS EFECTIVO FROM PROMOCION WHERE FECHA_INICIO_PROMO <= :FECHA_INICIO AND FECHA_FIN_PROMO >= :FECHA_FIN AND TIPO_PRODUCTO_ID_TIPPRODUC = :TIPO_PRODUCTO AND CANT_PRODUCTO >= :CANTIDAD AND TIPO_PROMOCION_ID_TIPOPROMO = 2";
@@ -249,7 +249,7 @@ namespace AlmacenYuyitos
                 OracleDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
-                    if(cantidadVieja > 0)
+                    if (cantidadVieja > 0)
                     {
                         porcentaje = porcentaje + (precio * int.Parse(reader["PORCENTAJE"].ToString()));
                         efectivo = efectivo + int.Parse(reader["EFECTIVO"].ToString());
@@ -259,7 +259,7 @@ namespace AlmacenYuyitos
                         porcentaje = porcentaje + (precio * int.Parse(reader["PORCENTAJE"].ToString()));
                         efectivo = efectivo + int.Parse(reader["EFECTIVO"].ToString());
                     }
-                    
+
                 }
                 OracleCommand cmd3 = con.CreateCommand();
                 cmd3.CommandText = "SELECT NVL(SUM(DESCUENTO_PORCENTAJE)/100, 0) AS PORCENTAJE, NVL(SUM(DESCUENTO_EFECTIVO), 0) AS EFECTIVO FROM PROMOCION WHERE FECHA_INICIO_PROMO <= :FECHA_INICIO AND FECHA_FIN_PROMO >= :FECHA_FIN AND CANT_PRODUCTO >= :CANTIDAD AND TIPO_PROMOCION_ID_TIPOPROMO = 2 AND TIPO_PRODUCTO_ID_TIPPRODUC = NULL";
@@ -271,7 +271,7 @@ namespace AlmacenYuyitos
                 if (reader3.Read())
                 {
                     if (cantidadVieja > 0)
-                    { 
+                    {
                         porcentaje = porcentaje + (precio * int.Parse(reader3["PORCENTAJE"].ToString()));
                         efectivo = efectivo + int.Parse(reader3["EFECTIVO"].ToString());
                     }
@@ -382,7 +382,7 @@ namespace AlmacenYuyitos
 
                 await this.ShowMessageAsync("Error", "Ha ocurrido un error");
             }
-            
+
         }
 
         private async void cboMedioPago_Loaded(object sender, RoutedEventArgs e)
@@ -480,7 +480,7 @@ namespace AlmacenYuyitos
             {
                 await this.ShowMessageAsync("Error", "Ha ocurrido un error");
             }
-            
+
         }
 
         private async void btnVerificarCli_Click(object sender, RoutedEventArgs e)
@@ -506,7 +506,7 @@ namespace AlmacenYuyitos
 
                 await this.ShowMessageAsync("Error", "Ha ocurrido un error");
             }
-            
+
         }
 
         private async void btnVentaFiado_Click(object sender, RoutedEventArgs e)
@@ -546,3 +546,4 @@ namespace AlmacenYuyitos
         }
     }
 }
+

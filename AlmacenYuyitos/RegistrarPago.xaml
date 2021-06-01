@@ -45,7 +45,7 @@
                                             Kind="BookList"/>
 
                             </Button>
-                            
+
                         </StackPanel>
                         <StackPanel Orientation="Vertical">
                             <TextBox x:Name="txtNombreCliente" Margin="0,10,0,0"
@@ -70,7 +70,7 @@
 
                     </StackPanel>
                 </Grid>
-                
+
             </mah:Flyout>
         </mah:FlyoutsControl>
     </mah:MetroWindow.Flyouts>
@@ -125,7 +125,7 @@
                  Kind="ListReorder"  />
                 </Button>
             </StackPanel>
-            
+
         </StackPanel>
         <Button x:Name="btnVolver" Margin="714,415,40,24" 
                 Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Width="40" 
@@ -204,3 +204,4 @@
 
     </Grid>
 </mah:MetroWindow>
+
