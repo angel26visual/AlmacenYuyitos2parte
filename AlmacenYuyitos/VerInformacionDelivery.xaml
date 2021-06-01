@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
         Title="Ver Informacion Delivery - Los Yuyitos" Height="450" Width="800">
-    <Grid>
+    <Grid Background="LightBlue">
         <Label Content="Id Pedido:" HorizontalAlignment="Left" Margin="127,112,0,0" VerticalAlignment="Top"/>
         <Label Content="Número de Boleta:" HorizontalAlignment="Left" Margin="81,143,0,0" VerticalAlignment="Top"/>
         <Label Content="Fecha de Pedido:" HorizontalAlignment="Left" Margin="90,174,0,0" VerticalAlignment="Top"/>

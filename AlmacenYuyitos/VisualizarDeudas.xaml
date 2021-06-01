@@ -3,13 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
         Title="Visualizar Deudas - Los Yuyitos" Height="450" Width="800" Icon="resources/logo.png" ResizeMode="NoResize">
-    <Grid>
+    <Grid Background="LightBlue">
         <Image Source="/resources/logo.png" Width="120" Height="120" Margin="338,-17,335.6,317" />
-        <DataGrid x:Name="dtgDeudas" HorizontalAlignment="Left" Height="255" Margin="121,108,0,0" VerticalAlignment="Top" Width="556"/>
+        <DataGrid x:Name="dtgDeudas" HorizontalAlignment="Left" Height="255" Margin="121,108,0,0" VerticalAlignment="Top" Width="556" IsReadOnly="True"/>
         <Button x:Name="btnVolver" Content="VOLVER" HorizontalAlignment="Left" Margin="709,383,0,0" VerticalAlignment="Top" Width="75" Click="btnVolver_Click"/>
         <Button x:Name="btnVerInformacion" Content="VER INFORMACIÓN" HorizontalAlignment="Left" Margin="26,383,0,0" VerticalAlignment="Top" Width="118" Click="btnVerInformacion_Click"/>
         <Button x:Name="btnCerrarSesion" Content="CERRAR SESIÓN" HorizontalAlignment="Left" Margin="689,10,0,0" VerticalAlignment="Top" Width="95" Click="btnCerrarSesion_Click"/>

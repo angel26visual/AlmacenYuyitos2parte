@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
         Title="Gestionar Ventas - Los Yuyitos" Height="503.209" Width="800" ResizeMode="NoResize" Icon="resources/logo.png">
-    <Grid>
+    <Grid Background="LightBlue">
         <Button x:Name="btnRegistrarVenta" Content="REGISTRAR VENTA" HorizontalAlignment="Left" Margin="100,107,0,0" VerticalAlignment="Top" Width="250" Height="100" Background="DodgerBlue" Click="btnRegistrarVenta_Click">
             <Button.Effect>
                 <DropShadowEffect/>

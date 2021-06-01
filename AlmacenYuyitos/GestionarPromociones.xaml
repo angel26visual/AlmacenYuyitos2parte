@@ -9,7 +9,7 @@
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
         Title="Gestionar Promociones - Los Yuyitos" Height="556.636" Width="1516.777" ResizeMode="NoResize">
-    <Grid Margin="0,0,0.4,12.4">
+    <Grid Margin="0,0,0.4,0.2" Background="LightBlue">
         <Label Content="Id Promoción:" HorizontalAlignment="Left" Margin="58,31,0,0" VerticalAlignment="Top"/>
         <Label Content="Imagen Promoción:" HorizontalAlignment="Left" Margin="20,98,0,0" VerticalAlignment="Top"/>
         <Label Content="Fecha de Inicio:" HorizontalAlignment="Left" Margin="52,252,0,0" VerticalAlignment="Top"/>
@@ -135,7 +135,7 @@
                  mah:TextBoxHelper.Watermark="Ingrese Porcentaje de Descuento (Número):"
                  mah:TextBoxHelper.UseFloatingWatermark="True"
                  />
-        <DataGrid x:Name="dgPromociones" HorizontalAlignment="Left" Height="243" Margin="774,46,0,0" VerticalAlignment="Top" Width="641" Loaded="dgPromociones_Loaded" SelectionChanged="dgPromociones_SelectionChanged"/>
+        <DataGrid x:Name="dgPromociones" HorizontalAlignment="Left" Height="243" Margin="774,46,0,0" VerticalAlignment="Top" Width="641" Loaded="dgPromociones_Loaded" SelectionChanged="dgPromociones_SelectionChanged" IsReadOnly="True"/>
 
         <Image x:Name="imgFoto" HorizontalAlignment="Left" Height="151" Margin="175,81,0,0" VerticalAlignment="Top" Width="108" OpacityMask="Black"/>
         <Button x:Name="btnCargarImagen" Content="CARGAR IMAGEN" HorizontalAlignment="Left" Margin="31,134,0,0" VerticalAlignment="Top" Width="99" Click="btnCargarImagen_Click"/>

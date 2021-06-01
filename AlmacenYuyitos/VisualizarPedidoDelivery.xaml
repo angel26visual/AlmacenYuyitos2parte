@@ -7,14 +7,14 @@
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
         Title="Visualizar Pedido Delivery - Los Yuyitos" Height="450" Width="800" ResizeMode="NoResize" Icon="resources/logo.png">
-    <Grid>
+    <Grid Background="LightBlue">
         <Label Content="Fecha de Pedido:" HorizontalAlignment="Left" Margin="49,85,0,0" VerticalAlignment="Top"/>
         <DatePicker x:Name="dpFechaPedidoDelivery" HorizontalAlignment="Left" Margin="153,85,0,0" VerticalAlignment="Top" Width="105"/>
         <Button x:Name="btnFiltrarFechaDelivery" Content="FILTRAR" HorizontalAlignment="Left" Margin="263,85,0,0" VerticalAlignment="Top" Width="75"/>
         <Label Content="Fecha de Entrega:" HorizontalAlignment="Left" Margin="373,85,0,0" VerticalAlignment="Top"/>
         <DatePicker x:Name="dpFechaEntregaDelivery" HorizontalAlignment="Left" Margin="482,85,0,0" VerticalAlignment="Top" Width="112"/>
         <Button x:Name="btnFiltrarFechaEntrega" Content="FILTRAR" HorizontalAlignment="Left" Margin="599,83,0,0" VerticalAlignment="Top" Width="75"/>
-        <DataGrid x:Name="dgPedidosDelivery" HorizontalAlignment="Left" Height="237" Margin="49,116,0,0" VerticalAlignment="Top" Width="545" />
+        <DataGrid x:Name="dgPedidosDelivery" HorizontalAlignment="Left" Height="237" Margin="49,116,0,0" VerticalAlignment="Top" Width="545" IsReadOnly="True" />
         <Button x:Name="btnCerrarSesion" Content="CERRAR SESIÓN" HorizontalAlignment="Left" Margin="686,10,0,0" VerticalAlignment="Top" Width="98" Click="btnCerrarSesion_Click"/>
         <Button x:Name="btnVolver" Content="VOLVER" HorizontalAlignment="Left" Margin="709,385,0,0" VerticalAlignment="Top" Width="75" Click="btnVolver_Click"/>
         <Button x:Name="btnVerInfoDelivery" Content="VER INFORMACIÓN" HorizontalAlignment="Left" Margin="49,383,0,0" VerticalAlignment="Top" Width="120" Click="btnVerInfoDelivery_Click"/>

@@ -361,7 +361,7 @@ namespace AlmacenYuyitos
             this.Close();
         }
 
-        private void btnCargarImagen_Click(object sender, RoutedEventArgs e)
+        private async void btnCargarImagen_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             openFileDialog1.Filter = "Archivos de imágen (.jpg)|*.jpg|All Files (*.*)|*.*";
@@ -371,6 +371,8 @@ namespace AlmacenYuyitos
             bool? respuesta = openFileDialog1.ShowDialog();
             ruta_imagen = openFileDialog1.FileName;
             imgFoto.Source = new BitmapImage(new Uri(openFileDialog1.FileName));
+           
+            
 
         }
 

@@ -9,7 +9,7 @@
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
         Title="Gestionar Clientes - Los Yuyitos" Height="450" Width="800" ResizeMode="NoResize" Icon="resources/logo.png">
-    <Grid Background="Blue">
+    <Grid Background="LightBlue">
         <Button x:Name="btnCerrarSesion"
                 Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
                 Margin="724,5,29.6,375"
@@ -143,7 +143,7 @@
 
         </Button>
         <Button x:Name="btnDeudas" Content="VER DEUDAS" HorizontalAlignment="Left" Margin="324,358,0,0" VerticalAlignment="Top" Width="92" RenderTransformOrigin="0.191,0.544" Click="btnDeudas_Click"/>
-        <DataGrid x:Name="dgClientes" HorizontalAlignment="Left" Height="267" Margin="324,61,0,0" VerticalAlignment="Top" Width="442" Loaded="dgClientes_Loaded" SelectionChanged="dgClientes_SelectionChanged"/>
+        <DataGrid x:Name="dgClientes" HorizontalAlignment="Left" Height="267" Margin="324,61,0,0" VerticalAlignment="Top" Width="442" Loaded="dgClientes_Loaded" SelectionChanged="dgClientes_SelectionChanged" IsReadOnly="True"/>
         <Button x:Name="btnVolverAlMenu" 
                 
                 Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 

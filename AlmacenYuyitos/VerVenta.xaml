@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
         Title="Ver Venta - Los Yuyitos" Height="392.23" Width="800" Icon="resources/logo.png" ResizeMode="NoResize">
-    <Grid>
+    <Grid Background="LightBlue">
         <Label Content="Id Venta:" HorizontalAlignment="Left" Margin="128,121,0,0" VerticalAlignment="Top"/>
         <Label Content="Número de Boleta:" HorizontalAlignment="Left" Margin="75,152,0,0" VerticalAlignment="Top"/>
         <Label Content="Fecha de Venta:" HorizontalAlignment="Left" Margin="91,183,0,0" VerticalAlignment="Top"/>

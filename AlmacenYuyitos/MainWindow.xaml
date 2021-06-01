@@ -68,7 +68,7 @@
             </Button>
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
-    <Grid Margin="0,0,-6.2,-19.4" Background="Blue" >
+    <Grid Margin="0,0,-6.2,-19.4" Background="LightBlue" >
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="0*"/>
@@ -156,7 +156,6 @@
                 <DropShadowEffect/>
             </Button.Effect>
         </mah:Tile>
-        <Image Source="/resources/GestionUsuarios.png" Margin="-404,93,1641.4,296.8" />
 
     </Grid>
 </mah:MetroWindow>

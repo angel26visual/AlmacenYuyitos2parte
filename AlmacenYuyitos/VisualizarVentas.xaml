@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         Title="Visualizar Ventas - Los Yuyitos" Height="450" Width="800" Icon="resources/logo.png" ResizeMode="NoResize">
-    <Grid>
+    <Grid Background="LightBlue">
         <StackPanel Margin="84,68,65,280" Orientation="Horizontal">
             <DatePicker x:Name="txtFechaDeVenta" Margin="100,10,10,10"
                         mah:TextBoxHelper.Watermark="FECHA DE BOLETA"
@@ -43,7 +43,7 @@
             </Button>
 
         </StackPanel>
-        <DataGrid x:Name="dgVenta" HorizontalContentAlignment="Center" Margin="68,163,18,88" Width="707">
+        <DataGrid x:Name="dgVenta" HorizontalContentAlignment="Center" Margin="68,163,18,88" Width="707" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
