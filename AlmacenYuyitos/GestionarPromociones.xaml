@@ -146,7 +146,7 @@
                 Height="40"
                 Cursor="Hand"
                 
-                ToolTip="Volver al Menú Principal"  >
+                ToolTip="Volver al Menú Principal" Click="btnVolver_Click_1"  >
             <iconPacks:PackIconModern
                          Width="22" Height="22"
                          Kind="Return" />

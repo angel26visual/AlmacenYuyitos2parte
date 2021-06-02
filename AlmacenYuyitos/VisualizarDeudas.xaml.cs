@@ -72,11 +72,21 @@ namespace AlmacenYuyitos
             this.Close();
         }
 
-        private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
+        private async void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
         {
-            Login log = new Login();
-            log.Show();
-            this.Close();
+            MessageDialogResult respuesta = await this.ShowMessageAsync("Cerrar Sesión", "¿Desea cerrar Sesión?", MessageDialogStyle.AffirmativeAndNegative);
+
+            if (respuesta == MessageDialogResult.Affirmative)
+            {
+                await this.ShowMessageAsync("Éxito", "Usted ha cerrado sesión exitosamente");
+                Login log = new Login();
+                log.Show();
+                this.Close();
+            }
+            else
+            {
+                return;
+            }
         }
 
         private void btnVerInformacion_Click(object sender, RoutedEventArgs e)

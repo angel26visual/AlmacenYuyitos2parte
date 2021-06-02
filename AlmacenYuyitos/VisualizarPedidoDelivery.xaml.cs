@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Data;
-
+using MahApps.Metro.Controls.Dialogs;
 
 namespace AlmacenYuyitos
 {
@@ -32,11 +32,21 @@ namespace AlmacenYuyitos
         }
        
 
-        private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
+        private async void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
         {
-            Login log = new Login();
-            log.Show();
-            this.Close();
+            MessageDialogResult respuesta = await this.ShowMessageAsync("Cerrar Sesión", "¿Desea cerrar Sesión?", MessageDialogStyle.AffirmativeAndNegative);
+
+            if (respuesta == MessageDialogResult.Affirmative)
+            {
+                await this.ShowMessageAsync("Éxito", "Usted ha cerrado sesión exitosamente");
+                Login log = new Login();
+                log.Show();
+                this.Close();
+            }
+            else
+            {
+                return;
+            }
         }
 
         private void btnVolver_Click(object sender, RoutedEventArgs e)
