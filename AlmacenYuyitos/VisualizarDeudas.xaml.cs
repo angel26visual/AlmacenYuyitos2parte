@@ -83,8 +83,10 @@ namespace AlmacenYuyitos
             {
                 OracleCommand cmd = con.CreateCommand();
                 cmd.Parameters.Add("RUT", OracleDbType.Varchar2, 100).Value = rut;
-                cmd.CommandText = "SELECT id_deuda id, fech_deuda fecha , cliente_rut_cli rut, monto_deuda monto,e.descripcion_estadeuda estado , estado_deuda_id_estadeuda estado_id from deuda d join estado_deuda e on d.estado_deuda_id_estadeuda=e.id_estadeuda where cliente_rut_cli = :RUT";
-
+                cmd.CommandText = "SELECT cliente_rut_cli ,nro_boleta ,tipo_venta_id_tipventa ,fecha_venta ,monto_total , monto_pago , estado_deuda_id_estadeuda from boleta " +
+                    "" +
+                    "where tipo_venta_id_tipventa = 2 and cliente_rut_cli = :RUT";
+                
                 cmd.CommandType = CommandType.Text;
                 OracleDataReader dr = cmd.ExecuteReader();
                 DataTable dt = new DataTable();

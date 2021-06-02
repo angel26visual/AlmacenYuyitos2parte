@@ -89,7 +89,7 @@ namespace AlmacenYuyitos
                         break;
                     case 1:
                         cmd.Parameters.Add("CORREO", OracleDbType.Varchar2, 100).Value = txtMail.Text;
-                        cmd.Parameters.Add("estadocivil", OracleDbType.Int32, 10).Value = cboEstadoCivil.SelectedValue;
+                        cmd.Parameters.Add("estado_civil_id_estac", OracleDbType.Int32, 10).Value = cboEstadoCivil.SelectedValue;
                         cmd.Parameters.Add("RUT", OracleDbType.Varchar2, 9).Value = rut.ToString();
                         try
                         {
@@ -218,7 +218,7 @@ namespace AlmacenYuyitos
 
         private void btnModificar_Click(object sender, RoutedEventArgs e)
         {
-            String sql = "UPDATE TRABAJADOR SET CORRE0 = :CORREO, ESTADO_CIVIL_ID_ESTAC = :ESTADOCIVIL WHERE RUT_TRAB = :RUT";
+            String sql = "UPDATE TRABAJADOR SET CORRE0 = :CORREO, ESTADO_CIVIL_ID_ESTAC = :ESTADOCIVIL WHERE RUT_TRAB = :RUT_TRAB";
             this.AUD(sql, 1);
         }
 
