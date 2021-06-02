@@ -118,8 +118,9 @@ namespace AlmacenYuyitos
 
         private async void btnModificarDeuda_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
+            
+          
+                /*
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 if (dpFechaDeuda.SelectedDate != null)
@@ -155,11 +156,12 @@ namespace AlmacenYuyitos
             {
 
                 throw;
+            }*/
             }
-        }
 
         private async void btnEliminarDeuda_Click(object sender, RoutedEventArgs e)
-        {
+            {
+                /*
             try
             {
                 OracleCommand cmd = con.CreateCommand();
@@ -188,20 +190,20 @@ namespace AlmacenYuyitos
             {
 
                 throw;
+            } */
             }
-        }
 
-        private void btnCuenta_Click(object sender, RoutedEventArgs e)
-        {
-            if (cuentaFlyouts.IsOpen == true)
+            private void btnCuenta_Click(object sender, RoutedEventArgs e)
             {
-                cuentaFlyouts.IsOpen = false;
-            }
-            else
-            {
-                cuentaFlyouts.IsOpen = true;
+                if (cuentaFlyouts.IsOpen == true)
+                {
+                    cuentaFlyouts.IsOpen = false;
+                }
+                else
+                {
+                    cuentaFlyouts.IsOpen = true;
+                }
             }
         }
     }
-}
 

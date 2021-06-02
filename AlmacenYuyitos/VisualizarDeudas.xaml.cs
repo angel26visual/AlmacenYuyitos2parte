@@ -83,7 +83,7 @@ namespace AlmacenYuyitos
             {
                 OracleCommand cmd = con.CreateCommand();
                 cmd.Parameters.Add("RUT", OracleDbType.Varchar2, 100).Value = rut;
-                cmd.CommandText = "SELECT cliente_rut_cli ,nro_boleta ,tipo_venta_id_tipventa ,fecha_venta ,monto_total , monto_pago , estado_deuda_id_estadeuda from boleta " +
+                cmd.CommandText = "SELECT cliente_rut_cli ,nro_boleta ,tipo_venta_id_tipventa ,fecha_venta ,monto_total , monto_pago , monto_total-monto_pago montoadeudado , estado_deuda_id_estadeuda from boleta " +
                     "" +
                     "where tipo_venta_id_tipventa = 2 and cliente_rut_cli = :RUT";
                 
@@ -130,11 +130,13 @@ namespace AlmacenYuyitos
             DataRowView datos = dtgDeudas.SelectedItem as DataRowView;
             if (datos != null)
             {
-                vi.txtRutlienteDeuda.Text = datos["RUT"].ToString();
-                vi.txtDeudaId.Text = datos["ID"].ToString();
-                vi.dpFechaDeuda.Text = datos["FECHA"].ToString();
-                vi.txtMontoDeuda.Text = datos["MONTO"].ToString();
-                vi.cboEstado.SelectedValue = int.Parse(datos["ESTADO_ID"].ToString());
+                vi.txtRutlienteDeuda.Text = datos["CLIENTE_RUT_CLI"].ToString();
+                vi.txtNumeroDeBoleta.Text = datos["NRO_BOLETA"].ToString();
+                vi.txtTipoVenta.Text = datos["TIPO_VENTA_ID_TIPVENTA"].ToString();
+                vi.dpFechaDeuda.Text = datos["FECHA_VENTA"].ToString();
+                vi.txtMontoTotal.Text = datos["MONTO_TOTAL"].ToString();
+                vi.txtMontoPagado.Text = datos["MONTO_PAGO"].ToString();
+                vi.cboEstado.SelectedValue = int.Parse(datos["ESTADO_DEUDA_ID_ESTADEUDA"].ToString());
 
 
                 vi.Show();
