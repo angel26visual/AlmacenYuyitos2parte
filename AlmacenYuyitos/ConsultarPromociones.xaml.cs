@@ -25,14 +25,47 @@ namespace AlmacenYuyitos
     public partial class ConsultarPromociones
     {
         OracleConnection con = null;
-        public string nomUsusario { get; set; }
+        string nomUsuario = string.Empty;
+        int cargo = 0;
+        string nombre = string.Empty;
+        string apellido = string.Empty;
         DateTime date = DateTime.Today;
-        public ConsultarPromociones()
+        public ConsultarPromociones(string usuario)
         {
             this.setConnection();
             InitializeComponent();
+            nomUsuario = usuario;
             txtInicio.SelectedDate = DateTime.Today;
             txtTermino.SelectedDate = DateTime.Today;
+            DatosUsuarios();
+        }
+
+        private async void DatosUsuarios()
+        {
+            OracleCommand cmd = con.CreateCommand();
+            cmd.CommandText = "SELECT NOMBRE_TRAB, APELLIDO_TRAB, CARGO_TRABAJADOR_ID_CARGO FROM TRABAJADOR WHERE NOM_USUARIO = :USUARIO";
+            cmd.CommandType = CommandType.Text;
+            try
+            {
+                cmd.Parameters.Add("USUARIO", OracleDbType.Varchar2, 100).Value = nomUsuario.ToString();
+                OracleDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    btnCuenta.Content = "Bienvenido/a " + reader["NOMBRE_TRAB"] + " " + reader["APELLIDO_TRAB"];
+                    cargo = int.Parse(reader["CARGO_TRABAJADOR_ID_CARGO"].ToString());
+                    nombre = reader["NOMBRE_TRAB"].ToString();
+                    apellido = reader["APELLIDO_TRAB"].ToString();
+                }
+                else
+                {
+                    await this.ShowMessageAsync("Información de contacto", "No se a podido traer la información del usuario");
+                }
+            }
+            catch (Exception)
+            {
+
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
         }
 
         private async void setConnection()
@@ -51,7 +84,7 @@ namespace AlmacenYuyitos
 
         private void btnAtras_Click(object sender, RoutedEventArgs e)
         {
-            GestionarVentas gv = new GestionarVentas();
+            GestionarVentas gv = new GestionarVentas(nomUsuario);
             gv.Show();
             this.Close();
 
@@ -181,6 +214,35 @@ namespace AlmacenYuyitos
 
                     break;
 
+            }
+        }
+
+        private void btnCuenta_Click(object sender, RoutedEventArgs e)
+        {
+            if (cuentaFlyouts.IsOpen == true)
+            {
+                cuentaFlyouts.IsOpen = false;
+            }
+            else
+            {
+                cuentaFlyouts.IsOpen = true;
+            }
+        }
+
+        private async void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
+        {
+            MessageDialogResult respuesta = await this.ShowMessageAsync("Cerrar Sesión", "¿Desea cerrar Sesión?", MessageDialogStyle.AffirmativeAndNegative);
+
+            if (respuesta == MessageDialogResult.Affirmative)
+            {
+                await this.ShowMessageAsync("Éxito", "Usted ha cerrado sesión exitosamente");
+                Login log = new Login();
+                log.Show();
+                this.Close();
+            }
+            else
+            {
+                return;
             }
         }
     }

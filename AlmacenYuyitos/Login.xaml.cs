@@ -21,6 +21,8 @@ namespace AlmacenYuyitos
         {
             this.setConnection();
             InitializeComponent();
+            txtUser.Text = "juan.rojas";
+            txtPass.Password = "juanjefeYuyito";
         }
         private async void setConnection()
         {

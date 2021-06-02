@@ -5,8 +5,62 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AlmacenYuyitos"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         Title="Ver Informacion Delivery - Los Yuyitos" Height="450" Width="800">
+    <!--Inicio menu izquierda inicio de sesion-->
+    <mah:MetroWindow.Flyouts>
+        <mah:FlyoutsControl x:Name="ControlesFlyouts">
+            <mah:Flyout x:Name="cuentaFlyouts"
+                                 Position="Top"
+                                 IsPinned="False"
+                                 IsOpen="false"
+                                 AnimateOnPositionChange="False"
+                                 AnimateOpacity="True"
+                                 IsModal="False"
+                                 Theme="Dark"
+                                 ExternalCloseButton="Left"
+                                 CloseButtonVisibility="Hidden"
+                                 TitleVisibility="Hidden"
+                                 AreAnimationsEnabled="True"
+                                 Width="150"
+                                 Height="75"
+                                 Margin="400, 28, 0, 0">
+                <Grid Width="150">
+                    <StackPanel Orientation="Vertical">
+                        <Button x:Name="btnCerrarSesion"
+                                    Height="40" Width="110" Cursor="Hand"
+                                    Margin="10,10, 0,0" 
+                                    Content="Cerrar Sesión" Click="btnCerrarSesion_Click">
+                        </Button>
+                    </StackPanel>
+
+                </Grid>
+
+            </mah:Flyout>
+        </mah:FlyoutsControl>
+    </mah:MetroWindow.Flyouts>
+
+    <!--Inicio menu derecha-->
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            <Button Content="Bienvenido/a" Cursor="Hand" x:Name="btnCuenta" Click="btnCuenta_Click">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <iconPacks:PackIconModern Width="22"
+                                    Height="22"
+                                    VerticalAlignment="Center"
+                                    Kind="User"/>
+                            <TextBlock Margin="4, 0, 0, 0"
+                                       VerticalAlignment="Center"
+                                       Text="{Binding}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
     <Grid Background="LightBlue">
         <Label Content="Id Pedido:" HorizontalAlignment="Left" Margin="127,112,0,0" VerticalAlignment="Top"/>
         <Label Content="Número de Boleta:" HorizontalAlignment="Left" Margin="81,143,0,0" VerticalAlignment="Top"/>
@@ -32,7 +86,6 @@
         <TextBox x:Name="txtTotalDescuentos" HorizontalAlignment="Left" Height="23" Margin="508,205,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="txtTotalVenta" HorizontalAlignment="Left" Height="23" Margin="508,236,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <ComboBox x:Name="cboEstado" HorizontalAlignment="Left" Margin="508,267,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnCerrarSesion" Content="CERRAR SESIÓN" HorizontalAlignment="Left" Margin="688,10,0,0" VerticalAlignment="Top" Width="96" Click="btnCerrarSesion_Click"/>
         <Button x:Name="btnVolver" Content="VOLVER" HorizontalAlignment="Left" Margin="709,383,0,0" VerticalAlignment="Top" Width="75" Click="btnVolver_Click"/>
         <Button x:Name="btnEliminar" Content="ELIMINAR" HorizontalAlignment="Left" Margin="210,309,0,0" VerticalAlignment="Top" Width="120"/>
         <Button x:Name="btnModificar" Content="MODIFICAR" HorizontalAlignment="Left" Margin="69,309,0,0" VerticalAlignment="Top" Width="120"/>

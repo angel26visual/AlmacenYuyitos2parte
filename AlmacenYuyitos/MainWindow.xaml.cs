@@ -26,11 +26,6 @@ namespace AlmacenYuyitos
 
         public string nomUsuario { get; set; }
 
-        private void Tile_Click(object sender, RoutedEventArgs e)
-        {
-            PaginaInicio ini = new PaginaInicio();
-            ini.Show();
-        }
 
         private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
         {
@@ -49,14 +44,14 @@ namespace AlmacenYuyitos
 
         private void btnGestionarProductos_Click(object sender, RoutedEventArgs e)
         {
-            GestionarProductos gp = new GestionarProductos();
+            GestionarProductos gp = new GestionarProductos(nomUsuario);
             gp.Show();
             this.Close();
         }
 
         private void btnGestionarProveedor_Click(object sender, RoutedEventArgs e)
         {
-            GestionarProveedor gp = new GestionarProveedor();
+            GestionarProveedor gp = new GestionarProveedor(nomUsuario);
             gp.Show();
             this.Close();
 
@@ -64,42 +59,42 @@ namespace AlmacenYuyitos
 
         private void btnGestionarClientes_Click(object sender, RoutedEventArgs e)
         {
-            GestionarClientes gc = new GestionarClientes();
+            GestionarClientes gc = new GestionarClientes(nomUsuario);
             gc.Show();
             this.Close();
         }
 
         private void btnGestionarVentas_Click(object sender, RoutedEventArgs e)
         {
-            GestionarVentas gv = new GestionarVentas();
+            GestionarVentas gv = new GestionarVentas(nomUsuario);
             gv.Show();
             this.Close();
         }
 
         private void btnOrdenPedidos_Click(object sender, RoutedEventArgs e)
         {
-            MenuOrdenDePedidos mop = new MenuOrdenDePedidos();
+            MenuOrdenDePedidos mop = new MenuOrdenDePedidos(nomUsuario);
             mop.Show();
             this.Close();
         }
 
         private void btnGestionarDelivery_Click(object sender, RoutedEventArgs e)
         {
-            GestionarDelivery gd = new GestionarDelivery();
+            GestionarDelivery gd = new GestionarDelivery(nomUsuario);
             gd.Show();
             this.Close();
         }
 
         private void btnControlarRecepciones_Click(object sender, RoutedEventArgs e)
         {
-            ControlarRecepciones cr = new ControlarRecepciones();
+            ControlarRecepciones cr = new ControlarRecepciones(nomUsuario);
             cr.Show();
             this.Close();
         }
 
         private void btnGestionPromociones_Click(object sender, RoutedEventArgs e)
         {
-            GestionarPromociones gp = new GestionarPromociones();
+            GestionarPromociones gp = new GestionarPromociones(nomUsuario);
             gp.Show();
             this.Close();
         }

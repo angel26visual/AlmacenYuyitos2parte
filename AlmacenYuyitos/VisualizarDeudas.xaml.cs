@@ -25,12 +25,45 @@ namespace AlmacenYuyitos
     public partial class VisualizarDeudas
     {
         OracleConnection con = null;
-
-        public VisualizarDeudas(string rut)
+        string nomUsuario = string.Empty;
+        int cargo = 0;
+        string nombre = string.Empty;
+        string apellido = string.Empty;
+        public VisualizarDeudas(string rut, string usuario)
         {
             InitializeComponent();
             setConnection();
             ActualizarDataGrid(rut);
+            nomUsuario = usuario;
+            DatosUsuarios();
+        }
+
+        private async void DatosUsuarios()
+        {
+            OracleCommand cmd = con.CreateCommand();
+            cmd.CommandText = "SELECT NOMBRE_TRAB, APELLIDO_TRAB, CARGO_TRABAJADOR_ID_CARGO FROM TRABAJADOR WHERE NOM_USUARIO = :USUARIO";
+            cmd.CommandType = CommandType.Text;
+            try
+            {
+                cmd.Parameters.Add("USUARIO", OracleDbType.Varchar2, 100).Value = nomUsuario.ToString();
+                OracleDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    btnCuenta.Content = "Bienvenido/a " + reader["NOMBRE_TRAB"] + " " + reader["APELLIDO_TRAB"];
+                    cargo = int.Parse(reader["CARGO_TRABAJADOR_ID_CARGO"].ToString());
+                    nombre = reader["NOMBRE_TRAB"].ToString();
+                    apellido = reader["APELLIDO_TRAB"].ToString();
+                }
+                else
+                {
+                    await this.ShowMessageAsync("Información de contacto", "No se a podido traer la información del usuario");
+                }
+            }
+            catch (Exception)
+            {
+
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
         }
         private void setConnection()
         {
@@ -67,7 +100,7 @@ namespace AlmacenYuyitos
 
         private void btnVolver_Click(object sender, RoutedEventArgs e)
         {
-            GestionarClientes myec = new GestionarClientes();
+            GestionarClientes myec = new GestionarClientes(nomUsuario);
             myec.Show();
             this.Close();
         }
@@ -91,7 +124,7 @@ namespace AlmacenYuyitos
 
         private void btnVerInformacion_Click(object sender, RoutedEventArgs e)
         {
-            VerInformacion vi = new VerInformacion();
+            VerInformacion vi = new VerInformacion(nomUsuario);
             DataRowView datos = dtgDeudas.SelectedItem as DataRowView;
             if (datos != null)
             {
@@ -104,6 +137,18 @@ namespace AlmacenYuyitos
 
                 vi.Show();
                 this.Close();
+            }
+        }
+
+        private void btnCuenta_Click(object sender, RoutedEventArgs e)
+        {
+            if (cuentaFlyouts.IsOpen == true)
+            {
+                cuentaFlyouts.IsOpen = false;
+            }
+            else
+            {
+                cuentaFlyouts.IsOpen = true;
             }
         }
     }

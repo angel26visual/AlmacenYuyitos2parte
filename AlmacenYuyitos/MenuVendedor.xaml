@@ -4,10 +4,63 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
         Title="Menu Vendedor -Los Yuyitos" Height="450" Width="800" ResizeMode="NoResize" Icon="resources/logo.png">
+    <!--Inicio menu izquierda inicio de sesion-->
+    <mah:MetroWindow.Flyouts>
+        <mah:FlyoutsControl x:Name="ControlesFlyouts">
+            <mah:Flyout x:Name="cuentaFlyouts"
+                                 Position="Top"
+                                 IsPinned="False"
+                                 IsOpen="false"
+                                 AnimateOnPositionChange="False"
+                                 AnimateOpacity="True"
+                                 IsModal="False"
+                                 Theme="Dark"
+                                 ExternalCloseButton="Left"
+                                 CloseButtonVisibility="Hidden"
+                                 TitleVisibility="Hidden"
+                                 AreAnimationsEnabled="True"
+                                 Width="150"
+                                 Height="75"
+                                 Margin="550, 28, 0, 0">
+                <Grid Width="150">
+                    <StackPanel Orientation="Vertical">
+                        <Button x:Name="btnCerrarSesion"
+                                    Height="40" Width="110" Cursor="Hand"
+                                    Margin="10,10, 0,0" 
+                                    Content="Cerrar Sesión" Click="btnCerrarSesion_Click">
+                        </Button>
+                    </StackPanel>
+
+                </Grid>
+
+            </mah:Flyout>
+        </mah:FlyoutsControl>
+    </mah:MetroWindow.Flyouts>
+
+    <!--Inicio menu derecha-->
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            <Button Content="Bienvenido/a" Cursor="Hand" x:Name="btnCuenta" Click="btnCuenta_Click">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <iconPacks:PackIconModern Width="22"
+                                    Height="22"
+                                    VerticalAlignment="Center"
+                                    Kind="User"/>
+                            <TextBlock Margin="4, 0, 0, 0"
+                                       VerticalAlignment="Center"
+                                       Text="{Binding}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
     <Grid Background="LightBlue">
         <Button x:Name="btnGestionarPagos" Content="Gestionar Pagos" HorizontalAlignment="Left" Margin="132,122,0,0" VerticalAlignment="Top" Width="230" Height="200" Background="DodgerBlue">
             <Button.Effect>
@@ -21,7 +74,6 @@
         </Button>
         <Image Source="/resources/logo.png"  Width="150" Margin="311,-20,332.6,298"/>
         <Button x:Name="btnVolver" Content="VOLVER" HorizontalAlignment="Left" Margin="691,378,0,0" VerticalAlignment="Top" Width="75" Click="btnVolver_Click"/>
-        <Button x:Name="btnCerrarSesion" Content="CERRAR SESION" HorizontalAlignment="Left" Margin="691,10,0,0" VerticalAlignment="Top" Width="93" Click="btnCerrarSesion_Click"/>
 
 
     </Grid>

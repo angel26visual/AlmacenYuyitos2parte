@@ -23,13 +23,13 @@
                                  CloseButtonVisibility="Hidden"
                                  TitleVisibility="Hidden"
                                  AreAnimationsEnabled="True"
-                                 Width="120"
+                                 Width="150"
                                  Height="75"
-                                 Margin="370, 28, 0, 0">
-                <Grid Width="100">
+                                 Margin="250, 28, 0, 0">
+                <Grid Width="150">
                     <StackPanel Orientation="Vertical">
                         <Button x:Name="btnCerrarSesion"
-                                    Height="40" Width="100" Cursor="Hand"
+                                    Height="40" Width="110" Cursor="Hand"
                                     Margin="10,10, 0,0" 
                                     Content="Cerrar Sesión" Click="btnCerrarSesion_Click">
                         </Button>

@@ -24,19 +24,19 @@
                                  CloseButtonVisibility="Hidden"
                                  TitleVisibility="Hidden"
                                  AreAnimationsEnabled="True"
-                                 Width="200"
+                                 Width="150"
                                  Height="130"
-                                 Margin="950, 28, 0, 0">
-                <Grid Width="200">
+                                 Margin="1130, 28, 0, 0">
+                <Grid Width="150">
                     <StackPanel Orientation="Vertical">
 
                         <Button x:Name="btnVerCuenta"
-                                    Height="40" Width="150" Cursor="Hand"
+                                    Height="40" Width="110" Cursor="Hand"
                                     Margin="10,10, 0,0" 
                                     Content="Mi cuenta" Click="btnVerCuenta_Click">
                         </Button>
                         <Button x:Name="btnCerrarSesion"
-                                    Height="40" Width="150" Cursor="Hand"
+                                    Height="40" Width="120" Cursor="Hand"
                                     Margin="10,10, 0,0" 
                                     Content="Cerrar Sesión" Click="btnCerrarSesion_Click">
                         </Button>

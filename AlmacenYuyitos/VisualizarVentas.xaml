@@ -8,6 +8,59 @@
         mc:Ignorable="d"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         Title="Visualizar Ventas - Los Yuyitos" Height="450" Width="800" Icon="resources/logo.png" ResizeMode="NoResize">
+    <!--Inicio menu izquierda inicio de sesion-->
+    <mah:MetroWindow.Flyouts>
+        <mah:FlyoutsControl x:Name="ControlesFlyouts">
+            <mah:Flyout x:Name="cuentaFlyouts"
+                                 Position="Top"
+                                 IsPinned="False"
+                                 IsOpen="false"
+                                 AnimateOnPositionChange="False"
+                                 AnimateOpacity="True"
+                                 IsModal="False"
+                                 Theme="Dark"
+                                 ExternalCloseButton="Left"
+                                 CloseButtonVisibility="Hidden"
+                                 TitleVisibility="Hidden"
+                                 AreAnimationsEnabled="True"
+                                 Width="150"
+                                 Height="75"
+                                 Margin="550, 28, 0, 0">
+                <Grid Width="150">
+                    <StackPanel Orientation="Vertical">
+                        <Button x:Name="btnCerrarSesion"
+                                    Height="40" Width="110" Cursor="Hand"
+                                    Margin="10,10, 0,0" 
+                                    Content="Cerrar Sesión" Click="btnCerrarSesion_Click">
+                        </Button>
+                    </StackPanel>
+
+                </Grid>
+
+            </mah:Flyout>
+        </mah:FlyoutsControl>
+    </mah:MetroWindow.Flyouts>
+
+    <!--Inicio menu derecha-->
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            <Button Content="Bienvenido/a" Cursor="Hand" x:Name="btnCuenta" Click="btnCuenta_Click" >
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <iconPacks:PackIconModern Width="22"
+                                    Height="22"
+                                    VerticalAlignment="Center"
+                                    Kind="User"/>
+                            <TextBlock Margin="4, 0, 0, 0"
+                                       VerticalAlignment="Center"
+                                       Text="{Binding}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
     <Grid Background="LightBlue">
         <StackPanel Margin="84,68,65,280" Orientation="Horizontal">
             <DatePicker x:Name="txtFechaDeVenta" Margin="100,10,10,10"

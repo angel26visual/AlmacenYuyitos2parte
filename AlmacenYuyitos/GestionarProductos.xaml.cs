@@ -28,10 +28,44 @@ namespace AlmacenYuyitos
     {
         OracleConnection con = null;
         string ruta_imagen = null;
-        public GestionarProductos()
+        string nomUsuario = string.Empty;
+        int cargo = 0;
+        string nombre = string.Empty;
+        string apellido = string.Empty;
+        public GestionarProductos(string usuario)
         {
             this.setConnection();
             InitializeComponent();
+            nomUsuario = usuario;
+            DatosUsuarios();
+        }
+
+        private async void DatosUsuarios()
+        {
+            OracleCommand cmd = con.CreateCommand();
+            cmd.CommandText = "SELECT NOMBRE_TRAB, APELLIDO_TRAB, CARGO_TRABAJADOR_ID_CARGO FROM TRABAJADOR WHERE NOM_USUARIO = :USUARIO";
+            cmd.CommandType = CommandType.Text;
+            try
+            {
+                cmd.Parameters.Add("USUARIO", OracleDbType.Varchar2, 100).Value = nomUsuario.ToString();
+                OracleDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    btnCuenta.Content = "Bienvenido/a " + reader["NOMBRE_TRAB"] + " " + reader["APELLIDO_TRAB"];
+                    cargo = int.Parse(reader["CARGO_TRABAJADOR_ID_CARGO"].ToString());
+                    nombre = reader["NOMBRE_TRAB"].ToString();
+                    apellido = reader["APELLIDO_TRAB"].ToString();
+                }
+                else
+                {
+                    await this.ShowMessageAsync("Información de contacto", "No se a podido traer la información del usuario");
+                }
+            }
+            catch (Exception)
+            {
+
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
         }
 
         private void setConnection()
@@ -96,6 +130,8 @@ namespace AlmacenYuyitos
         {
             MainWindow main = new MainWindow();
             main.Show();
+            main.nomUsuario = nomUsuario;
+            main.btnCuenta.Content = "Bienvenido/a " + nombre + " " + apellido;
             this.Close();
 
         }
@@ -122,8 +158,8 @@ namespace AlmacenYuyitos
 
         private async void btnRegistrarProducto_Click(object sender, RoutedEventArgs e)
         {
-            //try
-            //{
+            try
+            {
                 FileStream fs = new FileStream(ruta_imagen, FileMode.Open, FileAccess.Read);
                 byte[] blob = new byte[fs.Length];
                 fs.Read(blob, 0, Convert.ToInt32(fs.Length));
@@ -192,12 +228,12 @@ namespace AlmacenYuyitos
                 }
 
 
-            //}
-            //catch (Exception ex)
-            //{
+            }
+            catch (Exception ex)
+            {
 
-              //  await this.ShowMessageAsync("Error", e.ToString());
-            //}
+                await this.ShowMessageAsync("Error", e.ToString());
+            }
         }
 
 
@@ -368,6 +404,8 @@ namespace AlmacenYuyitos
         {
             MainWindow mw = new MainWindow();
             mw.Show();
+            mw.nomUsuario = nomUsuario;
+            mw.btnCuenta.Content = "Bienvenido/a " + nombre + " " + apellido;
             this.Close();
         }
 
@@ -415,6 +453,18 @@ namespace AlmacenYuyitos
             }
             else if(respuesta == MessageDialogResult.Negative){
                 return;
+            }
+        }
+
+        private void btnCuenta_Click(object sender, RoutedEventArgs e)
+        {
+            if (cuentaFlyouts.IsOpen == true)
+            {
+                cuentaFlyouts.IsOpen = false;
+            }
+            else
+            {
+                cuentaFlyouts.IsOpen = true;
             }
         }
     }

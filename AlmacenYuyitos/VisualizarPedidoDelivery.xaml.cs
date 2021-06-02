@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Data;
 using MahApps.Metro.Controls.Dialogs;
+using System.Configuration;
+using Oracle.ManagedDataAccess.Client;
 
 namespace AlmacenYuyitos
 {
@@ -22,15 +24,59 @@ namespace AlmacenYuyitos
     /// </summary>
     public partial class VisualizarPedidoDelivery 
     {
-       
-        public VisualizarPedidoDelivery()
+        OracleConnection con = null;
+        string nomUsuario = string.Empty;
+        int cargo = 0;
+        string nombre = string.Empty;
+        string apellido = string.Empty;
+        public VisualizarPedidoDelivery(string usuario)
         {
-          
+            this.setConnection();
             InitializeComponent();
-     
-        
+            nomUsuario = usuario;
+            DatosUsuarios();
+
         }
-       
+
+        private async void DatosUsuarios()
+        {
+            OracleCommand cmd = con.CreateCommand();
+            cmd.CommandText = "SELECT NOMBRE_TRAB, APELLIDO_TRAB, CARGO_TRABAJADOR_ID_CARGO FROM TRABAJADOR WHERE NOM_USUARIO = :USUARIO";
+            cmd.CommandType = CommandType.Text;
+            try
+            {
+                cmd.Parameters.Add("USUARIO", OracleDbType.Varchar2, 100).Value = nomUsuario.ToString();
+                OracleDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    btnCuenta.Content = "Bienvenido/a " + reader["NOMBRE_TRAB"] + " " + reader["APELLIDO_TRAB"];
+                    cargo = int.Parse(reader["CARGO_TRABAJADOR_ID_CARGO"].ToString());
+                    nombre = reader["NOMBRE_TRAB"].ToString();
+                    apellido = reader["APELLIDO_TRAB"].ToString();
+                }
+                else
+                {
+                    await this.ShowMessageAsync("Información de contacto", "No se a podido traer la información del usuario");
+                }
+            }
+            catch (Exception)
+            {
+
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
+        }
+
+        private void setConnection()
+        {
+            String connectionString = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
+            con = new OracleConnection(connectionString);
+
+            try
+            {
+                con.Open();
+            }
+            catch (Exception exp) { }
+        }
 
         private async void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
         {
@@ -57,13 +103,21 @@ namespace AlmacenYuyitos
 
         private void btnVerInfoDelivery_Click(object sender, RoutedEventArgs e)
         {
-            VerInformacionDelivery vid = new VerInformacionDelivery();
+            VerInformacionDelivery vid = new VerInformacionDelivery(nomUsuario);
             vid.Show();
             this.Close();
         }
 
-        
-
-       
+        private void btnCuenta_Click(object sender, RoutedEventArgs e)
+        {
+            if (cuentaFlyouts.IsOpen == true)
+            {
+                cuentaFlyouts.IsOpen = false;
+            }
+            else
+            {
+                cuentaFlyouts.IsOpen = true;
+            }
+        }
     }
 }

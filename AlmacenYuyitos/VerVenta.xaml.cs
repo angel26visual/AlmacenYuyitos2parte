@@ -26,9 +26,9 @@ namespace AlmacenYuyitos
 
         private void btnVolver_Click(object sender, RoutedEventArgs e)
         {
-            VisualizarVentas visv = new VisualizarVentas();
+            /*VisualizarVentas visv = new VisualizarVentas();
             visv.Show();
-            this.Close();
+            this.Close();*/
         }
     }
 }

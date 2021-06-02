@@ -25,12 +25,45 @@ namespace AlmacenYuyitos
     public partial class VerInformacion
     {
         OracleConnection con = null;
-
-        public VerInformacion()
+        string nomUsuario = string.Empty;
+        int cargo = 0;
+        string nombre = string.Empty;
+        string apellido = string.Empty;
+        public VerInformacion(string usuario)
         {
             InitializeComponent();
             setConnection();
             ActualizarEstado();
+            nomUsuario = usuario;
+            DatosUsuarios();
+        }
+
+        private async void DatosUsuarios()
+        {
+            OracleCommand cmd = con.CreateCommand();
+            cmd.CommandText = "SELECT NOMBRE_TRAB, APELLIDO_TRAB, CARGO_TRABAJADOR_ID_CARGO FROM TRABAJADOR WHERE NOM_USUARIO = :USUARIO";
+            cmd.CommandType = CommandType.Text;
+            try
+            {
+                cmd.Parameters.Add("USUARIO", OracleDbType.Varchar2, 100).Value = nomUsuario.ToString();
+                OracleDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    btnCuenta.Content = "Bienvenido/a " + reader["NOMBRE_TRAB"] + " " + reader["APELLIDO_TRAB"];
+                    cargo = int.Parse(reader["CARGO_TRABAJADOR_ID_CARGO"].ToString());
+                    nombre = reader["NOMBRE_TRAB"].ToString();
+                    apellido = reader["APELLIDO_TRAB"].ToString();
+                }
+                else
+                {
+                    await this.ShowMessageAsync("Información de contacto", "No se a podido traer la información del usuario");
+                }
+            }
+            catch (Exception)
+            {
+
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
         }
         private void setConnection()
         {
@@ -77,7 +110,7 @@ namespace AlmacenYuyitos
 
         private void btnVolver_Click(object sender, RoutedEventArgs e)
         {
-            VisualizarDeudas vd = new VisualizarDeudas(txtRutlienteDeuda.Text);
+            VisualizarDeudas vd = new VisualizarDeudas(txtRutlienteDeuda.Text, nomUsuario);
             vd.Show();
             this.Close();
 
@@ -107,7 +140,7 @@ namespace AlmacenYuyitos
                     if (n > 0)
                     {
                         await this.ShowMessageAsync("actualizado", "deuda actualizado correctamente");
-                        VisualizarDeudas v = new VisualizarDeudas(txtRutlienteDeuda.Text);
+                        VisualizarDeudas v = new VisualizarDeudas(txtRutlienteDeuda.Text, nomUsuario);
                         this.Close();
                         v.Show();
 
@@ -140,7 +173,7 @@ namespace AlmacenYuyitos
                     if (n > 0)
                     {
                         await this.ShowMessageAsync("eliminado", "deuda eliminada correctamente");
-                        VisualizarDeudas v = new VisualizarDeudas(txtRutlienteDeuda.Text);
+                        VisualizarDeudas v = new VisualizarDeudas(txtRutlienteDeuda.Text, nomUsuario);
                         this.Close();
                         v.Show();
 
@@ -155,6 +188,18 @@ namespace AlmacenYuyitos
             {
 
                 throw;
+            }
+        }
+
+        private void btnCuenta_Click(object sender, RoutedEventArgs e)
+        {
+            if (cuentaFlyouts.IsOpen == true)
+            {
+                cuentaFlyouts.IsOpen = false;
+            }
+            else
+            {
+                cuentaFlyouts.IsOpen = true;
             }
         }
     }

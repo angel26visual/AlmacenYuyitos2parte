@@ -25,11 +25,44 @@ namespace AlmacenYuyitos
     public partial class ConsultarProductos
     {
         OracleConnection con = null;
-        public string nomUsusario { get; set; }
-        public ConsultarProductos()
+        string nomUsuario = string.Empty;
+        int cargo = 0;
+        string nombre = string.Empty;
+        string apellido = string.Empty;
+        public ConsultarProductos(string usuario)
         {
             this.setConnection();
             InitializeComponent();
+            nomUsuario = usuario;
+            DatosUsuarios();
+        }
+
+        private async void DatosUsuarios()
+        {
+            OracleCommand cmd = con.CreateCommand();
+            cmd.CommandText = "SELECT NOMBRE_TRAB, APELLIDO_TRAB, CARGO_TRABAJADOR_ID_CARGO FROM TRABAJADOR WHERE NOM_USUARIO = :USUARIO";
+            cmd.CommandType = CommandType.Text;
+            try
+            {
+                cmd.Parameters.Add("USUARIO", OracleDbType.Varchar2, 100).Value = nomUsuario.ToString();
+                OracleDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    btnCuenta.Content = "Bienvenido/a " + reader["NOMBRE_TRAB"] + " " + reader["APELLIDO_TRAB"];
+                    cargo = int.Parse(reader["CARGO_TRABAJADOR_ID_CARGO"].ToString());
+                    nombre = reader["NOMBRE_TRAB"].ToString();
+                    apellido = reader["APELLIDO_TRAB"].ToString();
+                }
+                else
+                {
+                    await this.ShowMessageAsync("Información de contacto", "No se a podido traer la información del usuario");
+                }
+            }
+            catch (Exception)
+            {
+
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
         }
 
         private async void setConnection()
@@ -48,7 +81,7 @@ namespace AlmacenYuyitos
 
         private void btnAtras_Click(object sender, RoutedEventArgs e)
         {
-            GestionarVentas gv = new GestionarVentas();
+            GestionarVentas gv = new GestionarVentas(nomUsuario);
             gv.Show();
             this.Close();
         }
@@ -139,6 +172,25 @@ namespace AlmacenYuyitos
                 await this.ShowMessageAsync("Error", "Ha ocurrido un error");
             }
 
+        }
+
+        private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
+        {
+            Login log = new Login();
+            log.Show();
+            this.Close();
+        }
+
+        private void btnCuenta_Click(object sender, RoutedEventArgs e)
+        {
+            if (cuentaFlyouts.IsOpen == true)
+            {
+                cuentaFlyouts.IsOpen = false;
+            }
+            else
+            {
+                cuentaFlyouts.IsOpen = true;
+            }
         }
     }
 }
