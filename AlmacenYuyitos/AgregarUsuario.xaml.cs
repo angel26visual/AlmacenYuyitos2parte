@@ -15,14 +15,18 @@ namespace AlmacenYuyitos
     public partial class AgregarUsuario
     {
         OracleConnection con = null;
-        public string nomUsuario { get; set; }
-        public int Cargo { get; set; }
-        public AgregarUsuario()
+        string nomUsuario = string.Empty;
+        int cargo = 0;
+        string nombre = string.Empty;
+        string apellido = string.Empty;
+        public AgregarUsuario(string usuario)
         {
             this.setConnection();
             InitializeComponent();
+            nomUsuario = usuario;
             ActualizarCargo();
             ActualizarEstado();
+            DatosUsuarios();
         }
 
         private async void DatosUsuarios()
@@ -37,7 +41,9 @@ namespace AlmacenYuyitos
                 if (reader.Read())
                 {
                     btnCuenta.Content = "Bienvenido/a " + reader["NOMBRE_TRAB"] + " " + reader["APELLIDO_TRAB"];
-                    Cargo = int.Parse(reader["CARGO_TRABAJADOR_ID_CARGO"].ToString());
+                    cargo = int.Parse(reader["CARGO_TRABAJADOR_ID_CARGO"].ToString());
+                    nombre = reader["NOMBRE_TRAB"].ToString();
+                    apellido = reader["APELLIDO_TRAB"].ToString();
                 }
                 else
                 {
@@ -53,7 +59,7 @@ namespace AlmacenYuyitos
 
         private void btnVolver_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            GestionarUsuarios gu = new GestionarUsuarios();
+            GestionarUsuarios gu = new GestionarUsuarios(nomUsuario);
             gu.Show();
             this.Close();
         }

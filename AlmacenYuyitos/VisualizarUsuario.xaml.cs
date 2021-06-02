@@ -24,15 +24,18 @@ namespace AlmacenYuyitos
     /// </summary>
     public partial class VisualizarUsuario
     {
-        public string nomUsuario { get; set; }
-        public int Cargo { get; set; }
+        string nomUsuario = string.Empty;
+        int cargo = 0;
+        string nombre = string.Empty;
+        string apellido = string.Empty;
         OracleConnection con = null;
         string commandtable = "SELECT T.RUT_TRAB RUT, T.NOMBRE_TRAB NOMBRE, T.APELLIDO_TRAB APELLIDO, T.FECHA_NACIMIENTO FECHA_DE_NACIMIENTO ,E.DESCRIP_ESTAC ESTADO_CIVIL ,C.NOMBRE_CARGO CARGO , T.CORREO,T.NOM_USUARIO USUARIO,T.CONTRASENA_USUARIO CONTRASENA, CARGO_TRABAJADOR_ID_CARGO ID_CARGO, ESTADO_CIVIL_ID_ESTAC ID_ESTADO FROM TRABAJADOR T JOIN CARGO_TRABAJADOR C ON T.CARGO_TRABAJADOR_ID_CARGO=C.ID_CARGO JOIN ESTADO_CIVIL E ON T.ESTADO_CIVIL_ID_ESTAC = E.ID_ESTAC";
 
-        public VisualizarUsuario()
+        public VisualizarUsuario(string usuario)
         {
             setConnection();
             InitializeComponent();
+            nomUsuario = usuario;
             actualizarDataGrid();
             ActualizarCargo();
             DatosUsuarios();
@@ -61,7 +64,9 @@ namespace AlmacenYuyitos
                 if (reader.Read())
                 {
                     btnCuenta.Content = "Bienvenido/a " + reader["NOMBRE_TRAB"] + " " + reader["APELLIDO_TRAB"];
-                    Cargo = int.Parse(reader["CARGO_TRABAJADOR_ID_CARGO"].ToString());
+                    cargo = int.Parse(reader["CARGO_TRABAJADOR_ID_CARGO"].ToString());
+                    nombre = reader["NOMBRE_TRAB"].ToString();
+                    apellido = reader["APELLIDO_TRAB"].ToString();
                 }
                 else
                 {
@@ -113,15 +118,14 @@ namespace AlmacenYuyitos
 
         private void btnVolver_Click(object sender, RoutedEventArgs e)
         {
-            GestionarUsuarios gu = new GestionarUsuarios();
+            GestionarUsuarios gu = new GestionarUsuarios(nomUsuario);
             gu.Show();
-            gu.nomUsuario = nomUsuario;
             this.Close();
         }
 
         private void btnVerUsuario_Click(object sender, RoutedEventArgs e)
         {
-            ModyElmUsuario mdye = new ModyElmUsuario();
+            ModyElmUsuario mdye = new ModyElmUsuario(nomUsuario);
             DataRowView datos = dgUsuarios.SelectedItem as DataRowView;
             if (datos != null)
             {
@@ -139,7 +143,6 @@ namespace AlmacenYuyitos
 
 
                 mdye.Show();
-                mdye.nomUsuario = nomUsuario;
                 this.Close();
             }
 

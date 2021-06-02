@@ -26,7 +26,7 @@
                                  AreAnimationsEnabled="True"
                                  Width="200"
                                  Height="130"
-                                 Margin="850, 28, 0, 0">
+                                 Margin="950, 28, 0, 0">
                 <Grid Width="200">
                     <StackPanel Orientation="Vertical">
 

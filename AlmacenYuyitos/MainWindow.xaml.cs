@@ -41,9 +41,8 @@ namespace AlmacenYuyitos
 
         private void btnGestionarUsuarios_Click(object sender, RoutedEventArgs e)
         {
-            GestionarUsuarios gu = new GestionarUsuarios();
+            GestionarUsuarios gu = new GestionarUsuarios(nomUsuario);
             gu.Show();
-            gu.nomUsuario = nomUsuario;
             this.Close();
             
         }

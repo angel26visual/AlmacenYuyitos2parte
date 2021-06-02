@@ -25,13 +25,16 @@ namespace AlmacenYuyitos
     /// </summary>
     public partial class ModyElmUsuario
     {
-        public string nomUsuario { get; set; }
-        public int Cargo { get; set; }
+        string nomUsuario = string.Empty;
+        int cargo = 0;
+        string nombre = string.Empty;
+        string apellido = string.Empty;
         OracleConnection con = null;
-        public ModyElmUsuario()
+        public ModyElmUsuario(string usuario)
         {
             setConnection();
             InitializeComponent();
+            nomUsuario = usuario;
             ActualizarCargo();
             ActualizarEstado();
             DatosUsuarios();
@@ -60,7 +63,9 @@ namespace AlmacenYuyitos
                 if (reader.Read())
                 {
                     btnCuenta.Content = "Bienvenido/a " + reader["NOMBRE_TRAB"] + " " + reader["APELLIDO_TRAB"];
-                    Cargo = int.Parse(reader["CARGO_TRABAJADOR_ID_CARGO"].ToString());
+                    cargo = int.Parse(reader["CARGO_TRABAJADOR_ID_CARGO"].ToString());
+                    nombre = reader["NOMBRE_TRAB"].ToString();
+                    apellido = reader["APELLIDO_TRAB"].ToString();
                 }
                 else
                 {
@@ -131,9 +136,8 @@ namespace AlmacenYuyitos
 
         private void btnVolver_Click(object sender, RoutedEventArgs e)
         {
-            VisualizarUsuario vu = new VisualizarUsuario();
+            VisualizarUsuario vu = new VisualizarUsuario(nomUsuario);
             vu.Show();
-            vu.nomUsuario = nomUsuario;
             this.Close();
         }
 
@@ -177,7 +181,7 @@ namespace AlmacenYuyitos
                     if (n > 0)
                     {
                         await this.ShowMessageAsync("actualizado", "Usuario actualizado correctamente");
-                        VisualizarUsuario v = new VisualizarUsuario();
+                        VisualizarUsuario v = new VisualizarUsuario(nomUsuario);
                         this.Close();
                         v.Show();
 
@@ -210,7 +214,7 @@ namespace AlmacenYuyitos
                     if (n > 0)
                     {
                         await this.ShowMessageAsync("eliminado", "Usuario eliminado correctamente");
-                        VisualizarUsuario v = new VisualizarUsuario();
+                        VisualizarUsuario v = new VisualizarUsuario(nomUsuario);
                         this.Close();
                         v.Show();
 

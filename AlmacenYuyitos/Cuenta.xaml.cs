@@ -28,13 +28,16 @@ namespace AlmacenYuyitos
         OracleConnection con = null;
         string nomUsuario = string.Empty;
         string rut = string.Empty;
+        int cargo = 0;
+        string nombre = string.Empty;
+        string apellido = string.Empty;
         public Cuenta(string usuario)
         {
             nomUsuario = usuario;
             this.setConnection();
             InitializeComponent();
             actualizarEstadoC();
-            String sql = "SELECT NOMBRE_TRAB, APELLIDO_TRAB, CORREO, NOM_USUARIO, ESTADO_CIVIL_ID_ESTAC, CARGO_TRABAJADOR_ID_CARGO FROM TRABAJADOR WHERE NOM_USUARIO = :USUARIO";
+            String sql = "SELECT RUT_TRAB, NOMBRE_TRAB, APELLIDO_TRAB, CORREO, NOM_USUARIO, ESTADO_CIVIL_ID_ESTAC, CARGO_TRABAJADOR_ID_CARGO FROM TRABAJADOR WHERE NOM_USUARIO = :USUARIO";
             this.AUD(sql, 0);
         }
 
@@ -74,6 +77,9 @@ namespace AlmacenYuyitos
                             txtUsuario.Text = reader["NOM_USUARIO"].ToString();
                             cboEstadoCivil.SelectedValue = Convert.ToInt32(reader["ESTADO_CIVIL_ID_ESTAC"].ToString());
                             rut = reader["RUT_TRAB"].ToString();
+                            cargo = int.Parse(reader["CARGO_TRABAJADOR_ID_CARGO"].ToString());
+                            nombre = reader["NOMBRE_TRAB"].ToString();
+                            apellido = reader["APELLIDO_TRAB"].ToString();
                         }
                         else
                         {
@@ -160,6 +166,7 @@ namespace AlmacenYuyitos
             MainWindow main = new MainWindow();
             main.nomUsuario = nomUsuario;
             main.Show();
+            main.btnCuenta.Content = "Bienvenido/a " + nombre + " " + apellido;
             this.Close();
         }
 

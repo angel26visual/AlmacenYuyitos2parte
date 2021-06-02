@@ -23,13 +23,16 @@ namespace AlmacenYuyitos
     /// </summary>
     public partial class GestionarUsuarios
     {
-        public string nomUsuario { get; set; }
-        public int Cargo { get; set; }
+        string nomUsuario = string.Empty;
+        int cargo = 0;
+        string nombre = string.Empty;
+        string apellido = string.Empty;
         OracleConnection con = null;
-        public GestionarUsuarios()
+        public GestionarUsuarios(string usuario)
         {
             this.setConnection();
             InitializeComponent();
+            nomUsuario = usuario;
             DatosUsuarios();
         }
 
@@ -45,7 +48,9 @@ namespace AlmacenYuyitos
                 if (reader.Read())
                 {
                     btnCuenta.Content = "Bienvenido/a " + reader["NOMBRE_TRAB"] + " " + reader["APELLIDO_TRAB"];
-                    Cargo = int.Parse(reader["CARGO_TRABAJADOR_ID_CARGO"].ToString());
+                    cargo = int.Parse(reader["CARGO_TRABAJADOR_ID_CARGO"].ToString());
+                    nombre = reader["NOMBRE_TRAB"].ToString();
+                    apellido = reader["APELLIDO_TRAB"].ToString();
                 }
                 else
                 {
@@ -75,17 +80,15 @@ namespace AlmacenYuyitos
 
         private void btnAgregarUsuario_Click(object sender, RoutedEventArgs e)
         {
-            AgregarUsuario au = new AgregarUsuario();
+            AgregarUsuario au = new AgregarUsuario(nomUsuario);
             au.Show();
-            au.nomUsuario = nomUsuario;
             this.Close();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            VisualizarUsuario vu = new VisualizarUsuario();
+            VisualizarUsuario vu = new VisualizarUsuario(nomUsuario);
             vu.Show();
-            vu.nomUsuario = nomUsuario;
             this.Close();
 
         }
@@ -95,6 +98,7 @@ namespace AlmacenYuyitos
             MainWindow main = new MainWindow();
             main.Show();
             main.nomUsuario = nomUsuario;
+            main.btnCuenta.Content = "Bienvenido/a " + nombre + " " + apellido;
             this.Close();
         }
 
