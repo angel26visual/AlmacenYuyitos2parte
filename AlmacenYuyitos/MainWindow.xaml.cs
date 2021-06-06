@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MahApps.Metro.Controls.Dialogs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,11 +28,21 @@ namespace AlmacenYuyitos
         public string nomUsuario { get; set; }
 
 
-        private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
+        private async void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
         {
-            Login inicio = new Login();
-            inicio.Show();
-            this.Close();
+            MessageDialogResult respuesta = await this.ShowMessageAsync("Cerrar Sesión", "¿Desea cerrar Sesión?", MessageDialogStyle.AffirmativeAndNegative);
+
+            if (respuesta == MessageDialogResult.Affirmative)
+            {
+                await this.ShowMessageAsync("Éxito", "Usted ha cerrado sesión exitosamente");
+                Login log = new Login();
+                log.Show();
+                this.Close();
+            }
+            else
+            {
+                return;
+            }
         }
 
         private void btnGestionarUsuarios_Click(object sender, RoutedEventArgs e)
