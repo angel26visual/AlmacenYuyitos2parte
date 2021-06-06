@@ -175,7 +175,7 @@
 
         </Button>
         <Label Content="Descripción Promoción:" HorizontalAlignment="Left" Margin="5,377,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtDescripcion" HorizontalAlignment="Left" Height="53" Margin="150,379,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="169" RenderTransformOrigin="-1.682,0.191"/>
+        <TextBox x:Name="txtDescripcion" HorizontalAlignment="Left" Height="53" Margin="150,379,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="169" RenderTransformOrigin="-1.682,0.191" />
         <Label Content="Descuento Efectivo:" HorizontalAlignment="Left" Margin="437,161,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtDescEfectivo"
                  HorizontalAlignment="Left" 

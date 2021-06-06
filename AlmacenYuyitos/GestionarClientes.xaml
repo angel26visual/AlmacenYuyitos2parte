@@ -88,7 +88,7 @@
                  Width="166"
                  
                  mah:TextBoxHelper.Watermark="Ingrese Nombre de Cliente"
-                 mah:TextBoxHelper.UseFloatingWatermark="True"
+                 mah:TextBoxHelper.UseFloatingWatermark="True" PreviewTextInput="txtNombreCliente_PreviewTextInput"
                  
                  
                  />
@@ -101,7 +101,7 @@
                  Width="166"
                  
                  mah:TextBoxHelper.Watermark="Ingrese Apellido Cliente"
-                 mah:TextBoxHelper.UseFloatingWatermark="True"
+                 mah:TextBoxHelper.UseFloatingWatermark="True" PreviewTextInput="txtApellidoCliente_PreviewTextInput"
                  
                  
                  />

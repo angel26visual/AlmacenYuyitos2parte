@@ -91,7 +91,7 @@
                  Width="140"
                  
                  mah:TextBoxHelper.Watermark="Nombre del Usuario"
-                 mah:TextBoxHelper.UseFloatingWatermark="True"
+                 mah:TextBoxHelper.UseFloatingWatermark="True" PreviewTextInput="txtNombre_PreviewTextInput"
                  
                  />
         <TextBox x:Name="txtApellido"
@@ -103,7 +103,7 @@
                  Width="140"
                  
                  mah:TextBoxHelper.Watermark="Ingrese Apellido del Usuario"
-                 mah:TextBoxHelper.UseFloatingWatermark="True"
+                 mah:TextBoxHelper.UseFloatingWatermark="True" PreviewTextInput="txtApellido_PreviewTextInput" 
                  />
         <TextBox x:Name="txtRut" 
                  HorizontalAlignment="Left" 

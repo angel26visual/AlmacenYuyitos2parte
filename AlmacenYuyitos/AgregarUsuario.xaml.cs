@@ -317,6 +317,24 @@ namespace AlmacenYuyitos
                 cuentaFlyouts.IsOpen = true;
             }
         }
+
+        private async void txtNombre_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(e.Text, "^[a-zA-Z]"))
+            {
+                e.Handled = true;
+                await this.ShowMessageAsync("Error", "Nombre del Usuario debe contener sólo letras");
+            }
+        }
+
+        private async void txtApellido_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(e.Text, "^[a-zA-Z]"))
+            {
+                e.Handled = true;
+                await this.ShowMessageAsync("Error", "El Apellido del Usuario debe contener sólo letras");
+            }
+        }
     }
 }
 

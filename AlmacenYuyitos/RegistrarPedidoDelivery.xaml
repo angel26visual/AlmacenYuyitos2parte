@@ -75,7 +75,7 @@
         <Label Content="Nombre de Cliente:" HorizontalAlignment="Left" Margin="26,164.4,0,0" VerticalAlignment="Top" Grid.Row="1"/>
         <Label Content="Teléfono de Contacto:" HorizontalAlignment="Left" Margin="13,190.4,0,0" VerticalAlignment="Top" Grid.Row="1"/>
         <Label Content="Dirección:" HorizontalAlignment="Left" Margin="77,221.4,0,0" VerticalAlignment="Top" Grid.Row="1"/>
-        <TextBox x:Name="txtNombreCliente" HorizontalAlignment="Left" Height="23" Margin="145,164.4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" Grid.Row="1"/>
+        <TextBox x:Name="txtNombreCliente" HorizontalAlignment="Left" Height="23" Margin="145,164.4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" Grid.Row="1" PreviewTextInput="txtNombreCliente_PreviewTextInput"/>
         <TextBox x:Name="txtTelefonoContacto" HorizontalAlignment="Left" Height="23" Margin="145,195.4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" Grid.Row="1"/>
         <TextBox x:Name="txtDireccionDelivery" HorizontalAlignment="Left" Height="23" Margin="145,226.4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" Grid.Row="1"/>
         <Label Content="Valor de Despacho:" HorizontalAlignment="Left" Margin="273,218.4,0,0" VerticalAlignment="Top" Grid.Row="1"/>

@@ -18,6 +18,7 @@ using MahApps.Metro.Controls.Dialogs;
 using System.Data;
 using Microsoft.Win32;
 using System.IO;
+using System.Drawing;
 
 namespace AlmacenYuyitos
 {
@@ -376,10 +377,14 @@ namespace AlmacenYuyitos
 
         private void dgProductos_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
             DataGrid dg = sender as DataGrid;
             DataRowView dr = dg.SelectedItem as DataRowView;
             if (dr != null)
+
             {
+                
+
                 txtCodigoProducto.Text = dr["CODIGO_PRODUCTO"].ToString();
                 txtNombreDeProducto.Text = dr["NOMBRE_PRODUCT"].ToString();
                 txtPrecioDeCompra.Text = dr["PRECIO_COMPRA"].ToString();
@@ -392,10 +397,13 @@ namespace AlmacenYuyitos
                 txtRutProveedor.Text = dr["PROVEEDOR_RUT_PROVEE"].ToString();
                 txtCodigoBarraProducto.Text = dr["COD_BARRA_PRODUCT"].ToString();
                 cboTipoDeProducto.SelectedValue = dr["TIPO_PRODUCTO_ID_TIPPRODUC"].ToString();
+          
 
                 btnRegistrarProducto.IsEnabled = false;
                 btnActualizarProducto.IsEnabled = true;
                 btnEliminarProducto.IsEnabled = true;
+
+                
 
             }
         }
@@ -465,6 +473,15 @@ namespace AlmacenYuyitos
             else
             {
                 cuentaFlyouts.IsOpen = true;
+            }
+        }
+
+        private async void txtNombreDeProducto_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(e.Text, "^[a-zA-Z]"))
+            {
+                e.Handled = true;
+                await this.ShowMessageAsync("Error", "El Nombre del Producto debe contener sólo letras");
             }
         }
     }

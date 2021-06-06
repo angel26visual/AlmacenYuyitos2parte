@@ -112,5 +112,14 @@ namespace AlmacenYuyitos
                 cuentaFlyouts.IsOpen = true;
             }
         }
+
+        private async void txtNombreServidor_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(e.Text, "^[a-zA-Z]"))
+            {
+                e.Handled = true;
+                await this.ShowMessageAsync("Error", "Nombre del seridor debe contener sólo letras");
+            }
+        }
     }
 }

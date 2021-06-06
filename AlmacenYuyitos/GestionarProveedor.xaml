@@ -81,7 +81,7 @@
                  Width="166"
                  
                  mah:TextBoxHelper.Watermark="Rut Proveedor"
-                 mah:TextBoxHelper.UseFloatingWatermark="True"
+                 mah:TextBoxHelper.UseFloatingWatermark="True" 
                  
                  
                  />
@@ -94,7 +94,7 @@
                  Width="166"
                  
                   mah:TextBoxHelper.Watermark="Nombre Proveedor"
-                 mah:TextBoxHelper.UseFloatingWatermark="True"
+                 mah:TextBoxHelper.UseFloatingWatermark="True" PreviewTextInput="txtNombreProveedor_PreviewTextInput" 
                  />
         <TextBox x:Name="txtDireccionProveedor" 
                  HorizontalAlignment="Left"
@@ -139,7 +139,7 @@
                  Width="166"
                  
                  mah:TextBoxHelper.Watermark="Nombre Servidor"
-                 mah:TextBoxHelper.UseFloatingWatermark="True"
+                 mah:TextBoxHelper.UseFloatingWatermark="True" PreviewTextInput="txtNombreServidor_PreviewTextInput"
                  />
         <TextBox x:Name="txtTelefonoServidor" 
                  HorizontalAlignment="Left"
