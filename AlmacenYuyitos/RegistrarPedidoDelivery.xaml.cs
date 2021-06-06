@@ -542,6 +542,76 @@ namespace AlmacenYuyitos
                 await this.ShowMessageAsync("Error", "El Nombre del Cliente debe contener sólo letras");
             }
         }
+
+        private async void txtCodigoProducto_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+
+                await this.ShowMessageAsync("Error", "El Código del Producto debe contener sólo números");
+            }
+        }
+
+        private async void txtCantidad_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+
+                await this.ShowMessageAsync("Error", "La cantidad de producto debe contener sólo números");
+            }
+        }
+
+        private async void txtTelefonoContacto_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+
+                await this.ShowMessageAsync("Error", "El Teléfono de Contacto del Cliente debe contener sólo números");
+            }
+        }
+
+        private async void txtValorDespacho_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+
+                await this.ShowMessageAsync("Error", "El Valor de Despacho debe contener sólo números");
+            }
+        }
+
+        private async void txtPago_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+
+                await this.ShowMessageAsync("Error", "El Monto de Pago debe contener sólo números");
+            }
+        }
     }
 }
 

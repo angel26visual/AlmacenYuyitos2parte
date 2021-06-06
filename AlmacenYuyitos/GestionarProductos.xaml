@@ -93,7 +93,7 @@
                  Width="175"
                  
                  mah:TextBoxHelper.Watermark="Ingrese Precio de Venta"
-                 mah:TextBoxHelper.UseFloatingWatermark="True" Grid.ColumnSpan="4"
+                 mah:TextBoxHelper.UseFloatingWatermark="True" Grid.ColumnSpan="4" KeyDown="txtPrecioDeVenta_KeyDown"
                  
                  
                  />
@@ -106,7 +106,7 @@
                  Width="175"
                  
                  mah:TextBoxHelper.Watermark="Ingrese Precio de Compra"
-                 mah:TextBoxHelper.UseFloatingWatermark="True" Grid.ColumnSpan="4"
+                 mah:TextBoxHelper.UseFloatingWatermark="True" Grid.ColumnSpan="4" KeyDown="txtPrecioDeCompra_KeyDown"
                  
                  
                  />
@@ -124,7 +124,7 @@
                  Width="174"
                  
                  mah:TextBoxHelper.Watermark="Ingrese Stock"
-                 mah:TextBoxHelper.UseFloatingWatermark="True" Grid.Column="1" Grid.ColumnSpan="3"
+                 mah:TextBoxHelper.UseFloatingWatermark="True" Grid.Column="1" Grid.ColumnSpan="3" KeyDown="txtStock_KeyDown"
                  
                  
                  />
@@ -137,7 +137,7 @@
                  Width="174"
                  
                  mah:TextBoxHelper.Watermark="Ingrese Stock Crítico"
-                 mah:TextBoxHelper.UseFloatingWatermark="True" Grid.ColumnSpan="3" Grid.Column="1"
+                 mah:TextBoxHelper.UseFloatingWatermark="True" Grid.ColumnSpan="3" Grid.Column="1" KeyDown="txtStockCritico_KeyDown"
                  
                  
                  />
@@ -150,7 +150,7 @@
                  Width="172"
                  
                  mah:TextBoxHelper.Watermark="Ingrese Código de Producto"
-                 mah:TextBoxHelper.UseFloatingWatermark="True" Grid.ColumnSpan="3"
+                 mah:TextBoxHelper.UseFloatingWatermark="True" Grid.ColumnSpan="3" KeyDown="txtCodigoProducto_KeyDown"
                  
                  
                  />
@@ -169,7 +169,7 @@
             Width="172"
                  
             Controls:TextBoxHelper.Watermark="Genere Código de  Barra de Producto"
-            Controls:TextBoxHelper.UseFloatingWatermark="True" Grid.Column="3"
+            Controls:TextBoxHelper.UseFloatingWatermark="True" Grid.Column="3" KeyDown="txtCodigoBarraProducto_KeyDown"
                  
                  />
 

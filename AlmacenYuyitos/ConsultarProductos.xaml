@@ -69,7 +69,7 @@
                         mah:TextBoxHelper.UseFloatingWatermark="True"
                         mah:TextBoxHelper.ClearTextButton="True"
                         VerticalContentAlignment="Center"
-                        HorizontalContentAlignment="Center" KeyUp="txtCodigoP_KeyUp" Width="159" 
+                        HorizontalContentAlignment="Center" KeyUp="txtCodigoP_KeyUp" Width="159" KeyDown="txtCodigoP_KeyDown" 
                         />
             <TextBox x:Name="txtNombreProducto"
                      mah:TextBoxHelper.Watermark="Nombre del producto"

@@ -527,5 +527,47 @@ namespace AlmacenYuyitos
             }
            
         }
+
+        private async void txtFonoProveedorUno_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+
+                await this.ShowMessageAsync("Error", "El Teléfono1 del proveedor debe contener sólo números");
+            }
+        }
+
+        private async void txtFonoProveedor2_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+
+                await this.ShowMessageAsync("Error", "El Teléfono 2 del proveedor debe contener sólo números");
+            }
+        }
+
+        private async void txtTelefonoServidor_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+
+                await this.ShowMessageAsync("Error", "El Teléfono del servidor debe contener sólo números");
+            }
+        }
     }
 }

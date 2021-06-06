@@ -116,7 +116,7 @@
                  Width="166"
                  
                  mah:TextBoxHelper.Watermark="Teléfono 1"
-                 mah:TextBoxHelper.UseFloatingWatermark="True"
+                 mah:TextBoxHelper.UseFloatingWatermark="True" KeyDown="txtFonoProveedorUno_KeyDown"
                  />
         <TextBox x:Name="txtFonoProveedor2" 
                  HorizontalAlignment="Left"
@@ -127,7 +127,7 @@
                  Width="166"
                  
                  mah:TextBoxHelper.Watermark="Teléfono 2"
-                 mah:TextBoxHelper.UseFloatingWatermark="True"
+                 mah:TextBoxHelper.UseFloatingWatermark="True" KeyDown="txtFonoProveedor2_KeyDown"
                  />
         <TextBox x:Name="txtNombreServidor" 
                  
@@ -149,7 +149,7 @@
                  VerticalAlignment="Top" Width="166"
                  
                  mah:TextBoxHelper.Watermark="Teléfono Servidor"
-                 mah:TextBoxHelper.UseFloatingWatermark="True"
+                 mah:TextBoxHelper.UseFloatingWatermark="True" KeyDown="txtTelefonoServidor_KeyDown"
                  
                  />
         <DataGrid x:Name="dgProveedor" HorizontalAlignment="Left" Height="212" Margin="360,39,0,0" VerticalAlignment="Top" Width="618" Loaded="dgProveedor_Loaded" SelectionChanged="dgProveedor_SelectionChanged" IsReadOnly="True"/>

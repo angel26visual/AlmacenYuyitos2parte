@@ -447,5 +447,20 @@ namespace AlmacenYuyitos
                 await this.ShowMessageAsync("Error", "El Apellido del cliente debe contener sólo letras");
             }
         }
+
+        private async void txtTelefonoCliente_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+
+                await this.ShowMessageAsync("Error", "El número telefónico del cliente debe contener sólo números");
+            }
+              
+        }
     }
 }

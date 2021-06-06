@@ -419,7 +419,61 @@ namespace AlmacenYuyitos
             }
         }
 
-      
+        private async void txtIdPromocion_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+
+                await this.ShowMessageAsync("Error", "El ID de la promoción debe contener sólo números");
+            }
+        }
+
+        private async void txtCantidadDeProductos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+
+                await this.ShowMessageAsync("Error", "La cantidad de Productos debe contener sólo números");
+            }
+        }
+
+        private async  void txtPorcentajeDescuento_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+
+                await this.ShowMessageAsync("Error", "El Porcentaje de Descuento debe contener sólo números");
+            }
+        }
+
+        private async void txtDescEfectivo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+
+                await this.ShowMessageAsync("Error", "El Descuento Efectivo debe contener sólo números");
+            }
+        }
     }
 }
 

@@ -607,6 +607,48 @@ namespace AlmacenYuyitos
                 cuentaFlyouts.IsOpen = true;
             }
         }
+
+        private async void txtCodigoProducto_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+
+                await this.ShowMessageAsync("Error", "El Código del producto debe contener sólo números");
+            }
+        }
+
+        private async void txtCantidad_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+
+                await this.ShowMessageAsync("Error", "La cantidad de Productos debe contener sólo números");
+            }
+        }
+
+        private async void txtPago_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+
+                await this.ShowMessageAsync("Error", "El Monto pagado debe contener sólo números");
+            }
+        }
     }
 }
 

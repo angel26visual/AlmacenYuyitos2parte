@@ -150,14 +150,14 @@
                      mah:TextBoxHelper.ClearTextButton="True"
                      VerticalContentAlignment="Center"
                      HorizontalContentAlignment="Center" 
-                     Height="40"/>
+                     Height="40" KeyDown="txtCodigoProducto_KeyDown"/>
             <TextBox x:Name="txtCantidad" 
                      Margin="10,10,10,10"
                      mah:TextBoxHelper.Watermark="Cantidad"
                      mah:TextBoxHelper.UseFloatingWatermark="True"
                      mah:TextBoxHelper.ClearTextButton="True"
                      VerticalContentAlignment="Center"
-                     HorizontalContentAlignment="Center" Height="40"/>
+                     HorizontalContentAlignment="Center" Height="40" KeyDown="txtCantidad_KeyDown"/>
             <StackPanel Orientation="Horizontal" Margin="10, 10, 10, 10" HorizontalAlignment="Center">
                 <Button x:Name="btnAgregarProducto" Margin="10,10,10,10" 
                 Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Width="40" 
@@ -232,7 +232,7 @@
                      mah:TextBoxHelper.ClearTextButton="True"
                      VerticalContentAlignment="Center"
                      HorizontalContentAlignment="Center" 
-                     Height="40"/>
+                     Height="40" KeyDown="txtPago_KeyDown"/>
             <Button x:Name="btnRegistrarVenta" 
                     Margin="10,10,10,10" 
                 Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Width="40" 

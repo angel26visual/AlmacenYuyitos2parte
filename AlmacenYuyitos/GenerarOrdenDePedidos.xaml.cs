@@ -121,5 +121,47 @@ namespace AlmacenYuyitos
                 await this.ShowMessageAsync("Error", "Nombre del seridor debe contener sólo letras");
             }
         }
+
+        private async void txtIdOrdenPedidos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+
+                await this.ShowMessageAsync("Error", "El ID de la Orden de pedidos debe contener sólo números");
+            }
+        }
+
+        private async void txtTelefonoServidor_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+
+                await this.ShowMessageAsync("Error", "El número telefónico del servidordebe contener sólo números");
+            }
+        }
+
+        private async void txtMontoTotal_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+
+                await this.ShowMessageAsync("Error", "El Monto Total debe contener sólo números");
+            }
+        }
     }
 }

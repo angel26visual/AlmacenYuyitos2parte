@@ -67,16 +67,16 @@
         <Label Content="Teléfono Servidor:" HorizontalAlignment="Left" Margin="103,171,0,0" VerticalAlignment="Top"/>
         <Label Content="Proveedor:" HorizontalAlignment="Left" Margin="141,202,0,0" VerticalAlignment="Top"/>
         <Label Content="Productos:" HorizontalAlignment="Left" Margin="143,228,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtIdOrdenPedidos" HorizontalAlignment="Left" Height="23" Margin="232,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtIdOrdenPedidos" HorizontalAlignment="Left" Height="23" Margin="232,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" KeyDown="txtIdOrdenPedidos_KeyDown"/>
         <TextBox x:Name="txtNombreServidor" HorizontalAlignment="Left" Height="23" Margin="232,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewTextInput="txtNombreServidor_PreviewTextInput"/>
-        <TextBox x:Name="txtTelefonoServidor" HorizontalAlignment="Left" Height="23" Margin="232,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.453,0.055"/>
+        <TextBox x:Name="txtTelefonoServidor" HorizontalAlignment="Left" Height="23" Margin="232,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.453,0.055" KeyDown="txtTelefonoServidor_KeyDown"/>
         <ComboBox x:Name="cboProveedor" HorizontalAlignment="Left" Margin="232,202,0,0" VerticalAlignment="Top" Width="120"/>
         <Label Content="Fecha de Orden de Pedido:" HorizontalAlignment="Left" Margin="449,109,0,0" VerticalAlignment="Top"/>
         <Label Content="Estado de Orden de Pedidos:" HorizontalAlignment="Left" Margin="439,140,0,0" VerticalAlignment="Top"/>
         <Label Content="Monto Total:" HorizontalAlignment="Left" Margin="525,171,0,0" VerticalAlignment="Top"/>
         <DatePicker x:Name="dpFechaOrdenPedido" HorizontalAlignment="Left" Margin="608,109,0,0" VerticalAlignment="Top" Width="111"/>
         <ComboBox x:Name="cboEstadoOrden" HorizontalAlignment="Left" Margin="608,140,0,0" VerticalAlignment="Top" Width="111"/>
-        <TextBox x:Name="txtMontoTotal" HorizontalAlignment="Left" Height="23" Margin="625,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="94"/>
+        <TextBox x:Name="txtMontoTotal" HorizontalAlignment="Left" Height="23" Margin="625,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="94" KeyDown="txtMontoTotal_KeyDown"/>
         <Button x:Name="btnGuardarOrdenPedido" Content="GUARDAR ORDEN DE PEDIDO" HorizontalAlignment="Left" Margin="232,340,0,0" VerticalAlignment="Top" Width="161"/>
         <Button x:Name="btnAtras" Content="ATRÁS" HorizontalAlignment="Left" Margin="644,340,0,0" VerticalAlignment="Top" Width="75" Click="btnAtras_Click"/>
         <Image Source="/resources/logo.png" Width="120" Height="120" Margin="352,-11,321.6,267" />

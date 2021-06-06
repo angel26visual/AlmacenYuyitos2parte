@@ -114,7 +114,7 @@
                  Width="166"
                  
                  mah:TextBoxHelper.Watermark="Ingrese Teléfono de Cliente"
-                 mah:TextBoxHelper.UseFloatingWatermark="True"
+                 mah:TextBoxHelper.UseFloatingWatermark="True" KeyDown="txtTelefonoCliente_KeyDown" 
                  
                  />
         <TextBox x:Name="txtCorreoCliente" 
