@@ -136,5 +136,31 @@ namespace AlmacenYuyitos
                 return;
             }
         }
+
+        private void btnFiltrarFechaVenta_Click(object sender, RoutedEventArgs e)
+        {
+            OracleCommand cmd = con.CreateCommand();
+            cmd.CommandText = "SELECT NRO_BOLETA, FECHA_VENTA, TOTAL_VENTA, TOTAL_DESCUENTOS, MONTO_TOTAL, MONTO_PAGO, TRABAJADOR_RUT_TRAB FROM BOLETA WHERE FECHA_VENTA = :FECHA_VENTA";
+            cmd.Parameters.Add("FECHA_VENTA", OracleDbType.Varchar2, 100).Value = txtFechaDeVenta.Text;
+            cmd.CommandType = CommandType.Text;
+            OracleDataReader dr = cmd.ExecuteReader();
+            DataTable dt = new DataTable();
+            dt.Load(dr);
+            dgVenta.ItemsSource = dt.DefaultView;
+            dr.Close();
+        }
+
+        private void btnFiltrarTipoVenta_Click(object sender, RoutedEventArgs e)
+        {
+            OracleCommand cmd = con.CreateCommand();
+            cmd.CommandText = "SELECT NRO_BOLETA, FECHA_VENTA, TOTAL_VENTA, TOTAL_DESCUENTOS, MONTO_TOTAL, MONTO_PAGO, TRABAJADOR_RUT_TRAB FROM BOLETA WHERE NRO_BOLETA = :NRO_BOLETA";
+            cmd.Parameters.Add("NRO_BOLETA", OracleDbType.Varchar2, 100).Value = txtNroBoleta.Text;
+            cmd.CommandType = CommandType.Text;
+            OracleDataReader dr = cmd.ExecuteReader();
+            DataTable dt = new DataTable();
+            dt.Load(dr);
+            dgVenta.ItemsSource = dt.DefaultView;
+            dr.Close();
+        }
     }
 }
