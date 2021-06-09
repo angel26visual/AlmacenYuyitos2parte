@@ -62,13 +62,24 @@
             </Button>
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
-    <Grid>
+    <Grid Background="LightBlue">
         <Grid.RowDefinitions>
             <RowDefinition Height="71*"/>
             <RowDefinition Height="413*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="btnVolver" Content="VOLVER" HorizontalAlignment="Left" Margin="867,320.4,0,0" VerticalAlignment="Top" Width="75" Click="btnVolver_Click" Grid.Row="1"/>
-        <Label Content="Producto:" HorizontalAlignment="Left" Margin="43,48.4,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+        <Button x:Name="btnVolver" 
+                Click="btnVolver_Click" Grid.Row="1"
+                 Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                Margin="840,353.8,87.2,19"
+                Width="40" 
+                Height="40"
+                Cursor="Hand"
+                ToolTip="Volver" >
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="Return"/>
+        </Button>
+        <Label Content="Código de Producto:" HorizontalAlignment="Left" Margin="8,25.8,0,0" VerticalAlignment="Top" Grid.Row="1"/>
         <Label Content="Cantidad:" HorizontalAlignment="Left" Margin="43,79.4,0,0" VerticalAlignment="Top" Grid.Row="1"/>
         <TextBox x:Name="txtCantidad" HorizontalAlignment="Left" Height="23" Margin="130,79.4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Row="1" KeyDown="txtCantidad_KeyDown"/>
         <DataGrid x:Name="dgDelivery" HorizontalAlignment="Left" Height="138" Margin="292,17.4,0,0" VerticalAlignment="Top" Width="589" Grid.Row="1"/>
@@ -84,12 +95,47 @@
         <DatePicker x:Name="dpFechaeEntrega" HorizontalAlignment="Left" Margin="390,179.4,0,0" VerticalAlignment="Top" Width="118" Grid.Row="1"/>
         <Label Content="Total:" HorizontalAlignment="Left" Margin="597,221.4,0,0" VerticalAlignment="Top" Grid.Row="1"/>
         <TextBox x:Name="txtTotalDelivery" HorizontalAlignment="Left" Height="23" Margin="660,221.4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="72" Grid.Row="1"/>
-        <Button x:Name="btnGuardarPedidoDelivery" Content="GUARDAR PEDIDO" HorizontalAlignment="Left" Margin="145,359.4,0,0" VerticalAlignment="Top" Width="105" Click="btnGuardarPedidoDelivery_Click" Grid.Row="1"/>
-        <Button x:Name="btnEliminar" Content="ELIMINAR" HorizontalAlignment="Left" Margin="867,20.4,0,0" VerticalAlignment="Top" Width="75" Click="btnEliminar_Click" Grid.Row="1"/>
-        <Button x:Name="btnAgregarProducto" Content="AgregarProducto" HorizontalAlignment="Left" Margin="26,117.4,0,0" VerticalAlignment="Top" Width="105" Click="btnAgregarProducto_Click" Grid.Row="1"/>
+        <Button x:Name="btnGuardarPedidoDelivery" 
+                Click="btnGuardarPedidoDelivery_Click" Grid.Row="1"
+                 Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                Margin="172,352.8,755.2,20"
+                Width="40" 
+                Height="40"
+                Cursor="Hand"
+                ToolTip="Guardar Pedido Delivery" >
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="Add"/>
+        </Button>
+        <Button x:Name="btnAgregarProducto" 
+                Click="btnAgregarProducto_Click" Grid.Row="1"
+                 Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                Margin="131,108.8,796.2,264"
+                Width="40" 
+                Height="40"
+                Cursor="Hand"
+                ToolTip="Agregar Cliente" >
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="Add"/>
+
+        </Button>
         <TextBox x:Name="txtTotalDescuentos" HorizontalAlignment="Left" Height="23" Margin="660,180.4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="72" Grid.Row="1"/>
         <TextBox x:Name="txtCodigoProducto" HorizontalAlignment="Left" Height="23" Margin="130,25.4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Row="1" KeyDown="txtCodigoProducto_KeyDown"/>
-        <Button x:Name="btnModificarCantidad" Content="ModificarCantidad" HorizontalAlignment="Left" Margin="145,117.4,0,0" VerticalAlignment="Top" Width="105" Click="btnModificarCantidad_Click" Grid.Row="1"/>
+        <Button x:Name="btnModificarCantidad"
+                Click="btnModificarCantidad_Click" Grid.Row="1"
+                 Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                Margin="207,109.8,720.2,263"
+                Width="40" 
+                Height="40"
+                Cursor="Hand"
+                ToolTip="Modificar Cantidad" RenderTransformOrigin="0.5,0.5" >
+          
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="New" />
+
+        </Button>
         <DatePicker x:Name="txtFechaVenta" HorizontalAlignment="Left" Margin="721,27,0,0" VerticalAlignment="Top"/>
         <Label Content="FechaVenta" HorizontalAlignment="Left" Margin="625,25,0,0" VerticalAlignment="Top"/>
         <Label Content="NRO. BOLETA" HorizontalAlignment="Left" Margin="26,25,0,0" VerticalAlignment="Top"/>

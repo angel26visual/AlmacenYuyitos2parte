@@ -29,13 +29,27 @@ namespace AlmacenYuyitos
         int cargo = 0;
         string nombre = string.Empty;
         string apellido = string.Empty;
+        string commandtable = " SELECT NRO_BOLETA,FECHA_VENTA , FECHA_ENTREGA ,MONTO_TOTAL,NOM_CLIENTE , DIRECCION_CLIENTE , FONO_CONTACTO ,TOTAL_DESCUENTOS , TOTAL_VENTA , ESTADO_PED_ID_ESTADELIVERY FROM BOLETA WHERE TIPO_VENTA_ID_TIPVENTA = 3";
         public VisualizarPedidoDelivery(string usuario)
         {
             this.setConnection();
             InitializeComponent();
             nomUsuario = usuario;
             DatosUsuarios();
+            actualizarDataGrid();
 
+        }
+
+        private void actualizarDataGrid()
+        {
+            OracleCommand cmd = con.CreateCommand();
+            cmd.CommandText = commandtable;
+            cmd.CommandType = CommandType.Text;
+            OracleDataReader dr = cmd.ExecuteReader();
+            DataTable dt = new DataTable();
+            dt.Load(dr);
+            dgPedidosDelivery.ItemsSource = dt.DefaultView;
+            dr.Close();
         }
 
         private async void DatosUsuarios()
@@ -103,9 +117,29 @@ namespace AlmacenYuyitos
 
         private void btnVerInfoDelivery_Click(object sender, RoutedEventArgs e)
         {
+            
+
             VerInformacionDelivery vid = new VerInformacionDelivery(nomUsuario);
-            vid.Show();
-            this.Close();
+            DataRowView datos = dgPedidosDelivery.SelectedItem as DataRowView;
+            if (datos != null)
+            {
+                vid.txtNumeroDeBoleta.Text = datos["NRO_BOLETA"].ToString();
+                vid.dpFechaDePedido.Text = datos["FECHA_VENTA"].ToString();
+                vid.dpFechaDeEntrega.Text = datos["FECHA_ENTREGA"].ToString();
+                vid.txtNombreDeCliente.Text = datos["NOM_CLIENTE"].ToString();
+                vid.txtDireccion.Text = datos["DIRECCION_CLIENTE"].ToString();
+                vid.txtTelefonoContacto.Text = datos["FONO_CONTACTO"].ToString();
+                vid.txtTotalDescuentos.Text = datos["TOTAL_DESCUENTOS"].ToString();
+                vid.txtTotalVenta.Text = datos["TOTAL_VENTA"].ToString();
+                vid.cboEstado.SelectedValue = int.Parse(datos["ESTADO_PED_ID_ESTADELIVERY"].ToString());
+
+
+
+
+                vid.Show();
+                this.Close();
+
+            }
         }
 
         private void btnCuenta_Click(object sender, RoutedEventArgs e)

@@ -4,10 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:AlmacenYuyitos"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="Ver Informacion Delivery - Los Yuyitos" Height="450" Width="800">
+        Title="Ver Informacion Delivery - Los Yuyitos" Height="381.6" Width="712.4">
     <!--Inicio menu izquierda inicio de sesion-->
     <mah:MetroWindow.Flyouts>
         <mah:FlyoutsControl x:Name="ControlesFlyouts">
@@ -62,34 +63,69 @@
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
     <Grid Background="LightBlue">
-        <Label Content="Id Pedido:" HorizontalAlignment="Left" Margin="127,112,0,0" VerticalAlignment="Top"/>
-        <Label Content="Número de Boleta:" HorizontalAlignment="Left" Margin="81,143,0,0" VerticalAlignment="Top"/>
-        <Label Content="Fecha de Pedido:" HorizontalAlignment="Left" Margin="90,174,0,0" VerticalAlignment="Top"/>
-        <Label Content="Fecha de Entrega:" HorizontalAlignment="Left" Margin="85,205,0,0" VerticalAlignment="Top"/>
-        <Label Content="Total:" HorizontalAlignment="Left" Margin="151,236,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.512,1.85"/>
-        <Label Content="Valor de Despacho:" HorizontalAlignment="Left" Margin="77,267,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tztIdPedido" HorizontalAlignment="Left" Height="23" Margin="210,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtNumeroDeBoleta" HorizontalAlignment="Left" Height="23" Margin="210,143,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <DatePicker x:Name="dpFechaDePedido" HorizontalAlignment="Left" Margin="210,174,0,0" VerticalAlignment="Top" Width="120"/>
-        <DatePicker x:Name="dpFechaDeEntrega" HorizontalAlignment="Left" Margin="210,205,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtTotal" HorizontalAlignment="Left" Height="23" Margin="210,236,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtValorDespacho" HorizontalAlignment="Left" Height="23" Margin="210,267,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Número de Boleta:" HorizontalAlignment="Left" Margin="81,115,0,0" VerticalAlignment="Top"/>
+        <Label Content="Fecha de Pedido:" HorizontalAlignment="Left" Margin="90,146,0,0" VerticalAlignment="Top"/>
+        <Label Content="Fecha de Entrega:" HorizontalAlignment="Left" Margin="85,177,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtNumeroDeBoleta" HorizontalAlignment="Left" Height="23" Margin="210,116,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.462,-1.126"/>
+        <DatePicker x:Name="dpFechaDePedido" HorizontalAlignment="Left" Margin="210,146,0,0" VerticalAlignment="Top" Width="120"/>
+        <DatePicker x:Name="dpFechaDeEntrega" HorizontalAlignment="Left" Margin="210,177,0,0" VerticalAlignment="Top" Width="120"/>
         <Label Content="Nombre de Cliente:" HorizontalAlignment="Left" Margin="389,112,0,0" VerticalAlignment="Top"/>
         <Label Content="Dirección:" HorizontalAlignment="Left" Margin="440,143,0,0" VerticalAlignment="Top"/>
         <Label Content="Teléfono de Contacto:" HorizontalAlignment="Left" Margin="376,174,0,0" VerticalAlignment="Top"/>
         <Label Content="Total Descuentos:" HorizontalAlignment="Left" Margin="400,205,0,0" VerticalAlignment="Top"/>
-        <Label Content="Total Venta:" HorizontalAlignment="Left" Margin="432,236,0,0" VerticalAlignment="Top"/>
-        <Label Content="Estado:" HorizontalAlignment="Left" Margin="455,267,0,0" VerticalAlignment="Top"/>
+        <Label Content="Total Venta:" HorizontalAlignment="Left" Margin="119,210,0,0" VerticalAlignment="Top"/>
+        <Label Content="Estado:" HorizontalAlignment="Left" Margin="456,238,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtNombreDeCliente" HorizontalAlignment="Left" Height="23" Margin="508,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="txtDireccion" HorizontalAlignment="Left" Height="23" Margin="508,143,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="txtTelefonoContacto" HorizontalAlignment="Left" Height="23" Margin="508,174,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="txtTotalDescuentos" HorizontalAlignment="Left" Height="23" Margin="508,205,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtTotalVenta" HorizontalAlignment="Left" Height="23" Margin="508,236,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <ComboBox x:Name="cboEstado" HorizontalAlignment="Left" Margin="508,267,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnVolver" Content="VOLVER" HorizontalAlignment="Left" Margin="709,383,0,0" VerticalAlignment="Top" Width="75" Click="btnVolver_Click"/>
-        <Button x:Name="btnEliminar" Content="ELIMINAR" HorizontalAlignment="Left" Margin="210,309,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnModificar" Content="MODIFICAR" HorizontalAlignment="Left" Margin="69,309,0,0" VerticalAlignment="Top" Width="120"/>
-       <Image Source="/resources/logo.png" Width="120" Height="120" Margin="335,-13,338.6,313"/>
+        <TextBox x:Name="txtTotalVenta" HorizontalAlignment="Left" Height="23" Margin="208,212,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="cboEstado" HorizontalAlignment="Left" Margin="509,238,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.5,0.5">
+
+        </ComboBox>
+        <Button x:Name="btnVolver" 
+                Click="btnVolver_Click"
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                HorizontalAlignment="Left"
+                Margin="647,306,0,0"
+                VerticalAlignment="Top" 
+                Width="40" Height="40" 
+                ToolTip="volver">
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="Return"/>
+
+        </Button>
+
+
+        <Button x:Name="btnEliminar" 
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                HorizontalAlignment="Left"
+                Margin="285,301,0,0"
+                VerticalAlignment="Top" 
+                Width="40" Height="40" 
+                ToolTip="Eliminar Información Delivery">
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="Delete"/>
+
+        </Button>
+
+
+        <Button x:Name="btnModificar" 
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                HorizontalAlignment="Left"
+                Margin="209,300,0,0"
+                VerticalAlignment="Top" 
+                Width="40" Height="40" 
+                ToolTip="Modificar Información Delivery" Click="btnModificar_Click">
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="New"/>
+
+        </Button>
+
+        <Image Source="/resources/logo.png" Margin="286,-20,260.6,234"/>
 
     </Grid>
 </mah:MetroWindow>

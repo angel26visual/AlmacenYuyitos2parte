@@ -34,6 +34,7 @@ namespace AlmacenYuyitos
             InitializeComponent();
             nomUsuario = usuario;
             DatosUsuarios();
+            cargarCbo();
         }
 
         private async void DatosUsuarios()
@@ -110,6 +111,145 @@ namespace AlmacenYuyitos
             {
                 cuentaFlyouts.IsOpen = true;
             }
+        }
+
+        public void cargarCbo()
+        {
+            try
+            {
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandText = "SELECT ID_ESTADELIVERY , DESCRIP_ESTADELIVERY FROM ESTADO_PED";
+                cmd.CommandType = System.Data.CommandType.Text;
+
+                OracleDataReader dr = cmd.ExecuteReader();
+                cmd.ExecuteNonQuery();
+                OracleDataAdapter oda = new OracleDataAdapter(cmd);
+
+                DataTable dt = new DataTable();
+                oda.Fill(dt);
+                cboEstado.ItemsSource = dt.AsDataView();
+                cboEstado.DisplayMemberPath = "DESCRIP_ESTADELIVERY";
+                cboEstado.SelectedValuePath = "ID_ESTADELIVERY";
+            }
+            catch (Exception)
+            {
+
+
+            }
+        }
+
+        private async void btnModificar_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+
+                
+
+                
+                if (dpFechaDePedido.SelectedDate !=null) 
+                {
+                    cmd.Parameters.Add("FECHA_VENTA", OracleDbType.Date).Value = dpFechaDePedido.SelectedDate;
+                }
+                else
+                {
+                    await this.ShowMessageAsync("Error", "La Fecha de Pedido debe ser válida");
+                    return;
+
+                }
+
+                if (dpFechaDeEntrega.SelectedDate != null)
+                {
+                    cmd.Parameters.Add("FECHA_ENTREGA", OracleDbType.Date).Value = dpFechaDeEntrega.SelectedDate;
+                }
+                else
+                {
+                    await this.ShowMessageAsync("Error", "La Fecha de Pedido debe ser válida");
+                    return;
+
+                }
+
+               
+
+                if (txtNombreDeCliente.Text.Replace(" ", string.Empty).Length >= 3)
+                {
+                    cmd.Parameters.Add("NOM_CLIENTE", OracleDbType.Varchar2, 100).Value = txtNombreDeCliente.Text;
+                }
+                else
+                {
+                    await this.ShowMessageAsync("Error", "El Nombre del Cliente debe contener 3 o más caracteres!");
+                    return;
+
+                }
+
+                if (txtDireccion.Text.Replace(" ", string.Empty).Length >= 3)
+                {
+                    cmd.Parameters.Add("DIRECCION_CLIENTE", OracleDbType.Varchar2, 100).Value = txtDireccion.Text;
+                }
+                else
+                {
+                    await this.ShowMessageAsync("Error", "El la dirección del cliente debe contener 3 o más caracteres!");
+                    return;
+
+                }
+
+                if (txtTelefonoContacto.Text.Replace(" ", string.Empty).Length == 9)
+                {
+                    cmd.Parameters.Add("FONO_CONTACTO", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtTelefonoContacto.Text);
+                }
+                else
+                {
+                    await this.ShowMessageAsync("Error", "El Teléfono del cliente debe contener 9 dígitos!");
+                    return;
+
+                }
+
+                if (cboEstado.SelectedValue != null)
+                { cmd.Parameters.Add("ESTADO_PED_ID_ESTADELIVERY", OracleDbType.Int32, 20).Value = cboEstado.SelectedValue; }
+                else { await this.ShowMessageAsync("Error", "debe seleccionar un estado!"); return; }
+
+
+               cmd.Parameters.Add("NRO_BOLETA", OracleDbType.Varchar2, 100).Value = txtNumeroDeBoleta.Text;
+               
+
+
+                cmd.CommandText = "UPDATE BOLETA SET FECHA_VENTA = :FECHA_VENTA , FECHA_ENTREGA = :FECHA_ENTREGA , MONTO_TOTAL = :MONTO_TOTAL , NOM_CLIENTE = :NOM_CLIENTE , DIRECCION_CLIENTE = :DIRECCION_CLIENTE ,FONO_CONTACTO = :FONO_CONTACTO , TOTAL_DESCUENTOS = :TOTAL_DESCUENTOS , TOTAL_VENTA = :TOTAL_VENTA , ESTADO_PED_ID_ESTADELIVERY = :ESTADO_PED_ID_ESTADELIVERY WHERE NRO_BOLETA = :NRO_BOLETA";
+
+                try
+                {
+                    int n = cmd.ExecuteNonQuery();
+                    if (n > 0)
+                    {
+                        await this.ShowMessageAsync("actualizado", "Delivery actualizado correctamente");
+                        this.resetAll();
+                     
+
+                    }
+                }
+                catch (Exception ep)
+                {
+                    await this.ShowMessageAsync("Error", ep.ToString());
+                    return;
+                }
+                
+            }
+            catch (Exception)
+            {
+
+
+            }
+        }
+
+        public void resetAll()
+        {
+            txtNumeroDeBoleta.Text = "";
+            txtTotalVenta.Text = "";
+            txtNombreDeCliente.Text = "";
+            txtDireccion.Text = "";
+            txtTelefonoContacto.Text = "";
+            txtTotalDescuentos.Text = "";
+
         }
     }
 }
