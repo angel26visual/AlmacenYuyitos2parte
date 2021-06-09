@@ -259,6 +259,7 @@ namespace AlmacenYuyitos
                 }
                 txtTotalDescuento.Text = (int.Parse(txtTotalDescuento.Text) + (porcentaje + efectivo)).ToString();
                 txtTotalVenta.Text = (int.Parse(txtTotalVenta.Text) - (porcentaje + efectivo)).ToString();
+                
             }
             catch (Exception)
             {

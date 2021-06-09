@@ -90,7 +90,7 @@ namespace AlmacenYuyitos
                     case 1:
                         cmd.Parameters.Add("CORREO", OracleDbType.Varchar2, 100).Value = txtMail.Text;
                         cmd.Parameters.Add("estado_civil_id_estac", OracleDbType.Int32, 10).Value = cboEstadoCivil.SelectedValue;
-                        cmd.Parameters.Add("RUT", OracleDbType.Varchar2, 9).Value = rut.ToString();
+                        cmd.Parameters.Add("RUT_TRAB", OracleDbType.Varchar2, 9).Value = rut.ToString();
                         try
                         {
                             int n = cmd.ExecuteNonQuery();
@@ -100,9 +100,9 @@ namespace AlmacenYuyitos
 
                             }
                         }
-                        catch (Exception expe)
+                        catch (Exception ex)
                         {
-                            await this.ShowMessageAsync("Información de contacto", "No se a podido actualizar los registros");
+                            await this.ShowMessageAsync("Información de contacto", ex.ToString());
                         }
                         break;
                     case 2:
@@ -218,7 +218,7 @@ namespace AlmacenYuyitos
 
         private void btnModificar_Click(object sender, RoutedEventArgs e)
         {
-            String sql = "UPDATE TRABAJADOR SET CORRE0 = :CORREO, ESTADO_CIVIL_ID_ESTAC = :ESTADOCIVIL WHERE RUT_TRAB = :RUT_TRAB";
+            String sql = "UPDATE TRABAJADOR SET CORREO = :CORREO, ESTADO_CIVIL_ID_ESTAC = :ESTADOCIVIL WHERE RUT_TRAB = :RUT";
             this.AUD(sql, 1);
         }
 
