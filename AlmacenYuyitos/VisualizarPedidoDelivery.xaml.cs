@@ -130,7 +130,8 @@ namespace AlmacenYuyitos
                 vid.txtDireccion.Text = datos["DIRECCION_CLIENTE"].ToString();
                 vid.txtTelefonoContacto.Text = datos["FONO_CONTACTO"].ToString();
                 vid.txtTotalDescuentos.Text = datos["TOTAL_DESCUENTOS"].ToString();
-                vid.txtTotalVenta.Text = datos["TOTAL_VENTA"].ToString();
+                vid.txtMontoTotal.Text = datos["MONTO_TOTAL"].ToString();
+                vid.txtMontoFinal.Text = datos["TOTAL_VENTA"].ToString();
                 vid.cboEstado.SelectedValue = int.Parse(datos["ESTADO_PED_ID_ESTADELIVERY"].ToString());
 
 

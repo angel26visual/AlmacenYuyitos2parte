@@ -73,13 +73,13 @@
         <Label Content="Dirección:" HorizontalAlignment="Left" Margin="440,143,0,0" VerticalAlignment="Top"/>
         <Label Content="Teléfono de Contacto:" HorizontalAlignment="Left" Margin="376,174,0,0" VerticalAlignment="Top"/>
         <Label Content="Total Descuentos:" HorizontalAlignment="Left" Margin="400,205,0,0" VerticalAlignment="Top"/>
-        <Label Content="Total Venta:" HorizontalAlignment="Left" Margin="119,210,0,0" VerticalAlignment="Top"/>
+        <Label Content="Monto Final:" HorizontalAlignment="Left" Margin="112,253,0,0" VerticalAlignment="Top"/>
         <Label Content="Estado:" HorizontalAlignment="Left" Margin="456,238,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtNombreDeCliente" HorizontalAlignment="Left" Height="23" Margin="508,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="txtDireccion" HorizontalAlignment="Left" Height="23" Margin="508,143,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="txtTelefonoContacto" HorizontalAlignment="Left" Height="23" Margin="508,174,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="txtTotalDescuentos" HorizontalAlignment="Left" Height="23" Margin="508,205,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtTotalVenta" HorizontalAlignment="Left" Height="23" Margin="208,212,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtMontoFinal" HorizontalAlignment="Left" Height="23" Margin="213,255,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <ComboBox x:Name="cboEstado" HorizontalAlignment="Left" Margin="509,238,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.5,0.5">
 
         </ComboBox>
@@ -126,6 +126,8 @@
         </Button>
 
         <Image Source="/resources/logo.png" Margin="286,-20,260.6,234"/>
+        <Label Content="Monto Total:" HorizontalAlignment="Left" Margin="113,214,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtMontoTotal" HorizontalAlignment="Left" Height="23" Margin="210,215,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
 
     </Grid>
 </mah:MetroWindow>

@@ -145,10 +145,10 @@ namespace AlmacenYuyitos
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
 
-                
 
-                
-                if (dpFechaDePedido.SelectedDate !=null) 
+
+
+                if (dpFechaDePedido.SelectedDate != null)
                 {
                     cmd.Parameters.Add("FECHA_VENTA", OracleDbType.Date).Value = dpFechaDePedido.SelectedDate;
                 }
@@ -170,7 +170,7 @@ namespace AlmacenYuyitos
 
                 }
 
-               
+
 
                 if (txtNombreDeCliente.Text.Replace(" ", string.Empty).Length >= 3)
                 {
@@ -205,16 +205,49 @@ namespace AlmacenYuyitos
 
                 }
 
+                if (txtTotalDescuentos.Text.Replace(" ", string.Empty).Length >= 1)
+                {
+                    cmd.Parameters.Add("TOTAL_DESCUENTOS", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtTotalDescuentos.Text);
+                }
+                else
+                {
+                    await this.ShowMessageAsync("Error", "El DESCUENTO TOTAL DEBE CONTENER MINIMO UN DÍGITO!");
+                    return;
+
+                }
+
+                if (txtMontoTotal.Text.Replace(" ", string.Empty).Length >= 1)
+                {
+                    cmd.Parameters.Add("MONTO_TOTAL", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtMontoTotal.Text);
+                }
+                else
+                {
+                    await this.ShowMessageAsync("Error", "El monto total debe contener al menos un dígito!");
+                    return;
+
+                }
+
+                if (txtMontoFinal.Text.Replace(" ", string.Empty).Length >= 1)
+                {
+                    cmd.Parameters.Add("MONTO_FINAL", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtMontoFinal.Text);
+                }
+                else
+                {
+                    await this.ShowMessageAsync("Error", "El monto FINAL debe contener al menos un dígito!");
+                    return;
+
+                }
+
                 if (cboEstado.SelectedValue != null)
                 { cmd.Parameters.Add("ESTADO_PED_ID_ESTADELIVERY", OracleDbType.Int32, 20).Value = cboEstado.SelectedValue; }
                 else { await this.ShowMessageAsync("Error", "debe seleccionar un estado!"); return; }
 
 
-               cmd.Parameters.Add("NRO_BOLETA", OracleDbType.Varchar2, 100).Value = txtNumeroDeBoleta.Text;
-               
+                cmd.Parameters.Add("NRO_BOLETA", OracleDbType.Varchar2, 100).Value = txtNumeroDeBoleta.Text;
 
 
-                cmd.CommandText = "UPDATE BOLETA SET FECHA_VENTA = :FECHA_VENTA , FECHA_ENTREGA = :FECHA_ENTREGA , MONTO_TOTAL = :MONTO_TOTAL , NOM_CLIENTE = :NOM_CLIENTE , DIRECCION_CLIENTE = :DIRECCION_CLIENTE ,FONO_CONTACTO = :FONO_CONTACTO , TOTAL_DESCUENTOS = :TOTAL_DESCUENTOS , TOTAL_VENTA = :TOTAL_VENTA , ESTADO_PED_ID_ESTADELIVERY = :ESTADO_PED_ID_ESTADELIVERY WHERE NRO_BOLETA = :NRO_BOLETA";
+
+                cmd.CommandText = "UPDATE BOLETA SET FECHA_VENTA = :FECHA_VENTA , FECHA_ENTREGA = :FECHA_ENTREGA ,NOM_CLIENTE = :NOM_CLIENTE , DIRECCION_CLIENTE = :DIRECCION_CLIENTE ,FONO_CONTACTO = :FONO_CONTACTO , TOTAL_DESCUENTOS = :TOTAL_DESCUENTOS , MONTO_TOTAL = :MONTO_TOTAL , TOTAL_VENTA = :TOTAL_VENTA , ESTADO_PED_ID_ESTADELIVERY = :ESTADO_PED_ID_ESTADELIVERY WHERE NRO_BOLETA = :NRO_BOLETA";
 
                 try
                 {
@@ -223,7 +256,7 @@ namespace AlmacenYuyitos
                     {
                         await this.ShowMessageAsync("actualizado", "Delivery actualizado correctamente");
                         this.resetAll();
-                     
+
 
                     }
                 }
@@ -232,7 +265,7 @@ namespace AlmacenYuyitos
                     await this.ShowMessageAsync("Error", ep.ToString());
                     return;
                 }
-                
+
             }
             catch (Exception)
             {
@@ -244,7 +277,8 @@ namespace AlmacenYuyitos
         public void resetAll()
         {
             txtNumeroDeBoleta.Text = "";
-            txtTotalVenta.Text = "";
+            txtMontoTotal.Text = "";
+            txtMontoFinal.Text = "";
             txtNombreDeCliente.Text = "";
             txtDireccion.Text = "";
             txtTelefonoContacto.Text = "";
