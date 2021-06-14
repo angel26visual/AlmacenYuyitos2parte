@@ -215,16 +215,31 @@ namespace AlmacenYuyitos
                 cmd.Parameters.Add("RUT_CLI", OracleDbType.Varchar2, 100).Value = txtRutCliente.Text;
                 cmd.CommandText = "delete from CLIENTE where rut_cli = :RUT_CLI";
 
-                try
+                MessageDialogResult respuesta = await this.ShowMessageAsync("ELIMINAR", "¿Desea Eliminar Información del Cliente Seleccionado?", MessageDialogStyle.AffirmativeAndNegative);
+
+                if (respuesta == MessageDialogResult.Affirmative)
                 {
-                    int n = cmd.ExecuteNonQuery();
-                    if (n > 0)
-                    {
-                        await this.ShowMessageAsync("eliminado", "Cliente eliminado correctamente");
-                        this.ActualizarDataGrid();
-                        this.resetAll();
+                        int n = cmd.ExecuteNonQuery();
+              
+                        if (n > 0)
+                        {
+                            await this.ShowMessageAsync("eliminado", "Cliente eliminado correctamente");
+                            this.ActualizarDataGrid();
+                            this.resetAll();
+
+                        }
 
                     }
+                
+                else
+                {
+                    return;
+                }
+
+
+                try
+                {
+                    
                 }
                 catch (Exception)
                 {
@@ -234,7 +249,7 @@ namespace AlmacenYuyitos
             catch (Exception)
             {
 
-                throw;
+                await this.ShowMessageAsync("Error", "Cliente Mantiene deuda con el Local");
             }
         }
 

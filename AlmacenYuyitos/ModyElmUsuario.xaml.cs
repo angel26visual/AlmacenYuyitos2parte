@@ -221,7 +221,8 @@ namespace AlmacenYuyitos
                 cmd.Parameters.Add("RUT_TRAB", OracleDbType.Varchar2, 100).Value = txtRut.Text;
                 cmd.CommandText = "delete from trabajador where rut_trab = :RUT_TRAB";
 
-                try
+                MessageDialogResult respuesta = await this.ShowMessageAsync("ELIMINAR", "¿Desea Eliminar Información del Usuario Seleccionado?", MessageDialogStyle.AffirmativeAndNegative);
+                if (respuesta == MessageDialogResult.Affirmative)
                 {
                     int n = cmd.ExecuteNonQuery();
                     if (n > 0)
@@ -233,10 +234,11 @@ namespace AlmacenYuyitos
 
                     }
                 }
-                catch (Exception)
+                else
                 {
-                    await this.ShowMessageAsync("Error", "no se pudo eliminar");
+                    return;
                 }
+                
             }
             catch (Exception)
             {

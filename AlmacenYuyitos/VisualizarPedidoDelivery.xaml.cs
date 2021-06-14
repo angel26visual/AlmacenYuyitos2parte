@@ -111,7 +111,8 @@ namespace AlmacenYuyitos
 
         private void btnVolver_Click(object sender, RoutedEventArgs e)
         {
-           
+            GestionarDelivery gd = new GestionarDelivery(nomUsuario);
+            gd.Show();
             this.Close();
         }
 

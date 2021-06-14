@@ -337,7 +337,9 @@ namespace AlmacenYuyitos
                 cmd.CommandType = CommandType.Text;
                 cmd.Parameters.Add("ID_PROMOCION", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtIdPromocion.Text);
                 cmd.CommandText = "delete from promocion where id_promocion = :ID_PROMOCION";
-                try
+
+                MessageDialogResult respuesta = await this.ShowMessageAsync("ELIMINAR", "¿Desea Eliminar Información de la Promoción Seleccionada?", MessageDialogStyle.AffirmativeAndNegative);
+                if (respuesta == MessageDialogResult.Affirmative)
                 {
                     int n = cmd.ExecuteNonQuery();
                     if (n > 0)
@@ -348,11 +350,12 @@ namespace AlmacenYuyitos
 
                     }
                 }
-
-                catch (Exception)
+                else
                 {
-                    await this.ShowMessageAsync("Error", "no se pudo eliminar");
+                    return;
                 }
+
+               
             }
             catch (Exception)
             {

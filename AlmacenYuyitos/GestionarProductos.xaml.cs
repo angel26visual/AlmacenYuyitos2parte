@@ -337,7 +337,9 @@ namespace AlmacenYuyitos
                 cmd.CommandType = CommandType.Text;
                 cmd.Parameters.Add("CODIGO_PRODUCTO", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtCodigoProducto.Text);
                 cmd.CommandText = "delete from producto where codigo_producto = :CODIGO_PRODUCTO";
-                try
+
+                MessageDialogResult respuesta = await this.ShowMessageAsync("ELIMINAR", "¿Desea Eliminar Información del Producto Seleccionado?", MessageDialogStyle.AffirmativeAndNegative);
+                if (respuesta == MessageDialogResult.Affirmative)
                 {
                     int n = cmd.ExecuteNonQuery();
                     if (n > 0)
@@ -348,11 +350,12 @@ namespace AlmacenYuyitos
 
                     }
                 }
-
-                catch (Exception)
+                else
                 {
-                    await this.ShowMessageAsync("Error", "no se pudo eliminar");
+                    return;
                 }
+
+               
             }
             catch (Exception)
             {

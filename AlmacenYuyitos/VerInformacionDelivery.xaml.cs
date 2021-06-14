@@ -285,5 +285,41 @@ namespace AlmacenYuyitos
             txtTotalDescuentos.Text = "";
 
         }
+
+        private async void btnEliminar_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.Add("NRO_BOLETA", OracleDbType.Varchar2, 100).Value = txtNumeroDeBoleta.Text;
+                cmd.CommandText = "delete from boleta where nro_boleta = :NRO_BOLETA";
+
+                MessageDialogResult respuesta = await this.ShowMessageAsync("ELIMINAR", "¿Desea Eliminar Información del Delivery Seleccionado?", MessageDialogStyle.AffirmativeAndNegative);
+
+                if (respuesta == MessageDialogResult.Affirmative)
+                {
+                    int n = cmd.ExecuteNonQuery();
+                    if (n > 0)
+                    {
+                        await this.ShowMessageAsync("eliminado", "Delivery eliminado correctamente");
+                        this.resetAll();
+
+                    }
+                }
+                else
+                {
+                    return;
+                }
+
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

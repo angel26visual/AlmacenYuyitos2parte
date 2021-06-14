@@ -147,8 +147,8 @@ namespace AlmacenYuyitos
                 cmd.Parameters.Add("RUT_PROVEE", OracleDbType.Varchar2, 100).Value = txtRutProveedor.Text;
                 cmd.CommandText = "delete from proveedor where rut_provee = :RUT_PROVEE";
 
-                try
-                {
+                MessageDialogResult respuesta = await this.ShowMessageAsync("ELIMINAR", "¿Desea Eliminar Información del Proveedor Seleccionado?", MessageDialogStyle.AffirmativeAndNegative);
+                if (respuesta == MessageDialogResult.Affirmative) { 
                     int n = cmd.ExecuteNonQuery();
                     if (n > 0)
                     {
@@ -158,10 +158,11 @@ namespace AlmacenYuyitos
 
                     }
                 }
-                catch (Exception)
+                else
                 {
-                    await this.ShowMessageAsync("Error", "no se pudo eliminar");
+                    return;
                 }
+                
             }
             catch (Exception)
             {
