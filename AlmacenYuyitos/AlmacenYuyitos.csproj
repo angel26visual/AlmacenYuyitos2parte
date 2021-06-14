@@ -152,9 +152,6 @@
     <Compile Include="IngresarRecepcion.xaml.cs">
       <DependentUpon>IngresarRecepcion.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MenuOrdenDePedidos.xaml.cs">
-      <DependentUpon>MenuOrdenDePedidos.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ModyElmUsuario.xaml.cs">
       <DependentUpon>ModyElmUsuario.xaml</DependentUpon>
     </Compile>
@@ -256,10 +253,6 @@
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MenuOrdenDePedidos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -79,8 +79,10 @@ namespace AlmacenYuyitos
 
         private void btnAtras_Click(object sender, RoutedEventArgs e)
         {
-            MenuOrdenDePedidos morp = new MenuOrdenDePedidos(nomUsuario);
-            morp.Show();
+            MainWindow mw = new MainWindow();
+            mw.Show();
+            mw.nomUsuario = nomUsuario;
+            mw.btnCuenta.Content = "Bienvenido/a " + nombre + " " + apellido;
             this.Close();
         }
 
