@@ -135,7 +135,8 @@ namespace AlmacenYuyitos
                 vid.txtMontoFinal.Text = datos["TOTAL_VENTA"].ToString();
                 vid.cboEstado.SelectedValue = int.Parse(datos["ESTADO_PED_ID_ESTADELIVERY"].ToString());
 
-
+               
+                
 
 
                 vid.Show();
@@ -153,6 +154,95 @@ namespace AlmacenYuyitos
             else
             {
                 cuentaFlyouts.IsOpen = true;
+            }
+        }
+
+        private void btnFiltrarFechaDelivery_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                String sql = " SELECT NRO_BOLETA,FECHA_VENTA , FECHA_ENTREGA ,MONTO_TOTAL,NOM_CLIENTE , DIRECCION_CLIENTE , FONO_CONTACTO ,TOTAL_DESCUENTOS , TOTAL_VENTA , ESTADO_PED_ID_ESTADELIVERY FROM BOLETA WHERE TIPO_VENTA_ID_TIPVENTA = 3 and FECHA_VENTA = :FECHA_VENTA";
+                this.AUD(sql,0);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        private async void AUD(String sql_stmt, int state)
+        {
+            OracleCommand cmd = con.CreateCommand();
+            cmd.CommandText = sql_stmt;
+            cmd.CommandType = CommandType.Text;
+
+            switch (state)
+            {
+                case 0:
+                    cmd.Parameters.Add("FECHA_VENTA", OracleDbType.Date).Value = dpFechaPedidoDelivery.SelectedDate;
+                    try
+                    {
+                        OracleDataReader reader = cmd.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            OracleDataAdapter adapter = new OracleDataAdapter(cmd);
+                            DataTable dt = new DataTable();
+                            adapter.Fill(dt);
+                            dgPedidosDelivery.ItemsSource = dt.DefaultView;
+                            reader.Close();
+                        }
+                        else
+                        {
+                            dgPedidosDelivery.ItemsSource = null;
+                            await this.ShowMessageAsync("PEDIDOS DELIVERY", "No hay venta de pedidos delivery en la fecha seleccionada ");
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+                    }
+                    break;
+                case 1:
+                    cmd.Parameters.Add("FECHA_ENTREGA", OracleDbType.Date).Value = dpFechaEntregaDelivery.SelectedDate;
+                    try
+                    {
+                        OracleDataReader reader = cmd.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            OracleDataAdapter adapter = new OracleDataAdapter(cmd);
+                            DataTable dt = new DataTable();
+                            adapter.Fill(dt);
+                            dgPedidosDelivery.ItemsSource = dt.DefaultView;
+                            reader.Close();
+                        }
+                        else
+                        {
+                            dgPedidosDelivery.ItemsSource = null;
+                            await this.ShowMessageAsync("PEDIDOS DELIVERY", "No hay Pedidos por entregar en la fecha seleccionada ");
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+                    }
+                    break;
+
+            }
+        }
+
+        private void btnFiltrarFechaEntrega_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                String sql = " SELECT NRO_BOLETA,FECHA_VENTA , FECHA_ENTREGA ,MONTO_TOTAL,NOM_CLIENTE , DIRECCION_CLIENTE , FONO_CONTACTO ,TOTAL_DESCUENTOS , TOTAL_VENTA , ESTADO_PED_ID_ESTADELIVERY FROM BOLETA WHERE TIPO_VENTA_ID_TIPVENTA = 3 and FECHA_ENTREGA = :FECHA_";
+                this.AUD(sql, 1);
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }

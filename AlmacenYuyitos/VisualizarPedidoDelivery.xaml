@@ -2,12 +2,13 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        Title="Visualizar Pedido Delivery - Los Yuyitos" Height="450" Width="800" ResizeMode="NoResize" Icon="resources/logo.png">
+        Title="Visualizar Pedido Delivery - Los Yuyitos" Height="481.034" Width="727.586" ResizeMode="NoResize" Icon="resources/logo.png">
     <!--Inicio menu izquierda inicio de sesion-->
     <mah:MetroWindow.Flyouts>
         <mah:FlyoutsControl x:Name="ControlesFlyouts">
@@ -63,15 +64,74 @@
     </mah:MetroWindow.RightWindowCommands>
     <Grid Background="LightBlue">
         <Label Content="Fecha de Pedido:" HorizontalAlignment="Left" Margin="49,85,0,0" VerticalAlignment="Top"/>
-        <DatePicker x:Name="dpFechaPedidoDelivery" HorizontalAlignment="Left" Margin="153,85,0,0" VerticalAlignment="Top" Width="105"/>
-        <Button x:Name="btnFiltrarFechaDelivery" Content="FILTRAR" HorizontalAlignment="Left" Margin="263,85,0,0" VerticalAlignment="Top" Width="75"/>
+        <DatePicker x:Name="dpFechaPedidoDelivery" HorizontalAlignment="Left" Margin="153,85,0,0" VerticalAlignment="Top" Width="105" Height="35"/>
+        <Button x:Name="btnFiltrarFechaDelivery" 
+                 Click="btnFiltrarFechaDelivery_Click"
+                 Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                HorizontalAlignment="Left"
+                Margin="267,83,0,0"
+                VerticalAlignment="Top" 
+                ToolTip="Buscar por fecha de Pedido"
+                Width="40" Height="40">
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="PageSearch"/>
+
+
+        </Button>
+
         <Label Content="Fecha de Entrega:" HorizontalAlignment="Left" Margin="373,85,0,0" VerticalAlignment="Top"/>
-        <DatePicker x:Name="dpFechaEntregaDelivery" HorizontalAlignment="Left" Margin="482,85,0,0" VerticalAlignment="Top" Width="112"/>
-        <Button x:Name="btnFiltrarFechaEntrega" Content="FILTRAR" HorizontalAlignment="Left" Margin="599,83,0,0" VerticalAlignment="Top" Width="75"/>
-        <DataGrid x:Name="dgPedidosDelivery" HorizontalAlignment="Left" Height="237" Margin="49,116,0,0" VerticalAlignment="Top" Width="545" IsReadOnly="True" />
-        <Button x:Name="btnVolver" Content="VOLVER" HorizontalAlignment="Left" Margin="709,385,0,0" VerticalAlignment="Top" Width="75" Click="btnVolver_Click"/>
-        <Button x:Name="btnVerInfoDelivery" Content="VER INFORMACIÓN" HorizontalAlignment="Left" Margin="49,383,0,0" VerticalAlignment="Top" Width="120" Click="btnVerInfoDelivery_Click"/>
-        <Image Source="/resources/logo.png" Margin="338,-8,346.6,335" />
+        <DatePicker x:Name="dpFechaEntregaDelivery" HorizontalAlignment="Left" Margin="482,85,0,0" VerticalAlignment="Top" Width="105" Height="35"/>
+        <Button x:Name="btnFiltrarFechaEntrega" 
+                Click="btnFiltrarFechaEntrega_Click"
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                HorizontalAlignment="Left"
+                Margin="604,84,0,0"
+                VerticalAlignment="Top" 
+                ToolTip="Filtrar por Fecha de Entrega"
+                Width="40" Height="40">
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="PageSearch"/>
+
+
+        </Button>
+
+
+        <DataGrid x:Name="dgPedidosDelivery" HorizontalAlignment="Left" Height="237" Margin="54,140,0,0" VerticalAlignment="Top" Width="545" IsReadOnly="True" />
+        <Button x:Name="btnVolver" 
+                Click="btnVolver_Click"
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                HorizontalAlignment="Left"
+                Margin="606,398,0,0"
+                VerticalAlignment="Top" 
+                ToolTip="Volver al Menú Gestión Delivery"
+                Width="40" Height="40">
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="Return"/>
+
+
+        </Button>
+
+
+        <Button x:Name="btnVerInfoDelivery" 
+                Click="btnVerInfoDelivery_Click"
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                HorizontalAlignment="Left"
+                Margin="12,397,0,0"
+                VerticalAlignment="Top" 
+                ToolTip="Ver Información del Delivery"
+                Width="40" Height="40">
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="Information"/>
+
+
+        </Button>
+
+
+        <Image Source="/resources/logo.png" Margin="286,-14,289.8,353.2" />
 
     </Grid>
 </mah:MetroWindow>
