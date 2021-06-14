@@ -8,7 +8,7 @@
         xmlns:local="clr-namespace:AlmacenYuyitos"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="Ver Informacion Delivery - Los Yuyitos" Height="381.6" Width="712.4">
+        Title="Ver Informacion Delivery - Los Yuyitos" Height="381.6" Width="712.4" ResizeMode="NoResize">
     <!--Inicio menu izquierda inicio de sesion-->
     <mah:MetroWindow.Flyouts>
         <mah:FlyoutsControl x:Name="ControlesFlyouts">
