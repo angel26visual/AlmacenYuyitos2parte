@@ -365,6 +365,8 @@ namespace AlmacenYuyitos
             btnModificarOrden.IsEnabled = false;
             btnEliminarOrden.IsEnabled = false;
             txtIdOrdenPedidos.IsEnabled = true;
+            dpFechaOrdenPedido.IsEnabled = true;
+
         }
 
         private void dgOrdenPedido_SelectionChanged(object sender, SelectionChangedEventArgs e)
