@@ -140,6 +140,8 @@ namespace AlmacenYuyitos
 
 
                 vid.Show();
+                vid.txtNumeroDeBoleta.IsEnabled = false;
+                vid.dpFechaDePedido.IsEnabled = false; ;
                 this.Close();
 
             }

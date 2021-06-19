@@ -62,22 +62,30 @@
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
     <Grid Background="LightBlue">
-        <Button x:Name="btnRegistrarDelivey" Content="REGISTRAR PEDIDO (DELIVERY)" HorizontalAlignment="Left" Margin="94,119,0,0" VerticalAlignment="Top" Width="250" Height="100" Background="DodgerBlue" Click="btnRegistrarDelivey_Click" >
+
+        <mah:Tile x:Name="btnRegistrarDelivery" ToolTip="REGISTRAR PEDIDO (DELIVERY)" HorizontalAlignment="Left" Margin="82,99,0,0" VerticalAlignment="Top" Width="210" Height="180" Background="Transparent" Foreground="Transparent" BorderBrush="Transparent" Click="btnRegistrarDelivey_Click">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
-        </Button>
-        <Button x:Name="btnVerPedidosDelivery" Content="VER PEDIDOS (DELIVERY)" HorizontalAlignment="Left" Margin="439,119,0,0" VerticalAlignment="Top" Width="250" Height="100" Background="DodgerBlue" Click="btnVerPedidosDelivery_Click" >
-            <Button.Effect>
+            <Image Source="/resources/delivery.png" Height="137" Width="160" />
+        </mah:Tile>
+
+        <mah:Tile x:Name="btnVerPedidosDelivery" ToolTip="VER PEDIDOS (DELIVERY)" HorizontalAlignment="Left" Margin="501,90,0,0" VerticalAlignment="Top" Width="210" Height="180" Background="Transparent" Foreground="Transparent" BorderBrush="Transparent" Click="btnVerPedidosDelivery_Click">
+            <mah:Tile.Effect>
                 <DropShadowEffect/>
-            </Button.Effect>
-        </Button>
-        <Button x:Name="btnVolverMenu" Content="VOLVER AL MENÚ" HorizontalAlignment="Left" Margin="274,256,0,0" VerticalAlignment="Top" Width="250" Height="100" Background="DodgerBlue" Click="btnVolverMenu_Click" >
-            <Button.Effect>
+            </mah:Tile.Effect>
+            <Image Source="/resources/pedidos.png" Height="165" Width="205" />
+        </mah:Tile>
+
+
+        <mah:Tile x:Name="btnVolverMenu" ToolTip="VOLVER AL MENÚ" HorizontalAlignment="Left" Margin="300,268,0,0" VerticalAlignment="Top" Width="189" Height="132" Background="Transparent" Foreground="Transparent" BorderBrush="Transparent" Click="btnVolverMenu_Click">
+            <mah:Tile.Effect>
                 <DropShadowEffect/>
-            </Button.Effect>
-        </Button>
-        <Image Source="/resources/logo.png" Width="120" Height="120" Margin="337,-6,336.6,306"/>
+            </mah:Tile.Effect>
+            <Image Source="/resources/volver.png" Height="127" Width="169" />
+        </mah:Tile>
+
+        <Image Source="/resources/logo.png" Width="120" Height="120" Margin="328,-7,345.6,307"/>
 
     </Grid>
 </mah:MetroWindow>

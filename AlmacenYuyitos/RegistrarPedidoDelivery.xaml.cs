@@ -47,6 +47,9 @@ namespace AlmacenYuyitos
             txtValorDespacho.Text = 5000.ToString();
             nomUsuario = usuario;
             DatosUsuarios();
+            txtNumeroBoleta.IsEnabled = false;
+            txtFechaVenta.IsEnabled = false;
+            txtTotalDescuentos.IsEnabled = false;
         }
 
         private async void DatosUsuarios()
@@ -235,10 +238,7 @@ namespace AlmacenYuyitos
             Modificar(int.Parse(txtCodigoProducto.Text));
         }
 
-        private void btnEliminar_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
 
         public async void Modificar(int codigo)
         {
