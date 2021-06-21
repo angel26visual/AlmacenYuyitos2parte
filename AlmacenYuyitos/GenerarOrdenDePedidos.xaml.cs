@@ -217,25 +217,25 @@ namespace AlmacenYuyitos
         {
             try
             {
-                OracleCommand cmd = con.CreateCommand();
-                cmd.CommandType = CommandType.Text;
+                OracleCommand cmd = new OracleCommand("sp_actualizar_orden", con);
+                cmd.CommandType = CommandType.StoredProcedure;
 
-                cmd.Parameters.Add("ID_ORDEN", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtIdOrdenPedidos.Text);
+                cmd.Parameters.Add("id", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtIdOrdenPedidos.Text);
 
                 if (dpFechaOrdenPedido.SelectedDate != null)
-                { cmd.Parameters.Add("FECH_ORDEN", OracleDbType.Date).Value = dpFechaOrdenPedido.SelectedDate; }
+                { cmd.Parameters.Add("fecha", OracleDbType.Date).Value = dpFechaOrdenPedido.SelectedDate; }
 
                 else
                 {
                     await this.ShowMessageAsync("Error", "la fecha de orden no puede estar nula");
                     return;
                 }
-                cmd.Parameters.Add("MONTO_ORDEN", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtMontoTotal.Text);
-                cmd.Parameters.Add("PROVEEDOR_RUT_PROVEE", OracleDbType.Varchar2, 100).Value = cboProveedor.Text;
+                cmd.Parameters.Add("monto", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtMontoTotal.Text);
+                cmd.Parameters.Add("rut_proveedor", OracleDbType.Varchar2, 100).Value = cboProveedor.Text;
 
                 if (txtProductos.Text.Replace(" ", string.Empty).Length >= 3)
                 {
-                    cmd.Parameters.Add("DESCRIP_ORDEN", OracleDbType.Varchar2, 100).Value = txtProductos.Text;
+                    cmd.Parameters.Add("descripcion", OracleDbType.Varchar2, 100).Value = txtProductos.Text;
 
                 }
                 else
@@ -245,29 +245,24 @@ namespace AlmacenYuyitos
                     return;
 
                 }
-
-                cmd.CommandText = "UPDATE ORDEN_PED set id_orden =:ID_ORDEN, fech_orden =:FECH_ORDEN , monto_orden =:MONTO_ORDEN , proveedor_rut_provee =:PROVEEDOR_RUT_PROVEE , descrip_orden =:DESCRIP_ORDEN where id_orden=:ID_ORDEN";
-
-                try
-                {
                     int n = cmd.ExecuteNonQuery();
-                    if (n > 0)
+                    if (n < 0)
                     {
                         await this.ShowMessageAsync("actualizada", "Orden Actualizada Exitosamente");
                         this.ActualizarDataGrid();
                         this.resetAll();
 
                     }
-                }
-                catch (Exception)
-                {
-                    await this.ShowMessageAsync("Error", "no se pudo actualizar");
-                }
+                    else
+                    {
+                        await this.ShowMessageAsync("Error", "no se pudo actualizar");
+                    }
+                
             }
             catch (Exception)
             {
 
-                throw;
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
             }
         }
 

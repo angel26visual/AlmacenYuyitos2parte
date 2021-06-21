@@ -31,6 +31,7 @@ namespace AlmacenYuyitos
         int cargo = 0;
         string nombre = string.Empty;
         string apellido = string.Empty;
+        int cont_igual = 0;
         public Cuenta(string usuario)
         {
             nomUsuario = usuario;
@@ -88,9 +89,9 @@ namespace AlmacenYuyitos
 
                         break;
                     case 1:
-                        cmd.Parameters.Add("CORREO", OracleDbType.Varchar2, 100).Value = txtMail.Text;
-                        cmd.Parameters.Add("estado_civil_id_estac", OracleDbType.Int32, 10).Value = cboEstadoCivil.SelectedValue;
-                        cmd.Parameters.Add("RUT_TRAB", OracleDbType.Varchar2, 9).Value = rut.ToString();
+                        cmd.Parameters.Add("correo", OracleDbType.Varchar2, 100).Value = txtMail.Text;
+                        cmd.Parameters.Add("estadoCivil", OracleDbType.Int32, 10).Value = cboEstadoCivil.SelectedValue;
+                        cmd.Parameters.Add("rut", OracleDbType.Varchar2, 9).Value = rut.ToString();
                         try
                         {
                             int n = cmd.ExecuteNonQuery();
@@ -187,12 +188,14 @@ namespace AlmacenYuyitos
                     lbContrasena.Content = "Las contrañas son diferentes";
                     lbContrasena.Foreground = new SolidColorBrush(Colors.Red);
                     lbContrasena.Visibility = Visibility.Visible;
+                    cont_igual = 0;
                 }
                 else
                 {
                     lbContrasena.Content = "Las contrañas son iguales";
                     lbContrasena.Foreground = new SolidColorBrush(Colors.Green);
                     lbContrasena.Visibility = Visibility.Visible;
+                    cont_igual = 1;
                 }
             }
             else
@@ -216,16 +219,62 @@ namespace AlmacenYuyitos
             }
         }
 
-        private void btnModificar_Click(object sender, RoutedEventArgs e)
+        private async void btnModificar_Click(object sender, RoutedEventArgs e)
         {
-            String sql = "UPDATE TRABAJADOR SET CORREO = :CORREO, ESTADO_CIVIL_ID_ESTAC = :ESTADOCIVIL WHERE RUT_TRAB = :RUT";
-            this.AUD(sql, 1);
+            OracleCommand cmd = new OracleCommand("sp_actualizar_personal", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("correo", OracleDbType.Varchar2, 100).Value = txtMail.Text;
+            cmd.Parameters.Add("estadoCivil", OracleDbType.Int32, 10).Value = cboEstadoCivil.SelectedValue;
+            cmd.Parameters.Add("rut", OracleDbType.Varchar2, 9).Value = rut.ToString();
+            try
+            {
+                int n = cmd.ExecuteNonQuery();
+                if (n < 0)
+                {
+                    await this.ShowMessageAsync("Información de contacto", "Se ha actualizado la información");
+
+                }
+            }
+            catch (Exception ex)
+            {
+                await this.ShowMessageAsync("Información de contacto", ex.ToString());
+            }
         }
 
-        private void btnModificarUsuario_Click(object sender, RoutedEventArgs e)
+        private async void btnModificarUsuario_Click(object sender, RoutedEventArgs e)
         {
-            String sql = "UPDATE TRABAJADOR SET NOM_USUARIO = :USUARIO, CONTRASENA_USUARIO = :CONTRASENA WHERE RUT_TRAB = :RUT";
-            this.AUD(sql, 2);
+            try
+            {
+                if (cont_igual == 1)
+                {
+                    OracleCommand cmd = new OracleCommand("sp_actualizar_contacto", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("usuario", OracleDbType.Varchar2, 100).Value = txtUsuario.Text;
+                    cmd.Parameters.Add("contrasenia", OracleDbType.Varchar2, 100).Value = txtNuevaContrasena.Password;
+                    cmd.Parameters.Add("rut", OracleDbType.Varchar2, 9).Value = rut.ToString();
+                    int n = cmd.ExecuteNonQuery();
+                        if (n < 0)
+                        {
+                            await this.ShowMessageAsync("Información de contacto", "Se ha actualizado la información");
+                            txtContrasena.Password = string.Empty;
+                            txtNuevaContrasena.Password = string.Empty;
+                            txtConfirmarPass.Password = string.Empty;
+                        }
+                        else
+                        {
+                            await this.ShowMessageAsync("Información de contacto", "No se a podido actualizar los registros");
+                        }
+                }
+                else
+                {
+                    await this.ShowMessageAsync("Usuario", "Las contraseñas ingresadas son diferentes");
+                }
+            }
+            catch (Exception)
+            {
+
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
         }
 
         private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)

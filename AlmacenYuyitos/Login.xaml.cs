@@ -141,16 +141,14 @@ namespace AlmacenYuyitos
             Random rd = new Random(DateTime.Now.Millisecond);
             int nuevaContrasena = rd.Next(1000000, 999999999);
             string contrasena = "" + nuevaContrasena;
-            OracleCommand cmd = con.CreateCommand();
-            String sql_mt = "UPDATE TRABAJADOR SET CONTRASENA_USUARIO = :CONTRASENA WHERE CORREO = :CORREO";
-            cmd.CommandText = sql_mt;
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.Add("CONTRASENA", OracleDbType.Varchar2, 50).Value = contrasena.ToString();
-            cmd.Parameters.Add("CORREO", OracleDbType.Varchar2, 100).Value = email.ToString();
+            OracleCommand cmd = new OracleCommand("sp_nueva_contrasenia", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("contrasenia", OracleDbType.Varchar2, 50).Value = contrasena.ToString();
+            cmd.Parameters.Add("correo", OracleDbType.Varchar2, 100).Value = email.ToString();
             try
             {
                 int n = cmd.ExecuteNonQuery();
-                if (n > 0)
+                if (n < 0)
                 {
                     enviarContrasena(nuevaContrasena, email);
                 }

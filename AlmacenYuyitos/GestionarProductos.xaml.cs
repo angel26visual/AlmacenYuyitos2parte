@@ -265,19 +265,19 @@ namespace AlmacenYuyitos
                 byte[] blob = new byte[fs.Length];
                 fs.Read(blob, 0, Convert.ToInt32(fs.Length));
                 fs.Close();
-                OracleCommand cmd = con.CreateCommand();
-                cmd.CommandType = CommandType.Text;
+                OracleCommand cmd = new OracleCommand("sp_actualizar_producto", con);
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.BindByName = true;
                 OracleParameter blobParameter = new OracleParameter();
                 blobParameter.OracleDbType = OracleDbType.Blob;
                 blobParameter.ParameterName = "FOTO";
                 blobParameter.Value = blob;
 
-                cmd.Parameters.Add("CODIGO_PRODUCTO", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtCodigoProducto.Text);
+                cmd.Parameters.Add("codigo", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtCodigoProducto.Text);
 
                 if (txtNombreDeProducto.Text.Replace(" ", string.Empty).Length >= 3)
                 {
-                    cmd.Parameters.Add("NOMBRE_PRODUCT", OracleDbType.Varchar2, 100).Value = txtNombreDeProducto.Text;
+                    cmd.Parameters.Add("nom_product", OracleDbType.Varchar2, 100).Value = txtNombreDeProducto.Text;
                 }
                 else
                 {
@@ -287,23 +287,21 @@ namespace AlmacenYuyitos
 
                 }
 
-                cmd.Parameters.Add("PRECIO_COMPRA", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtPrecioDeCompra.Text);
-                cmd.Parameters.Add("PRECIO_VENTA", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtPrecioDeVenta.Text);
-                cmd.Parameters.Add("STOCK", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtStock.Text);
-                cmd.Parameters.Add("STOCK_CRITICO", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtStockCritico.Text);
-                cmd.Parameters.Add("FECH_ELABO_PRODUCT", OracleDbType.Date).Value = dpFechaElaboracion.SelectedDate;
-                cmd.Parameters.Add("FECH_VENCI_PRODUCT", OracleDbType.Date).Value = dpFechaDeVencimiento.SelectedDate;
-                cmd.Parameters.Add("MARCA", OracleDbType.Varchar2, 100).Value = txtMarcaProducto.Text;
-                cmd.Parameters.Add("PROVEEDOR_RUT_PROVEE", OracleDbType.Varchar2, 100).Value = txtRutProveedor.Text;
-                cmd.Parameters.Add("COD_BARRA_PRODUCT", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtCodigoBarraProducto.Text);
+                cmd.Parameters.Add("precio_compra", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtPrecioDeCompra.Text);
+                cmd.Parameters.Add("precio_venta", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtPrecioDeVenta.Text);
+                cmd.Parameters.Add("stock", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtStock.Text);
+                cmd.Parameters.Add("stock_critico", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtStockCritico.Text);
+                cmd.Parameters.Add("fech_elab", OracleDbType.Date).Value = dpFechaElaboracion.SelectedDate;
+                cmd.Parameters.Add("fech_venci", OracleDbType.Date).Value = dpFechaDeVencimiento.SelectedDate;
+                cmd.Parameters.Add("marca", OracleDbType.Varchar2, 100).Value = txtMarcaProducto.Text;
+                cmd.Parameters.Add("rut_provee", OracleDbType.Varchar2, 100).Value = txtRutProveedor.Text;
+                cmd.Parameters.Add("cod_barra", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtCodigoBarraProducto.Text);
                 cmd.Parameters.Add(blobParameter);
-                cmd.Parameters.Add("TIPO_PRODUCTO_ID_TIPPRODUC", OracleDbType.Int32, 20).Value = cboTipoDeProducto.SelectedValue;
-
-                cmd.CommandText = "UPDATE PRODUCTO SET NOMBRE_PRODUCT=:NOMBRE_PRODUCT , PRECIO_COMPRA=:PRECIO_COMPRA , PRECIO_VENTA=:PRECIO_VENTA , STOCK=:STOCK , STOCK_CRITICO=:STOCK_CRITICO , FECH_ELABO_PRODUCT=:FECH_ELABO_PRODUCT , FECH_VENCI_PRODUCT=:FECH_VENCI_PRODUCT , MARCA=:MARCA , PROVEEDOR_RUT_PROVEE=:PROVEEDOR_RUT_PROVEE , COD_BARRA_PRODUCT=:COD_BARRA_PRODUCT, IMG_PRODUC=:FOTO , TIPO_PRODUCTO_ID_TIPPRODUC=:TIPO_PRODUCTO_ID_TIPPRODUC WHERE CODIGO_PRODUCTO=:CODIGO_PRODUCTO";
+                cmd.Parameters.Add("tipo_product", OracleDbType.Int32, 20).Value = cboTipoDeProducto.SelectedValue;
                 try
                 {
                     int n = cmd.ExecuteNonQuery();
-                    if (n >= 0)
+                    if (n < 0)
                     {
                         await this.ShowMessageAsync("ACTUALIZADO", "Producto Actualizado correctamente");
                         this.ActualizarDataGrid();
@@ -420,7 +418,7 @@ namespace AlmacenYuyitos
             this.Close();
         }
 
-        private async void btnCargarImagen_Click(object sender, RoutedEventArgs e)
+        private void btnCargarImagen_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             openFileDialog1.Filter = "Archivos de imágen (.jpg)|*.jpg|All Files (*.*)|*.*";
