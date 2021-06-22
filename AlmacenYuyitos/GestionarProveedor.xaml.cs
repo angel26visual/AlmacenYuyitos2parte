@@ -142,15 +142,14 @@ namespace AlmacenYuyitos
         {
             try
             {
-                OracleCommand cmd = con.CreateCommand();
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.Add("RUT_PROVEE", OracleDbType.Varchar2, 100).Value = txtRutProveedor.Text;
-                cmd.CommandText = "delete from proveedor where rut_provee = :RUT_PROVEE";
+                OracleCommand cmd = new OracleCommand("sp_eliminar_proveedor", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("rut", OracleDbType.Varchar2, 100).Value = txtRutProveedor.Text;
 
                 MessageDialogResult respuesta = await this.ShowMessageAsync("ELIMINAR", "¿Desea Eliminar Información del Proveedor Seleccionado?", MessageDialogStyle.AffirmativeAndNegative);
                 if (respuesta == MessageDialogResult.Affirmative) { 
                     int n = cmd.ExecuteNonQuery();
-                    if (n > 0)
+                    if (n < 0)
                     {
                         await this.ShowMessageAsync("eliminado", "Proveedor eliminado correctamente");
                         this.resetAll();

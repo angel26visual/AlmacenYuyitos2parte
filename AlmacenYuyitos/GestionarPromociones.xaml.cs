@@ -327,16 +327,15 @@ namespace AlmacenYuyitos
         {
             try
             {
-                OracleCommand cmd = con.CreateCommand();
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.Add("ID_PROMOCION", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtIdPromocion.Text);
-                cmd.CommandText = "delete from promocion where id_promocion = :ID_PROMOCION";
+                OracleCommand cmd = new OracleCommand("sp_eliminar_promocion", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("id", OracleDbType.Int32, 10).Value = Convert.ToInt32(txtIdPromocion.Text);
 
                 MessageDialogResult respuesta = await this.ShowMessageAsync("ELIMINAR", "¿Desea Eliminar Información de la Promoción Seleccionada?", MessageDialogStyle.AffirmativeAndNegative);
                 if (respuesta == MessageDialogResult.Affirmative)
                 {
                     int n = cmd.ExecuteNonQuery();
-                    if (n > 0)
+                    if (n < 0)
                     {
                         await this.ShowMessageAsync("eliminada", "Oferta eliminada correctamente");
                         this.ActualizarDataGrid();

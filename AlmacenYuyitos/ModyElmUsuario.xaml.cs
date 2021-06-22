@@ -215,16 +215,15 @@ namespace AlmacenYuyitos
         {
             try
             {
-                OracleCommand cmd = con.CreateCommand();
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.Add("RUT_TRAB", OracleDbType.Varchar2, 100).Value = txtRut.Text;
-                cmd.CommandText = "delete from trabajador where rut_trab = :RUT_TRAB";
+                OracleCommand cmd = new OracleCommand("sp_eliminar_usuario", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("rut", OracleDbType.Varchar2, 100).Value = txtRut.Text;
 
                 MessageDialogResult respuesta = await this.ShowMessageAsync("ELIMINAR", "¿Desea Eliminar Información del Usuario Seleccionado?", MessageDialogStyle.AffirmativeAndNegative);
                 if (respuesta == MessageDialogResult.Affirmative)
                 {
                     int n = cmd.ExecuteNonQuery();
-                    if (n > 0)
+                    if (n < 0)
                     {
                         await this.ShowMessageAsync("eliminado", "Usuario eliminado correctamente");
                         VisualizarUsuario v = new VisualizarUsuario(nomUsuario);

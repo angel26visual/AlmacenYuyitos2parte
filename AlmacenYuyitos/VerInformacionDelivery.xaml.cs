@@ -283,17 +283,16 @@ namespace AlmacenYuyitos
         {
             try
             {
-                OracleCommand cmd = con.CreateCommand();
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.Add("NRO_BOLETA", OracleDbType.Varchar2, 100).Value = txtNumeroDeBoleta.Text;
-                cmd.CommandText = "delete from boleta where nro_boleta = :NRO_BOLETA";
+                OracleCommand cmd = new OracleCommand("sp_eliminar_delivery", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("boleta", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtNumeroDeBoleta.Text);
 
                 MessageDialogResult respuesta = await this.ShowMessageAsync("ELIMINAR", "¿Desea Eliminar Información del Delivery Seleccionado?", MessageDialogStyle.AffirmativeAndNegative);
 
                 if (respuesta == MessageDialogResult.Affirmative)
                 {
                     int n = cmd.ExecuteNonQuery();
-                    if (n > 0)
+                    if (n < 0)
                     {
                         await this.ShowMessageAsync("eliminado", "Delivery eliminado correctamente");
                         this.resetAll();

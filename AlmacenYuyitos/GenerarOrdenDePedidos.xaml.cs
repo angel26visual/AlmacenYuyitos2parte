@@ -270,10 +270,9 @@ namespace AlmacenYuyitos
         {
             try
             {
-                OracleCommand cmd = con.CreateCommand();
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.Add("ID_ORDEN", OracleDbType.Varchar2, 100).Value = txtIdOrdenPedidos.Text;
-                cmd.CommandText = "delete from ORDEN_PED where id_orden = :ID_ORDEN";
+                OracleCommand cmd = new OracleCommand("sp_eliminar_orden", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("id_orden", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtIdOrdenPedidos.Text);
 
                 MessageDialogResult respuesta = await this.ShowMessageAsync("ELIMINAR", "¿Desea Eliminar Información de la orden Seleccionada?", MessageDialogStyle.AffirmativeAndNegative);
 
@@ -281,7 +280,7 @@ namespace AlmacenYuyitos
                 {
                     int n = cmd.ExecuteNonQuery();
 
-                    if (n > 0)
+                    if (n < 0)
                     {
                         await this.ShowMessageAsync("eliminada", "Orden de Pedido Eliminada correctamente");
                         this.ActualizarDataGrid();

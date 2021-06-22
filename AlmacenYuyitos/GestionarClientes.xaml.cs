@@ -208,10 +208,9 @@ namespace AlmacenYuyitos
         {
             try
             {
-                OracleCommand cmd = con.CreateCommand();
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.Add("RUT_CLI", OracleDbType.Varchar2, 100).Value = txtRutCliente.Text;
-                cmd.CommandText = "delete from CLIENTE where rut_cli = :RUT_CLI";
+                OracleCommand cmd = new OracleCommand("sp_eliminar_cliente", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("rut", OracleDbType.Varchar2, 100).Value = txtRutCliente.Text;
 
                 MessageDialogResult respuesta = await this.ShowMessageAsync("ELIMINAR", "¿Desea Eliminar Información del Cliente Seleccionado?", MessageDialogStyle.AffirmativeAndNegative);
 
@@ -219,7 +218,7 @@ namespace AlmacenYuyitos
                 {
                         int n = cmd.ExecuteNonQuery();
               
-                        if (n > 0)
+                        if (n < 0)
                         {
                             await this.ShowMessageAsync("eliminado", "Cliente eliminado correctamente");
                             this.ActualizarDataGrid();
