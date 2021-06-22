@@ -142,15 +142,12 @@ namespace AlmacenYuyitos
         {
             try
             {
-                OracleCommand cmd = con.CreateCommand();
-                cmd.CommandType = CommandType.Text;
-
-
-
+                OracleCommand cmd = new OracleCommand("sp_actualizar_delivery", con);
+                cmd.CommandType = CommandType.StoredProcedure;
 
                 if (dpFechaDePedido.SelectedDate != null)
                 {
-                    cmd.Parameters.Add("FECHA_VENTA", OracleDbType.Date).Value = dpFechaDePedido.SelectedDate;
+                    cmd.Parameters.Add("fecha_venta", OracleDbType.Date).Value = dpFechaDePedido.SelectedDate;
                 }
                 else
                 {
@@ -161,7 +158,7 @@ namespace AlmacenYuyitos
 
                 if (dpFechaDeEntrega.SelectedDate != null)
                 {
-                    cmd.Parameters.Add("FECHA_ENTREGA", OracleDbType.Date).Value = dpFechaDeEntrega.SelectedDate;
+                    cmd.Parameters.Add("fecha_entrega", OracleDbType.Date).Value = dpFechaDeEntrega.SelectedDate;
                 }
                 else
                 {
@@ -174,7 +171,7 @@ namespace AlmacenYuyitos
 
                 if (txtNombreDeCliente.Text.Replace(" ", string.Empty).Length >= 3)
                 {
-                    cmd.Parameters.Add("NOM_CLIENTE", OracleDbType.Varchar2, 100).Value = txtNombreDeCliente.Text;
+                    cmd.Parameters.Add("nom_cliente", OracleDbType.Varchar2, 100).Value = txtNombreDeCliente.Text;
                 }
                 else
                 {
@@ -185,7 +182,7 @@ namespace AlmacenYuyitos
 
                 if (txtDireccion.Text.Replace(" ", string.Empty).Length >= 3)
                 {
-                    cmd.Parameters.Add("DIRECCION_CLIENTE", OracleDbType.Varchar2, 100).Value = txtDireccion.Text;
+                    cmd.Parameters.Add("direccion", OracleDbType.Varchar2, 100).Value = txtDireccion.Text;
                 }
                 else
                 {
@@ -196,7 +193,7 @@ namespace AlmacenYuyitos
 
                 if (txtTelefonoContacto.Text.Replace(" ", string.Empty).Length == 9)
                 {
-                    cmd.Parameters.Add("FONO_CONTACTO", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtTelefonoContacto.Text);
+                    cmd.Parameters.Add("fono", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtTelefonoContacto.Text);
                 }
                 else
                 {
@@ -207,7 +204,7 @@ namespace AlmacenYuyitos
 
                 if (txtTotalDescuentos.Text.Replace(" ", string.Empty).Length >= 1)
                 {
-                    cmd.Parameters.Add("TOTAL_DESCUENTOS", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtTotalDescuentos.Text);
+                    cmd.Parameters.Add("descuento", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtTotalDescuentos.Text);
                 }
                 else
                 {
@@ -218,7 +215,7 @@ namespace AlmacenYuyitos
 
                 if (txtMontoTotal.Text.Replace(" ", string.Empty).Length >= 1)
                 {
-                    cmd.Parameters.Add("MONTO_TOTAL", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtMontoTotal.Text);
+                    cmd.Parameters.Add("monto_total", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtMontoTotal.Text);
                 }
                 else
                 {
@@ -229,7 +226,7 @@ namespace AlmacenYuyitos
 
                 if (txtMontoFinal.Text.Replace(" ", string.Empty).Length >= 1)
                 {
-                    cmd.Parameters.Add("MONTO_FINAL", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtMontoFinal.Text);
+                    cmd.Parameters.Add("monto_final", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtMontoFinal.Text);
                 }
                 else
                 {
@@ -239,20 +236,16 @@ namespace AlmacenYuyitos
                 }
 
                 if (cboEstado.SelectedValue != null)
-                { cmd.Parameters.Add("ESTADO_PED_ID_ESTADELIVERY", OracleDbType.Int32, 20).Value = cboEstado.SelectedValue; }
+                { cmd.Parameters.Add("id_estadoP", OracleDbType.Int32, 20).Value = cboEstado.SelectedValue; }
                 else { await this.ShowMessageAsync("Error", "debe seleccionar un estado!"); return; }
 
 
-                cmd.Parameters.Add("NRO_BOLETA", OracleDbType.Varchar2, 100).Value = txtNumeroDeBoleta.Text;
-
-
-
-                cmd.CommandText = "UPDATE BOLETA SET FECHA_VENTA = :FECHA_VENTA , FECHA_ENTREGA = :FECHA_ENTREGA ,NOM_CLIENTE = :NOM_CLIENTE , DIRECCION_CLIENTE = :DIRECCION_CLIENTE ,FONO_CONTACTO = :FONO_CONTACTO , TOTAL_DESCUENTOS = :TOTAL_DESCUENTOS , MONTO_TOTAL = :MONTO_TOTAL , TOTAL_VENTA = :TOTAL_VENTA , ESTADO_PED_ID_ESTADELIVERY = :ESTADO_PED_ID_ESTADELIVERY WHERE NRO_BOLETA = :NRO_BOLETA";
+                cmd.Parameters.Add("nro_boleta", OracleDbType.Varchar2, 100).Value = txtNumeroDeBoleta.Text;
 
                 try
                 {
                     int n = cmd.ExecuteNonQuery();
-                    if (n > 0)
+                    if (n < 0)
                     {
                         await this.ShowMessageAsync("actualizado", "Delivery actualizado correctamente");
                         this.resetAll();

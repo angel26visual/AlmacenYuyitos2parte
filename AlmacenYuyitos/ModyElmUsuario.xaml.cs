@@ -159,39 +159,38 @@ namespace AlmacenYuyitos
         {
             try
             {
-                OracleCommand cmd = con.CreateCommand();
-                cmd.CommandType = CommandType.Text;
+                OracleCommand cmd = new OracleCommand("sp_actualizar_usuario", con);
+                cmd.CommandType = CommandType.StoredProcedure;
                 if (txtNombre.Text.Replace(" ", string.Empty).Length >= 3)
-                { cmd.Parameters.Add("NOMBRE_TRAB", OracleDbType.Varchar2, 100).Value = txtNombre.Text; }
+                { cmd.Parameters.Add("nombre", OracleDbType.Varchar2, 100).Value = txtNombre.Text; }
                 else { await this.ShowMessageAsync("Error", "el nombre debe tener mas de 3 caracteres!"); }
                 if (txtApellido.Text.Replace(" ", string.Empty).Length >= 3)
-                { cmd.Parameters.Add("APELLIDO_TRAB", OracleDbType.Varchar2, 100).Value = txtApellido.Text; }
+                { cmd.Parameters.Add("apellido", OracleDbType.Varchar2, 100).Value = txtApellido.Text; }
                 else { await this.ShowMessageAsync("Error", "el apellido debe tener mas de 3 caracteres!"); }
                 if (dpFechaNacimiento.SelectedDate != null)
-                { cmd.Parameters.Add("FECHA_NACIMIENTO", OracleDbType.Date).Value = dpFechaNacimiento.SelectedDate; }
+                { cmd.Parameters.Add("fecha_naci", OracleDbType.Date).Value = dpFechaNacimiento.SelectedDate; }
                 else { await this.ShowMessageAsync("Error", "la fecha de nacimiento debe ser valida!"); }
                 if (txtCorreo.Text.Replace(" ", string.Empty) != null)
-                { cmd.Parameters.Add("CORREO", OracleDbType.Varchar2, 100).Value = txtCorreo.Text; }
+                { cmd.Parameters.Add("correo", OracleDbType.Varchar2, 100).Value = txtCorreo.Text; }
                 else { await this.ShowMessageAsync("Error", "debe ingresar un correo!"); }
                 if (txtNombreUsuario.Text.Replace(" ", string.Empty).Length >= 3)
-                { cmd.Parameters.Add("NOM_USUARIO", OracleDbType.Varchar2, 100).Value = txtNombreUsuario.Text; }
+                { cmd.Parameters.Add("nom_user", OracleDbType.Varchar2, 100).Value = txtNombreUsuario.Text; }
                 else { await this.ShowMessageAsync("Error", "el usuario debe tener mas de 3 caracteres!"); }
                 if (txtContrasena.Password.Replace(" ", string.Empty).Length >= 6)
-                { cmd.Parameters.Add("CONTRASENA_USUARIO", OracleDbType.Varchar2, 100).Value = txtContrasena.Password; }
+                { cmd.Parameters.Add("contrasenia", OracleDbType.Varchar2, 100).Value = txtContrasena.Password; }
                 else { await this.ShowMessageAsync("Error", "la contraseña debe tener mas de 6 caracteres!"); }
                 if (cboCargo.SelectedValue != null)
-                { cmd.Parameters.Add("CARGO_TRABAJADOR_ID_CARGO", OracleDbType.Int32, 20).Value = cboCargo.SelectedValue; }
+                { cmd.Parameters.Add("id_cargo", OracleDbType.Int32, 20).Value = cboCargo.SelectedValue; }
                 else { await this.ShowMessageAsync("Error", "debe seleccionar un cargo!"); }
                 if (cboEstadoCivil.SelectedValue != null)
-                { cmd.Parameters.Add("ESTADO_CIVIL_ID_ESTAC", OracleDbType.Int32, 20).Value = cboEstadoCivil.SelectedValue; }
+                { cmd.Parameters.Add("id_estadoC", OracleDbType.Int32, 20).Value = cboEstadoCivil.SelectedValue; }
                 else { await this.ShowMessageAsync("Error", "debe seleccionar un estado civil!"); }
-                cmd.Parameters.Add("RUT_TRAB", OracleDbType.Varchar2, 100).Value = txtRut.Text;
-                cmd.CommandText = "update trabajador set nombre_trab =:NOMBRE_TRAB,apellido_trab=:APELLIDO_TRAB,fecha_nacimiento=:FECHA_NACIMIENTO,correo=:CORREO,nom_usuario=:NOM_USUARIO,contrasena_usuario=:CONTRASENA_USUARIO,cargo_trabajador_id_cargo=:CARGO_TRABAJADOR_ID_CARGO,estado_civil_id_estac=:ESTADO_CIVIL_ID_ESTAC where rut_trab=:RUT_TRAB";
+                cmd.Parameters.Add("rut", OracleDbType.Varchar2, 100).Value = txtRut.Text;
 
                 try
                 {
                     int n = cmd.ExecuteNonQuery();
-                    if (n > 0)
+                    if (n < 0)
                     {
                         await this.ShowMessageAsync("actualizado", "Usuario actualizado correctamente");
                         VisualizarUsuario v = new VisualizarUsuario(nomUsuario);
