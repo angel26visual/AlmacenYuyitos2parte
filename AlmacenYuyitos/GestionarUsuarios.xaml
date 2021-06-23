@@ -64,21 +64,34 @@
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
     <Grid Background="LightBlue">
-        <Button x:Name="btnAgregarUsuario" Content="AGREGAR USUARIOS" HorizontalAlignment="Left" Margin="100,107,0,0" VerticalAlignment="Top" Width="250" Height="100" Background="DodgerBlue" Click="btnAgregarUsuario_Click">
+        
+
+        <mah:Tile x:Name="btnAgregarUsuario" ToolTip="AGREGAR USUARIOS" HorizontalAlignment="Left" Margin="114,74,0,0" VerticalAlignment="Top" Width="210" Height="180" Background="Transparent" Foreground="Transparent" BorderBrush="Transparent" Click="btnAgregarUsuario_Click">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
-        </Button>
-        <Button Content="visualizar usuarios" HorizontalAlignment="Left" Margin="458,107,0,0" VerticalAlignment="Top" Width="250" Height="100" Background="DodgerBlue" Click="Button_Click">
+            <Image Source="/resources/adduser.png" Height="137" Width="160" />
+        </mah:Tile>
+
+        
+
+        <mah:Tile  ToolTip="VISUALIZAR USUARIOS" HorizontalAlignment="Left" Margin="434,70,0,0" VerticalAlignment="Top" Width="210" Height="180" Background="Transparent" Foreground="Transparent" BorderBrush="Transparent" Click="Button_Click">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
-        </Button>
-        <Button x:Name="btnVolver" Content="VOLVER AL MENÚ" HorizontalAlignment="Left" Margin="251,289,0,0" VerticalAlignment="Top" Width="250" Height="100" Click="btnVolver_Click">
+            <Image Source="/resources/OrdenDePedidos.png" Height="137" Width="160" />
+        </mah:Tile>
+
+        
+
+        <mah:Tile x:Name="btnVolver" ToolTip="VOLVER AL MENÚ PRINCIPAL" HorizontalAlignment="Left" Margin="260,248,0,-8" VerticalAlignment="Top" Width="210" Height="180" Background="Transparent" Foreground="Transparent" BorderBrush="Transparent" Click="btnVolver_Click">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
-        </Button>
+            <Image Source="/resources/volver.png" Height="137" Width="160" />
+        </mah:Tile>
+        
+        <Image Source="/resources/logo.png" Margin="154,-19,194.6,277" />
 
     </Grid>
 </mah:MetroWindow>

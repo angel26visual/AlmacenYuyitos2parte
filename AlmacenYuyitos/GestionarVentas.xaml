@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        Title="Gestionar Ventas - Los Yuyitos" Height="503.209" Width="800" ResizeMode="NoResize" Icon="resources/logo.png">
+        Title="Gestionar Ventas - Los Yuyitos" Height="548.809" Width="800" ResizeMode="NoResize" Icon="resources/logo.png">
     <!--Inicio menu izquierda inicio de sesion-->
     <mah:MetroWindow.Flyouts>
         <mah:FlyoutsControl x:Name="ControlesFlyouts">
@@ -62,32 +62,51 @@
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
     <Grid Background="LightBlue">
-        <Button x:Name="btnRegistrarVenta" Content="REGISTRAR VENTA" HorizontalAlignment="Left" Margin="100,107,0,0" VerticalAlignment="Top" Width="250" Height="100" Background="DodgerBlue" Click="btnRegistrarVenta_Click">
+        
+
+        <mah:Tile x:Name="btnRegistrarVenta" ToolTip="REGISTRAR VENTA" HorizontalAlignment="Left" Margin="79,75,0,0" VerticalAlignment="Top" Width="210" Height="180" Background="Transparent" Foreground="Transparent" BorderBrush="Transparent" Click="btnRegistrarVenta_Click">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
-        </Button>
-        <Button x:Name="btnVerVentas" Content="VER VENTAS" HorizontalAlignment="Left" Margin="415,107,0,0" VerticalAlignment="Top" Width="250" Height="100" Background="DodgerBlue" Click="btnVerVentas_Click">
+            <Image Source="/resources/registrarventa.png" Height="137" Width="160" />
+        </mah:Tile>
+
+
+        
+        <mah:Tile x:Name="btnVerVentas" ToolTip="VER VENTAS" HorizontalAlignment="Left" Margin="463,81,0,0" VerticalAlignment="Top" Width="210" Height="180" Background="Transparent" Foreground="Transparent" BorderBrush="Transparent" Click="btnVerVentas_Click">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
-        </Button>
-        <Button x:Name="btnConsultarProducto" Content="CONSULTAR PRODUCTO" HorizontalAlignment="Left" Margin="100,242,0,0" VerticalAlignment="Top" Width="250" Height="100" Background="DodgerBlue" Click="btnConsultarProducto_Click">
+            <Image Source="/resources/verventas.png" Height="137" Width="160" />
+        </mah:Tile>
+
+        
+
+        <mah:Tile x:Name="btnConsultarProducto" ToolTip="CONSULTAR PRODUCTO" HorizontalAlignment="Left" Margin="89,238,0,0" VerticalAlignment="Top" Width="210" Height="180" Background="Transparent" Foreground="Transparent" BorderBrush="Transparent" Click="btnConsultarProducto_Click">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
-        </Button>
-        <Button x:Name="btnConsultarPromociones" Content="CONSULTAR PROMOCIONES" HorizontalAlignment="Left" Margin="415,242,0,0" VerticalAlignment="Top" Width="250" Height="100" Background="DodgerBlue" Click="btnConsultarPromociones_Click">
+            <Image Source="/resources/consultarproducto.png" Height="137" Width="160" />
+        </mah:Tile>
+
+        
+
+        <mah:Tile x:Name="btnConsultarPromociones" ToolTip="CONSULTAR PROMOCIONES" HorizontalAlignment="Left" Margin="473,230,0,0" VerticalAlignment="Top" Width="210" Height="180" Background="Transparent" Foreground="Transparent" BorderBrush="Transparent" Click="btnConsultarPromociones_Click">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
-        </Button>
+            <Image Source="/resources/GestionarPromocion.png" Height="137" Width="160" />
+        </mah:Tile>
+
         <Image Source="/resources/logo.png" Width="120" Height="120" Margin="322,-13,351.6,366.6"/>
-        <Button x:Name="btnVolverAlMenu" Content="VOLVER AL MENÚ" HorizontalAlignment="Left" Margin="268,364,0,0" VerticalAlignment="Top" Width="250" Height="100" Background="White" Click="btnVolverAlMenu_Click">
+        
+
+        <mah:Tile x:Name="btnVolverAlMenu" ToolTip="VOLVER AL MENÚ PRINCIPAL" HorizontalAlignment="Left" Margin="289,360,0,-20.8" VerticalAlignment="Top" Width="210" Height="180" Background="Transparent" Foreground="Transparent" BorderBrush="Transparent" Click="btnVolverAlMenu_Click">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
-        </Button>
+            <Image Source="/resources/volver.png" Height="137" Width="160" />
+        </mah:Tile>
 
     </Grid>
 </mah:MetroWindow>

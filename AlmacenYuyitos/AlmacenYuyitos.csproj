@@ -413,5 +413,17 @@
   <ItemGroup>
     <Resource Include="resources\volver.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\adduser.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\registrarventa.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\verventas.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\consultarproducto.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
