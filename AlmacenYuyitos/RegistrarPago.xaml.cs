@@ -114,21 +114,18 @@ namespace AlmacenYuyitos
             {
                 try
                 {
-                    OracleCommand cmd = con.CreateCommand();
-                    cmd.CommandText = "INSERT INTO BOLETA(NRO_BOLETA, FECHA_VENTA, TOTAL_VENTA, TOTAL_DESCUENTOS, MONTO_TOTAL, MONTO_PAGO, TRABAJADOR_RUT_TRAB," +
-                                       "TIPO_VENTA_ID_TIPVENTA, MEDIO_PAGO_ID_MEDIOPAGO) VALUES(:BOLETA, :FECHA, :TOTALVENTA, :TOTALDESCUENTO," +
-                                       ":MONTO, :MONTOPAGO, :RUTTRAB, 1, :MEDIOPAGO)";
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.Add("BOLETA", OracleDbType.Int32, 20).Value = int.Parse(txtNroBoleta.Text);
-                    cmd.Parameters.Add("FECHA", OracleDbType.Date).Value = txtFechaVenta.SelectedDate;
-                    cmd.Parameters.Add("TOTALVENTA", OracleDbType.Int32, 30).Value = int.Parse(txtTotalVenta.Text);
-                    cmd.Parameters.Add("TOTALDESCUENTO", OracleDbType.Int32, 30).Value = int.Parse(txtTotalDescuento.Text);
-                    cmd.Parameters.Add("MONTO", OracleDbType.Int32, 30).Value = monto_total;
-                    cmd.Parameters.Add("MONTOPAGO", OracleDbType.Int32, 20).Value = int.Parse(txtPago.Text);
-                    cmd.Parameters.Add("RUTTRAB", OracleDbType.Varchar2, 20).Value = rutTrab;
-                    cmd.Parameters.Add("MEDIOPAGO", OracleDbType.Int32, 20).Value = cboMedioPago.SelectedValue;
+                    OracleCommand cmd = new OracleCommand("sp_insertar_venta", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("boleta", OracleDbType.Int32, 20).Value = int.Parse(txtNroBoleta.Text);
+                    cmd.Parameters.Add("fecha", OracleDbType.Date).Value = txtFechaVenta.SelectedDate;
+                    cmd.Parameters.Add("venta", OracleDbType.Int32, 30).Value = int.Parse(txtTotalVenta.Text);
+                    cmd.Parameters.Add("descuento", OracleDbType.Int32, 30).Value = int.Parse(txtTotalDescuento.Text);
+                    cmd.Parameters.Add("monto", OracleDbType.Int32, 30).Value = monto_total;
+                    cmd.Parameters.Add("pago", OracleDbType.Int32, 20).Value = int.Parse(txtPago.Text);
+                    cmd.Parameters.Add("rut", OracleDbType.Varchar2, 20).Value = rutTrab;
+                    cmd.Parameters.Add("medio_pago", OracleDbType.Int32, 20).Value = cboMedioPago.SelectedValue;
                     int n = cmd.ExecuteNonQuery();
-                    if (n > 0)
+                    if (n < 0)
                     {
                         await this.ShowMessageAsync("VENTA", "Venta realizada");
                     }
@@ -548,23 +545,20 @@ namespace AlmacenYuyitos
         {
             try
             {
-                OracleCommand cmd = con.CreateCommand();
-                cmd.CommandText = "INSERT INTO BOLETA(NRO_BOLETA, FECHA_VENTA, TOTAL_VENTA, TOTAL_DESCUENTOS, MONTO_TOTAL, MONTO_PAGO, TRABAJADOR_RUT_TRAB," +
-                                   "TIPO_VENTA_ID_TIPVENTA, CLIENTE_RUT_CLI, ESTADO_DEUDA_ID_ESTADEUDA, NOM_CLIENTE, MEDIO_PAGO_ID_MEDIOPAGO) VALUES(:BOLETA, :FECHA, :TOTALVENTA, :TOTALDESCUENTO," +
-                                   ":MONTO, :MONTOPAGO, :RUTTRAB, 2, :RUTCLI, 1, :NOMCLI, :MEDIOPAGO)";
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.Add("BOLETA", OracleDbType.Int32, 20).Value = int.Parse(txtNroBoleta.Text);
-                cmd.Parameters.Add("FECHA", OracleDbType.Date).Value = txtFechaVenta.SelectedDate;
-                cmd.Parameters.Add("TOTALVENTA", OracleDbType.Int32, 30).Value = int.Parse(txtTotalVenta.Text);
-                cmd.Parameters.Add("TOTALDESCUENTO", OracleDbType.Int32, 30).Value = int.Parse(txtTotalDescuento.Text);
-                cmd.Parameters.Add("MONTO", OracleDbType.Int32, 30).Value = monto_total;
-                cmd.Parameters.Add("MONTOPAGO", OracleDbType.Int32, 20).Value = int.Parse(txtPago.Text);
-                cmd.Parameters.Add("RUTTRAB", OracleDbType.Varchar2, 20).Value = rutTrab;
-                cmd.Parameters.Add("RUTCLI", OracleDbType.Varchar2, 40).Value = txtRutCli.Text;
-                cmd.Parameters.Add("NOMCLI", OracleDbType.Varchar2, 100).Value = txtNombreCliente.Text;
-                cmd.Parameters.Add("MEDIOPAGO", OracleDbType.Int32, 20).Value = cboMedioPago.SelectedValue;
+                OracleCommand cmd = new OracleCommand("sp_insertar_fiado", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("boleta", OracleDbType.Int32, 20).Value = int.Parse(txtNroBoleta.Text);
+                cmd.Parameters.Add("fecha", OracleDbType.Date).Value = txtFechaVenta.SelectedDate;
+                cmd.Parameters.Add("venta", OracleDbType.Int32, 30).Value = int.Parse(txtTotalVenta.Text);
+                cmd.Parameters.Add("descuento", OracleDbType.Int32, 30).Value = int.Parse(txtTotalDescuento.Text);
+                cmd.Parameters.Add("monto", OracleDbType.Int32, 30).Value = monto_total;
+                cmd.Parameters.Add("pago", OracleDbType.Int32, 20).Value = int.Parse(txtPago.Text);
+                cmd.Parameters.Add("rutT", OracleDbType.Varchar2, 20).Value = rutTrab;
+                cmd.Parameters.Add("rutC", OracleDbType.Varchar2, 40).Value = txtRutCli.Text;
+                cmd.Parameters.Add("cliente", OracleDbType.Varchar2, 100).Value = txtNombreCliente.Text;
+                cmd.Parameters.Add("medio_pago", OracleDbType.Int32, 20).Value = cboMedioPago.SelectedValue;
                 int n = cmd.ExecuteNonQuery();
-                if (n > 0)
+                if (n < 0)
                 {
                     await this.ShowMessageAsync("VENTA", "Venta realizada como fiado");
                 }

@@ -161,24 +161,24 @@ namespace AlmacenYuyitos
         {
             try
             {
-                OracleCommand cmd = con.CreateCommand();
-                cmd.CommandType = CommandType.Text;
+                OracleCommand cmd = new OracleCommand("sp_insertar_orden",con);
+                cmd.CommandType = CommandType.StoredProcedure;
 
-                cmd.Parameters.Add("ID_ORDEN", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtIdOrdenPedidos.Text);
+                cmd.Parameters.Add("id", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtIdOrdenPedidos.Text);
 
                 if (dpFechaOrdenPedido.SelectedDate != null)
-                { cmd.Parameters.Add("FECH_ORDEN", OracleDbType.Date).Value = dpFechaOrdenPedido.SelectedDate; }
+                { cmd.Parameters.Add("fecha", OracleDbType.Date).Value = dpFechaOrdenPedido.SelectedDate; }
 
                 else { 
                     await this.ShowMessageAsync("Error", "la fecha de orden no puede estar nula");
                     return;
                 }
-                cmd.Parameters.Add("MONTO_ORDEN", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtMontoTotal.Text);
-                cmd.Parameters.Add("PROVEEDOR_RUT_PROVEE", OracleDbType.Varchar2, 100).Value = cboProveedor.Text;
+                cmd.Parameters.Add("monto", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtMontoTotal.Text);
+                cmd.Parameters.Add("proveedor", OracleDbType.Varchar2, 100).Value = cboProveedor.Text;
 
                 if (txtProductos.Text.Replace(" ", string.Empty).Length >= 3)
                 {
-                    cmd.Parameters.Add("DESCRIP_ORDEN", OracleDbType.Varchar2, 100).Value = txtProductos.Text;
+                    cmd.Parameters.Add("descripcion", OracleDbType.Varchar2, 100).Value = txtProductos.Text;
 
                 }
                 else
@@ -189,12 +189,10 @@ namespace AlmacenYuyitos
 
                 }
 
-                cmd.CommandText = "INSERT INTO ORDEN_PED(ID_ORDEN , FECH_ORDEN , MONTO_ORDEN , PROVEEDOR_RUT_PROVEE , DESCRIP_ORDEN) VALUES(:ID_ORDEN , :FECH_ORDEN , :MONTO_ORDEN ,:PROVEEDOR_RUT_PROVEE , :DESCRIP_ORDEN)";
-
                 try
                 {
                     int n = cmd.ExecuteNonQuery();
-                    if (n > 0)
+                    if (n < 0)
                     {
                         await this.ShowMessageAsync("Agregada", "Orden de Pedido se agregó correctamente");
                         this.ActualizarDataGrid();

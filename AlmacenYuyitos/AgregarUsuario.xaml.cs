@@ -162,10 +162,10 @@ namespace AlmacenYuyitos
         {
             try
             {
-                OracleCommand cmd = con.CreateCommand();
-                cmd.CommandType = CommandType.Text;
+                OracleCommand cmd = new OracleCommand("sp_insertar_usuario", con);
+                cmd.CommandType = CommandType.StoredProcedure;
                 if (ValidarRut(txtRut.Text))
-                { cmd.Parameters.Add("RUT_TRAB", OracleDbType.Varchar2, 100).Value = txtRut.Text; }
+                { cmd.Parameters.Add("rut", OracleDbType.Varchar2, 100).Value = txtRut.Text; }
                 else {
                     await this.ShowMessageAsync("Error", "debe ingresar un rut valido!");
                     return;
@@ -173,7 +173,7 @@ namespace AlmacenYuyitos
                 }
                 if (txtNombre.Text.Replace(" ", string.Empty).Length >= 3)
                 { 
-                    cmd.Parameters.Add("NOMBRE_TRAB", OracleDbType.Varchar2, 100).Value = txtNombre.Text; 
+                    cmd.Parameters.Add("nombre", OracleDbType.Varchar2, 100).Value = txtNombre.Text; 
                 }
                 else { 
                     await this.ShowMessageAsync("Error", "el nombre debe tener mas de 3 caracteres!");
@@ -182,7 +182,7 @@ namespace AlmacenYuyitos
                 }
                 if (txtApellido.Text.Replace(" ", string.Empty).Length >= 3)
                 { 
-                    cmd.Parameters.Add("APELLIDO_TRAB", OracleDbType.Varchar2, 100).Value = txtApellido.Text; 
+                    cmd.Parameters.Add("apellido", OracleDbType.Varchar2, 100).Value = txtApellido.Text; 
                 }
                 else {
                     await this.ShowMessageAsync("Error", "el apellido debe tener mas de 3 caracteres!");
@@ -191,7 +191,7 @@ namespace AlmacenYuyitos
                 }
                 if (dpFechaNacimiento.SelectedDate != null)
                 { 
-                    cmd.Parameters.Add("FECHA_NACIMIENTO", OracleDbType.Date).Value = dpFechaNacimiento.SelectedDate; 
+                    cmd.Parameters.Add("nacimiento", OracleDbType.Date).Value = dpFechaNacimiento.SelectedDate; 
                 }
                 else { 
                     await this.ShowMessageAsync("Error", "la fecha de nacimiento debe ser valida!");
@@ -200,7 +200,7 @@ namespace AlmacenYuyitos
                 }
                 if (txtCorreo.Text.Replace(" ", string.Empty) != null)
                 { 
-                    cmd.Parameters.Add("CORREO", OracleDbType.Varchar2, 100).Value = txtCorreo.Text; 
+                    cmd.Parameters.Add("correo", OracleDbType.Varchar2, 100).Value = txtCorreo.Text; 
                 }
                 else { 
                     await this.ShowMessageAsync("Error", "debe ingresar un correo!");
@@ -208,7 +208,7 @@ namespace AlmacenYuyitos
                 }
                 if (txtNombreUsuario.Text.Replace(" ", string.Empty).Length >= 3)
                 { 
-                    cmd.Parameters.Add("NOM_USUARIO", OracleDbType.Varchar2, 100).Value = txtNombreUsuario.Text; 
+                    cmd.Parameters.Add("usuario", OracleDbType.Varchar2, 100).Value = txtNombreUsuario.Text; 
                 }
                 else {
                     await this.ShowMessageAsync("Error", "el usuario debe tener mas de 3 caracteres!");
@@ -216,7 +216,7 @@ namespace AlmacenYuyitos
                 }
                 if (txtContrasena.Password.Replace(" ", string.Empty).Length >= 6)
                 { 
-                    cmd.Parameters.Add("CONTRASENA_USUARIO", OracleDbType.Varchar2, 100).Value = txtContrasena.Password; 
+                    cmd.Parameters.Add("contrasenia", OracleDbType.Varchar2, 100).Value = txtContrasena.Password; 
                 }
                 else { 
                     await this.ShowMessageAsync("Error", "la contraseña debe tener mas de 6 caracteres!");
@@ -224,7 +224,7 @@ namespace AlmacenYuyitos
                 }
                 if (cboEstadoCivil.SelectedValue != null)
                 { 
-                    cmd.Parameters.Add("ESTADO_CIVIL_ID_ESTAC", OracleDbType.Int32, 20).Value = cboEstadoCivil.SelectedValue; 
+                    cmd.Parameters.Add("estadoC", OracleDbType.Int32, 20).Value = cboEstadoCivil.SelectedValue; 
                 }
                 else {
                     await this.ShowMessageAsync("Error", "debe seleccionar un estado civil!");
@@ -232,21 +232,17 @@ namespace AlmacenYuyitos
                 }
                 if (cboCargo.SelectedValue != null)
                 { 
-                    cmd.Parameters.Add("CARGO_TRABAJADOR_ID_CARGO", OracleDbType.Int32, 20).Value = cboCargo.SelectedValue; 
+                    cmd.Parameters.Add("cargo", OracleDbType.Int32, 20).Value = cboCargo.SelectedValue; 
                 }
                 else {
                     await this.ShowMessageAsync("Error", "debe seleccionar un cargo!");
                     return;
                 }
 
-                cmd.CommandText = "INSERT INTO TRABAJADOR(RUT_TRAB,NOMBRE_TRAB,APELLIDO_TRAB,FECHA_NACIMIENTO," +
-                "CORREO,NOM_USUARIO ,CONTRASENA_USUARIO,CARGO_TRABAJADOR_ID_CARGO, ESTADO_CIVIL_ID_ESTAC) VALUES(:RUT_TRAB,:NOMBRE_TRAB,:APELLIDO_TRAB," +
-                ":FECHA_NACIMIENTO,:CORREO,:NOM_USUARIO,:CONTRASENA_USUARIO,:CARGO_TRABAJADOR_ID_CARGO,:ESTADO_CIVIL_ID_ESTAC)";
-
                 try
                 {
                     int n = cmd.ExecuteNonQuery();
-                    if (n > 0)
+                    if (n < 0)
                     {
                         await this.ShowMessageAsync("Agregado", "Usuario se agregó correctamente");
                         Limpiar();

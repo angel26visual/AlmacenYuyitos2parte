@@ -178,33 +178,29 @@ namespace AlmacenYuyitos
                  byte[] blob = new byte[fs.Length];
                  fs.Read(blob, 0, Convert.ToInt32(fs.Length));
                  fs.Close();
-                 OracleCommand cmd = con.CreateCommand();
-                 cmd.CommandType = CommandType.Text;
+                 OracleCommand cmd = new OracleCommand("sp_insertar_promocion", con);
+                 cmd.CommandType = CommandType.StoredProcedure;
                  cmd.BindByName = true;
-                  OracleParameter blobParameter = new OracleParameter();
+                 OracleParameter blobParameter = new OracleParameter();
                  blobParameter.OracleDbType = OracleDbType.Blob;
                  blobParameter.ParameterName = "FOTO";
                  blobParameter.Value = blob;
 
-                cmd.Parameters.Add("ID_PROMOCION", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtIdPromocion.Text);
+                cmd.Parameters.Add("id", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtIdPromocion.Text);
                 cmd.Parameters.Add(blobParameter);
-                cmd.Parameters.Add("FECHA_INICIO_PROMO", OracleDbType.Date).Value = dpFechaDeInicio.SelectedDate;
-                cmd.Parameters.Add("FECHA_FIN_PROMO", OracleDbType.Date).Value = dpFechaTermino.SelectedDate;
-                cmd.Parameters.Add("DESCRIP_PROMO", OracleDbType.Varchar2, 100).Value = txtDescripcion.Text;
-                cmd.Parameters.Add("CANT_PRODUCTO", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtCantidadDeProductos.Text);
-                cmd.Parameters.Add("DESCUENTO_PORCENTAJE", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtPorcentajeDescuento.Text);
-                cmd.Parameters.Add("DESCUENTO_EFECTIVO", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtDescEfectivo.Text);
-                cmd.Parameters.Add("TIPO_PRODUCTO_ID_TIPPRODUC", OracleDbType.Int32, 20).Value = cboTipoDeProducto.SelectedValue;
-                cmd.Parameters.Add("TIPO_PROMOCION_ID_TIPOPROMO", OracleDbType.Int32, 20).Value = cboTipoDePromocion.SelectedValue;
-
-                cmd.CommandText = "INSERT INTO PROMOCION(ID_PROMOCION, IMAGEN_PROMO , FECHA_INICIO_PROMO , FECHA_FIN_PROMO , DESCRIP_PROMO , CANT_PRODUCTO, DESCUENTO_PORCENTAJE , DESCUENTO_EFECTIVO , TIPO_PRODUCTO_ID_TIPPRODUC , TIPO_PROMOCION_ID_TIPOPROMO)  VALUES" +
-                    "(:ID_PROMOCION, :FOTO ,:FECHA_INICIO_PROMO , :FECHA_FIN_PROMO , :DESCRIP_PROMO ,:CANT_PRODUCTO , :DESCUENTO_PORCENTAJE , :DESCUENTO_EFECTIVO , :TIPO_PRODUCTO_ID_TIPPRODUC , :TIPO_PROMOCION_ID_TIPOPROMO)";
-
+                cmd.Parameters.Add("inicio", OracleDbType.Date).Value = dpFechaDeInicio.SelectedDate;
+                cmd.Parameters.Add("fin", OracleDbType.Date).Value = dpFechaTermino.SelectedDate;
+                cmd.Parameters.Add("descripcion", OracleDbType.Varchar2, 100).Value = txtDescripcion.Text;
+                cmd.Parameters.Add("cantidad", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtCantidadDeProductos.Text);
+                cmd.Parameters.Add("porcentaje", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtPorcentajeDescuento.Text);
+                cmd.Parameters.Add("efectivo", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtDescEfectivo.Text);
+                cmd.Parameters.Add("tipo_producto", OracleDbType.Int32, 20).Value = cboTipoDeProducto.SelectedValue;
+                cmd.Parameters.Add("tipo_promocion", OracleDbType.Int32, 20).Value = cboTipoDePromocion.SelectedValue;
 
                 try
                 {
                     int n = cmd.ExecuteNonQuery();
-                    if (n > 0)
+                    if (n < 0)
                     {
                         await this.ShowMessageAsync("Agregada", "Promocion se agregó correctamente");
                         Limpiar();

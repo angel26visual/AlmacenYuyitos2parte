@@ -105,25 +105,22 @@ namespace AlmacenYuyitos
         {
             try
             {
-                OracleCommand cmd = con.CreateCommand();
-                cmd.CommandText = "INSERT INTO BOLETA(NRO_BOLETA, FECHA_VENTA, TOTAL_VENTA, TOTAL_DESCUENTOS, MONTO_TOTAL, MONTO_PAGO, TRABAJADOR_RUT_TRAB," +
-                                   "TIPO_VENTA_ID_TIPVENTA, MEDIO_PAGO_ID_MEDIOPAGO, FECHA_ENTREGA, NOM_CLIENTE, DIRECCION_CLIENTE, FONO_CONTACTO, ESTADO_PED_ID_ESTADELIVERY) VALUES(:BOLETA, :FECHA, :TOTALVENTA, :TOTALDESCUENTO," +
-                                   ":MONTO, :MONTOPAGO, :RUTTRAB, 3, :MEDIOPAGO, :FECHA_ENTREGA, :NOM_CLIENTE, :DIRECCCLI, :FONO, 1)";
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.Add("BOLETA", OracleDbType.Int32, 20).Value = int.Parse(txtNumeroBoleta.Text);
-                cmd.Parameters.Add("FECHA", OracleDbType.Date).Value = txtFechaVenta.SelectedDate;
-                cmd.Parameters.Add("TOTALVENTA", OracleDbType.Int32, 30).Value = (int.Parse(txtTotalDelivery.Text) + int.Parse(txtValorDespacho.Text));
-                cmd.Parameters.Add("TOTALDESCUENTO", OracleDbType.Int32, 30).Value = int.Parse(txtTotalDescuentos.Text);
-                cmd.Parameters.Add("MONTO", OracleDbType.Int32, 30).Value = monto_total;
-                cmd.Parameters.Add("MONTOPAGO", OracleDbType.Int32, 20).Value = int.Parse(txtPago.Text);
-                cmd.Parameters.Add("RUTTRAB", OracleDbType.Varchar2, 20).Value = rutTrab;
-                cmd.Parameters.Add("MEDIOPAGO", OracleDbType.Int32, 20).Value = cboMedioPago.SelectedValue;
-                cmd.Parameters.Add("FECHA_ENTREGA", OracleDbType.Date).Value = dpFechaeEntrega.SelectedDate;
-                cmd.Parameters.Add("NOM_CLIENTE", OracleDbType.Varchar2, 100).Value = txtNombreCliente.Text;
-                cmd.Parameters.Add("DIRRECCCLI", OracleDbType.Varchar2, 100).Value = txtDireccionDelivery.Text;
-                cmd.Parameters.Add("FONO", OracleDbType.Int32, 20).Value = txtTelefonoContacto.Text;
+                OracleCommand cmd = new OracleCommand("sp_insertar_delivery", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("boleta", OracleDbType.Int32, 20).Value = int.Parse(txtNumeroBoleta.Text);
+                cmd.Parameters.Add("fecha", OracleDbType.Date).Value = txtFechaVenta.SelectedDate;
+                cmd.Parameters.Add("venta", OracleDbType.Int32, 30).Value = (int.Parse(txtTotalDelivery.Text) + int.Parse(txtValorDespacho.Text));
+                cmd.Parameters.Add("descuento", OracleDbType.Int32, 30).Value = int.Parse(txtTotalDescuentos.Text);
+                cmd.Parameters.Add("monto", OracleDbType.Int32, 30).Value = monto_total;
+                cmd.Parameters.Add("pago", OracleDbType.Int32, 20).Value = int.Parse(txtPago.Text);
+                cmd.Parameters.Add("rut", OracleDbType.Varchar2, 20).Value = rutTrab;
+                cmd.Parameters.Add("medio_pago", OracleDbType.Int32, 20).Value = cboMedioPago.SelectedValue;
+                cmd.Parameters.Add("entrega", OracleDbType.Date).Value = dpFechaeEntrega.SelectedDate;
+                cmd.Parameters.Add("cliente", OracleDbType.Varchar2, 100).Value = txtNombreCliente.Text;
+                cmd.Parameters.Add("direccion", OracleDbType.Varchar2, 100).Value = txtDireccionDelivery.Text;
+                cmd.Parameters.Add("fono", OracleDbType.Int32, 20).Value = txtTelefonoContacto.Text;
                 int n = cmd.ExecuteNonQuery();
-                if (n > 0)
+                if (n < 0)
                 {
                     await this.ShowMessageAsync("PEDIDO", "Pedido realizado");
                 }

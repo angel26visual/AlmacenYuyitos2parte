@@ -293,12 +293,12 @@ namespace AlmacenYuyitos
         {
             try
             {
-                OracleCommand cmd = con.CreateCommand();
-                cmd.CommandType = CommandType.Text;
+                OracleCommand cmd = new OracleCommand("sp_insertar_cliente", con);
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.BindByName = true;
 
                 if (ValidarRut(txtRutCliente.Text))
-                { cmd.Parameters.Add("RUT_CLI", OracleDbType.Varchar2, 100).Value = txtRutCliente.Text; }
+                { cmd.Parameters.Add("rut", OracleDbType.Varchar2, 100).Value = txtRutCliente.Text; }
                 else
                 {
                     await this.ShowMessageAsync("Error", "debe ingresar un rut valido!");
@@ -308,7 +308,7 @@ namespace AlmacenYuyitos
 
                 if (txtNombreCliente.Text.Replace(" ", string.Empty).Length >= 3)
                 {
-                    cmd.Parameters.Add("NOMBRE_CLI", OracleDbType.Varchar2, 100).Value = txtNombreCliente.Text;
+                    cmd.Parameters.Add("nombre", OracleDbType.Varchar2, 100).Value = txtNombreCliente.Text;
                 }
                 else
                 {
@@ -319,7 +319,7 @@ namespace AlmacenYuyitos
 
                 if (txtApellidoCliente.Text.Replace(" ", string.Empty).Length >= 3)
                 {
-                    cmd.Parameters.Add("APELLIDO_CLI", OracleDbType.Varchar2, 100).Value = txtApellidoCliente.Text;
+                    cmd.Parameters.Add("apellido", OracleDbType.Varchar2, 100).Value = txtApellidoCliente.Text;
                 }
                 else
                 {
@@ -329,7 +329,7 @@ namespace AlmacenYuyitos
                 }
                 if (txtTelefonoCliente.Text.Replace(" ", string.Empty).Length == 9)
                 {
-                    cmd.Parameters.Add("FONO_CLI", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtTelefonoCliente.Text);
+                    cmd.Parameters.Add("fono", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtTelefonoCliente.Text);
                 }
                 else
                 {
@@ -339,7 +339,7 @@ namespace AlmacenYuyitos
 
                 if (txtCorreoCliente.Text.Replace(" ", string.Empty).Length >= 3)
                 {
-                    cmd.Parameters.Add("CORREO_CLI", OracleDbType.Varchar2, 100).Value = txtCorreoCliente.Text;
+                    cmd.Parameters.Add("correo", OracleDbType.Varchar2, 100).Value = txtCorreoCliente.Text;
                 }
                 else
                 {
@@ -348,14 +348,10 @@ namespace AlmacenYuyitos
 
                 }
 
-                
-
-                cmd.CommandText = "INSERT INTO CLIENTE(RUT_CLI , NOMBRE_CLI, APELLIDO_CLI , FONO_CLI , CORREO_CLI) " +
-                                   "VALUES(:RUT_CLI,:NOMBRE_CLI ,:APELLIDO_CLI , :FONO_CLI , :CORREO_CLI)";
                 try
                 {
                     int n = cmd.ExecuteNonQuery();
-                    if (n > 0)
+                    if (n < 0)
                     {
                         await this.ShowMessageAsync("Agregado", "Cliente se agregó correctamente");
                         this.ActualizarDataGrid();

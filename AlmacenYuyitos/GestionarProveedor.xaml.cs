@@ -333,11 +333,11 @@ namespace AlmacenYuyitos
         {
             try
             {
-                OracleCommand cmd = con.CreateCommand();
-                cmd.CommandType = CommandType.Text;
+                OracleCommand cmd = new OracleCommand("sp_insertar_proveedor", con);
+                cmd.CommandType = CommandType.StoredProcedure;
                 if (ValidarRut(txtRutProveedor.Text))
                 {
-                    cmd.Parameters.Add("RUT_PROVEE", OracleDbType.Varchar2, 100).Value = txtRutProveedor.Text;
+                    cmd.Parameters.Add("rut", OracleDbType.Varchar2, 100).Value = txtRutProveedor.Text;
                 }
                 else
                 {
@@ -350,7 +350,7 @@ namespace AlmacenYuyitos
 
                 if (txtNombreProveedor.Text.Replace(" ", string.Empty).Length >= 3)
                 {
-                    cmd.Parameters.Add("NOMBRE_PROVEE", OracleDbType.Varchar2, 100).Value = txtNombreProveedor.Text;
+                    cmd.Parameters.Add("nombre", OracleDbType.Varchar2, 100).Value = txtNombreProveedor.Text;
                 }
                 else
                 {
@@ -362,7 +362,7 @@ namespace AlmacenYuyitos
 
                 if (txtDireccionProveedor.Text.Replace(" ", string.Empty).Length >= 3)
                 {
-                    cmd.Parameters.Add("DIRECCION_PROVEE", OracleDbType.Varchar2, 100).Value = txtDireccionProveedor.Text;
+                    cmd.Parameters.Add("direccion", OracleDbType.Varchar2, 100).Value = txtDireccionProveedor.Text;
                 }
                 else
                 {
@@ -374,7 +374,7 @@ namespace AlmacenYuyitos
 
                 if (txtFonoProveedorUno.Text.Replace(" ", string.Empty).Length == 9)
                 {
-                    cmd.Parameters.Add("TELEFONO_1_PROVEE", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtFonoProveedorUno.Text);
+                    cmd.Parameters.Add("telefono1", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtFonoProveedorUno.Text);
                 }
                 else
                 {
@@ -386,7 +386,7 @@ namespace AlmacenYuyitos
 
                 if (txtFonoProveedor2.Text.Replace(" ", string.Empty).Length == 9)
                 {
-                    cmd.Parameters.Add("TELEFONO_2_PROVEE", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtFonoProveedor2.Text);
+                    cmd.Parameters.Add("telefono2", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtFonoProveedor2.Text);
                 }
                 else
                 {
@@ -398,7 +398,7 @@ namespace AlmacenYuyitos
 
                 if (txtNombreServidor.Text.Replace(" ", string.Empty).Length >= 3)
                 {
-                    cmd.Parameters.Add("NOM_SERVIDOR", OracleDbType.Varchar2, 100).Value = txtNombreServidor.Text;
+                    cmd.Parameters.Add("nom_servidor", OracleDbType.Varchar2, 100).Value = txtNombreServidor.Text;
                 }
                 else
                 {
@@ -410,7 +410,7 @@ namespace AlmacenYuyitos
 
                 if (txtTelefonoServidor.Text.Replace(" ", string.Empty).Length == 9)
                 {
-                    cmd.Parameters.Add("TELEFONO_SERVIDOR", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtTelefonoServidor.Text);
+                    cmd.Parameters.Add("fono", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtTelefonoServidor.Text);
                 }
                 else
                 {
@@ -420,15 +420,10 @@ namespace AlmacenYuyitos
 
                 }
 
-
-                cmd.CommandText = "INSERT INTO PROVEEDOR(RUT_PROVEE,NOMBRE_PROVEE,DIRECCION_PROVEE,TELEFONO_1_PROVEE," +
-               "TELEFONO_2_PROVEE,NOM_SERVIDOR ,TELEFONO_SERVIDOR) VALUES(:RUT_PROVEE,:NOMBRE_PROVEE,:DIRECCION_PROVEE," +
-               ":TELEFONO_1_PROVEE,:TELEFONO_2_PROVEE,:NOM_SERVIDOR,:TELEFONO_SERVIDOR)";
-
                 try
                 {
                     int n = cmd.ExecuteNonQuery();
-                    if (n > 0)
+                    if (n < 0)
                     {
                         await this.ShowMessageAsync("Agregado", "Proveedor se agregó correctamente");
                         this.resetAll();
