@@ -87,7 +87,7 @@ namespace AlmacenYuyitos
             try
             {
                 OracleCommand cmd = con.CreateCommand();
-                cmd.CommandText = "SELECT ID_PROMOCION , IMAGEN_PROMO , FECHA_INICIO_PROMO , FECHA_FIN_PROMO , DESCRIP_PROMO ,CANT_PRODUCTO , DESCUENTO_PORCENTAJE , DESCUENTO_EFECTIVO , TIPO_PRODUCTO_ID_TIPPRODUC , TIPO_PROMOCION_ID_TIPOPROMO FROM PROMOCION order by ID_PROMOCION ASC";
+                cmd.CommandText = "SELECT ID_PROMOCION , FECHA_INICIO_PROMO , FECHA_FIN_PROMO , DESCRIP_PROMO ,CANT_PRODUCTO , DESCUENTO_PORCENTAJE , DESCUENTO_EFECTIVO , TIPO_PRODUCTO_ID_TIPPRODUC , TIPO_PROMOCION_ID_TIPOPROMO FROM PROMOCION order by ID_PROMOCION ASC";
                 cmd.CommandType = CommandType.Text;
                 OracleDataReader dr = cmd.ExecuteReader();
                 OracleDataAdapter adapter = new OracleDataAdapter(cmd);
@@ -222,7 +222,7 @@ namespace AlmacenYuyitos
             txtPorcentajeDescuento.Text = "";
             txtDescEfectivo.Text = "";
             txtIdPromocion .Text= "";
-            
+            imgFoto.Source = null;
         }
 
         private void btnLimpiarCampos_Click(object sender, RoutedEventArgs e)
@@ -274,6 +274,7 @@ namespace AlmacenYuyitos
                     if (n < 0)
                     {
                         await this.ShowMessageAsync("Modificada", "Promocion se modificó correctamente");
+                        this.ActualizarDataGrid();
                         Limpiar();
                     }
                 }
