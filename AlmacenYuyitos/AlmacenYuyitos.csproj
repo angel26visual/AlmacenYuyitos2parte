@@ -446,5 +446,11 @@
   <ItemGroup>
     <Resource Include="resources\consultarproducto.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\pagar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\verpagos.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
