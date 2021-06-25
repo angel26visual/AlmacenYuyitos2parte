@@ -8,7 +8,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
-        Title="Ingresar Recepcion - Los Yuyitos" Height="560.009" Width="800" ResizeMode="NoResize" Icon="resources/logo.png">
+        Title="Ingresar Recepcion - Los Yuyitos" Height="625.009" Width="1149" ResizeMode="NoResize" Icon="resources/logo.png">
     <!--Inicio menu izquierda inicio de sesion-->
     <mah:MetroWindow.Flyouts>
         <mah:FlyoutsControl x:Name="ControlesFlyouts">
@@ -62,11 +62,11 @@
             </Button>
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
-    <Grid Background="LightBlue">
+    <Grid Background="LightBlue" Margin="0,0,4,0">
         <Button x:Name="btnAtras"  Click="btnAtras_Click"
                 Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
                 HorizontalAlignment="Left"
-                Margin="731,474,0,0"
+                Margin="1074,530,0,0"
                 VerticalAlignment="Top" 
                 Width="40" Height="40" 
                 ToolTip="Volver Atrás">
@@ -76,18 +76,13 @@
 
 
         </Button>
-        <Label Content="RECEPCIÓN DE ORDEN DE PEDIDOS" HorizontalAlignment="Left" Margin="260,85,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
         <Image Source="/resources/logo.png" Margin="322,-17,330.6,435.4" />
-        <Label Content="RECEPCIÓN" HorizontalAlignment="Left" Margin="30,141,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
-        <Label Content="ID Orden de Pedido:" HorizontalAlignment="Left" Margin="30,178,0,0" VerticalAlignment="Top"/>
-        <Label Content="Proveedor:" HorizontalAlignment="Left" Margin="79,209,0,0" VerticalAlignment="Top"/>
-        <Label Content="Productos Pedidos:" HorizontalAlignment="Left" Margin="33,262,0,0" VerticalAlignment="Top"/>
-        <Label Content="Valor Pagado($):" HorizontalAlignment="Left" Margin="50,332,0,0" VerticalAlignment="Top"/>
-        <Label Content="ORDEN DE PEDIDOS" HorizontalAlignment="Left" Margin="476,141,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
+        <Label Content="RECEPCIÓN" HorizontalAlignment="Left" Margin="30,114,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
+        <Label Content="ORDEN DE PEDIDOS" HorizontalAlignment="Left" Margin="641,114,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
         <TextBox x:Name="txtIdOrdenPedidoR"
                  HorizontalAlignment="Left" 
                  Height="40"
-                 Margin="151,173,0,0" 
+                 Margin="33,150,0,0" 
                  TextWrapping="Wrap" 
                  VerticalAlignment="Top"
                  Width="166"
@@ -95,11 +90,12 @@
                  mah:TextBoxHelper.Watermark="ID Orden de Pedido"
                  mah:TextBoxHelper.UseFloatingWatermark="True"
                  />
-        <ComboBox x:Name="cboProveedorR" HorizontalAlignment="Left" Margin="150,222,0,0" VerticalAlignment="Top" Width="166" Height="40"/>
+        <ComboBox x:Name="cboProveedorR" HorizontalAlignment="Left" Margin="33,195,0,0" VerticalAlignment="Top" Width="166" Height="40"/>
+        <DatePicker x:Name="dpFechaRecepcion" HorizontalAlignment="Left" Margin="33,439,0,0" VerticalAlignment="Top" Width="166" Height="40"/>
         <TextBox x:Name="txtValorPagado"
                  HorizontalAlignment="Left" 
                  Height="40"
-                 Margin="149,329,0,0" 
+                 Margin="33,485,0,0" 
                  TextWrapping="Wrap" 
                  VerticalAlignment="Top"
                  Width="166"
@@ -108,20 +104,13 @@
                  mah:TextBoxHelper.UseFloatingWatermark="True"
                  
                  />
-        <Label Content="ID Orden de Pedido:" HorizontalAlignment="Left" Margin="482,179,0,0" VerticalAlignment="Top"/>
-        <Label Content="Proveedor:" HorizontalAlignment="Left" Margin="531,217,0,0" VerticalAlignment="Top"/>
-        <Label Content="Productos Pedidos:" HorizontalAlignment="Left" Margin="488,248,0,0" VerticalAlignment="Top"/>
-        <Label Content="Valor($) :" HorizontalAlignment="Left" Margin="543,340,0,0" VerticalAlignment="Top"/>
         <Label x:Name="txtIdOrdenPedidoO" Content="" HorizontalAlignment="Left" Margin="604,186,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox x:Name="cboProveedorO" HorizontalAlignment="Left" Margin="604,217,0,0" VerticalAlignment="Top" Width="166" Height="40"/>
-        <Label Content="Fecha de Emisión:" HorizontalAlignment="Left" Margin="495,371,0,0" VerticalAlignment="Top"/>
-        <Label Content="Estado:" HorizontalAlignment="Left" Margin="550,427,0,0" VerticalAlignment="Top"/>
-        <DatePicker x:Name="dpFechaEmision" HorizontalAlignment="Left" Margin="604,371,0,0" VerticalAlignment="Top" Width="166" Height="40"/>
-        <ComboBox x:Name="cboEstado" HorizontalAlignment="Left" Margin="604,419,0,0" VerticalAlignment="Top" Width="166" Height="40"/>
+        <ComboBox x:Name="cboProveedorO" HorizontalAlignment="Left" Margin="641,150,0,0" VerticalAlignment="Top" Width="166" Height="40"/>
+        <DatePicker x:Name="dpFechaEmision" HorizontalAlignment="Left" Margin="948,485,0,0" VerticalAlignment="Top" Width="166" Height="40"/>
         <Button x:Name="btnVerificarRecepcion"
                  Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
                 HorizontalAlignment="Left"
-                Margin="151,386,0,0"
+                Margin="33,530,0,0"
                 VerticalAlignment="Top" 
                 Width="40" Height="40" 
                 ToolTip="Verificar Recepción">
@@ -133,7 +122,7 @@
         <Button x:Name="btnTerminarRecepcion" 
                  Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
                 HorizontalAlignment="Left"
-                Margin="241,386,0,0"
+                Margin="129,530,0,0"
                 VerticalAlignment="Top" 
                 Width="40" Height="40" 
                 ToolTip="Terminar Recepción">
@@ -144,7 +133,7 @@
         <TextBox x:Name="txtValor" 
                 HorizontalAlignment="Left" 
                  Height="40"
-                 Margin="604,323,0,0" 
+                 Margin="651,485,0,0" 
                  TextWrapping="Wrap" 
                  VerticalAlignment="Top"
                  Width="166"
@@ -152,5 +141,76 @@
                  mah:TextBoxHelper.Watermark="Valor Pagado"
                  mah:TextBoxHelper.UseFloatingWatermark="True"
                  />
+        <DataGrid HorizontalAlignment="Left" Height="254" Margin="641,212,0,0" VerticalAlignment="Top" Width="473"/>
+        <TextBox x:Name="txtIdOrdenPedidoR_Copy"
+            HorizontalAlignment="Left" 
+            Height="40"
+            Margin="33,240,0,0" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top"
+            Width="166"
+                 
+            Controls:TextBoxHelper.Watermark="ID Orden de Pedido"
+            Controls:TextBoxHelper.UseFloatingWatermark="True"
+                 />
+        <TextBox x:Name="txtIdOrdenPedidoR_Copy1"
+            HorizontalAlignment="Left" 
+            Height="40"
+            Margin="33,285,0,0" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top"
+            Width="166"
+                 
+            Controls:TextBoxHelper.Watermark="ID Orden de Pedido"
+            Controls:TextBoxHelper.UseFloatingWatermark="True"
+                 />
+        <Button x:Name="btnVerificarRecepcion_Copy"
+            Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+            HorizontalAlignment="Left"
+            Margin="215,150,0,0"
+            VerticalAlignment="Top" 
+            Width="40" Height="40" 
+            ToolTip="Verificar Recepción">
+            <iconPacks:PackIconModern
+                Width="22" Height="22"
+                Kind="Check"/>
+
+        </Button>
+        <Button x:Name="btnVerificarRecepcion_Copy1"
+            Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+            HorizontalAlignment="Left"
+            Margin="33,375,0,0"
+            VerticalAlignment="Top" 
+            Width="40" Height="40" 
+            ToolTip="Verificar Recepción">
+            <iconPacks:PackIconModern
+                Width="22" Height="22"
+                Kind="Check"/>
+
+        </Button>
+        <Button x:Name="btnVerificarRecepcion_Copy2"
+            Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+            HorizontalAlignment="Left"
+            Margin="106,375,0,0"
+            VerticalAlignment="Top" 
+            Width="40" Height="40" 
+            ToolTip="Verificar Recepción">
+            <iconPacks:PackIconModern
+                Width="22" Height="22"
+                Kind="Check"/>
+
+        </Button>
+        <TextBox x:Name="txtIdOrdenPedidoR_Copy2"
+            HorizontalAlignment="Left" 
+            Height="40"
+            Margin="33,330,0,0" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top"
+            Width="166"
+                 
+            Controls:TextBoxHelper.Watermark="ID Orden de Pedido"
+            Controls:TextBoxHelper.UseFloatingWatermark="True"
+                 />
+        <DataGrid HorizontalAlignment="Left" Height="277" Margin="255,212,0,0" VerticalAlignment="Top" Width="349"/>
     </Grid>
 </mah:MetroWindow>

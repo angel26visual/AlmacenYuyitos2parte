@@ -126,7 +126,7 @@
                 <DropShadowEffect/>
             </Button.Effect>
         </mah:Tile>
-        <mah:Tile x:Name="btnGestionarPagos" ToolTip="Gestionar Pagos" HorizontalAlignment="Left" Margin="733,132,0,0" VerticalAlignment="Top" Width="210" Height="180 " Background="Transparent" Foreground="Transparent" BorderBrush="Transparent">
+        <mah:Tile x:Name="btnGestionarPagos" ToolTip="Gestionar Pagos" HorizontalAlignment="Left" Margin="733,132,0,0" VerticalAlignment="Top" Width="210" Height="180 " Background="Transparent" Foreground="Transparent" BorderBrush="Transparent" Click="btnGestionarPagos_Click">
             <Image Source="/resources/GestionarPagos.png" Height="137" Width="160" />
             <Button.Effect>
                 <DropShadowEffect/>

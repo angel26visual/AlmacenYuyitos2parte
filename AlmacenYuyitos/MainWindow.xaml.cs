@@ -128,5 +128,12 @@ namespace AlmacenYuyitos
             }
             
         }
+
+        private void btnGestionarPagos_Click(object sender, RoutedEventArgs e)
+        {
+            GestionarPagos gestion = new GestionarPagos(nomUsuario);
+            gestion.Show();
+            this.Close();
+        }
     }
 }
