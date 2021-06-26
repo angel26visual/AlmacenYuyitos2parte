@@ -412,5 +412,26 @@ namespace AlmacenYuyitos
         {
             this.ActualizarDataGridProveedor();
         }
+
+        private void dgProveedor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            DataGrid dg = sender as DataGrid;
+            DataRowView dr = dg.SelectedItem as DataRowView;
+            if (dr != null)
+            {
+               
+                cboProveedor.Text = dr["RUT_PROVEE"].ToString();
+                
+
+
+                btnGuardarOrdenPedido.IsEnabled = false;
+                btnModificarOrden.IsEnabled = true;
+                btnEliminarOrden.IsEnabled = true;
+                txtIdOrdenPedidos.IsEnabled = false;
+                dpFechaOrdenPedido.IsEnabled = false;
+
+            }
+        }
     }
 }
