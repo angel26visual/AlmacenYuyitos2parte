@@ -31,6 +31,7 @@ namespace AlmacenYuyitos
         int cargo = 0;
         string nombre = string.Empty;
         string apellido = string.Empty;
+        
         public GenerarOrdenDePedidos(string usuario)
         {
             this.setConnection();
@@ -39,7 +40,8 @@ namespace AlmacenYuyitos
             nomUsuario = usuario;
             DatosUsuarios();
             CargaCboTipoDeProducto();
-
+            dpFechaOrdenPedido.Text = Convert.ToString(DateTime.Today);
+            
         }
 
         private async void DatosUsuarios()
@@ -428,8 +430,8 @@ namespace AlmacenYuyitos
                 btnGuardarOrdenPedido.IsEnabled = false;
                 btnModificarOrden.IsEnabled = true;
                 btnEliminarOrden.IsEnabled = true;
-                txtIdOrdenPedidos.IsEnabled = false;
-                dpFechaOrdenPedido.IsEnabled = false;
+                txtIdOrdenPedidos.IsEnabled = true;
+                dpFechaOrdenPedido.IsEnabled = true; ;
 
             }
         }
