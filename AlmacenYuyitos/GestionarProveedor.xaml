@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         
         
-        Title="Gestionar Proveedor - Los Yuyitos" Height="499.907" Width="1116.217" ResizeMode="NoResize" Icon="resources/logo.png" Closed="MetroWindow_Closed">
+        Title="Gestionar Proveedor - Los Yuyitos" Height="499.907" Width="1116.217" ResizeMode="NoResize" Icon="resources/logo.png" Closed="MetroWindow_Closed" WindowStartupLocation="CenterScreen">
     <!--Inicio menu izquierda inicio de sesion-->
     <mah:MetroWindow.Flyouts>
         <mah:FlyoutsControl x:Name="ControlesFlyouts">

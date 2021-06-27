@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        Title="Agregar Usuarios - Los Yuyitos" Height="626" Width="479.443" Icon="resources/logo.png" ResizeMode="NoResize">
+        Title="Agregar Usuarios - Los Yuyitos" Height="626" Width="479.443" Icon="resources/logo.png" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <!--Inicio menu izquierda inicio de sesion-->
     <mah:MetroWindow.Flyouts>
         <mah:FlyoutsControl x:Name="ControlesFlyouts">

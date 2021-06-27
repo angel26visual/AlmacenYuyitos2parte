@@ -8,7 +8,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
-        Title="Gestionar Clientes - Los Yuyitos" Height="450" Width="800" ResizeMode="NoResize" Icon="resources/logo.png">
+        Title="Gestionar Clientes - Los Yuyitos" Height="450" Width="800" ResizeMode="NoResize" Icon="resources/logo.png" WindowStartupLocation="CenterScreen">
     <!--Inicio menu izquierda inicio de sesion-->
     <mah:MetroWindow.Flyouts>
         <mah:FlyoutsControl x:Name="ControlesFlyouts">

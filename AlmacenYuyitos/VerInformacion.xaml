@@ -8,7 +8,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
-        Title="Ver Informacion de Deuda - Los Yuyitos" Height="509.2" Width="450.338" Icon="resources/logo.png" ResizeMode="NoResize">
+        Title="Ver Informacion de Deuda - Los Yuyitos" Height="509.2" Width="450.338" Icon="resources/logo.png" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <!--Inicio menu izquierda inicio de sesion-->
     <mah:MetroWindow.Flyouts>
         <mah:FlyoutsControl x:Name="ControlesFlyouts">

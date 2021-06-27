@@ -9,7 +9,7 @@
 
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
-        Title="Gestionar Usuarios - Los Yuyitos" Height="450" Width="800" Icon="resources/logo.png">
+        Title="Gestionar Usuarios - Los Yuyitos" Height="450" Width="800" Icon="resources/logo.png" WindowStartupLocation="CenterScreen">
     <!--Inicio menu izquierda inicio de sesion-->
     <mah:MetroWindow.Flyouts>
         <mah:FlyoutsControl x:Name="ControlesFlyouts">

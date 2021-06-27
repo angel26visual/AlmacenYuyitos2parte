@@ -8,7 +8,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
-        Title="Registrar Pedido Delivery - Los Yuyitos" Height="513.402" Width="973.864" ResizeMode="NoResize" Icon="resources/logo.png">
+        Title="Registrar Pedido Delivery - Los Yuyitos" Height="513.402" Width="973.864" ResizeMode="NoResize" Icon="resources/logo.png" WindowStartupLocation="CenterScreen">
     <!--Inicio menu izquierda inicio de sesion-->
     <mah:MetroWindow.Flyouts>
         <mah:FlyoutsControl x:Name="ControlesFlyouts">

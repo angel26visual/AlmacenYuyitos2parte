@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        Title="Cuenta" Height="450" Width="650" Icon="resources/logo.png" ResizeMode="NoResize">
+        Title="Cuenta" Height="450" Width="650" Icon="resources/logo.png" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <!--Inicio menu izquierda inicio de sesion-->
     <mah:MetroWindow.Flyouts>
         <mah:FlyoutsControl x:Name="ControlesFlyouts">

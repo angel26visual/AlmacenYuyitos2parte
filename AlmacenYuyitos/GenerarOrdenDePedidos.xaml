@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        Title="Generar Orden DePedidos" Height="569.21" Width="972.629" ResizeMode="NoResize" Icon="resources/logo.png">
+        Title="Generar Orden DePedidos" Height="569.21" Width="972.629" ResizeMode="NoResize" Icon="resources/logo.png" WindowStartupLocation="CenterScreen">
     <!--Inicio menu izquierda inicio de sesion-->
     <mah:MetroWindow.Flyouts>
         <mah:FlyoutsControl x:Name="ControlesFlyouts">

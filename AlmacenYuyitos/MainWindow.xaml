@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:AlmacenYuyitos"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="Menú Administrador - Los Yuyitos" Height="630.912" Width="1491.324" Icon="resources/logo.png" ResizeMode="NoResize">
+        Title="Menú Administrador - Los Yuyitos" Height="630.912" Width="1491.324" Icon="resources/logo.png" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 
     <!--Inicio menu izquierda inicio de sesion-->
     <mah:MetroWindow.Flyouts>

@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        Title="Registrar Venta - Los Yuyitos " Height="508.664" Width="877.126" ResizeMode="NoResize" Icon="resources/logo.png">
+        Title="Registrar Venta - Los Yuyitos " Height="508.664" Width="877.126" ResizeMode="NoResize" Icon="resources/logo.png" WindowStartupLocation="CenterScreen">
     <!--Inicio menu izquierda inicio de sesion-->
     <mah:MetroWindow.Flyouts>
         <mah:FlyoutsControl x:Name="ControlesFlyouts">

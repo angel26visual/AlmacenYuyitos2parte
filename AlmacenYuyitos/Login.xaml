@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        Title="Login - Los Yuyitos" Height="524.292" Width="466.745" Icon="resources/logo.png" ResizeMode="NoResize" WindowStartupLocation="Manual" Cursor="Arrow"
+        Title="Login - Los Yuyitos" Height="524.292" Width="466.745" Icon="resources/logo.png" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Cursor="Arrow"
         >
 
     <!--Inicio menu izquierda inicio de sesion-->
