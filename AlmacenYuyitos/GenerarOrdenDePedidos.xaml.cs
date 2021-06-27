@@ -431,7 +431,9 @@ namespace AlmacenYuyitos
                 btnModificarOrden.IsEnabled = true;
                 btnEliminarOrden.IsEnabled = true;
                 txtIdOrdenPedidos.IsEnabled = true;
-                dpFechaOrdenPedido.IsEnabled = true; ;
+                dpFechaOrdenPedido.IsEnabled = true;
+
+                btnGuardarOrdenPedido.IsEnabled = true;
 
             }
         }
