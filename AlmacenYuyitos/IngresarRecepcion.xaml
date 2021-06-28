@@ -79,19 +79,38 @@
         <Image Source="/resources/logo.png" Margin="322,-17,330.6,435.4" />
         <Label Content="RECEPCIÓN" HorizontalAlignment="Left" Margin="30,114,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
         <Label Content="ORDEN DE PEDIDOS" HorizontalAlignment="Left" Margin="641,114,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
+        <TextBox x:Name="txtIdRecep"
+                 mah:TextBoxHelper.ClearTextButton="True"
+                 VerticalContentAlignment="Center"
+                 HorizontalAlignment="Left"
+                 Height="40"
+                 Margin="33,33,0,0" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top"
+                 Width="166"
+                 mah:TextBoxHelper.Watermark="ID RECEPCIÓN"
+                 mah:TextBoxHelper.UseFloatingWatermark="True"
+                 IsEnabled="False"
+                 />
         <TextBox x:Name="txtIdOrdenPedidoR"
-                 HorizontalAlignment="Left" 
+                 mah:TextBoxHelper.ClearTextButton="True"
+                 VerticalContentAlignment="Center"
+                 HorizontalAlignment="Left"
                  Height="40"
                  Margin="33,150,0,0" 
                  TextWrapping="Wrap" 
                  VerticalAlignment="Top"
                  Width="166"
-                 
                  mah:TextBoxHelper.Watermark="ID Orden de Pedido"
                  mah:TextBoxHelper.UseFloatingWatermark="True"
                  />
-        <ComboBox x:Name="cboProveedorR" HorizontalAlignment="Left" Margin="33,195,0,0" VerticalAlignment="Top" Width="166" Height="40"/>
-        <DatePicker x:Name="dpFechaRecepcion" HorizontalAlignment="Left" Margin="33,439,0,0" VerticalAlignment="Top" Width="166" Height="40"/>
+        <TextBox x:Name="txtProveedor" HorizontalAlignment="Left" Margin="33,195,0,0" VerticalAlignment="Top" Width="166" Height="40"
+                 mah:TextBoxHelper.Watermark="Rut Proveedor"
+                 mah:TextBoxHelper.UseFloatingWatermark="True"
+                 mah:TextBoxHelper.ClearTextButton="True"
+                 VerticalContentAlignment="Center"/>
+        <DatePicker x:Name="dpFechaRecepcion" HorizontalAlignment="Left" Margin="255,33,0,0" VerticalAlignment="Top" Width="166" Height="40"
+                    IsEnabled="False"/>
         <TextBox x:Name="txtValorPagado"
                  HorizontalAlignment="Left" 
                  Height="40"
