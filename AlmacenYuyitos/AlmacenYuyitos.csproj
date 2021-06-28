@@ -134,6 +134,9 @@
     <Compile Include="GestionarDelivery.xaml.cs">
       <DependentUpon>GestionarDelivery.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GestionarInformes.xaml.cs">
+      <DependentUpon>GestionarInformes.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GestionarPagos.xaml.cs">
       <DependentUpon>GestionarPagos.xaml</DependentUpon>
     </Compile>
@@ -220,6 +223,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GestionarDelivery.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GestionarInformes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
