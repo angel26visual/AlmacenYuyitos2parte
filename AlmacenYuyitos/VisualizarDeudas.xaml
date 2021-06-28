@@ -8,7 +8,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
-        Title="Visualizar Deudas - Los Yuyitos" Height="450" Width="800" Icon="resources/logo.png" ResizeMode="NoResize">
+        Title="Visualizar Deudas - Los Yuyitos" Height="450" Width="800" Icon="resources/logo.png" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <!--Inicio menu izquierda inicio de sesion-->
     <mah:MetroWindow.Flyouts>
         <mah:FlyoutsControl x:Name="ControlesFlyouts">
@@ -66,7 +66,6 @@
         <Image Source="/resources/logo.png" Width="120" Height="120" Margin="338,-17,335.6,317" />
         <DataGrid x:Name="dtgDeudas" HorizontalAlignment="Left" Height="255" Margin="121,108,0,0" VerticalAlignment="Top" Width="556" IsReadOnly="True"/>
         <Button x:Name="btnVolver" Content="VOLVER" HorizontalAlignment="Left" Margin="709,383,0,0" VerticalAlignment="Top" Width="75" Click="btnVolver_Click"/>
-        <Button x:Name="btnVerInformacion" Content="VER INFORMACIÓN" HorizontalAlignment="Left" Margin="26,383,0,0" VerticalAlignment="Top" Width="118" Click="btnVerInformacion_Click"/>
 
     </Grid>
 </mah:MetroWindow>

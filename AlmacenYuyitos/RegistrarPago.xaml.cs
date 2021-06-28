@@ -115,6 +115,7 @@ namespace AlmacenYuyitos
                 try
                 {
                     OracleCommand cmd = new OracleCommand("sp_insertar_venta", con);
+                    
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("boleta", OracleDbType.Int32, 20).Value = int.Parse(txtNroBoleta.Text);
                     cmd.Parameters.Add("fecha", OracleDbType.Date).Value = txtFechaVenta.SelectedDate;
@@ -127,7 +128,20 @@ namespace AlmacenYuyitos
                     int n = cmd.ExecuteNonQuery();
                     if (n < 0)
                     {
-                        await this.ShowMessageAsync("VENTA", "Venta realizada");
+                        
+
+                        int vuelto = int.Parse(txtPago.Text)-monto_total;
+                        if (vuelto>0)
+                        {
+                            await this.ShowMessageAsync("VENTA REALIZADA", "El vuelto del cliente es:"+" $ " + vuelto +" "+ "pesos");
+                            RegistrarPago rp = new RegistrarPago(nomUsuario);
+                            this.Close();
+                            rp.Show();
+                        }
+                        else
+                        {
+                            await this.ShowMessageAsync("VENTA REALIZADA", "venta ingresada sin vuelto al cliente");
+                        }
                     }
                     else
                     {

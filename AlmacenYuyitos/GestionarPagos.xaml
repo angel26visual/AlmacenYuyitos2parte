@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        Title="GestionarPagos" Height="450" Width="800">
+        Title="GestionarPagos" Height="450" Width="800" ResizeMode="NoResize" Icon="resources/logo.png" WindowStartupLocation="CenterScreen">
     <!--Inicio menu izquierda inicio de sesion-->
     <mah:MetroWindow.Flyouts>
         <mah:FlyoutsControl x:Name="ControlesFlyouts">
@@ -62,20 +62,31 @@
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
     <Grid Background="LightBlue">
-        <Button x:Name="btnPagarDeudas" Content="Pagar Deudas" HorizontalAlignment="Left" Margin="100,107,0,0" VerticalAlignment="Top" Width="250" Height="100" Background="White" Click="btnPagarDeudas_Click" >
+        
+
+        <mah:Tile x:Name="btnPagarDeudas" ToolTip="Pagar Deudas" HorizontalAlignment="Left" Margin="73,70,0,0" VerticalAlignment="Top" Width="210" Height="180" Background="Transparent" Foreground="Transparent" BorderBrush="Transparent" Click="btnPagarDeudas_Click">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
-        </Button>
-        <Button x:Name="btnVerDeudas" Content="Ver Pagos" HorizontalAlignment="Left" Margin="403,107,0,0" VerticalAlignment="Top" Width="250" Height="100" Background="White" Click="btnVerDeudas_Click"  >
+            <Image Source="/resources/pagar.png" Height="137" Width="160" />
+        </mah:Tile>
+
+       
+
+        <mah:Tile x:Name="btnVerDeudas" ToolTip="Ver Pagos" HorizontalAlignment="Left" Margin="489,62,0,0" VerticalAlignment="Top" Width="210" Height="180" Background="Transparent" Foreground="Transparent" BorderBrush="Transparent" Click="btnVerDeudas_Click">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
-        </Button>
-        <Button x:Name="btnVolver" Content="Volver" HorizontalAlignment="Left" Margin="267,239,0,0" VerticalAlignment="Top" Width="250" Height="100" Background="White" Click="btnVolver_Click"  >
+            <Image Source="/resources/verpagos.png" Height="137" Width="160" />
+        </mah:Tile>
+
+        
+
+        <mah:Tile x:Name="btnVolver" ToolTip="Volver al Menú Principal" HorizontalAlignment="Left" Margin="276,230,0,0" VerticalAlignment="Top" Width="210" Height="180" Background="Transparent" Foreground="Transparent" BorderBrush="Transparent" Click="btnVolver_Click">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
-        </Button>
+            <Image Source="/resources/volver.png" Height="137" Width="160" />
+        </mah:Tile>
     </Grid>
 </mah:MetroWindow>

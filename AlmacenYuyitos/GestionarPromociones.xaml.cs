@@ -223,6 +223,8 @@ namespace AlmacenYuyitos
             txtDescEfectivo.Text = "";
             txtIdPromocion .Text= "";
             imgFoto.Source = null;
+
+            btnAgregarPromocion.IsEnabled = true;
         }
 
         private void btnLimpiarCampos_Click(object sender, RoutedEventArgs e)

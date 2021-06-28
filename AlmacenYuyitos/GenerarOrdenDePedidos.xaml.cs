@@ -31,6 +31,7 @@ namespace AlmacenYuyitos
         int cargo = 0;
         string nombre = string.Empty;
         string apellido = string.Empty;
+        
         public GenerarOrdenDePedidos(string usuario)
         {
             this.setConnection();
@@ -39,7 +40,8 @@ namespace AlmacenYuyitos
             nomUsuario = usuario;
             DatosUsuarios();
             CargaCboTipoDeProducto();
-
+            dpFechaOrdenPedido.Text = Convert.ToString(DateTime.Today);
+            
         }
 
         private async void DatosUsuarios()
@@ -411,6 +413,29 @@ namespace AlmacenYuyitos
         private void dgProveedor_Loaded(object sender, RoutedEventArgs e)
         {
             this.ActualizarDataGridProveedor();
+        }
+
+        private void dgProveedor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            DataGrid dg = sender as DataGrid;
+            DataRowView dr = dg.SelectedItem as DataRowView;
+            if (dr != null)
+            {
+               
+                cboProveedor.Text = dr["RUT_PROVEE"].ToString();
+                
+
+
+                btnGuardarOrdenPedido.IsEnabled = false;
+                btnModificarOrden.IsEnabled = true;
+                btnEliminarOrden.IsEnabled = true;
+                txtIdOrdenPedidos.IsEnabled = true;
+                dpFechaOrdenPedido.IsEnabled = true;
+
+                btnGuardarOrdenPedido.IsEnabled = true;
+
+            }
         }
     }
 }

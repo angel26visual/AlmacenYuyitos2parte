@@ -9,7 +9,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
-        Title="Visualizar Usuario - Los Yuyitos" Height="477.365" Width="822.804" ResizeMode="NoResize" Icon="resources/logo.png">
+        Title="Visualizar Usuario - Los Yuyitos" Height="477.365" Width="822.804" ResizeMode="NoResize" Icon="resources/logo.png" WindowStartupLocation="CenterScreen">
     <!--Inicio menu izquierda inicio de sesion-->
     <mah:MetroWindow.Flyouts>
         <mah:FlyoutsControl x:Name="ControlesFlyouts">
