@@ -135,5 +135,12 @@ namespace AlmacenYuyitos
             gestion.Show();
             this.Close();
         }
+
+        private void btnGenerarInforme_Click(object sender, RoutedEventArgs e)
+        {
+            GestionarInformes gi = new GestionarInformes(nomUsuario);
+            gi.Show();
+            this.Close();
+        }
     }
 }

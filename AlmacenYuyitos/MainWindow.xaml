@@ -100,7 +100,7 @@
                 <DropShadowEffect/>
             </Button.Effect>
         </mah:Tile>
-        <mah:Tile x:Name="btnGenerarInforme" ToolTip="Generar Informe" HorizontalAlignment="Left" Margin="494,132,0,0" VerticalAlignment="Top" Width="210" Height="180" Background="Transparent" BorderBrush="Transparent" Foreground="Transparent">
+        <mah:Tile x:Name="btnGenerarInforme" ToolTip="Generar Informe" HorizontalAlignment="Left" Margin="494,132,0,0" VerticalAlignment="Top" Width="210" Height="180" Background="Transparent" BorderBrush="Transparent" Foreground="Transparent" Click="btnGenerarInforme_Click">
             <Image Source="/resources/GenerarInfome.png" Height="180" Width="230" />
 
 
