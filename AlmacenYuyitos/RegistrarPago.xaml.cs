@@ -191,8 +191,8 @@ namespace AlmacenYuyitos
                                 {
                                     cantidadVieja = detalle_boleta.Cantidad;
                                     cantidadNueva = cantidad;
+                                    cantidad = cantidadNueva + cantidadVieja;
                                     detalle_boleta.Cantidad = cantidad;
-                                    cantidad = cantidadNueva - cantidadVieja;
                                     total = total + (precio * cantidad);
                                     txtTotalVenta.Text = (int.Parse(txtTotalVenta.Text) + total).ToString();
                                     monto_total = monto_total + total;
@@ -409,12 +409,12 @@ namespace AlmacenYuyitos
             try
             {
                 OracleCommand cmd = con.CreateCommand();
-                cmd.CommandText = "SELECT MAX(NRO_BOLETA) FROM BOLETA";
+                cmd.CommandText = "SELECT NVL(MAX(NRO_BOLETA), 7000) AS BOLETA FROM BOLETA";
                 cmd.CommandType = CommandType.Text;
                 OracleDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
-                    int nro_boleta = int.Parse(reader["MAX(NRO_BOLETA)"].ToString());
+                    int nro_boleta = int.Parse(reader["BOLETA"].ToString());
                     nro_boleta = nro_boleta + 1;
                     txtNroBoleta.Text = nro_boleta.ToString();
                 }
@@ -474,12 +474,14 @@ namespace AlmacenYuyitos
             int cantidad = 0;
             int cantidadVieja = 0;
             int cantidadNueva = 0;
+            int productoEnLista = 0;
             try
             {
                 foreach (var detalle_boleta in listDboleta)
                 {
                     if (detalle_boleta.Codigo_producto == codigo)
                     {
+                        productoEnLista = 1;
                         if (int.Parse(txtCantidad.Text) > 0)
                         {
                             OracleCommand cmd = con.CreateCommand();
@@ -496,9 +498,9 @@ namespace AlmacenYuyitos
                                 if (int.Parse(reader["STOCK"].ToString()) >= cantidad)
                                 {
                                     cantidadVieja = detalle_boleta.Cantidad;
-                                    cantidadNueva = int.Parse(txtCantidad.Text);
-                                    detalle_boleta.Cantidad = cantidad;
+                                    cantidadNueva = int.Parse(txtCantidad.Text);    
                                     cantidad = cantidadNueva - cantidadVieja;
+                                    detalle_boleta.Cantidad = cantidad;
                                     total = total + (precio * cantidad);
                                     txtTotalVenta.Text = (int.Parse(txtTotalVenta.Text) + total).ToString();
                                     monto_total = monto_total + total;
@@ -516,10 +518,10 @@ namespace AlmacenYuyitos
                             }
                         }
                     }
-                    else
-                    {
-                        await this.ShowMessageAsync("PRODUCTO", "Producto que se intenta modificar no se ha agregado a la lista");
-                    }
+                }
+                if (productoEnLista == 0)
+                {
+                    await this.ShowMessageAsync("PRODUCTO", "Producto no esta agregado");
                 }
             }
             catch (Exception)
@@ -534,7 +536,7 @@ namespace AlmacenYuyitos
             try
             {
                 OracleCommand cmd = con.CreateCommand();
-                cmd.CommandText = "SELECT NOMBRE_CLI FROM PRODUCTO WHERE CODIGO_PRODUCTO = :CODIGO";
+                cmd.CommandText = "SELECT NOMBRE_CLI FROM PRODUCTO WHERE RUT_CLI = :RUT";
                 cmd.CommandType = CommandType.Text;
                 cmd.Parameters.Add("RUT", OracleDbType.Varchar2, 40).Value = txtRutCli.Text;
                 OracleDataReader reader = cmd.ExecuteReader();

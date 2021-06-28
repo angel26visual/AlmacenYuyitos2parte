@@ -72,7 +72,7 @@
                 ToolTip="Volver Atrás">
             <iconPacks:PackIconModern
                          Width="22" Height="22"
-                         Kind="Check"/>
+                         Kind="Return"/>
 
 
         </Button>
@@ -92,6 +92,13 @@
                  mah:TextBoxHelper.UseFloatingWatermark="True"
                  IsEnabled="False"
                  />
+        <DatePicker x:Name="dpFechaRecepcion" HorizontalAlignment="Left" Margin="255,33,0,0" VerticalAlignment="Top" Width="166" Height="40"
+                    IsEnabled="False"
+                    mah:TextBoxHelper.Watermark="FECHA DE RECEPCIÓN"
+                     mah:TextBoxHelper.UseFloatingWatermark="True"
+                     mah:TextBoxHelper.ClearTextButton="True"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center"/>
         <TextBox x:Name="txtIdOrdenPedidoR"
                  mah:TextBoxHelper.ClearTextButton="True"
                  VerticalContentAlignment="Center"
@@ -104,38 +111,119 @@
                  mah:TextBoxHelper.Watermark="ID Orden de Pedido"
                  mah:TextBoxHelper.UseFloatingWatermark="True"
                  />
+        <Button x:Name="btnVerificarOrden"
+            Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+            HorizontalAlignment="Left"
+            Margin="215,150,0,0"
+            VerticalAlignment="Top" 
+            Width="40" Height="40" 
+            ToolTip="Verificar Orden" Click="btnVerificarOrden_Click">
+            <iconPacks:PackIconModern
+                Width="22" Height="22"
+                Kind="PageSearch"/>
+
+        </Button>
         <TextBox x:Name="txtProveedor" HorizontalAlignment="Left" Margin="33,195,0,0" VerticalAlignment="Top" Width="166" Height="40"
                  mah:TextBoxHelper.Watermark="Rut Proveedor"
                  mah:TextBoxHelper.UseFloatingWatermark="True"
                  mah:TextBoxHelper.ClearTextButton="True"
                  VerticalContentAlignment="Center"/>
-        <DatePicker x:Name="dpFechaRecepcion" HorizontalAlignment="Left" Margin="255,33,0,0" VerticalAlignment="Top" Width="166" Height="40"
-                    IsEnabled="False"/>
-        <TextBox x:Name="txtValorPagado"
+        <TextBox x:Name="txtCodigoBarra"
+            HorizontalAlignment="Left" 
+            Height="40"
+            Margin="33,240,0,0" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top"
+            Width="166"
+            Controls:TextBoxHelper.Watermark="Código de barra"
+            Controls:TextBoxHelper.UseFloatingWatermark="True"
+                 />
+        <TextBox x:Name="txtNombreProducto"
+            HorizontalAlignment="Left" 
+            Height="40"
+            Margin="33,285,0,0" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top"
+            Width="166"
+            Controls:TextBoxHelper.Watermark="Nombre del producto"
+            Controls:TextBoxHelper.UseFloatingWatermark="True"
+                 />
+        <TextBox x:Name="txtCantidad"
+            HorizontalAlignment="Left" 
+            Height="40"
+            Margin="33,330,0,0" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top"
+            Width="166"
+            Controls:TextBoxHelper.Watermark="Cantidad"
+            Controls:TextBoxHelper.UseFloatingWatermark="True"
+                 />
+        <TextBox x:Name="txtValor"
+            HorizontalAlignment="Left" 
+            Height="40"
+            Margin="33,380,0,0" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top"
+            Width="166"
+            Controls:TextBoxHelper.Watermark="Valor"
+            Controls:TextBoxHelper.UseFloatingWatermark="True"
+                 />
+        <Button x:Name="btnAgregarP"
+            Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+            HorizontalAlignment="Left"
+            Margin="33,430,0,0"
+            VerticalAlignment="Top" 
+            Width="40" Height="40" 
+            ToolTip="Agregar Producto" Click="btnAgregarP_Click">
+            <iconPacks:PackIconModern
+                Width="22" Height="22"
+                Kind="ListAdd"/>
+
+        </Button>
+        <Button x:Name="btnModificarP"
+            Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+            HorizontalAlignment="Left"
+            Margin="106,430,0,0"
+            VerticalAlignment="Top" 
+            Width="40" Height="40" 
+            ToolTip="Modificar Producto" Click="btnModificarP_Click">
+            <iconPacks:PackIconModern
+                Width="22" Height="22"
+                Kind="ListMerge"/>
+
+        </Button>
+        <Button x:Name="btnEliminarP"
+            Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+            HorizontalAlignment="Left"
+            Margin="215,240,0,0"
+            VerticalAlignment="Top" 
+            Width="40" Height="40" 
+            ToolTip="Eliminar Producto">
+            <iconPacks:PackIconModern
+                Width="22" Height="22"
+                Kind="ListDelete"/>
+
+        </Button>
+        <TextBox x:Name="txtValorAPagar"
                  HorizontalAlignment="Left" 
                  Height="40"
                  Margin="33,485,0,0" 
                  TextWrapping="Wrap" 
                  VerticalAlignment="Top"
                  Width="166"
-                 
-                 mah:TextBoxHelper.Watermark="Valor Pagado"
+                 mah:TextBoxHelper.Watermark="Monto a Pagar"
                  mah:TextBoxHelper.UseFloatingWatermark="True"
-                 
                  />
-        <Label x:Name="txtIdOrdenPedidoO" Content="" HorizontalAlignment="Left" Margin="604,186,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox x:Name="cboProveedorO" HorizontalAlignment="Left" Margin="641,150,0,0" VerticalAlignment="Top" Width="166" Height="40"/>
-        <DatePicker x:Name="dpFechaEmision" HorizontalAlignment="Left" Margin="948,485,0,0" VerticalAlignment="Top" Width="166" Height="40"/>
-        <Button x:Name="btnVerificarRecepcion"
+        <Button x:Name="btnGuardarRecepcion"
                  Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
                 HorizontalAlignment="Left"
-                Margin="33,530,0,0"
+                Margin="33,540,0,0"
                 VerticalAlignment="Top" 
                 Width="40" Height="40" 
-                ToolTip="Verificar Recepción">
+                ToolTip="Guardar Recepción" Click="btnGuardarRecepcion_Click">
             <iconPacks:PackIconModern
                          Width="22" Height="22"
-                         Kind="Check"/>
+                         Kind="Add"/>
 
         </Button>
         <Button x:Name="btnTerminarRecepcion" 
@@ -144,92 +232,46 @@
                 Margin="129,530,0,0"
                 VerticalAlignment="Top" 
                 Width="40" Height="40" 
-                ToolTip="Terminar Recepción">
+                ToolTip="Terminar Recepción" Visibility="Hidden">
             <iconPacks:PackIconModern
                          Width="22" Height="22"
                          Kind="CloudUpload"/>
         </Button>
-        <TextBox x:Name="txtValor" 
+        <DataGrid x:Name="dgDetalleR" HorizontalAlignment="Left" Height="258" Margin="276,212,0,0" VerticalAlignment="Top" Width="339" IsReadOnly="True"/>
+        <TextBox x:Name="txtProveedorO" HorizontalAlignment="Left" Margin="641,150,0,0" VerticalAlignment="Top" Width="166" Height="40"
+                 mah:TextBoxHelper.Watermark="RUT PROVEEDOR"
+                 mah:TextBoxHelper.UseFloatingWatermark="True"
+                 mah:TextBoxHelper.ClearTextButton="True"
+                 IsEnabled="False"/>
+        <DatePicker x:Name="dpFechaOrden" HorizontalAlignment="Left" Margin="921,150,0,0" VerticalAlignment="Top" Width="166" Height="40"
+                    IsEnabled="False"
+                    mah:TextBoxHelper.Watermark="FECHA ORDEN DE PEDIDO"
+                     mah:TextBoxHelper.UseFloatingWatermark="True"
+                     mah:TextBoxHelper.ClearTextButton="True"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center"/>
+        <DataGrid x:Name="dgOrden" HorizontalAlignment="Left" Height="203" Margin="641,212,0,0" VerticalAlignment="Top" Width="473"
+                  IsEnabled="False"/>
+        <TextBox x:Name="txtDescripcion" HorizontalAlignment="Left" 
+                 Height="76"
+                 Margin="641,449,0,0" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top"
+                 Width="245"
+                 mah:TextBoxHelper.Watermark="Descripción Orden de Pedido"
+                 mah:TextBoxHelper.UseFloatingWatermark="True"
+                 IsEnabled="False"/>
+        <TextBox x:Name="txtMontoO" 
                 HorizontalAlignment="Left" 
                  Height="40"
-                 Margin="651,485,0,0" 
+                 Margin="948,449,0,0" 
                  TextWrapping="Wrap" 
                  VerticalAlignment="Top"
                  Width="166"
-                 
-                 mah:TextBoxHelper.Watermark="Valor Pagado"
+                 mah:TextBoxHelper.Watermark="Monto Total"
                  mah:TextBoxHelper.UseFloatingWatermark="True"
+                 IsEnabled="False"
                  />
-        <DataGrid HorizontalAlignment="Left" Height="254" Margin="641,212,0,0" VerticalAlignment="Top" Width="473"/>
-        <TextBox x:Name="txtIdOrdenPedidoR_Copy"
-            HorizontalAlignment="Left" 
-            Height="40"
-            Margin="33,240,0,0" 
-            TextWrapping="Wrap" 
-            VerticalAlignment="Top"
-            Width="166"
-                 
-            Controls:TextBoxHelper.Watermark="ID Orden de Pedido"
-            Controls:TextBoxHelper.UseFloatingWatermark="True"
-                 />
-        <TextBox x:Name="txtIdOrdenPedidoR_Copy1"
-            HorizontalAlignment="Left" 
-            Height="40"
-            Margin="33,285,0,0" 
-            TextWrapping="Wrap" 
-            VerticalAlignment="Top"
-            Width="166"
-                 
-            Controls:TextBoxHelper.Watermark="ID Orden de Pedido"
-            Controls:TextBoxHelper.UseFloatingWatermark="True"
-                 />
-        <Button x:Name="btnVerificarRecepcion_Copy"
-            Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
-            HorizontalAlignment="Left"
-            Margin="215,150,0,0"
-            VerticalAlignment="Top" 
-            Width="40" Height="40" 
-            ToolTip="Verificar Recepción">
-            <iconPacks:PackIconModern
-                Width="22" Height="22"
-                Kind="Check"/>
-
-        </Button>
-        <Button x:Name="btnVerificarRecepcion_Copy1"
-            Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
-            HorizontalAlignment="Left"
-            Margin="33,375,0,0"
-            VerticalAlignment="Top" 
-            Width="40" Height="40" 
-            ToolTip="Verificar Recepción">
-            <iconPacks:PackIconModern
-                Width="22" Height="22"
-                Kind="Check"/>
-
-        </Button>
-        <Button x:Name="btnVerificarRecepcion_Copy2"
-            Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
-            HorizontalAlignment="Left"
-            Margin="106,375,0,0"
-            VerticalAlignment="Top" 
-            Width="40" Height="40" 
-            ToolTip="Verificar Recepción">
-            <iconPacks:PackIconModern
-                Width="22" Height="22"
-                Kind="Check"/>
-
-        </Button>
-        <TextBox x:Name="txtIdOrdenPedidoR_Copy2"
-            HorizontalAlignment="Left" 
-            Height="40"
-            Margin="33,330,0,0" 
-            TextWrapping="Wrap" 
-            VerticalAlignment="Top"
-            Width="166"
-                 
-            Controls:TextBoxHelper.Watermark="ID Orden de Pedido"
-            Controls:TextBoxHelper.UseFloatingWatermark="True"
-                 />
-        <DataGrid HorizontalAlignment="Left" Height="277" Margin="255,212,0,0" VerticalAlignment="Top" Width="349"/>
+        
     </Grid>
 </mah:MetroWindow>

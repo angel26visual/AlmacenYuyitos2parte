@@ -56,7 +56,7 @@ namespace BibliotecaLosYuyitos
         public int Precio
         {
             get { return precio; }
-            set { cantidad = value; }
+            set { precio = value; }
         }
     }
 }
