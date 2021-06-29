@@ -145,11 +145,36 @@ namespace AlmacenYuyitos
 
         }
 
-        private void btnVisualizarRecepcion_Click(object sender, RoutedEventArgs e)
+        private async void btnVisualizarRecepcion_Click(object sender, RoutedEventArgs e)
         {
-            VerRecepcion vr = new VerRecepcion(nomUsuario);
-            vr.Show();
-            this.Close();
+            try
+            {
+                VerRecepcion vr = new VerRecepcion(nomUsuario);
+                DataRowView dataRow = dgRecepciones.SelectedItem as DataRowView;
+                if (dataRow != null)
+                {
+                    int recepcion = int.Parse(dataRow["ID_RECEPCION"].ToString());
+                    vr.txtIdRecep.Text = dataRow["ID_RECEPCION"].ToString();
+                    vr.txtValorAPagar.Text = dataRow["VALOR_PAGADO_RECEP"].ToString();
+                    vr.dpFechaRecepcion.Text = dataRow["FECH_RECEPCION"].ToString();
+                    vr.txtIdOrdenPedidoR.Text = dataRow["ORDEN_PED_ID_ORDEN"].ToString();
+                    OracleCommand cmd = con.CreateCommand();
+                    cmd.CommandText = "SELECT CONTROL_RECEP_ID_RECEPCION AS ID_RECEPCION , PRODUCTO_COD_BARRA_PRODUCT AS COD_BARRA, NOM_PRODUCT AS NOMBRE_PRODUCTO, CANTIDAD_PRODUCT AS CANTIDAD, VALOR FROM DET_RECEP";
+                    cmd.CommandType = CommandType.Text;
+                    OracleDataReader dr = cmd.ExecuteReader();
+                    DataTable dt = new DataTable();
+                    dt.Load(dr);
+                    vr.dgDetalleR.ItemsSource = dt.DefaultView;
+                    dr.Close();
+                    vr.Show();
+                    this.Close();
+                }
+            }
+            catch (Exception)
+            {
+
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }    
         }
     }
 }
