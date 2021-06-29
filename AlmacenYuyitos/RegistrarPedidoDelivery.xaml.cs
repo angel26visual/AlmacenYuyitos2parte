@@ -113,16 +113,51 @@ namespace AlmacenYuyitos
                 cmd.Parameters.Add("descuento", OracleDbType.Int32, 30).Value = int.Parse(txtTotalDescuentos.Text);
                 cmd.Parameters.Add("monto", OracleDbType.Int32, 30).Value = monto_total;
                 cmd.Parameters.Add("pago", OracleDbType.Int32, 20).Value = int.Parse(txtPago.Text);
-                cmd.Parameters.Add("rut", OracleDbType.Varchar2, 20).Value = rutTrab;
-                cmd.Parameters.Add("medio_pago", OracleDbType.Int32, 20).Value = cboMedioPago.SelectedValue;
+
+               
+                  cmd.Parameters.Add("rut", OracleDbType.Varchar2, 20).Value = rutTrab;
+                
+               
+                    cmd.Parameters.Add("medio_pago", OracleDbType.Int32, 20).Value = cboMedioPago.SelectedValue;
                 cmd.Parameters.Add("entrega", OracleDbType.Date).Value = dpFechaeEntrega.SelectedDate;
-                cmd.Parameters.Add("cliente", OracleDbType.Varchar2, 100).Value = txtNombreCliente.Text;
-                cmd.Parameters.Add("direccion", OracleDbType.Varchar2, 100).Value = txtDireccionDelivery.Text;
-                cmd.Parameters.Add("fono", OracleDbType.Int32, 20).Value = txtTelefonoContacto.Text;
-                int n = cmd.ExecuteNonQuery();
+
+                if (txtNombreCliente.Text.Replace(" ", string.Empty).Length >= 3)
+                {
+                    cmd.Parameters.Add("cliente", OracleDbType.Varchar2, 100).Value = txtNombreCliente.Text;
+                }
+                else
+                {
+                    await this.ShowMessageAsync("Error", "El nombre del Cliente debe tener mínimo 3 caracteres!");
+                    return;
+
+                }
+                if (txtDireccionDelivery.Text.Replace(" ", string.Empty).Length >= 3)
+                {
+                    cmd.Parameters.Add("direccion", OracleDbType.Varchar2, 100).Value = txtDireccionDelivery.Text;
+                }
+                else
+                {
+                    await this.ShowMessageAsync("Error", "La Dirección del Cliente debe tener mínimo 3 caracteres!");
+                    return;
+
+                }
+
+                if (txtTelefonoContacto.Text.Replace(" ", string.Empty).Length == 9)
+                {
+                    cmd.Parameters.Add("fono", OracleDbType.Int32, 20).Value = txtTelefonoContacto.Text;
+                }
+                else
+                {
+                    await this.ShowMessageAsync("Error", "el Teléfono debe tener 9 dígitos!");
+                    return;
+                }
+                    int n = cmd.ExecuteNonQuery();
                 if (n < 0)
                 {
                     await this.ShowMessageAsync("PEDIDO", "Pedido realizado");
+                    VisualizarPedidoDelivery vpd = new VisualizarPedidoDelivery(nomUsuario);
+                    vpd.Show();
+                    this.Close();
                 }
                 else
                 {
@@ -135,6 +170,8 @@ namespace AlmacenYuyitos
                 await this.ShowMessageAsync("Error", "Ha ocurrido un error");
             }
         }
+
+
 
 
         private async void btnAgregarProducto_Click(object sender, RoutedEventArgs e)
