@@ -82,7 +82,7 @@
         <Label Content="Código de Producto:" HorizontalAlignment="Left" Margin="8,25.8,0,0" VerticalAlignment="Top" Grid.Row="1"/>
         <Label Content="Cantidad:" HorizontalAlignment="Left" Margin="43,79.4,0,0" VerticalAlignment="Top" Grid.Row="1"/>
         <TextBox x:Name="txtCantidad" HorizontalAlignment="Left" Height="23" Margin="130,79.4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Row="1" KeyDown="txtCantidad_KeyDown"/>
-        <DataGrid x:Name="dgDelivery" HorizontalAlignment="Left" Height="138" Margin="292,17.4,0,0" VerticalAlignment="Top" Width="589" Grid.Row="1"/>
+        <DataGrid x:Name="dgDelivery" HorizontalAlignment="Left" Height="138" Margin="292,17.4,0,0" VerticalAlignment="Top" Width="589" Grid.Row="1" IsReadOnly="True"/>
         <Label Content="Nombre de Cliente:" HorizontalAlignment="Left" Margin="26,164.4,0,0" VerticalAlignment="Top" Grid.Row="1"/>
         <Label Content="Teléfono de Contacto:" HorizontalAlignment="Left" Margin="13,190.4,0,0" VerticalAlignment="Top" Grid.Row="1"/>
         <Label Content="Dirección:" HorizontalAlignment="Left" Margin="77,221.4,0,0" VerticalAlignment="Top" Grid.Row="1"/>

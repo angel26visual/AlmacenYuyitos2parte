@@ -137,7 +137,7 @@
             Controls:TextBoxHelper.Watermark="Ingrese Descripción del Pedidor"
             Controls:TextBoxHelper.UseFloatingWatermark="True"
                  />
-        <DataGrid x:Name="dgOrdenPedido" HorizontalAlignment="Left" Height="148" Margin="445,111,0,0" VerticalAlignment="Top" Width="502" Loaded="dgOrdenPedido_Loaded" SelectionChanged="dgOrdenPedido_SelectionChanged"/>
+        <DataGrid x:Name="dgOrdenPedido" HorizontalAlignment="Left" Height="148" Margin="445,111,0,0" VerticalAlignment="Top" Width="502" Loaded="dgOrdenPedido_Loaded" SelectionChanged="dgOrdenPedido_SelectionChanged" IsReadOnly="True"/>
         <Button x:Name="btnModificarOrden" 
              Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
                 HorizontalAlignment="Left"
@@ -174,7 +174,7 @@
                          Kind="Refresh"/>
 
         </Button>
-        <DataGrid x:Name="dgProveedor" HorizontalAlignment="Left" Height="100" Margin="446,310,0,0" VerticalAlignment="Top" Width="503" Loaded="dgProveedor_Loaded" SelectionChanged="dgProveedor_SelectionChanged"/>
+        <DataGrid x:Name="dgProveedor" HorizontalAlignment="Left" Height="100" Margin="446,310,0,0" VerticalAlignment="Top" Width="503" Loaded="dgProveedor_Loaded" SelectionChanged="dgProveedor_SelectionChanged" IsReadOnly="True"/>
 
 
     </Grid>
