@@ -115,5 +115,15 @@ namespace AlmacenYuyitos
             mw.btnCuenta.Content = "Bienvenido/a " + nombre + " " + apellido;
             this.Close();
         }
+
+        private void btnTodos_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnNinguno_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

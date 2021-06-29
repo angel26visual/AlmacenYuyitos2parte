@@ -64,9 +64,30 @@
     </mah:MetroWindow.RightWindowCommands>
 
     <Grid Background="LightBlue">
-        <CheckBox x:Name="checkTodos" RenderTransformOrigin="0.5,0.5" Height="29" Margin="115,20,542.6,261">
-            <Label Content="Seleccionar Todo" Width="111" />
-        </CheckBox>
+        <Button x:Name="btnTodos"
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                HorizontalAlignment="Left"
+                Margin="115,80,542.6,261"
+                VerticalAlignment="Top" 
+                Width="40" Height="40" 
+                ToolTip="Seleccionar Todo"
+                Click="btnTodos_Click">
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="Check"/>
+        </Button>
+        <Button x:Name="btnNinguno"
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                HorizontalAlignment="Left"
+                Margin="185,80,542.6,261"
+                VerticalAlignment="Top" 
+                Width="40" Height="40" 
+                ToolTip="Deseleccionar todo"
+                Click="btnNinguno_Click">
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="CheckmarkCross"/>
+        </Button>
         <CheckBox x:Name="checkClientes" RenderTransformOrigin="0.5,0.5" Height="29" Margin="115,130,542.6,261"  
                       >
 

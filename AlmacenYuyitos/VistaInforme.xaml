@@ -86,22 +86,49 @@
             <Label Content="Gestión de Productos" Height="30" HorizontalAlignment="Center" Margin="43,0,541,0" Width="184"/>
             <Label Content="Productos registrados" Height="30" Margin="0,0,594,0"/>
             <Label Content="Productos con stock critico" Height="30" Margin="0,0,594,0"/>
+            <Label x:Name="lbClientesR" Content="0" Height="30" Margin="236,-1140,510,0"/>
+            <Label x:Name="lbClientesD" Content="0" Height="30" Margin="236,-1090,510,0"/>
+            <Label x:Name="lbClientesSD" Content="0" Height="30" Margin="236,-1040,510,0"/>
+            <Label x:Name="lbClientesDP" Content="0" Height="30" Margin="236,-980,510,0"/>
+            <Label x:Name="lbUserR" Content="0" Height="30" Margin="236,-870,510,0"/>
+            <Label x:Name="lbUserA" Content="0" Height="30" Margin="236,-810,510,0"/>
+            <Label x:Name="lbUserV" Content="0" Height="30" Margin="236,-750,510,0"/>
+            <Label x:Name="lbOrdenR" Content="0" Height="30" Margin="236,-630,510,0"/>
+            <Label x:Name="lbOrdenRE" Content="0" Height="30" Margin="236,-570,510,0"/>
+            <Label x:Name="lbVentasR" Content="0" Height="30" Margin="236,-450,510,0"/>
+            <Label x:Name="lbVentasN" Content="0" Height="30" Margin="236,-390,510,0"/>
+            <Label x:Name="lbVentasF" Content="0" Height="30" Margin="236,-330,510,0"/>
+            <Label x:Name="lbVentasFP" Content="0" Height="30" Margin="236,-270,510,0"/>
+            <Label x:Name="lbVentasFI" Content="0" Height="30" Margin="236,-210,510,0"/>
+            <Label x:Name="lbProductoR" Content="0" Height="30" Margin="236,-90,510,0"/>
+            <Label x:Name="lbProductoSC" Content="0" Height="30" Margin="236,-30,510,0"/>
             <Label Content="Gestión de Pagos" Height="30" HorizontalAlignment="Center" Margin="400,-1200,20,0" Width="184"/>
             <Label Content="Pagos realizados" Height="30" Margin="380,-1150,256,0"/>
             <Label Content="Gestión de Promociones" Height="30" HorizontalAlignment="Center" Margin="400,-1100,20,0" Width="184"/>
-            <Label Content="Promociones registradas" Height="30" Margin="380,-1050,256,0"/>
+            <Label Content="Promociones registradas" Height="30" Margin="380,-1050,232,0"/>
             <Label Content="Promociones vigentes" Height="30" Margin="380,-1000,256,0"/>
             <Label Content="Promociones pasadas" Height="30" Margin="380,-950,256,0"/>
             <Label Content="Promociones futuras" Height="30" Margin="380,-900,256,0"/>
             <Label Content="Gestión de Proveedores" Height="30" HorizontalAlignment="Center" Margin="400,-850,20,0" Width="184"/>
             <Label Content="Proveedores registrados" Height="30" Margin="380,-800,256,0"/>
             <Label Content="Gestión de Delivery" Height="30" HorizontalAlignment="Center" Margin="400,-750,20,0" Width="184"/>
-            <Label Content="Pedidos Delivery registrados" Height="30" Margin="380,-700,256,0"/>
-            <Label Content="Pedidos Delivery pendientes" Height="30" Margin="380,-650,256,0"/>
+            <Label Content="Pedidos Delivery registrados" Height="30" Margin="380,-700,221,0"/>
+            <Label Content="Pedidos Delivery pendientes" Height="30" Margin="380,-650,221,0"/>
             <Label Content="Pedidos Delivery enviados" Height="30" Margin="380,-600,232,0"/>
             <Label Content="Pedidos Delivery entregados" Height="30" Margin="380,-550,204,0"/>
             <Label Content="Control de Recepción" Height="30" HorizontalAlignment="Center" Margin="400,-500,20,0" Width="184"/>
             <Label Content="Recepciones registradas" Height="30" Margin="380,-450,232,0"/>
+            <Label x:Name="lbPagosR" Content="0" Height="30" Margin="616,-1150,133,0"/>
+            <Label x:Name="lbPromocionesR" Content="0" Height="30" Margin="616,-1050,133,0"/>
+            <Label x:Name="lbPromocionesV" Content="0" Height="30" Margin="616,-1000,133,0"/>
+            <Label x:Name="lbPromocionesP" Content="0" Height="30" Margin="616,-950,133,0"/>
+            <Label x:Name="lbPromocionesF" Content="0" Height="30" Margin="616,-900,133,0"/>
+            <Label x:Name="lbProveedorR" Content="0" Height="30" Margin="616,-800,133,0"/>
+            <Label x:Name="lbDeliveryR" Content="0" Height="30" Margin="616,-700,133,0"/>
+            <Label x:Name="lbDeliveryP" Content="0" Height="30" Margin="616,-650,133,0"/>
+            <Label x:Name="lbDeliveryV" Content="0" Height="30" Margin="616,-600,133,0"/>
+            <Label x:Name="lbDeliveryET" Content="0" Height="30" Margin="616,-550,133,0"/>
+            <Label x:Name="lbRecepcionesR" Content="0" Height="30" Margin="616,-450,133,0"/>
             <Button x:Name="btnAtras"  Click="btnAtras_Click"
                 Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
                 HorizontalAlignment="Left"
