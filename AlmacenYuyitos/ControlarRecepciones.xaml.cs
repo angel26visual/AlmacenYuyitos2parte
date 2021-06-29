@@ -21,7 +21,7 @@ namespace AlmacenYuyitos
     /// <summary>
     /// Lógica de interacción para ControlarRecepciones.xaml
     /// </summary>
-    public partial class ControlarRecepciones 
+    public partial class ControlarRecepciones
     {
         OracleConnection con = null;
         string nomUsuario = string.Empty;
@@ -119,6 +119,37 @@ namespace AlmacenYuyitos
             {
                 return;
             }
+        }
+
+        private void dgRecepciones_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.ActualizarDataGrid();
+        }
+
+        private void ActualizarDataGrid()
+        {
+            try
+            {
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandText = "SELECT ID_RECEPCION , VALOR_PAGADO_RECEP , FECH_RECEPCION , ORDEN_PED_ID_ORDEN FROM CONTROL_RECEP ORDER BY ID_RECEPCION ASC";
+                cmd.CommandType = CommandType.Text;
+                OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dt = new DataTable();
+                dt.Load(dr);
+                dgRecepciones.ItemsSource = dt.DefaultView;
+                dr.Close();
+
+            }
+            catch (Exception e)
+            { }
+
+        }
+
+        private void btnVisualizarRecepcion_Click(object sender, RoutedEventArgs e)
+        {
+            VerRecepcion vr = new VerRecepcion(nomUsuario);
+            vr.Show();
+            this.Close();
         }
     }
 }

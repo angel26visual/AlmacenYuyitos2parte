@@ -62,10 +62,52 @@
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
     <Grid Background="LightBlue">
-        <DataGrid x:Name="dgRecepciones" HorizontalAlignment="Left" Height="200" Margin="39,132,0,0" VerticalAlignment="Top" Width="679" IsReadOnly="True"/>
-        <Button x:Name="btnIngresarRecepcion" Content="INGRESAR RECEPCIÓN" HorizontalAlignment="Left" Margin="39,383,0,0" VerticalAlignment="Top" Width="133" Click="btnIngresarRecepcion_Click"/>
-        <Button x:Name="btnAtras" Content="ATRÁS" HorizontalAlignment="Left" Margin="709,383,0,0" VerticalAlignment="Top" Width="75" Click="btnAtras_Click"/>
-        <Button x:Name="btnFiltrar" Content="FILTRAR" HorizontalAlignment="Left" Margin="349,109,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.222,0.269"/>
+        <DataGrid x:Name="dgRecepciones" HorizontalAlignment="Left" Height="200" Margin="39,132,0,0" VerticalAlignment="Top" Width="679" IsReadOnly="True" Loaded="dgRecepciones_Loaded"/>
+        <Button x:Name="btnIngresarRecepcion"
+                Click="btnIngresarRecepcion_Click"
+                 Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                HorizontalAlignment="Left"
+                Margin="42,358,0,0"
+                VerticalAlignment="Top" 
+                Width="40" Height="40" 
+                ToolTip="Ingresar Recepción">
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="Add"/>
+
+        </Button>
+        
+        <Button x:Name="btnAtras"
+                Click="btnAtras_Click"
+                 Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                HorizontalAlignment="Left"
+                Margin="680,360,0,0"
+                VerticalAlignment="Top" 
+                Width="40" Height="40" 
+                ToolTip="Volver al Menú Principal">
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="Return"/>
+
+        </Button>
+
+        <Button x:Name="btnVisualizarRecepcion"
+                 Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                HorizontalAlignment="Left"
+                Margin="735,134,0,0"
+                VerticalAlignment="Top" 
+                Width="40" Height="40" 
+                ToolTip="Visualizar Recepción" Click="btnVisualizarRecepcion_Click">
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="Eye"/>
+
+        </Button>
+
+
+
+
+
         <Image Source="/resources/logo.png" Width="120" Height="120" Margin="331,-11,342.6,311" />
 
     </Grid>
