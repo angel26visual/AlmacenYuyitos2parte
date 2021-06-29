@@ -105,6 +105,7 @@ namespace AlmacenYuyitos
         {
             try
             {
+                int boleta = int.Parse(txtNumeroBoleta.Text);
                 OracleCommand cmd = new OracleCommand("sp_insertar_delivery", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("boleta", OracleDbType.Int32, 20).Value = int.Parse(txtNumeroBoleta.Text);
@@ -154,9 +155,13 @@ namespace AlmacenYuyitos
                     int n = cmd.ExecuteNonQuery();
                 if (n < 0)
                 {
+                    foreach (var detalle_Boleta in listDboleta)
+                    {
+                        GuardarDetalle(detalle_Boleta.Nro_boleta, detalle_Boleta.Codigo_producto, detalle_Boleta.Cantidad);
+                    }
                     await this.ShowMessageAsync("PEDIDO", "Pedido realizado");
-                    VisualizarPedidoDelivery vpd = new VisualizarPedidoDelivery(nomUsuario);
-                    vpd.Show();
+                    RegistrarPago registrarPago = new RegistrarPago(nomUsuario);
+                    registrarPago.Show();
                     this.Close();
                 }
                 else
@@ -171,9 +176,23 @@ namespace AlmacenYuyitos
             }
         }
 
+        private async void GuardarDetalle(int boleta, int producto, int cantidad)
+        {
+            try
+            {
+                OracleCommand cmd = new OracleCommand("sp_insertar_detalle_boleta", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("boleta", OracleDbType.Int32, 20).Value = boleta;
+                cmd.Parameters.Add("producto", OracleDbType.Int32, 20).Value = producto;
+                cmd.Parameters.Add("cantidad", OracleDbType.Int32, 20).Value = cantidad;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
 
-
-
+        }
         private async void btnAgregarProducto_Click(object sender, RoutedEventArgs e)
         {
             try

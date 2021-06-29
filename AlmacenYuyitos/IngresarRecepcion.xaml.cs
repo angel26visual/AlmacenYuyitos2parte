@@ -318,14 +318,7 @@ namespace AlmacenYuyitos
                             {
                                 foreach (var detalle in listRecepcion)
                                 {
-                                    /*OracleCommand cmd2 = new OracleCommand("sp_insertar_detalle_recep", con);
-                                    cmd2.CommandType = CommandType.StoredProcedure;
-                                    cmd2.Parameters.Add("cantidad", OracleDbType.Int32, 20).Value = detalle.Cantidad;
-                                    cmd2.Parameters.Add("recepcion", OracleDbType.Int32, 20).Value = detalle.Id_recepcion;
-                                    cmd2.Parameters.Add("nombre", OracleDbType.Varchar2, 100).Value = detalle.Nombre_producto;
-                                    cmd2.Parameters.Add("cod_barra", OracleDbType.Int32, 20).Value = detalle.Codigo_barra;
-                                    cmd2.Parameters.Add("valor", OracleDbType.Int32, 20).Value = detalle.Valor;
-                                    cmd2.ExecuteNonQuery();*/
+                                GuardarDetalle(detalle.Cantidad, detalle.Id_recepcion, detalle.Nombre_producto, detalle.Codigo_barra, detalle.Valor);
                                 }
                                 await this.ShowMessageAsync("Recepción", "Recepción realizada");
                             }
@@ -355,6 +348,26 @@ namespace AlmacenYuyitos
 
               //  await this.ShowMessageAsync("Error", "Ha ocurrido un error");
             //}
+        }
+
+        private async void GuardarDetalle(int cantidad, int recepcion, string nombre, int cod_barra, int valor)
+        {
+            try
+            {
+                OracleCommand cmd2 = new OracleCommand("sp_insertar_detalle_recep", con);
+                cmd2.CommandType = CommandType.StoredProcedure;
+                cmd2.Parameters.Add("cantidad", OracleDbType.Int32, 20).Value = cantidad;
+                cmd2.Parameters.Add("recepcion", OracleDbType.Int32, 20).Value = recepcion;
+                cmd2.Parameters.Add("nombre", OracleDbType.Varchar2, 100).Value = nombre;
+                cmd2.Parameters.Add("cod_barra", OracleDbType.Int32, 20).Value = cod_barra;
+                cmd2.Parameters.Add("valor", OracleDbType.Int32, 20).Value = valor;
+                cmd2.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
+            
         }
     }
 }

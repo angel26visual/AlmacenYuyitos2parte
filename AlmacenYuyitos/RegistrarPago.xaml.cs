@@ -128,8 +128,10 @@ namespace AlmacenYuyitos
                     int n = cmd.ExecuteNonQuery();
                     if (n < 0)
                     {
-                        
-
+                        foreach (var detalle_Boleta in listDboleta)
+                        {
+                            GuardarDetalle(detalle_Boleta.Nro_boleta, detalle_Boleta.Codigo_producto, detalle_Boleta.Cantidad);
+                        }
                         int vuelto = int.Parse(txtPago.Text)-monto_total;
                         if (vuelto>0)
                         {
@@ -141,6 +143,9 @@ namespace AlmacenYuyitos
                         else
                         {
                             await this.ShowMessageAsync("VENTA REALIZADA", "venta ingresada sin vuelto al cliente");
+                            RegistrarPago rp = new RegistrarPago(nomUsuario);
+                            this.Close();
+                            rp.Show();
                         }
                     }
                     else
@@ -154,6 +159,24 @@ namespace AlmacenYuyitos
                     await this.ShowMessageAsync("Error", "Ha ocurrido un error");
                 }
             }
+        }
+
+        private async void GuardarDetalle(int boleta, int producto, int cantidad)
+        {
+            try
+            {
+                OracleCommand cmd = new OracleCommand("sp_insertar_detalle_boleta", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("boleta", OracleDbType.Int32, 20).Value = boleta;
+                cmd.Parameters.Add("producto", OracleDbType.Int32, 20).Value = producto;
+                cmd.Parameters.Add("cantidad", OracleDbType.Int32, 20).Value = cantidad;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
+            
         }
 
         private async void btnAgregarProducto_Click(object sender, RoutedEventArgs e)
@@ -536,7 +559,7 @@ namespace AlmacenYuyitos
             try
             {
                 OracleCommand cmd = con.CreateCommand();
-                cmd.CommandText = "SELECT NOMBRE_CLI FROM PRODUCTO WHERE RUT_CLI = :RUT";
+                cmd.CommandText = "SELECT NOMBRE_CLI FROM CLIENTE WHERE RUT_CLI = :RUT";
                 cmd.CommandType = CommandType.Text;
                 cmd.Parameters.Add("RUT", OracleDbType.Varchar2, 40).Value = txtRutCli.Text;
                 OracleDataReader reader = cmd.ExecuteReader();
@@ -576,7 +599,14 @@ namespace AlmacenYuyitos
                 int n = cmd.ExecuteNonQuery();
                 if (n < 0)
                 {
+                    foreach (var detalle_Boleta in listDboleta)
+                    {
+                        GuardarDetalle(detalle_Boleta.Nro_boleta, detalle_Boleta.Codigo_producto, detalle_Boleta.Cantidad);
+                    }
                     await this.ShowMessageAsync("VENTA", "Venta realizada como fiado");
+                    RegistrarPago rp = new RegistrarPago(nomUsuario);
+                    this.Close();
+                    rp.Show();
                 }
                 else
                 {
