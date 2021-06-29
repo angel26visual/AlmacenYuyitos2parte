@@ -335,111 +335,122 @@ namespace AlmacenYuyitos
             {
                 OracleCommand cmd = new OracleCommand("sp_insertar_proveedor", con);
                 cmd.CommandType = CommandType.StoredProcedure;
-                if (ValidarRut(txtRutProveedor.Text))
+
+                bool registrado = verificarProveedor(txtRutProveedor.Text);
+                if (registrado)
                 {
-                    cmd.Parameters.Add("rut", OracleDbType.Varchar2, 100).Value = txtRutProveedor.Text;
+                    await this.ShowMessageAsync("Error", "Proveedor ya se encuentra registrado");
                 }
                 else
                 {
-                    await this.ShowMessageAsync("Error", "debe ingresar un rut valido!");
-                    btnRegistrar.IsEnabled = true;
-                    return;
 
 
-                }
-
-                if (txtNombreProveedor.Text.Replace(" ", string.Empty).Length >= 3)
-                {
-                    cmd.Parameters.Add("nombre", OracleDbType.Varchar2, 100).Value = txtNombreProveedor.Text;
-                }
-                else
-                {
-                    await this.ShowMessageAsync("Error", "el nombre del/la proveedor(a) debe tener mas de 3 caracteres!");
-                    btnRegistrar.IsEnabled = true;
-                    return;
-
-                }
-
-                if (txtDireccionProveedor.Text.Replace(" ", string.Empty).Length >= 3)
-                {
-                    cmd.Parameters.Add("direccion", OracleDbType.Varchar2, 100).Value = txtDireccionProveedor.Text;
-                }
-                else
-                {
-                    await this.ShowMessageAsync("Error", "La Dirección debe tener mas de 3 caracteres!");
-                    btnRegistrar.IsEnabled = true;
-                    return;
-
-                }
-
-                if (txtFonoProveedorUno.Text.Replace(" ", string.Empty).Length == 9)
-                {
-                    cmd.Parameters.Add("telefono1", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtFonoProveedorUno.Text);
-                }
-                else
-                {
-                    await this.ShowMessageAsync("Error", "El Teléfono 1 del proveedor debe contener 9 dígitos!");
-                    btnRegistrar.IsEnabled = true;
-                    return;
-
-                }
-
-                if (txtFonoProveedor2.Text.Replace(" ", string.Empty).Length == 9)
-                {
-                    cmd.Parameters.Add("telefono2", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtFonoProveedor2.Text);
-                }
-                else
-                {
-                    await this.ShowMessageAsync("Error", "El Teléfono 2 del proveedor debe contener 9 dígitos!");
-                    btnRegistrar.IsEnabled = true;
-                    return;
-
-                }
-
-                if (txtNombreServidor.Text.Replace(" ", string.Empty).Length >= 3)
-                {
-                    cmd.Parameters.Add("nom_servidor", OracleDbType.Varchar2, 100).Value = txtNombreServidor.Text;
-                }
-                else
-                {
-                    await this.ShowMessageAsync("Error", "El Nombre del proveedor debe contener 3 o más caracteres!");
-                    btnRegistrar.IsEnabled = true;
-                    return;
-
-                }
-
-                if (txtTelefonoServidor.Text.Replace(" ", string.Empty).Length == 9)
-                {
-                    cmd.Parameters.Add("fono", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtTelefonoServidor.Text);
-                }
-                else
-                {
-                    await this.ShowMessageAsync("Error", "El Teléfono  del servidor debe contener 9 dígitos!");
-                    btnRegistrar.IsEnabled = true;
-                    return;
-
-                }
-
-                try
-                {
-                    int n = cmd.ExecuteNonQuery();
-                    if (n < 0)
+                    if (ValidarRut(txtRutProveedor.Text))
                     {
-                        await this.ShowMessageAsync("Agregado", "Proveedor se agregó correctamente");
-                        this.resetAll();
-                        this.ActualizarDataGrid();
-                        btnRegistrar.IsEnabled = false;
-                        btnActualizar.IsEnabled = true;
-                        btnEliminar.IsEnabled = true;
+                        cmd.Parameters.Add("rut", OracleDbType.Varchar2, 100).Value = txtRutProveedor.Text;
                     }
+                    else
+                    {
+                        await this.ShowMessageAsync("Error", "debe ingresar un rut valido!");
+                        btnRegistrar.IsEnabled = true;
+                        return;
+
+
+                    }
+
+                    if (txtNombreProveedor.Text.Replace(" ", string.Empty).Length >= 3)
+                    {
+                        cmd.Parameters.Add("nombre", OracleDbType.Varchar2, 100).Value = txtNombreProveedor.Text;
+                    }
+                    else
+                    {
+                        await this.ShowMessageAsync("Error", "el nombre del/la proveedor(a) debe tener mas de 3 caracteres!");
+                        btnRegistrar.IsEnabled = true;
+                        return;
+
+                    }
+
+                    if (txtDireccionProveedor.Text.Replace(" ", string.Empty).Length >= 3)
+                    {
+                        cmd.Parameters.Add("direccion", OracleDbType.Varchar2, 100).Value = txtDireccionProveedor.Text;
+                    }
+                    else
+                    {
+                        await this.ShowMessageAsync("Error", "La Dirección debe tener mas de 3 caracteres!");
+                        btnRegistrar.IsEnabled = true;
+                        return;
+
+                    }
+
+                    if (txtFonoProveedorUno.Text.Replace(" ", string.Empty).Length == 9)
+                    {
+                        cmd.Parameters.Add("telefono1", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtFonoProveedorUno.Text);
+                    }
+                    else
+                    {
+                        await this.ShowMessageAsync("Error", "El Teléfono 1 del proveedor debe contener 9 dígitos!");
+                        btnRegistrar.IsEnabled = true;
+                        return;
+
+                    }
+
+                    if (txtFonoProveedor2.Text.Replace(" ", string.Empty).Length == 9)
+                    {
+                        cmd.Parameters.Add("telefono2", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtFonoProveedor2.Text);
+                    }
+                    else
+                    {
+                        await this.ShowMessageAsync("Error", "El Teléfono 2 del proveedor debe contener 9 dígitos!");
+                        btnRegistrar.IsEnabled = true;
+                        return;
+
+                    }
+
+                    if (txtNombreServidor.Text.Replace(" ", string.Empty).Length >= 3)
+                    {
+                        cmd.Parameters.Add("nom_servidor", OracleDbType.Varchar2, 100).Value = txtNombreServidor.Text;
+                    }
+                    else
+                    {
+                        await this.ShowMessageAsync("Error", "El Nombre del proveedor debe contener 3 o más caracteres!");
+                        btnRegistrar.IsEnabled = true;
+                        return;
+
+                    }
+
+                    if (txtTelefonoServidor.Text.Replace(" ", string.Empty).Length == 9)
+                    {
+                        cmd.Parameters.Add("fono", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtTelefonoServidor.Text);
+                    }
+                    else
+                    {
+                        await this.ShowMessageAsync("Error", "El Teléfono  del servidor debe contener 9 dígitos!");
+                        btnRegistrar.IsEnabled = true;
+                        return;
+
+                    }
+
+                    try
+                    {
+                        int n = cmd.ExecuteNonQuery();
+                        if (n < 0)
+                        {
+                            await this.ShowMessageAsync("Agregado", "Proveedor se agregó correctamente");
+                            this.resetAll();
+                            this.ActualizarDataGrid();
+                            btnRegistrar.IsEnabled = false;
+                            btnActualizar.IsEnabled = true;
+                            btnEliminar.IsEnabled = true;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        await this.ShowMessageAsync("Error", ex.ToString());
+                    }
+
+
+
                 }
-                catch (Exception ex)
-                {
-                    await this.ShowMessageAsync("Error", ex.ToString());
-                }
-
-
-
             }
             catch (Exception)
             {
@@ -447,6 +458,22 @@ namespace AlmacenYuyitos
 
             }
         }
+
+        private bool verificarProveedor(string rut)
+        {
+            bool respuesta = false;
+            OracleCommand cmd = con.CreateCommand();
+            cmd.CommandText = "select * from proveedor where RUT_PROVEE =:rut";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("rut", OracleDbType.Varchar2, 100).Value = rut;
+            OracleDataReader reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                respuesta = true;
+            }
+            return respuesta;
+        }
+
 
 
         private void btnAtras_Click(object sender, RoutedEventArgs e)

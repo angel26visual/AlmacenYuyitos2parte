@@ -186,6 +186,13 @@ namespace AlmacenYuyitos
                  blobParameter.ParameterName = "FOTO";
                  blobParameter.Value = blob;
 
+                bool registrado = existePromocion(int.Parse(txtIdPromocion.Text));
+            if (registrado)
+            {
+                await this.ShowMessageAsync("Error", "Promocion ya se encuentra registrada");
+            }
+            else
+            {
                 cmd.Parameters.Add("id", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtIdPromocion.Text);
                 cmd.Parameters.Add(blobParameter);
                 cmd.Parameters.Add("inicio", OracleDbType.Date).Value = dpFechaDeInicio.SelectedDate;
@@ -211,9 +218,25 @@ namespace AlmacenYuyitos
                 {
                     await this.ShowMessageAsync("Error", ex.ToString());
                 }
-            
-          
 
+            }
+
+        }
+
+
+        private bool existePromocion(int id)
+        {
+            bool respuesta = false;
+            OracleCommand cmd = con.CreateCommand();
+            cmd.CommandText = "select * from promocion where ID_PROMOCION =:id";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("rut", OracleDbType.Int32, 20).Value = id;
+            OracleDataReader reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                respuesta = true;
+            }
+            return respuesta;
         }
         public void Limpiar()
         {
