@@ -64,6 +64,9 @@
     </mah:MetroWindow.RightWindowCommands>
 
     <Grid Background="LightBlue">
+        <CheckBox x:Name="checkTodos" RenderTransformOrigin="0.5,0.5" Height="29" Margin="115,20,542.6,261">
+            <Label Content="Seleccionar Todo" Width="111" />
+        </CheckBox>
         <CheckBox x:Name="checkClientes" RenderTransformOrigin="0.5,0.5" Height="29" Margin="115,130,542.6,261"  
                       >
 
@@ -127,7 +130,7 @@
 
         </CheckBox>
 
-        <CheckBox x:Name="checkFiado" RenderTransformOrigin="0.5,0.5" Height="29" Margin="520,256,118.6,135"  
+        <CheckBox x:Name="checkRecepcion" RenderTransformOrigin="0.5,0.5" Height="29" Margin="520,256,118.6,135"  
                       >
             <CheckBox.RenderTransform>
                 <TransformGroup>

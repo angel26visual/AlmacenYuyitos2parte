@@ -179,8 +179,14 @@
     <Compile Include="VerPagos.xaml.cs">
       <DependentUpon>VerPagos.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VerRecepcion.xaml.cs">
+      <DependentUpon>VerRecepcion.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VerVenta.xaml.cs">
       <DependentUpon>VerVenta.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VistaInforme.xaml.cs">
+      <DependentUpon>VistaInforme.xaml</DependentUpon>
     </Compile>
     <Compile Include="VisualizarDeudas.xaml.cs">
       <DependentUpon>VisualizarDeudas.xaml</DependentUpon>
@@ -308,7 +314,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="VerRecepcion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="VerVenta.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VistaInforme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
