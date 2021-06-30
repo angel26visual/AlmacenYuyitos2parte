@@ -158,6 +158,9 @@
     <Compile Include="IngresarRecepcion.xaml.cs">
       <DependentUpon>IngresarRecepcion.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MenuOrdenDePedidos.xaml.cs">
+      <DependentUpon>MenuOrdenDePedidos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ModyElmUsuario.xaml.cs">
       <DependentUpon>ModyElmUsuario.xaml</DependentUpon>
     </Compile>
@@ -190,6 +193,9 @@
     </Compile>
     <Compile Include="VisualizarDeudas.xaml.cs">
       <DependentUpon>VisualizarDeudas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VisualizarOrdenDePedido.xaml.cs">
+      <DependentUpon>VisualizarOrdenDePedido.xaml</DependentUpon>
     </Compile>
     <Compile Include="VisualizarPedidoDelivery.xaml.cs">
       <DependentUpon>VisualizarPedidoDelivery.xaml</DependentUpon>
@@ -282,6 +288,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MenuOrdenDePedidos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MenuVendedor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -327,6 +337,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="VisualizarDeudas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VisualizarOrdenDePedido.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -472,6 +486,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="resources\verpagos.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\ver.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
