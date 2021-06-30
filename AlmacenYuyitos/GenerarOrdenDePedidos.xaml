@@ -166,8 +166,7 @@
                 Kind="ListDelete"/>
 
         </Button>
-        <TextBox x:Name="txtDescripcion" 
-                KeyDown="txtMontoTotal_KeyDown"
+        <TextBox x:Name="txtDescripcion"
                 HorizontalAlignment="Left" 
                 Height="80"
                 Margin="92,460,0,0" 
@@ -234,6 +233,7 @@
 
         <Image Source="/resources/logo.png" Margin="369,-18,391,501" />
         
+
 
     </Grid>
 </mah:MetroWindow>

@@ -84,7 +84,7 @@ namespace AlmacenYuyitos
 
         private void btnOrdenPedidos_Click(object sender, RoutedEventArgs e)
         {
-            GenerarOrdenDePedidos mop = new GenerarOrdenDePedidos(nomUsuario);
+            MenuOrdenDePedidos mop = new MenuOrdenDePedidos(nomUsuario);
             mop.Show();
             this.Close();
         }

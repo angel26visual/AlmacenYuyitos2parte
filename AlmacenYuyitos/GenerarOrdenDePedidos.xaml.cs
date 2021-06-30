@@ -90,10 +90,8 @@ namespace AlmacenYuyitos
 
         private void btnAtras_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mw = new MainWindow();
-            mw.Show();
-            mw.nomUsuario = nomUsuario;
-            mw.btnCuenta.Content = "Bienvenido/a " + nombre + " " + apellido;
+            MenuOrdenDePedidos mop = new MenuOrdenDePedidos(nomUsuario);
+            mop.Show();
             this.Close();
         }
 
@@ -580,6 +578,13 @@ namespace AlmacenYuyitos
             {
                 await this.ShowMessageAsync("Error", "Ha ocurrido un error");
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            VisualizarOrdenDePedido vp = new VisualizarOrdenDePedido(nomUsuario);
+            vp.Show();
+            this.Close();
         }
     }
 }
