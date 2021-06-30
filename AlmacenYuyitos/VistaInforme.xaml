@@ -67,7 +67,7 @@
             <Image Source="/resources/logo.png" Width="150" Height="150" Margin="10,10,10,10"/>
             <Label Content="Gestión de Clientes" Height="30" HorizontalAlignment="Center" Margin="43,0,594,0" Width="131"/>
             <Label Content="Clientes Registrados" Margin="0,0,646,0"/>
-            <Label Content="Clientes con Deudas" Margin="0,0,646,0" />
+            <Label Content="Clientes con Deudas Impagas" Margin="0,0,594,0" />
             <Label Content="Clientes sin Deudas" Margin="0,0,646,0"/>
             <Label Content="Clientes con Deuda Pagada" Margin="0,0,594,0"/>
             <Label Content="Gestion de Usuarios" Height="30" HorizontalAlignment="Center" Margin="43,0,594,0" Width="131"/>
@@ -110,7 +110,7 @@
             <Label Content="Promociones pasadas" Height="30" Margin="380,-950,256,0"/>
             <Label Content="Promociones futuras" Height="30" Margin="380,-900,256,0"/>
             <Label Content="Gestión de Proveedores" Height="30" HorizontalAlignment="Center" Margin="400,-850,20,0" Width="184"/>
-            <Label Content="Proveedores registrados" Height="30" Margin="380,-800,256,0"/>
+            <Label Content="Proveedores registrados" Height="30" Margin="380,-800,243,0"/>
             <Label Content="Gestión de Delivery" Height="30" HorizontalAlignment="Center" Margin="400,-750,20,0" Width="184"/>
             <Label Content="Pedidos Delivery registrados" Height="30" Margin="380,-700,221,0"/>
             <Label Content="Pedidos Delivery pendientes" Height="30" Margin="380,-650,221,0"/>
