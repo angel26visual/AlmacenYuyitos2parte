@@ -160,8 +160,8 @@ namespace AlmacenYuyitos
                         GuardarDetalle(detalle_Boleta.Nro_boleta, detalle_Boleta.Codigo_producto, detalle_Boleta.Cantidad);
                     }
                     await this.ShowMessageAsync("PEDIDO", "Pedido realizado");
-                    RegistrarPago registrarPago = new RegistrarPago(nomUsuario);
-                    registrarPago.Show();
+                    RegistrarPedidoDelivery pedidoDelivery = new RegistrarPedidoDelivery(nomUsuario);
+                    pedidoDelivery.Show();
                     this.Close();
                 }
                 else
@@ -301,12 +301,14 @@ namespace AlmacenYuyitos
             int cantidad = 0;
             int cantidadVieja = 0;
             int cantidadNueva = 0;
+            int productoEnLista = 0;
             try
             {
                 foreach (var detalle_boleta in listDboleta)
                 {
                     if (detalle_boleta.Codigo_producto == codigo)
                     {
+                        productoEnLista = 1;
                         if (int.Parse(txtCantidad.Text) > 0)
                         {
                             OracleCommand cmd = con.CreateCommand();
@@ -343,10 +345,11 @@ namespace AlmacenYuyitos
                             }
                         }
                     }
-                    else
-                    {
-                        await this.ShowMessageAsync("PRODUCTO", "Producto que se intenta modificar no se ha agregado a la lista");
-                    }
+                    
+                }
+                if (productoEnLista == 0)
+                {
+                    await this.ShowMessageAsync("PRODUCTO", "Producto no esta agregado");
                 }
             }
             catch (Exception)

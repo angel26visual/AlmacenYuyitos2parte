@@ -43,6 +43,8 @@ namespace AlmacenYuyitos
             GenerarNroBoleta();
             txtTotalDescuento.Text = 0.ToString();
             txtTotalVenta.Text = 0.ToString();
+            txtPago.Text = 0.ToString();
+            txtCantidad.Text = 0.ToString();
             nomUsuario = usuario;
             DatosUsuarios();
         }
@@ -471,6 +473,7 @@ namespace AlmacenYuyitos
                 cboMedioPago.ItemsSource = dt.AsDataView();
                 cboMedioPago.DisplayMemberPath = "DESCRIP_MEDIOPAGO";
                 cboMedioPago.SelectedValuePath = "ID_MEDIOPAGO";
+                cboMedioPago.SelectedValue = 1;
             }
             catch (Exception)
             {

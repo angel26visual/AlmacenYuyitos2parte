@@ -116,7 +116,7 @@
                  mah:TextBoxHelper.UseFloatingWatermark="True"
                  mah:TextBoxHelper.ClearTextButton="True"
                  VerticalContentAlignment="Center"
-                 IsEnabled="False"/>
+                 IsEnabled="False" Visibility="Hidden"/>
         <TextBox x:Name="txtCodigoBarra"
             HorizontalAlignment="Left" 
             Height="40"
@@ -126,7 +126,7 @@
             Width="166"
             Controls:TextBoxHelper.Watermark="Código de barra"
             Controls:TextBoxHelper.UseFloatingWatermark="True"
-            IsEnabled="False"     />
+            IsEnabled="False"  Visibility="Hidden"   />
         <TextBox x:Name="txtNombreProducto"
             HorizontalAlignment="Left" 
             Height="40"
@@ -136,7 +136,7 @@
             Width="166"
             Controls:TextBoxHelper.Watermark="Nombre del producto"
             Controls:TextBoxHelper.UseFloatingWatermark="True"
-            IsEnabled="False"     />
+            IsEnabled="False"  Visibility="Hidden"   />
         <TextBox x:Name="txtCantidad"
             HorizontalAlignment="Left" 
             Height="40"
@@ -146,7 +146,7 @@
             Width="166"
             Controls:TextBoxHelper.Watermark="Cantidad"
             Controls:TextBoxHelper.UseFloatingWatermark="True"
-            IsEnabled="False"     />
+            IsEnabled="False"  Visibility="Hidden"   />
         <TextBox x:Name="txtValor"
             HorizontalAlignment="Left" 
             Height="40"
@@ -156,7 +156,7 @@
             Width="166"
             Controls:TextBoxHelper.Watermark="Valor"
             Controls:TextBoxHelper.UseFloatingWatermark="True"
-            IsEnabled="False"     />
+            IsEnabled="False"  Visibility="Hidden"   />
         <TextBox x:Name="txtValorAPagar"
                  HorizontalAlignment="Left" 
                  Height="40"
