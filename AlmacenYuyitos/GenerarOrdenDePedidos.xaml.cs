@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Oracle.ManagedDataAccess.Types;
+using BibliotecaLosYuyitos;
 
 
 
@@ -31,7 +32,10 @@ namespace AlmacenYuyitos
         int cargo = 0;
         string nombre = string.Empty;
         string apellido = string.Empty;
-        
+        DateTime fecha = DateTime.Today;
+        List<Detalle_Orden> listOrden = new List<Detalle_Orden>();
+        int montoTotal = 0;
+
         public GenerarOrdenDePedidos(string usuario)
         {
             this.setConnection();
@@ -40,7 +44,7 @@ namespace AlmacenYuyitos
             nomUsuario = usuario;
             DatosUsuarios();
             CargaCboTipoDeProducto();
-            dpFechaOrdenPedido.Text = Convert.ToString(DateTime.Today);
+            resetAll();
             
         }
 
@@ -187,9 +191,9 @@ namespace AlmacenYuyitos
                     cmd.Parameters.Add("monto", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtMontoTotal.Text);
                     cmd.Parameters.Add("proveedor", OracleDbType.Varchar2, 100).Value = cboProveedor.Text;
 
-                    if (txtProductos.Text.Replace(" ", string.Empty).Length >= 3)
+                    if (txtDescripcion.Text.Replace(" ", string.Empty).Length >= 3)
                     {
-                        cmd.Parameters.Add("descripcion", OracleDbType.Varchar2, 100).Value = txtProductos.Text;
+                        cmd.Parameters.Add("descripcion", OracleDbType.Varchar2, 100).Value = txtDescripcion.Text;
 
                     }
                     else
@@ -258,9 +262,9 @@ namespace AlmacenYuyitos
                 cmd.Parameters.Add("monto", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtMontoTotal.Text);
                 cmd.Parameters.Add("rut_proveedor", OracleDbType.Varchar2, 100).Value = cboProveedor.Text;
 
-                if (txtProductos.Text.Replace(" ", string.Empty).Length >= 3)
+                if (txtDescripcion.Text.Replace(" ", string.Empty).Length >= 3)
                 {
-                    cmd.Parameters.Add("descripcion", OracleDbType.Varchar2, 100).Value = txtProductos.Text;
+                    cmd.Parameters.Add("descripcion", OracleDbType.Varchar2, 100).Value = txtDescripcion.Text;
 
                 }
                 else
@@ -340,7 +344,7 @@ namespace AlmacenYuyitos
                 OracleDataReader dr = cmd.ExecuteReader();
                 DataTable dt = new DataTable();
                 dt.Load(dr);
-                dgOrdenPedido.ItemsSource = dt.DefaultView;
+                //dgOrdenPedido.ItemsSource = dt.DefaultView;
                 dr.Close();
 
             }
@@ -375,16 +379,17 @@ namespace AlmacenYuyitos
 
         private void resetAll()
         {
-            txtIdOrdenPedidos.Text = "";
-            txtMontoTotal.Text = "";
-            txtProductos.Text = "";
-           
-
-            btnGuardarOrdenPedido.IsEnabled = true;
-            btnModificarOrden.IsEnabled = false;
-            btnEliminarOrden.IsEnabled = false;
-            txtIdOrdenPedidos.IsEnabled = true;
-            dpFechaOrdenPedido.IsEnabled = true;
+            GenerarIdOrden();
+            txtMontoTotal.Text = 0.ToString();
+            txtDescripcion.Text = "";
+            cboProveedor.SelectedValue = 0;
+            dpFechaOrdenPedido.Text = Convert.ToString(DateTime.Today);
+            txtCantidad.Text = 0.ToString();
+            txtValor.Text = 0.ToString();
+            txtCodigoBarra.Text = "";
+            txtNombreProducto.Text = "";
+            dgDetalleOrden.ItemsSource = null;
+            dgDetalleOrden.ItemsSource = listOrden;
 
         }
 
@@ -398,12 +403,12 @@ namespace AlmacenYuyitos
                 dpFechaOrdenPedido.Text = dr["FECH_ORDEN"].ToString();
                 txtMontoTotal.Text = dr["MONTO_ORDEN"].ToString();
                 cboProveedor.Text = dr["PROVEEDOR_RUT_PROVEE"].ToString();
-                txtProductos.Text = dr["DESCRIP_ORDEN"].ToString();
+                txtDescripcion.Text = dr["DESCRIP_ORDEN"].ToString();
 
 
                 btnGuardarOrdenPedido.IsEnabled = false;
-                btnModificarOrden.IsEnabled = true;
-                btnEliminarOrden.IsEnabled = true;
+                //btnModificarOrden.IsEnabled = true;
+                //btnEliminarOrden.IsEnabled = true;
                 txtIdOrdenPedidos.IsEnabled = false;
                 dpFechaOrdenPedido.IsEnabled = false;
 
@@ -449,17 +454,131 @@ namespace AlmacenYuyitos
             {
                
                 cboProveedor.Text = dr["RUT_PROVEE"].ToString();
-                
 
+            }
+        }
 
-                btnGuardarOrdenPedido.IsEnabled = false;
-                btnModificarOrden.IsEnabled = true;
-                btnEliminarOrden.IsEnabled = true;
-                txtIdOrdenPedidos.IsEnabled = true;
-                dpFechaOrdenPedido.IsEnabled = true;
+        private async void GenerarIdOrden()
+        {
+            try
+            {
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandText = "SELECT NVL(MAX(ID_ORDEN), 8000) AS ORDEN FROM ORDEN_PED";
+                cmd.CommandType = CommandType.Text;
+                OracleDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    int nro_orden = int.Parse(reader["ORDEN"].ToString());
+                    nro_orden = nro_orden + 1;
+                    txtIdOrdenPedidos.Text = nro_orden.ToString();
+                }
+                else
+                {
+                    await this.ShowMessageAsync("ORDEN DE PEDIDO", "No se ha podido obtener el número de la orden");
+                }
+            }
+            catch (Exception)
+            {
 
-                btnGuardarOrdenPedido.IsEnabled = true;
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
+        }
 
+        private async void btnAgregarP_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                int total = 0;
+                int productoEnlista = 0;
+                int valor = 0;
+                int cantidad = 0;
+                int cantidadVieja = 0;
+                int cantidadNueva = 0;
+                int cantidadTotal = 0;
+                if (int.Parse(txtCantidad.Text) > 0)
+                {
+                    foreach (var detalle_orden in listOrden)
+                    {
+                        if (detalle_orden.Codigo_barra == int.Parse(txtCodigoBarra.Text))
+                        {
+                            cantidad = int.Parse(txtCantidad.Text);
+                            valor = int.Parse(txtValor.Text);
+                            cantidadVieja = detalle_orden.Cantidad;
+                            cantidadNueva = cantidad;
+                            cantidadTotal = cantidadVieja + cantidadNueva;
+                            detalle_orden.Cantidad = cantidadTotal;
+                            total = total + (valor * cantidadTotal);
+                            detalle_orden.Valor = total;
+                            montoTotal = montoTotal + total;
+                            dgDetalleOrden.ItemsSource = null;
+                            dgDetalleOrden.ItemsSource = listOrden;
+                            txtMontoTotal.Text = montoTotal.ToString();
+                            productoEnlista = 1;
+                        }
+                    }
+                    if (productoEnlista == 0)
+                    {
+                        cantidad = int.Parse(txtCantidad.Text);
+                        valor = int.Parse(txtValor.Text);
+                        total = total + (valor * cantidad);
+                        montoTotal = montoTotal + total;
+                        Detalle_Orden detalle_orden = new Detalle_Orden(int.Parse(txtIdOrdenPedidos.Text), int.Parse(txtCodigoBarra.Text), txtNombreProducto.Text, int.Parse(txtCantidad.Text), int.Parse(txtValor.Text));
+                        listOrden.Add(detalle_orden);
+                        dgDetalleOrden.ItemsSource = null;
+                        dgDetalleOrden.ItemsSource = listOrden;
+                        txtMontoTotal.Text = montoTotal.ToString();
+                    }
+                }
+                else
+                {
+                    await this.ShowMessageAsync("PRODUCTO", "La cantidad debe ser mayor a 0");
+                }
+            }
+            catch (Exception)
+            {
+
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
+        }
+
+        private async void btnModificarP_Click(object sender, RoutedEventArgs e)
+        {
+            int productoEnLista = 0;
+
+            try
+            {
+                if (int.Parse(txtCantidad.Text) > 0)
+                {
+                    foreach (var detalle_orden in listOrden)
+                    {
+                        if (detalle_orden.Codigo_barra == int.Parse(txtCodigoBarra.Text))
+                        {
+                            productoEnLista = 1;
+                            montoTotal = montoTotal - (detalle_orden.Valor * detalle_orden.Cantidad);
+                            detalle_orden.Nombre_producto = txtNombreProducto.Text;
+                            detalle_orden.Valor = int.Parse(txtValor.Text);
+                            detalle_orden.Cantidad = int.Parse(txtCantidad.Text);
+                            montoTotal = montoTotal + (int.Parse(txtValor.Text) * int.Parse(txtCantidad.Text));
+                            txtMontoTotal.Text = montoTotal.ToString();
+                            dgDetalleOrden.ItemsSource = null;
+                            dgDetalleOrden.ItemsSource = listOrden;
+
+                        }
+                    }
+                    if (productoEnLista == 0)
+                    {
+                        await this.ShowMessageAsync("PRODUCTO", "Producto no esta agregado");
+                    }
+                }
+                else
+                {
+                    await this.ShowMessageAsync("PRODUCTO", "La cantidad debe ser mayor a 0");
+                }
+
+            }
+            catch (Exception)
+            {
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
             }
         }
     }

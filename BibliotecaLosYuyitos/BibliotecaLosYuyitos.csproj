@@ -47,6 +47,7 @@
     <Compile Include="Cliente.cs" />
     <Compile Include="Delivery.cs" />
     <Compile Include="Detalle_boleta.cs" />
+    <Compile Include="Detalle_Orden.cs" />
     <Compile Include="Detalle_Recepcion.cs" />
     <Compile Include="Producto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
