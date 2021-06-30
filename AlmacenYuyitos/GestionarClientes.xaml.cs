@@ -297,79 +297,104 @@ namespace AlmacenYuyitos
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.BindByName = true;
 
-                if (ValidarRut(txtRutCliente.Text))
-                { cmd.Parameters.Add("rut", OracleDbType.Varchar2, 100).Value = txtRutCliente.Text; }
-                else
-                {
-                    await this.ShowMessageAsync("Error", "debe ingresar un rut valido!");
-                    return;
 
-                }
-
-                if (txtNombreCliente.Text.Replace(" ", string.Empty).Length >= 3)
+                bool registrado = existeCliente(txtRutCliente.Text);
+                if (registrado)
                 {
-                    cmd.Parameters.Add("nombre", OracleDbType.Varchar2, 100).Value = txtNombreCliente.Text;
+                    await this.ShowMessageAsync("Error", "Cliente ya se encuentra registrado");
                 }
                 else
                 {
-                    await this.ShowMessageAsync("Error", "el nombre del/la cliente(a) debe tener mas de 3 caracteres!");
-                    return;
 
-                }
-
-                if (txtApellidoCliente.Text.Replace(" ", string.Empty).Length >= 3)
-                {
-                    cmd.Parameters.Add("apellido", OracleDbType.Varchar2, 100).Value = txtApellidoCliente.Text;
-                }
-                else
-                {
-                    await this.ShowMessageAsync("Error", "el Apellido del/la cliente(a) debe tener mas de 3 caracteres!");
-                    return;
-
-                }
-                if (txtTelefonoCliente.Text.Replace(" ", string.Empty).Length == 9)
-                {
-                    cmd.Parameters.Add("fono", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtTelefonoCliente.Text);
-                }
-                else
-                {
-                    await this.ShowMessageAsync("Error", "el Teléfono debe tener 9 dígitos!");
-                    return;
-                }
-
-                if (txtCorreoCliente.Text.Replace(" ", string.Empty).Length >= 3)
-                {
-                    cmd.Parameters.Add("correo", OracleDbType.Varchar2, 100).Value = txtCorreoCliente.Text;
-                }
-                else
-                {
-                    await this.ShowMessageAsync("Error", "el correo debe tener mas de 3 caracteres!");
-                    return;
-
-                }
-
-                try
-                {
-                    int n = cmd.ExecuteNonQuery();
-                    if (n < 0)
+                    if (ValidarRut(txtRutCliente.Text))
+                    { cmd.Parameters.Add("rut", OracleDbType.Varchar2, 100).Value = txtRutCliente.Text; }
+                    else
                     {
-                        await this.ShowMessageAsync("Agregado", "Cliente se agregó correctamente");
-                        this.ActualizarDataGrid();
-                        resetAll();
+                        await this.ShowMessageAsync("Error", "debe ingresar un rut valido!");
+                        return;
+
                     }
-                }
-                catch (Exception ex)
-                {
-                    await this.ShowMessageAsync("Error", ex.ToString());
-                }
+
+                    if (txtNombreCliente.Text.Replace(" ", string.Empty).Length >= 3)
+                    {
+                        cmd.Parameters.Add("nombre", OracleDbType.Varchar2, 100).Value = txtNombreCliente.Text;
+                    }
+                    else
+                    {
+                        await this.ShowMessageAsync("Error", "el nombre del/la cliente(a) debe tener mas de 3 caracteres!");
+                        return;
+
+                    }
+
+                    if (txtApellidoCliente.Text.Replace(" ", string.Empty).Length >= 3)
+                    {
+                        cmd.Parameters.Add("apellido", OracleDbType.Varchar2, 100).Value = txtApellidoCliente.Text;
+                    }
+                    else
+                    {
+                        await this.ShowMessageAsync("Error", "el Apellido del/la cliente(a) debe tener mas de 3 caracteres!");
+                        return;
+
+                    }
+                    if (txtTelefonoCliente.Text.Replace(" ", string.Empty).Length == 9)
+                    {
+                        cmd.Parameters.Add("fono", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtTelefonoCliente.Text);
+                    }
+                    else
+                    {
+                        await this.ShowMessageAsync("Error", "el Teléfono debe tener 9 dígitos!");
+                        return;
+                    }
+
+                    if (txtCorreoCliente.Text.Replace(" ", string.Empty).Length >= 3)
+                    {
+                        cmd.Parameters.Add("correo", OracleDbType.Varchar2, 100).Value = txtCorreoCliente.Text;
+                    }
+                    else
+                    {
+                        await this.ShowMessageAsync("Error", "el correo debe tener mas de 3 caracteres!");
+                        return;
+
+                    }
+
+                    try
+                    {
+                        int n = cmd.ExecuteNonQuery();
+                        if (n < 0)
+                        {
+                            await this.ShowMessageAsync("Agregado", "Cliente se agregó correctamente");
+                            this.ActualizarDataGrid();
+                            resetAll();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        await this.ShowMessageAsync("Error", ex.ToString());
+                    }
 
 
+                }
             }
             catch (Exception ex)
             {
 
                 await this.ShowMessageAsync("Error", e.ToString());
             }
+        }
+
+        private bool existeCliente(string rutcliente)
+        {
+            bool respuesta = false;
+            OracleCommand cmd = con.CreateCommand();
+            cmd.CommandText = "select * from cliente where RUT_CLI =:rutcliente";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("rut", OracleDbType.Varchar2, 9).Value = rutcliente;
+            OracleDataReader reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                respuesta = true;
+            }
+            return respuesta;
         }
 
         private async void btnCerrarSesion_Click(object sender, RoutedEventArgs e)

@@ -173,62 +173,72 @@ namespace AlmacenYuyitos
                 blobParameter.ParameterName = "FOTO";
                 blobParameter.Value = blob;
 
-                cmd.Parameters.Add("codigo", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtCodigoProducto.Text);
-
-            if (txtNombreDeProducto.Text.Replace(" ", string.Empty).Length >= 3)
-            {
-                cmd.Parameters.Add("nombre", OracleDbType.Varchar2, 100).Value = txtNombreDeProducto.Text;
-
-
-            }
-            else
-            {
-                await this.ShowMessageAsync("Error", "el nombre del producto debe tener mas de 3 caracteres!");
-                btnRegistrarProducto.IsEnabled = true;
-                return;
-
-            }
-            cmd.Parameters.Add("compra", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtPrecioDeCompra.Text);
-                cmd.Parameters.Add("venta", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtPrecioDeVenta.Text);
-                cmd.Parameters.Add("stock", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtStock.Text);
-                cmd.Parameters.Add("critico", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtStockCritico.Text);
-                cmd.Parameters.Add("elaboracion", OracleDbType.Date).Value = dpFechaElaboracion.SelectedDate;
-                cmd.Parameters.Add("vencimiento", OracleDbType.Date).Value = dpFechaDeVencimiento.SelectedDate;
-
-            if (txtMarcaProducto.Text.Replace(" ", string.Empty).Length >= 3)
-            {
-                cmd.Parameters.Add("marca", OracleDbType.Varchar2, 100).Value = txtMarcaProducto.Text;
-            }
-            else
-            {
-                await this.ShowMessageAsync("Error", "La Marca del producto debe tener mas de 3 caracteres!");
-                btnRegistrarProducto.IsEnabled = true;
-                return;
-
-            }
-
-
-                cmd.Parameters.Add("proveedor", OracleDbType.Varchar2, 100).Value = txtRutProveedor.Text;
-                cmd.Parameters.Add("cod_barra", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtCodigoBarraProducto.Text);
-                cmd.Parameters.Add(blobParameter);
-                cmd.Parameters.Add("tipo", OracleDbType.Int32, 20).Value = cboTipoDeProducto.SelectedValue;
-                
-                try
+                bool registrado = existeProducto(int.Parse(txtCodigoProducto.Text));
+                if (registrado)
                 {
-                    int n = cmd.ExecuteNonQuery();
-                    if (n < 0)
+                    await this.ShowMessageAsync("Error", "Producto ya se encuentra registrado");
+                }
+                else
+                {
+
+
+                    cmd.Parameters.Add("codigo", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtCodigoProducto.Text);
+
+                    if (txtNombreDeProducto.Text.Replace(" ", string.Empty).Length >= 3)
                     {
-                        await this.ShowMessageAsync("Agregado", "Producto se agregó correctamente");
-                        this.ActualizarDataGrid();
-                        resetAll();
+                        cmd.Parameters.Add("nombre", OracleDbType.Varchar2, 100).Value = txtNombreDeProducto.Text;
+
+
                     }
-                }
-                catch (Exception ex)
-                {
-                    await this.ShowMessageAsync("Error", ex.ToString());
-                }
+                    else
+                    {
+                        await this.ShowMessageAsync("Error", "el nombre del producto debe tener mas de 3 caracteres!");
+                        btnRegistrarProducto.IsEnabled = true;
+                        return;
+
+                    }
+                    cmd.Parameters.Add("compra", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtPrecioDeCompra.Text);
+                    cmd.Parameters.Add("venta", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtPrecioDeVenta.Text);
+                    cmd.Parameters.Add("stock", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtStock.Text);
+                    cmd.Parameters.Add("critico", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtStockCritico.Text);
+                    cmd.Parameters.Add("elaboracion", OracleDbType.Date).Value = dpFechaElaboracion.SelectedDate;
+                    cmd.Parameters.Add("vencimiento", OracleDbType.Date).Value = dpFechaDeVencimiento.SelectedDate;
+
+                    if (txtMarcaProducto.Text.Replace(" ", string.Empty).Length >= 3)
+                    {
+                        cmd.Parameters.Add("marca", OracleDbType.Varchar2, 100).Value = txtMarcaProducto.Text;
+                    }
+                    else
+                    {
+                        await this.ShowMessageAsync("Error", "La Marca del producto debe tener mas de 3 caracteres!");
+                        btnRegistrarProducto.IsEnabled = true;
+                        return;
+
+                    }
 
 
+                    cmd.Parameters.Add("proveedor", OracleDbType.Varchar2, 100).Value = txtRutProveedor.Text;
+                    cmd.Parameters.Add("cod_barra", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtCodigoBarraProducto.Text);
+                    cmd.Parameters.Add(blobParameter);
+                    cmd.Parameters.Add("tipo", OracleDbType.Int32, 20).Value = cboTipoDeProducto.SelectedValue;
+
+                    try
+                    {
+                        int n = cmd.ExecuteNonQuery();
+                        if (n < 0)
+                        {
+                            await this.ShowMessageAsync("Agregado", "Producto se agregó correctamente");
+                            this.ActualizarDataGrid();
+                            resetAll();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        await this.ShowMessageAsync("Error", ex.ToString());
+                    }
+
+
+                }
             }
             catch (Exception ex)
             {
@@ -237,7 +247,20 @@ namespace AlmacenYuyitos
             }
         }
 
-
+        private bool existeProducto(int codigo)
+        {
+            bool respuesta = false;
+            OracleCommand cmd = con.CreateCommand();
+            cmd.CommandText = "select * from producto where CODIGO_PRODUCTO =:codigo";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("codigo", OracleDbType.Int32, 20).Value = codigo;
+            OracleDataReader reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                respuesta = true;
+            }
+            return respuesta;
+        }
 
         private void resetAll()
         {

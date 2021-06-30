@@ -163,47 +163,57 @@ namespace AlmacenYuyitos
         {
             try
             {
-                OracleCommand cmd = new OracleCommand("sp_insertar_orden",con);
+                OracleCommand cmd = new OracleCommand("sp_insertar_orden", con);
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                cmd.Parameters.Add("id", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtIdOrdenPedidos.Text);
-
-                if (dpFechaOrdenPedido.SelectedDate != null)
-                { cmd.Parameters.Add("fecha", OracleDbType.Date).Value = dpFechaOrdenPedido.SelectedDate; }
-
-                else { 
-                    await this.ShowMessageAsync("Error", "la fecha de orden no puede estar nula");
-                    return;
-                }
-                cmd.Parameters.Add("monto", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtMontoTotal.Text);
-                cmd.Parameters.Add("proveedor", OracleDbType.Varchar2, 100).Value = cboProveedor.Text;
-
-                if (txtProductos.Text.Replace(" ", string.Empty).Length >= 3)
+                bool registrado = existeOrden(int.Parse(txtIdOrdenPedidos.Text));
+                if (registrado)
                 {
-                    cmd.Parameters.Add("descripcion", OracleDbType.Varchar2, 100).Value = txtProductos.Text;
-
+                    await this.ShowMessageAsync("Error", "Orden ya se encuentra registrada");
                 }
                 else
                 {
-                    await this.ShowMessageAsync("Error", "La descripción de la Orden debe tener mas de 3 caracteres!");
-                    btnGuardarOrdenPedido.IsEnabled = true;
-                    return;
 
-                }
+                    cmd.Parameters.Add("id", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtIdOrdenPedidos.Text);
 
-                try
-                {
-                    int n = cmd.ExecuteNonQuery();
-                    if (n < 0)
+                    if (dpFechaOrdenPedido.SelectedDate != null)
+                    { cmd.Parameters.Add("fecha", OracleDbType.Date).Value = dpFechaOrdenPedido.SelectedDate; }
+
+                    else
                     {
-                        await this.ShowMessageAsync("Agregada", "Orden de Pedido se agregó correctamente");
-                        this.ActualizarDataGrid();
-                        resetAll();
+                        await this.ShowMessageAsync("Error", "la fecha de orden no puede estar nula");
+                        return;
                     }
-                }
-                catch (Exception ex)
-                {
-                    await this.ShowMessageAsync("Error", ex.ToString());
+                    cmd.Parameters.Add("monto", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtMontoTotal.Text);
+                    cmd.Parameters.Add("proveedor", OracleDbType.Varchar2, 100).Value = cboProveedor.Text;
+
+                    if (txtProductos.Text.Replace(" ", string.Empty).Length >= 3)
+                    {
+                        cmd.Parameters.Add("descripcion", OracleDbType.Varchar2, 100).Value = txtProductos.Text;
+
+                    }
+                    else
+                    {
+                        await this.ShowMessageAsync("Error", "La descripción de la Orden debe tener mas de 3 caracteres!");
+                        btnGuardarOrdenPedido.IsEnabled = true;
+                        return;
+
+                    }
+
+                    try
+                    {
+                        int n = cmd.ExecuteNonQuery();
+                        if (n < 0)
+                        {
+                            await this.ShowMessageAsync("Agregada", "Orden de Pedido se agregó correctamente");
+                            this.ActualizarDataGrid();
+                            resetAll();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        await this.ShowMessageAsync("Error", ex.ToString());
+                    }
                 }
             }
             catch (Exception)
@@ -211,6 +221,21 @@ namespace AlmacenYuyitos
 
                 throw;
             }
+        }
+
+        private bool existeOrden(int orden)
+        {
+            bool respuesta = false;
+            OracleCommand cmd = con.CreateCommand();
+            cmd.CommandText = "select * from orden_ped where ID_ORDEN =:orden";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("id", OracleDbType.Int32, 20).Value = orden;
+            OracleDataReader reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                respuesta = true;
+            }
+            return respuesta;
         }
 
         private async void btnModificarOrden_Click(object sender, RoutedEventArgs e)
