@@ -95,11 +95,20 @@ namespace AlmacenYuyitos
 
         private void btnVolver_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow main = new MainWindow();
-            main.Show();
-            main.nomUsuario = nomUsuario;
-            main.btnCuenta.Content = "Bienvenido/a " + nombre + " " + apellido;
-            this.Close();
+            if (cargo == 1)
+            {
+                MainWindow mw = new MainWindow();
+                mw.Show();
+                mw.nomUsuario = nomUsuario;
+                mw.btnCuenta.Content = "Bienvenido/a " + nombre + " " + apellido;
+                this.Close();
+            }
+            else if (cargo == 2)
+            {
+                MenuVendedor vendedor = new MenuVendedor(nomUsuario);
+                vendedor.Show();
+                this.Close();
+            }
         }
 
         private async void btnCerrarSesion_Click(object sender, RoutedEventArgs e)

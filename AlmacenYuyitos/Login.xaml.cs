@@ -21,8 +21,6 @@ namespace AlmacenYuyitos
         {
             this.setConnection();
             InitializeComponent();
-            txtUser.Text = "juan.rojas";
-            txtPass.Password = "juanjefeYuyito";
         }
         private async void setConnection()
         {
@@ -42,7 +40,7 @@ namespace AlmacenYuyitos
         {
             try
             {
-                String sql = "SELECT CONTRASENA_USUARIO, NOMBRE_TRAB, APELLIDO_TRAB, NOM_USUARIO FROM TRABAJADOR WHERE NOM_USUARIO = :USUARIO";
+                String sql = "SELECT CONTRASENA_USUARIO, NOMBRE_TRAB, APELLIDO_TRAB, NOM_USUARIO, CARGO_TRABAJADOR_ID_CARGO FROM TRABAJADOR WHERE NOM_USUARIO = :USUARIO";
                 this.AUD(sql, 0);
             }
             catch (Exception)
@@ -98,11 +96,22 @@ namespace AlmacenYuyitos
                         {
                             if (txtPass.Password == reader["CONTRASENA_USUARIO"].ToString())
                             {
-                                MainWindow main = new MainWindow();
-                                main.Show();
-                                main.btnCuenta.Content = "Bienvenido/a " + reader["NOMBRE_TRAB"] + " " + reader["APELLIDO_TRAB"];
-                                main.nomUsuario = reader["NOM_USUARIO"].ToString();
-                                this.Close();
+                                int cargo = int.Parse(reader["CARGO_TRABAJADOR_ID_CARGO"].ToString());
+                                string usuario = reader["NOM_USUARIO"].ToString();
+                                if (cargo == 1)
+                                {
+                                    MainWindow main = new MainWindow();
+                                    main.Show();
+                                    main.btnCuenta.Content = "Bienvenido/a " + reader["NOMBRE_TRAB"] + " " + reader["APELLIDO_TRAB"];
+                                    main.nomUsuario = usuario;
+                                    this.Close();
+                                }else if(cargo == 2)
+                                {
+                                    MenuVendedor vendedor = new MenuVendedor(usuario);
+                                    vendedor.Show();
+                                    this.Close();
+                                }
+                                
                             }
                             else
                             {

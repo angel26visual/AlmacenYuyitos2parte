@@ -76,13 +76,6 @@ namespace AlmacenYuyitos
             catch (Exception exp) { }
         }
 
-        private void btnVolver_Click(object sender, RoutedEventArgs e)
-        {
-            Login lg = new Login();
-            lg.Show();
-            this.Close();
-        }
-
         private async void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
         {
             MessageDialogResult respuesta = await this.ShowMessageAsync("Cerrar Sesión", "¿Desea cerrar Sesión?", MessageDialogStyle.AffirmativeAndNegative);
@@ -110,6 +103,20 @@ namespace AlmacenYuyitos
             {
                 cuentaFlyouts.IsOpen = true;
             }
+        }
+
+        private void btnGestionarVentas_Click(object sender, RoutedEventArgs e)
+        {
+            GestionarVentas gv = new GestionarVentas(nomUsuario);
+            gv.Show();
+            this.Close();
+        }
+
+        private void btnGestionarPagos_Click(object sender, RoutedEventArgs e)
+        {
+            GestionarPagos gestion = new GestionarPagos(nomUsuario);
+            gestion.Show();
+            this.Close();
         }
     }
 }

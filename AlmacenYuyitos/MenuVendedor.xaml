@@ -62,19 +62,23 @@
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
     <Grid Background="LightBlue">
-        <Button x:Name="btnGestionarPagos" Content="Gestionar Pagos" HorizontalAlignment="Left" Margin="132,122,0,0" VerticalAlignment="Top" Width="230" Height="200" Background="DodgerBlue">
+        <mah:Tile x:Name="btnGestionarPagos" ToolTip="Gestionar Pagos" HorizontalAlignment="Left" Margin="433,132,0,0" VerticalAlignment="Top" Width="210" Height="180 " Background="Transparent" Foreground="Transparent" BorderBrush="Transparent" Click="btnGestionarPagos_Click">
+            <Image Source="/resources/GestionarPagos.png" Height="137" Width="160" />
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
-        </Button>
-        <Button x:Name="btnGestionarVentas" Content="Gestionar Ventas" HorizontalAlignment="Left" Margin="416,122,0,0" VerticalAlignment="Top" Width="230" Height="200" Background="DodgerBlue">
+        </mah:Tile>
+        <mah:Tile x:Name="btnGestionarVentas" ToolTip="Gestionar Ventas" HorizontalAlignment="Left" Margin="61,132,0,0" VerticalAlignment="Top" Width="210" Height="180" Background="Transparent" Foreground="Transparent" BorderBrush="Transparent" Click="btnGestionarVentas_Click">
+            <Image Source="/resources/GestionarVentas.png" Height="137" Width="160" >
+                <Image.Effect>
+                    <DropShadowEffect/>
+                </Image.Effect>
+            </Image>
+
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
-        </Button>
+        </mah:Tile>
         <Image Source="/resources/logo.png"  Width="150" Margin="311,-20,332.6,298"/>
-        <Button x:Name="btnVolver" Content="VOLVER" HorizontalAlignment="Left" Margin="691,378,0,0" VerticalAlignment="Top" Width="75" Click="btnVolver_Click"/>
-
-
     </Grid>
 </mah:MetroWindow>
