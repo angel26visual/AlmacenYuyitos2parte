@@ -30,6 +30,13 @@ namespace AlmacenYuyitos
         int cargo = 0;
         string nombre = string.Empty;
         string apellido = string.Empty;
+        int clientesR = 0;
+        int clientesDI = 0;
+        int clientesSD = 0;
+        int clientesDP = 0;
+        int usuariosR = 0;
+        int usuariosA = 0;
+        int usuariosV = 0;
         public GestionarInformes(string usuario)
         {
             this.setConnection();
@@ -118,12 +125,164 @@ namespace AlmacenYuyitos
 
         private void btnTodos_Click(object sender, RoutedEventArgs e)
         {
-
+            checkClientes.IsChecked = true;
+            checkUsuarios.IsChecked = true;
+            checkOrdenPedidos.IsChecked = true;
+            checkGestionVentas.IsChecked = true;
+            checkGestionProductos.IsChecked = true;
+            checkPagos.IsChecked = true;
+            checkPromociones.IsChecked = true;
+            checkProveedores.IsChecked = true;
+            checkDelivery.IsChecked = true;
+            checkRecepcion.IsChecked = true;
         }
 
         private void btnNinguno_Click(object sender, RoutedEventArgs e)
         {
+            checkClientes.IsChecked = false;
+            checkUsuarios.IsChecked = false;
+            checkOrdenPedidos.IsChecked = false;
+            checkGestionVentas.IsChecked = false;
+            checkGestionProductos.IsChecked = false;
+            checkPagos.IsChecked = false;
+            checkPromociones.IsChecked = false;
+            checkProveedores.IsChecked = false;
+            checkDelivery.IsChecked = false;
+            checkRecepcion.IsChecked = false;
+        }
 
+        private async void btnGenerarInforme_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (checkClientes.IsChecked == true)
+                {
+                    ComprobarClientesR();
+                    ComprobarClienesDI();
+                    ComrpobarClientesSD();
+                    ComprobarClientesDP();
+                }
+                if (checkUsuarios.IsChecked == true)
+                {
+
+                }
+
+                VistaInforme informe = new VistaInforme(nomUsuario);
+                informe.lbClientesR.Content = clientesR;
+                informe.lbClientesD.Content = clientesDI;
+                informe.lbClientesSD.Content = clientesSD;
+                informe.lbClientesDP.Content = clientesDP;
+                informe.Show();
+                this.Close();
+            }
+            catch (Exception)
+            {
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
+        }
+
+        private async void ComprobarClientesR()
+        {
+            try
+            {
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandText = "SELECT NVL(COUNT(*),0) AS CLIENTES FROM CLIENTE";
+                cmd.CommandType = CommandType.Text;
+                OracleDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    clientesR = int.Parse(reader["CLIENTES"].ToString());
+                }
+                else
+                {
+                    await this.ShowMessageAsync("CLIENTES", "No se ha podido obtener la información de los clientes");
+                }
+            }
+            catch (Exception)
+            {
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
+        }
+
+        private async void ComprobarClienesDI()
+        {
+            try
+            {
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandText = "SELECT NVL(COUNT(DISTINCT(CLIENTE_RUT_CLI)),0) AS IMPAGAS FROM BOLETA WHERE TIPO_VENTA_ID_TIPVENTA = 2 AND ESTADO_DEUDA_ID_ESTADEUDA = 1";
+                cmd.CommandType = CommandType.Text;
+                OracleDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    clientesDI = int.Parse(reader["IMPAGAS"].ToString());
+                }
+                else
+                {
+                    await this.ShowMessageAsync("CLIENTES", "No se ha podido obtener la información de los clientes");
+                }
+            }
+            catch (Exception)
+            {
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
+        }
+
+        private async void ComrpobarClientesSD()
+        {
+            try
+            {
+
+            }
+            catch (Exception)
+            {
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
+        }
+
+        private async void ComprobarClientesDP()
+        {
+            try
+            {
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandText = "SELECT NVL(COUNT(DISTINCT(CLIENTE_RUT_CLI)),0) AS PAGADAS FROM BOLETA WHERE TIPO_VENTA_ID_TIPVENTA = 2 AND ESTADO_DEUDA_ID_ESTADEUDA = 2";
+                cmd.CommandType = CommandType.Text;
+                OracleDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    clientesDP = int.Parse(reader["PAGADAS"].ToString());
+                }
+                else
+                {
+                    await this.ShowMessageAsync("CLIENTES", "No se ha podido obtener la información de los clientes");
+                }
+            }
+            catch (Exception)
+            {
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
+        }
+
+        private async void ComrpobarUsuariosR()
+        {
+            try
+            {
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandText = "SELECT NVL(COUNT(*),0) AS USUARIOS FROM TRABAJADOR";
+                cmd.CommandType = CommandType.Text;
+                OracleDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    usuariosR = int.Parse(reader["USUARIOS"].ToString());
+                }
+                else
+                {
+                    await this.ShowMessageAsync("USUARIOS", "No se ha podido obtener la información de los usuarios");
+                }
+            }
+            catch (Exception)
+            {
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
         }
     }
 }

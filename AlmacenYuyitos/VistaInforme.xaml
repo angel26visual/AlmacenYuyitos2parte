@@ -67,9 +67,9 @@
             <Image Source="/resources/logo.png" Width="150" Height="150" Margin="10,10,10,10"/>
             <Label Content="Gestión de Clientes" Height="30" HorizontalAlignment="Center" Margin="43,0,594,0" Width="131"/>
             <Label Content="Clientes Registrados" Margin="0,0,646,0"/>
-            <Label Content="Clientes con Deudas Impagas" Margin="0,0,594,0" />
+            <Label Content="Clientes con alguna Deuda Impaga" Margin="0,0,563,0" />
             <Label Content="Clientes sin Deudas" Margin="0,0,646,0"/>
-            <Label Content="Clientes con Deuda Pagada" Margin="0,0,594,0"/>
+            <Label Content="Clientes con alguna Deuda Pagada" Margin="0,0,572,0"/>
             <Label Content="Gestion de Usuarios" Height="30" HorizontalAlignment="Center" Margin="43,0,594,0" Width="131"/>
             <Label Content="Usuarios Registrados" Height="30" Margin="0,0,594,0"/>
             <Label Content="Usuarios Administradores" Height="30" Margin="0,0,594,0"/>

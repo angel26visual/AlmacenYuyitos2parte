@@ -171,7 +171,8 @@
                 Width="40"
                 Height="40"
                 Cursor="Hand" 
-                ToolTip="Generar Informe">
+                ToolTip="Generar Informe"
+                Click="btnGenerarInforme_Click">
             <iconPacks:PackIconModern 
                  Width="25" Height="25"
                  Kind="Add"  />
