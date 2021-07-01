@@ -8,7 +8,7 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        Title="Vista Informe" Height="900" Width="900">
+        Title="Vista Informe" Height="923.2" Width="900" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <!--Inicio menu izquierda inicio de sesion-->
     <mah:MetroWindow.Flyouts>
         <mah:FlyoutsControl x:Name="ControlesFlyouts">
@@ -63,7 +63,7 @@
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
     <Grid Background="LightBlue" Margin="0,0,4,0">
-        <StackPanel HorizontalAlignment="Center" Margin="10" Width="768">
+        <StackPanel HorizontalAlignment="Center" Margin="58,-14,63.6,59.6" Width="768">
             <Image Source="/resources/logo.png" Width="150" Height="150" Margin="10,10,10,10"/>
             <Label Content="Gestión de Clientes" Height="30" HorizontalAlignment="Center" Margin="43,0,594,0" Width="131"/>
             <Label Content="Clientes Registrados" Margin="0,0,646,0"/>
@@ -129,18 +129,18 @@
             <Label x:Name="lbDeliveryV" Content="0" Height="30" Margin="616,-600,133,0"/>
             <Label x:Name="lbDeliveryET" Content="0" Height="30" Margin="616,-550,133,0"/>
             <Label x:Name="lbRecepcionesR" Content="0" Height="30" Margin="616,-450,133,0"/>
-            <Button x:Name="btnAtras"  Click="btnAtras_Click"
+
+        </StackPanel>
+        <Button x:Name="btnAtras"  Click="btnAtras_Click"
                 Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
                 HorizontalAlignment="Left"
-                Margin="700,10,10,10"
+                Margin="842,744,0,0"
                 VerticalAlignment="Top" 
                 Width="40" Height="40" 
                 ToolTip="Volver Atrás">
-                <iconPacks:PackIconModern
+            <iconPacks:PackIconModern
                          Width="22" Height="22"
                          Kind="Return"/>
-            </Button>
-
-        </StackPanel>
+        </Button>
     </Grid>
 </mah:MetroWindow>

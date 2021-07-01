@@ -79,8 +79,8 @@ namespace AlmacenYuyitos
 
         private void btnAtras_Click(object sender, RoutedEventArgs e)
         {
-            ControlarRecepciones cr = new ControlarRecepciones(nomUsuario);
-            cr.Show();
+            GestionarInformes gi = new GestionarInformes(nomUsuario);
+            gi.Show();
             this.Close();
         }
 
