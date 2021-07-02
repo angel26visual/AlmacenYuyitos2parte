@@ -8,7 +8,7 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        Title="Vista Informe" Height="651" Width="926" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Vista Informe" Height="651" Width="926" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="resources/logo.png">
     <!--Inicio menu izquierda inicio de sesion-->
     <mah:MetroWindow.Flyouts>
         <mah:FlyoutsControl x:Name="ControlesFlyouts">
@@ -63,19 +63,19 @@
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
     <Grid Background="LightBlue" Margin="0,0,4,0">
-        <StackPanel HorizontalAlignment="Center" Margin="10,0,10,102" Width="896">
+        <StackPanel x:Name="informe" HorizontalAlignment="Center" Margin="20,0,10,102" Width="896">
             <Image Source="/resources/logo.png" Width="150" Height="150" Margin="10,10,10,10"/>
-            <Label Content="Gestión de Clientes" Height="30" HorizontalAlignment="Center" Margin="43,-40,594,0"/>
-            <Label Content="Clientes Registrados" Margin="0,0,660,0"/>
-            <Label Content="Clientes con alguna Deuda Impaga" Margin="0,0,660,0" />
-            <Label Content="Clientes sin Deudas" Margin="0,0,660,0"/>
-            <Label Content="Clientes con alguna Deuda Pagada" Margin="0,0,660,0"/>
-            <Label Content="Gestion de Usuarios" Height="30" HorizontalAlignment="Center" Margin="43,0,594,0" Width="131"/>
-            <Label Content="Usuarios Registrados" Height="30" Margin="0,0,660,0"/>
-            <Label Content="Usuarios Administradores" Height="30" Margin="0,0,660,0"/>
-            <Label Content="Usuarios Vendedores" Height="30" Margin="0,0,660,0"/>
-            <Label Content="Gestión de Orden de pedido" Height="30" HorizontalAlignment="Center" Margin="43,0,541,0" Width="184"/>
-            <Label Content="Ordenes de pedidos registradas" Height="30" Margin="0,0,660,0"/>
+            <Label Content="Gestión de Clientes" Height="30" HorizontalAlignment="Center" Margin="23,-40,594,0"/>
+            <Label Content="Clientes Registrados" Margin="20,0,660,0"/>
+            <Label Content="Clientes con alguna Deuda Impaga" Margin="20,0,660,0" />
+            <Label Content="Clientes sin Deudas" Margin="20,0,660,0"/>
+            <Label Content="Clientes con alguna Deuda Pagada" Margin="20,0,660,0"/>
+            <Label Content="Gestion de Usuarios" Height="30" HorizontalAlignment="Center" Margin="23,0,594,0" Width="131"/>
+            <Label Content="Usuarios Registrados" Height="30" Margin="20,0,660,0"/>
+            <Label Content="Usuarios Administradores" Height="30" Margin="20,0,660,0"/>
+            <Label Content="Usuarios Vendedores" Height="30" Margin="20,0,660,0"/>
+            <Label Content="Gestión de Orden de pedido" Height="30" HorizontalAlignment="Center" Margin="23,0,541,0" Width="184"/>
+            <Label Content="Ordenes de pedidos registradas" Height="30" Margin="20,0,660,0"/>
             <Label x:Name="lbClientesR" Content="0" Height="30" Margin="236,-540,623,0"/>
             <Label x:Name="lbClientesD" Content="0" Height="30" Margin="236,-485,623,0"/>
             <Label x:Name="lbClientesSD" Content="0" Height="30" Margin="236,-437,623,0"/>
@@ -138,6 +138,17 @@
             <iconPacks:PackIconModern
                          Width="22" Height="22"
                          Kind="Return"/>
+        </Button>
+        <Button x:Name="btnPdf"  
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                HorizontalAlignment="Left"
+                Margin="258,557,0,0"
+                VerticalAlignment="Top" 
+                Width="40" Height="40" 
+                ToolTip="imprimir" Click="btnPdf_Click">
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="Printer"/>
         </Button>
     </Grid>
 </mah:MetroWindow>
