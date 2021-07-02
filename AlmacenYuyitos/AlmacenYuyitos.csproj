@@ -179,6 +179,9 @@
     <Compile Include="VerInformacionDelivery.xaml.cs">
       <DependentUpon>VerInformacionDelivery.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VerOrden.xaml.cs">
+      <DependentUpon>VerOrden.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VerPagos.xaml.cs">
       <DependentUpon>VerPagos.xaml</DependentUpon>
     </Compile>
@@ -317,6 +320,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="VerInformacionDelivery.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VerOrden.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

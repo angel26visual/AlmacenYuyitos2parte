@@ -101,14 +101,7 @@
             <iconPacks:PackIconModern
                          Width="22" Height="22"
                          Kind="Eye"/>
-
         </Button>
-
-
-
-
-
         <Image Source="/resources/logo.png" Width="120" Height="120" Margin="331,-11,342.6,311" />
-
     </Grid>
 </mah:MetroWindow>

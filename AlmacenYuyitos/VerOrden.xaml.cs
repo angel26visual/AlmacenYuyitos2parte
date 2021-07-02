@@ -18,34 +18,35 @@ using System.Windows.Shapes;
 using Oracle.ManagedDataAccess.Types;
 using BibliotecaLosYuyitos;
 
-
-
 namespace AlmacenYuyitos
 {
     /// <summary>
-    /// Lógica de interacción para GenerarOrdenDePedidos.xaml
+    /// Lógica de interacción para VerOrden.xaml
     /// </summary>
-    public partial class GenerarOrdenDePedidos 
+    public partial class VerOrden
     {
         OracleConnection con = null;
         string nomUsuario = string.Empty;
         int cargo = 0;
         string nombre = string.Empty;
         string apellido = string.Empty;
-        DateTime fecha = DateTime.Today;
         List<Detalle_Orden> listOrden = new List<Detalle_Orden>();
         int montoTotal = 0;
-
-        public GenerarOrdenDePedidos(string usuario)
+        public int ID_orden = 0;
+        public VerOrden(string usuario)
         {
             this.setConnection();
             InitializeComponent();
-            ActualizarDataGrid();
             nomUsuario = usuario;
             DatosUsuarios();
             CargaCboProveedor();
-            resetAll();
-            
+            txtMontoTotal.Text = 0.ToString();
+            txtDescripcion.Text = "";
+            cboProveedor.SelectedValue = 0;
+            txtCantidad.Text = 0.ToString();
+            txtValor.Text = 0.ToString();
+            txtCodigoBarra.Text = 0.ToString();
+            txtNombreProducto.Text = "";
         }
 
         private async void DatosUsuarios()
@@ -90,8 +91,8 @@ namespace AlmacenYuyitos
 
         private void btnAtras_Click(object sender, RoutedEventArgs e)
         {
-            MenuOrdenDePedidos mop = new MenuOrdenDePedidos(nomUsuario);
-            mop.Show();
+            VisualizarOrdenDePedido ordenDePedido = new VisualizarOrdenDePedido(nomUsuario);
+            ordenDePedido.Show();
             this.Close();
         }
 
@@ -124,7 +125,7 @@ namespace AlmacenYuyitos
             }
         }
 
-      
+
 
         private async void txtIdOrdenPedidos_KeyDown(object sender, KeyEventArgs e)
         {
@@ -140,7 +141,7 @@ namespace AlmacenYuyitos
             }
         }
 
-      
+
 
         private async void txtMontoTotal_KeyDown(object sender, KeyEventArgs e)
         {
@@ -153,179 +154,6 @@ namespace AlmacenYuyitos
                 e.Handled = true;
 
                 await this.ShowMessageAsync("Error", "El Monto Total debe contener sólo números");
-            }
-        }
-
-        private void btnLimpiarCampos_Click(object sender, RoutedEventArgs e)
-        {
-            this.resetAll();
-        }
-
-        private async void btnGuardarOrdenPedido_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                OracleCommand cmd = new OracleCommand("sp_insertar_orden", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                bool registrado = existeOrden(int.Parse(txtIdOrdenPedidos.Text));
-                if (registrado)
-                {
-                    await this.ShowMessageAsync("Error", "Orden ya se encuentra registrada");
-                }
-                else
-                {
-                    if (listOrden.Count() > 0)
-                    {
-                        cmd.Parameters.Add("id", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtIdOrdenPedidos.Text);
-
-                        if (dpFechaOrdenPedido.SelectedDate != null)
-                        { cmd.Parameters.Add("fecha", OracleDbType.Date).Value = dpFechaOrdenPedido.SelectedDate; }
-
-                        else
-                        {
-                            await this.ShowMessageAsync("Error", "la fecha de orden no puede estar nula");
-                            return;
-                        }
-                        cmd.Parameters.Add("monto", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtMontoTotal.Text);
-                        cmd.Parameters.Add("proveedor", OracleDbType.Varchar2, 100).Value = cboProveedor.Text;
-
-                        if (txtDescripcion.Text.Replace(" ", string.Empty).Length >= 3)
-                        {
-                            cmd.Parameters.Add("descripcion", OracleDbType.Varchar2, 100).Value = txtDescripcion.Text;
-
-                        }
-                        else
-                        {
-                            await this.ShowMessageAsync("Error", "La descripción de la Orden debe tener mas de 3 caracteres!");
-                            btnGuardarOrdenPedido.IsEnabled = true;
-                            return;
-
-                        }
-                        int n = cmd.ExecuteNonQuery();
-                        if (n < 0)
-                        {
-                            foreach (var detalleO in listOrden)
-                            {
-                                GuardarDetalle(detalleO.Cantidad, detalleO.Id_orden, detalleO.Nombre_producto, detalleO.Codigo_barra, detalleO.Valor);
-                            }
-                            await this.ShowMessageAsync("Agregada", "Orden de Pedido se agregó correctamente");
-                            resetAll();
-                        }
-                        else
-                        {
-                            await this.ShowMessageAsync("Agregada", "Orden de Pedido no se agregó correctamente");
-                        }
-                    }
-                    else
-                    {
-                        await this.ShowMessageAsync("ORDEN DE PEDIDO", "No hay productos agregado a la lista");
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
-            }
-        }
-
-        private bool existeOrden(int orden)
-        {
-            bool respuesta = false;
-            OracleCommand cmd = con.CreateCommand();
-            cmd.CommandText = "select * from orden_ped where ID_ORDEN =:orden";
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.Add("id", OracleDbType.Int32, 20).Value = orden;
-            OracleDataReader reader = cmd.ExecuteReader();
-            if (reader.Read())
-            {
-                respuesta = true;
-            }
-            return respuesta;
-        }
-
-        private void ActualizarDataGrid()
-        {
-            try
-            {
-                OracleCommand cmd = con.CreateCommand();
-                cmd.CommandText = "SELECT ID_ORDEN , FECH_ORDEN , MONTO_ORDEN , PROVEEDOR_RUT_PROVEE , DESCRIP_ORDEN FROM ORDEN_PED ORDER BY ID_ORDEN ASC";
-                cmd.CommandType = CommandType.Text;
-                OracleDataReader dr = cmd.ExecuteReader();
-                DataTable dt = new DataTable();
-                dt.Load(dr);
-                //dgOrdenPedido.ItemsSource = dt.DefaultView;
-                dr.Close();
-
-            }
-            catch (Exception e)
-            { }
-
-        }
-
-        private void ActualizarDataGridProveedor()
-        {
-            try
-            {
-                OracleCommand cmd = con.CreateCommand();
-                cmd.CommandText = "SELECT RUT_PROVEE , NOMBRE_PROVEE , NOM_SERVIDOR , TELEFONO_SERVIDOR FROM PROVEEDOR ORDER BY NOMBRE_PROVEE ASC";
-                cmd.CommandType = CommandType.Text;
-                OracleDataReader dr = cmd.ExecuteReader();
-                DataTable dt = new DataTable();
-                dt.Load(dr);
-                dgProveedor.ItemsSource = dt.DefaultView;
-                dr.Close();
-
-            }
-            catch (Exception e)
-            { }
-
-        }
-
-        private void dgOrdenPedido_Loaded(object sender, RoutedEventArgs e)
-        {
-            this.ActualizarDataGrid();
-        }
-
-        private void resetAll()
-        {
-            GenerarIdOrden();
-            txtMontoTotal.Text = 0.ToString();
-            txtDescripcion.Text = "";
-            cboProveedor.SelectedValue = 0;
-            dpFechaOrdenPedido.Text = Convert.ToString(DateTime.Today);
-            txtCantidad.Text = 0.ToString();
-            txtValor.Text = 0.ToString();
-            txtCodigoBarra.Text = 0.ToString();
-            txtNombreProducto.Text = "";
-            for (int i = listOrden.Count -1; i >= 0; i--)
-            {
-                listOrden.RemoveAt(i);
-            }
-            dgDetalleOrden.ItemsSource = null;
-            dgDetalleOrden.ItemsSource = listOrden;
-
-        }
-
-        private void dgOrdenPedido_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            DataGrid dg = sender as DataGrid;
-            DataRowView dr = dg.SelectedItem as DataRowView;
-            if (dr != null)
-            {
-                txtIdOrdenPedidos.Text = dr["ID_ORDEN"].ToString();
-                dpFechaOrdenPedido.Text = dr["FECH_ORDEN"].ToString();
-                txtMontoTotal.Text = dr["MONTO_ORDEN"].ToString();
-                cboProveedor.Text = dr["PROVEEDOR_RUT_PROVEE"].ToString();
-                txtDescripcion.Text = dr["DESCRIP_ORDEN"].ToString();
-
-
-                btnGuardarOrdenPedido.IsEnabled = false;
-                //btnModificarOrden.IsEnabled = true;
-                //btnEliminarOrden.IsEnabled = true;
-                txtIdOrdenPedidos.IsEnabled = false;
-                dpFechaOrdenPedido.IsEnabled = false;
-
             }
         }
 
@@ -349,50 +177,6 @@ namespace AlmacenYuyitos
             }
             catch (Exception)
             {
-                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
-            }
-        }
-
-        private void dgProveedor_Loaded(object sender, RoutedEventArgs e)
-        {
-            this.ActualizarDataGridProveedor();
-        }
-
-        private void dgProveedor_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-            DataGrid dg = sender as DataGrid;
-            DataRowView dr = dg.SelectedItem as DataRowView;
-            if (dr != null)
-            {
-               
-                cboProveedor.Text = dr["RUT_PROVEE"].ToString();
-
-            }
-        }
-
-        private async void GenerarIdOrden()
-        {
-            try
-            {
-                OracleCommand cmd = con.CreateCommand();
-                cmd.CommandText = "SELECT NVL(MAX(ID_ORDEN), 8000) AS ORDEN FROM ORDEN_PED";
-                cmd.CommandType = CommandType.Text;
-                OracleDataReader reader = cmd.ExecuteReader();
-                if (reader.Read())
-                {
-                    int nro_orden = int.Parse(reader["ORDEN"].ToString());
-                    nro_orden = nro_orden + 1;
-                    txtIdOrdenPedidos.Text = nro_orden.ToString();
-                }
-                else
-                {
-                    await this.ShowMessageAsync("ORDEN DE PEDIDO", "No se ha podido obtener el número de la orden");
-                }
-            }
-            catch (Exception)
-            {
-
                 await this.ShowMessageAsync("Error", "Ha ocurrido un error");
             }
         }
@@ -506,33 +290,6 @@ namespace AlmacenYuyitos
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            VisualizarOrdenDePedido vp = new VisualizarOrdenDePedido(nomUsuario);
-            vp.Show();
-            this.Close();
-        }
-
-        private async void GuardarDetalle(int cantidad, int orden, string nombre, int cod_barra, int valor)
-        {
-            try
-            {
-                OracleCommand cmd2 = new OracleCommand("sp_insertar_detalle_orden", con);
-                cmd2.CommandType = CommandType.StoredProcedure;
-                cmd2.Parameters.Add("cantidad", OracleDbType.Int32, 20).Value = cantidad;
-                cmd2.Parameters.Add("orden", OracleDbType.Int32, 20).Value = orden;
-                cmd2.Parameters.Add("nombre", OracleDbType.Varchar2, 100).Value = nombre;
-                cmd2.Parameters.Add("cod_barra", OracleDbType.Int32, 20).Value = cod_barra;
-                cmd2.Parameters.Add("valor", OracleDbType.Int32, 20).Value = valor;
-                cmd2.ExecuteNonQuery();
-            }
-            catch (Exception)
-            {
-                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
-            }
-
-        }
-
         private async void btnEliminarP_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -564,7 +321,93 @@ namespace AlmacenYuyitos
 
                 await this.ShowMessageAsync("Error", "Ha ocurrido un error");
             }
+            
+        }
 
-        }    
+        private async void btnModificarOrdenPedido_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                OracleCommand cmd = new OracleCommand("sp_actualizar_orden", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Add("id", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtIdOrdenPedidos.Text);
+
+                if (dpFechaOrdenPedido.SelectedDate != null)
+                { cmd.Parameters.Add("fecha", OracleDbType.Date).Value = dpFechaOrdenPedido.SelectedDate; }
+
+                else
+                {
+                    await this.ShowMessageAsync("Error", "la fecha de orden no puede estar nula");
+                    return;
+                }
+                cmd.Parameters.Add("monto", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtMontoTotal.Text);
+                cmd.Parameters.Add("rut_proveedor", OracleDbType.Varchar2, 100).Value = cboProveedor.Text;
+
+                if (txtDescripcion.Text.Replace(" ", string.Empty).Length >= 3)
+                {
+                    cmd.Parameters.Add("descripcion", OracleDbType.Varchar2, 100).Value = txtDescripcion.Text;
+
+                }
+                else
+                {
+                    await this.ShowMessageAsync("Error", "La descripción de la Orden debe tener mas de 3 caracteres!");
+                    return;
+
+                }
+                int n = cmd.ExecuteNonQuery();
+                if (n < 0)
+                {
+                    await this.ShowMessageAsync("actualizada", "Orden Actualizada Exitosamente");
+
+                }
+                else
+                {
+                    await this.ShowMessageAsync("Error", "no se pudo actualizar");
+                }
+
+            }
+            catch (Exception)
+            {
+
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
+        }
+
+        private async void btnEliminarOrdenPedido_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                OracleCommand cmd = new OracleCommand("sp_eliminar_orden", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("id_orden", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtIdOrdenPedidos.Text);
+
+                MessageDialogResult respuesta = await this.ShowMessageAsync("ELIMINAR", "¿Desea Eliminar Información de la orden Seleccionada?", MessageDialogStyle.AffirmativeAndNegative);
+
+                if (respuesta == MessageDialogResult.Affirmative)
+                {
+                    int n = cmd.ExecuteNonQuery();
+
+                    if (n < 0)
+                    {
+                        await this.ShowMessageAsync("ORDEN DE PEDIDO", "Orden de Pedido Eliminada correctamente");
+
+                    }
+
+                }
+
+                else
+                {
+                    await this.ShowMessageAsync("ORDEN DE PEDIDO", "Orden de Pedido NO Eliminada correctamente");
+                }
+
+
+
+            }
+            catch (Exception)
+            {
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
+        }
     }
 }

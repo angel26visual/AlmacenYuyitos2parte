@@ -159,7 +159,8 @@ namespace AlmacenYuyitos
                     vr.dpFechaRecepcion.Text = dataRow["FECH_RECEPCION"].ToString();
                     vr.txtIdOrdenPedidoR.Text = dataRow["ORDEN_PED_ID_ORDEN"].ToString();
                     OracleCommand cmd = con.CreateCommand();
-                    cmd.CommandText = "SELECT CONTROL_RECEP_ID_RECEPCION AS ID_RECEPCION , PRODUCTO_COD_BARRA_PRODUCT AS COD_BARRA, NOM_PRODUCT AS NOMBRE_PRODUCTO, CANTIDAD_PRODUCT AS CANTIDAD, VALOR FROM DET_RECEP";
+                    cmd.CommandText = "SELECT CONTROL_RECEP_ID_RECEPCION AS ID_RECEPCION , PRODUCTO_COD_BARRA_PRODUCT AS COD_BARRA, NOM_PRODUCT AS NOMBRE_PRODUCTO, CANTIDAD_PRODUCT AS CANTIDAD, VALOR FROM DET_RECEP WHERE CONTROL_RECEP_ID_RECEPCION = :recepcion";
+                    cmd.Parameters.Add("recepcion", OracleDbType.Int32, 20).Value = recepcion;
                     cmd.CommandType = CommandType.Text;
                     OracleDataReader dr = cmd.ExecuteReader();
                     DataTable dt = new DataTable();

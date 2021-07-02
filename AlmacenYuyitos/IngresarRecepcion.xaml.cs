@@ -299,37 +299,37 @@ namespace AlmacenYuyitos
 
         private async void btnGuardarRecepcion_Click(object sender, RoutedEventArgs e)
         {
-            //try
-            //{
+            try
+            {
                 if (verificarOrden == 1)
                 {
                     if(txtProveedor.Text == txtProveedorO.Text)
                     {
-                        OracleCommand cmd = new OracleCommand("sp_insertar_recepcion", con);
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add("id", OracleDbType.Int32, 20).Value = int.Parse(txtIdRecep.Text);
-                        cmd.Parameters.Add("valor", OracleDbType.Int32, 20).Value = int.Parse(txtValorAPagar.Text);
-                        cmd.Parameters.Add("fecha", OracleDbType.Date).Value = dpFechaRecepcion.SelectedDate;
-                        cmd.Parameters.Add("orden", OracleDbType.Int32, 20).Value = idOrden;
-                        int n = cmd.ExecuteNonQuery();
-                        if (n < 0)
+                        if (listRecepcion.Count() > 0)
                         {
-                            if (listRecepcion.Count() > 0)
+                            OracleCommand cmd = new OracleCommand("sp_insertar_recepcion", con);
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.Add("id", OracleDbType.Int32, 20).Value = int.Parse(txtIdRecep.Text);
+                            cmd.Parameters.Add("valor", OracleDbType.Int32, 20).Value = int.Parse(txtValorAPagar.Text);
+                            cmd.Parameters.Add("fecha", OracleDbType.Date).Value = dpFechaRecepcion.SelectedDate;
+                            cmd.Parameters.Add("orden", OracleDbType.Int32, 20).Value = idOrden;
+                            int n = cmd.ExecuteNonQuery();
+                            if (n < 0)
                             {
                                 foreach (var detalle in listRecepcion)
                                 {
-                                GuardarDetalle(detalle.Cantidad, detalle.Id_recepcion, detalle.Nombre_producto, detalle.Codigo_barra, detalle.Valor);
+                                    GuardarDetalle(detalle.Cantidad, detalle.Id_recepcion, detalle.Nombre_producto, detalle.Codigo_barra, detalle.Valor);
                                 }
                                 await this.ShowMessageAsync("Recepción", "Recepción realizada");
                             }
                             else
                             {
-                                await this.ShowMessageAsync("Recepción", "No hay productos agregado a la lista");
+                                await this.ShowMessageAsync("Recepción", "Recepción no realizada");
                             }
                         }
                         else
                         {
-                            await this.ShowMessageAsync("Recepción", "Recepción no realizada");
+                            await this.ShowMessageAsync("Recepción", "No hay productos agregado a la lista");
                         }
                     }
                     else
@@ -342,12 +342,12 @@ namespace AlmacenYuyitos
                 {
                     await this.ShowMessageAsync("ORDEN DE PEDIDO", "Orden de pedido no esta verificada");
                 }
-            //}
-            //catch (Exception)
-            //{
+            }
+            catch (Exception)
+            {
 
-              //  await this.ShowMessageAsync("Error", "Ha ocurrido un error");
-            //}
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
         }
 
         private async void GuardarDetalle(int cantidad, int recepcion, string nombre, int cod_barra, int valor)

@@ -144,5 +144,30 @@ namespace AlmacenYuyitos
             mop.Show();
             this.Close();
         }
+
+        private async void btnVisualizarOrden_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                VerOrden orden = new VerOrden(nomUsuario);
+                DataRowView dataRow = dgOrdenes.SelectedItem as DataRowView;
+                if (dataRow != null)
+                {
+                    orden.ID_orden = int.Parse(dataRow["ID_ORDEN"].ToString());
+                    orden.txtIdOrdenPedidos.Text = dataRow["ID_ORDEN"].ToString();
+                    orden.dpFechaOrdenPedido.Text = dataRow["FECH_ORDEN"].ToString();
+                    orden.txtMontoTotal.Text = dataRow["MONTO_ORDEN"].ToString();
+                    orden.cboProveedor.Text = dataRow["PROVEEDOR_RUT_PROVEE"].ToString();
+                    orden.txtDescripcion.Text = dataRow["DESCRIP_ORDEN"].ToString();
+                    orden.Show();
+                    this.Close();
+                }
+            }
+            catch (Exception)
+            {
+
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
+        }
     }
 }

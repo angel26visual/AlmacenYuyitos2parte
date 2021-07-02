@@ -8,7 +8,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
-        Title="VisualizarOrdenDePedido" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="VisualizarOrdenDePedido" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="resources/logo.png">
 
     <!--Inicio menu izquierda inicio de sesion-->
     <mah:MetroWindow.Flyouts>
@@ -65,7 +65,7 @@
     </mah:MetroWindow.RightWindowCommands>
     <Grid Background="LightBlue">
         <Image Source="/resources/logo.png" Width="100" Height="100" Margin="349.6,-6,349.6,326" />
-        <DataGrid x:Name="dgOrdenes" HorizontalAlignment="Left" Height="256" Margin="145,108,0,0" VerticalAlignment="Top" Width="526" Loaded="dgOrdenes_Loaded"/>
+        <DataGrid x:Name="dgOrdenes" HorizontalAlignment="Left" Height="256" Margin="145,108,0,0" VerticalAlignment="Top" Width="526" Loaded="dgOrdenes_Loaded" IsReadOnly="True"/>
         <Button x:Name="btnAtras"   
                 Click="btnAtras_Click"
                 Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
@@ -77,8 +77,17 @@
             <iconPacks:PackIconModern
                          Width="22" Height="22"
                          Kind="Return"/>
-
-
+        </Button>
+        <Button x:Name="btnVisualizarOrden"
+                 Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                HorizontalAlignment="Left"
+                Margin="714,134,0,0"
+                VerticalAlignment="Top" 
+                Width="40" Height="40" 
+                ToolTip="Visualizar Orden de Pedido" Click="btnVisualizarOrden_Click">
+            <iconPacks:PackIconModern
+                         Width="22" Height="22"
+                         Kind="Eye"/>
         </Button>
     </Grid>
 </mah:MetroWindow>
