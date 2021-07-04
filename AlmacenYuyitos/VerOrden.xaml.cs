@@ -32,21 +32,21 @@ namespace AlmacenYuyitos
         string apellido = string.Empty;
         List<Detalle_Orden> listOrden = new List<Detalle_Orden>();
         int montoTotal = 0;
-        public int ID_orden = 0;
-        public VerOrden(string usuario)
+        public VerOrden(string usuario, int orden, int total)
         {
             this.setConnection();
             InitializeComponent();
             nomUsuario = usuario;
             DatosUsuarios();
             CargaCboProveedor();
-            txtMontoTotal.Text = 0.ToString();
             txtDescripcion.Text = "";
             cboProveedor.SelectedValue = 0;
             txtCantidad.Text = 0.ToString();
             txtValor.Text = 0.ToString();
             txtCodigoBarra.Text = 0.ToString();
             txtNombreProducto.Text = "";
+            montoTotal = total;
+            CargarLista(orden);
         }
 
         private async void DatosUsuarios()
@@ -190,6 +190,8 @@ namespace AlmacenYuyitos
                 int valor = 0;
                 int cantidad = 0;
                 int cantidadVieja = 0;
+                int valorAntiguo = 0;
+                int totalAntiguo = 0;
                 int cantidadNueva = 0;
                 int cantidadTotal = 0;
                 if (int.Parse(txtCantidad.Text) > 0)
@@ -201,11 +203,14 @@ namespace AlmacenYuyitos
                             cantidad = int.Parse(txtCantidad.Text);
                             valor = int.Parse(txtValor.Text);
                             cantidadVieja = detalle_orden.Cantidad;
+                            valorAntiguo = detalle_orden.Valor;
+                            totalAntiguo = cantidadVieja * valorAntiguo;
+                            montoTotal = montoTotal - totalAntiguo;
                             cantidadNueva = cantidad;
                             cantidadTotal = cantidadVieja + cantidadNueva;
                             detalle_orden.Cantidad = cantidadTotal;
                             total = total + (valor * cantidadTotal);
-                            detalle_orden.Valor = total;
+                            detalle_orden.Valor = valor;
                             montoTotal = montoTotal + total;
                             dgDetalleOrden.ItemsSource = null;
                             dgDetalleOrden.ItemsSource = listOrden;
@@ -299,16 +304,28 @@ namespace AlmacenYuyitos
                 {
                     if (detalleO.Codigo_barra == int.Parse(txtCodigoBarra.Text))
                     {
-                        listaP = 1;
-                        listOrden.Remove(detalleO);
-                        dgDetalleOrden.ItemsSource = null;
-                        dgDetalleOrden.ItemsSource = listOrden;
-                        txtCodigoBarra.Text = 0.ToString();
-                        txtNombreProducto.Text = string.Empty;
-                        txtCantidad.Text = 0.ToString();
-                        txtValor.Text = 0.ToString();
-                        await this.ShowMessageAsync("PRODUCTO", "Producto eliminado de la lista");
-                        break;
+                        MessageDialogResult respuesta = await this.ShowMessageAsync("ELIMINAR", "¿Desea Eliminar el producto de la lista?", MessageDialogStyle.AffirmativeAndNegative);
+
+                        if (respuesta == MessageDialogResult.Affirmative)
+                        {
+                            listaP = 1;
+                            montoTotal = montoTotal - (detalleO.Valor * detalleO.Cantidad);
+                            listOrden.Remove(detalleO);
+                            dgDetalleOrden.ItemsSource = null;
+                            dgDetalleOrden.ItemsSource = listOrden;
+                            txtCodigoBarra.Text = 0.ToString();
+                            txtNombreProducto.Text = string.Empty;
+                            txtCantidad.Text = 0.ToString();
+                            txtValor.Text = 0.ToString();
+                            txtMontoTotal.Text = montoTotal.ToString();
+                            await this.ShowMessageAsync("PRODUCTO", "Producto eliminado de la lista");
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                            
                     }
                 }
                 if (listaP == 0)
@@ -358,6 +375,11 @@ namespace AlmacenYuyitos
                 int n = cmd.ExecuteNonQuery();
                 if (n < 0)
                 {
+                    EliminarDetalle();
+                    foreach (var detalleO in listOrden)
+                    {
+                        GuardarDetalle(detalleO.Cantidad, detalleO.Id_orden, detalleO.Nombre_producto, detalleO.Codigo_barra, detalleO.Valor);
+                    }
                     await this.ShowMessageAsync("actualizada", "Orden Actualizada Exitosamente");
 
                 }
@@ -391,18 +413,78 @@ namespace AlmacenYuyitos
                     if (n < 0)
                     {
                         await this.ShowMessageAsync("ORDEN DE PEDIDO", "Orden de Pedido Eliminada correctamente");
+                        VisualizarOrdenDePedido ordenDePedido = new VisualizarOrdenDePedido(nomUsuario);
+                        ordenDePedido.Show();
+                        this.Close();
 
+                    }
+                    else
+                    {
+                        await this.ShowMessageAsync("ORDEN DE PEDIDO", "Orden de Pedido NO Eliminada");
                     }
 
                 }
+            }
+            catch (Exception)
+            {
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
+        }
 
-                else
+        private async void CargarLista(int orden)
+        {
+            try
+            {
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandText = "SELECT ORDEN_PED_ID_ORDEN, PRODUCTO_COD_BARRA_PRODUCT, NOM_PRODUCT, CANTI_PRODUCT, VALOR FROM DETALLE_ORDEN WHERE ORDEN_PED_ID_ORDEN = :orden";
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.Add("orden", OracleDbType.Int32, 20).Value = orden;
+                OracleDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
                 {
-                    await this.ShowMessageAsync("ORDEN DE PEDIDO", "Orden de Pedido NO Eliminada correctamente");
+                    Detalle_Orden detalle_orden = new Detalle_Orden(int.Parse(reader["ORDEN_PED_ID_ORDEN"].ToString()), int.Parse(reader["PRODUCTO_COD_BARRA_PRODUCT"].ToString()), reader["NOM_PRODUCT"].ToString(), int.Parse(reader["CANTI_PRODUCT"].ToString()), int.Parse(reader["VALOR"].ToString()));
+                    listOrden.Add(detalle_orden);
+                    dgDetalleOrden.ItemsSource = null;
+                    dgDetalleOrden.ItemsSource = listOrden;
+
                 }
+                
+            }
+            catch (Exception)
+            { 
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
+            
+        }
 
+        private async void GuardarDetalle(int cantidad, int orden, string nombre, int cod_barra, int valor)
+        {
+            try
+            {
+                OracleCommand cmd2 = new OracleCommand("sp_insertar_detalle_orden", con);
+                cmd2.CommandType = CommandType.StoredProcedure;
+                cmd2.Parameters.Add("cantidad", OracleDbType.Int32, 20).Value = cantidad;
+                cmd2.Parameters.Add("orden", OracleDbType.Int32, 20).Value = orden;
+                cmd2.Parameters.Add("nombre", OracleDbType.Varchar2, 100).Value = nombre;
+                cmd2.Parameters.Add("cod_barra", OracleDbType.Int32, 20).Value = cod_barra;
+                cmd2.Parameters.Add("valor", OracleDbType.Int32, 20).Value = valor;
+                cmd2.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
 
+        }
 
+        private async void EliminarDetalle()
+        {
+            try
+            {
+                OracleCommand cmd = new OracleCommand("sp_eliminar_detalleO", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("id_orden", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtIdOrdenPedidos.Text);
+                cmd.ExecuteNonQuery();
             }
             catch (Exception)
             {

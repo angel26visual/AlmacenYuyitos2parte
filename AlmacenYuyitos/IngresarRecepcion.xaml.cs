@@ -40,13 +40,7 @@ namespace AlmacenYuyitos
             InitializeComponent();
             nomUsuario = usuario;
             DatosUsuarios();
-            GenerarIdRecepcion();
-            txtValorAPagar.Text = 0.ToString();
-            txtCantidad.Text = 0.ToString();
-            txtCodigoBarra.Text = 0.ToString();
-            dpFechaRecepcion.SelectedDate = fecha;
-            txtIdOrdenPedidoR.Text = 0.ToString();
-            txtValor.Text = 0.ToString();
+            resetAll();
         }
 
         private async void DatosUsuarios()
@@ -155,23 +149,24 @@ namespace AlmacenYuyitos
         {
             try
             {
+                idOrden = int.Parse(txtIdOrdenPedidoR.Text);
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandText = "SELECT FECH_ORDEN, MONTO_ORDEN, PROVEEDOR_RUT_PROVEE AS PROVEEDOR, DESCRIP_ORDEN FROM ORDEN_PED WHERE ID_ORDEN = :id";
                 cmd.CommandType = CommandType.Text;
-                cmd.Parameters.Add("id", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtIdOrdenPedidoR.Text);
+                cmd.Parameters.Add("id", OracleDbType.Int32, 20).Value = idOrden;
                 OracleDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
                     verificarOrden = 1;
-                    idOrden = int.Parse(txtIdOrdenPedidoR.Text);
                     dpFechaOrden.Text = reader["FECH_ORDEN"].ToString();
                     txtMontoO.Text = reader["MONTO_ORDEN"].ToString();
                     txtProveedorO.Text = reader["PROVEEDOR"].ToString();
+                    txtProveedor.Text = reader["PROVEEDOR"].ToString();
                     txtDescripcion.Text = reader["DESCRIP_ORDEN"].ToString();
                     OracleCommand cmd2 = con.CreateCommand();
-                    cmd2.CommandText = "SELECT PRODUCTO_COD_BARRA_PRODUCT AS CODIGO_BARRA, NOM_PRODUCT AS NOMBRE, CANTI_PRODUCT AS CANTIDAD, VALOR FROM WHERE ORDEN_PED_ID_ORDEN = ID_ORDEN = :id";
+                    cmd2.CommandText = "SELECT PRODUCTO_COD_BARRA_PRODUCT AS CODIGO_BARRA, NOM_PRODUCT AS NOMBRE, CANTI_PRODUCT AS CANTIDAD, VALOR FROM DETALLE_ORDEN WHERE ORDEN_PED_ID_ORDEN = :id";
                     cmd2.CommandType = CommandType.Text;
-                    cmd2.Parameters.Add("id", OracleDbType.Int32, 20).Value = Convert.ToInt32(txtIdOrdenPedidoR.Text);
+                    cmd2.Parameters.Add("id", OracleDbType.Int32, 20).Value = idOrden;
                     OracleDataReader dr = cmd2.ExecuteReader();
                     if (dr.Read())
                     {
@@ -208,6 +203,8 @@ namespace AlmacenYuyitos
                 int valor = 0;
                 int cantidad = 0;
                 int cantidadVieja = 0;
+                int valorAntiguo = 0;
+                int totalAntiguo = 0;
                 int cantidadNueva = 0;
                 int cantidadTotal = 0;
                 if (int.Parse(txtCantidad.Text) > 0)
@@ -219,15 +216,22 @@ namespace AlmacenYuyitos
                             cantidad = int.Parse(txtCantidad.Text);
                             valor = int.Parse(txtValor.Text);
                             cantidadVieja = detalle_recep.Cantidad;
+                            valorAntiguo = detalle_recep.Valor;
+                            totalAntiguo = cantidadVieja * valorAntiguo;
+                            montoTotal = montoTotal - totalAntiguo;
                             cantidadNueva = cantidad;
                             cantidadTotal = cantidadVieja + cantidadNueva;
                             detalle_recep.Cantidad = cantidadTotal;
                             total = total + (valor * cantidadTotal);
-                            detalle_recep.Valor = total;
+                            detalle_recep.Valor = valor;
                             montoTotal = montoTotal + total;
                             dgDetalleR.ItemsSource = null;
                             dgDetalleR.ItemsSource = listRecepcion;
                             txtValorAPagar.Text = montoTotal.ToString();
+                            txtCodigoBarra.Text = 0.ToString();
+                            txtNombreProducto.Text = string.Empty;
+                            txtCantidad.Text = 0.ToString();
+                            txtValor.Text = 0.ToString();
                             productoEnlista = 1;
                         }
                     }
@@ -242,6 +246,10 @@ namespace AlmacenYuyitos
                         dgDetalleR.ItemsSource = null;
                         dgDetalleR.ItemsSource = listRecepcion;
                         txtValorAPagar.Text = montoTotal.ToString();
+                        txtCodigoBarra.Text = 0.ToString();
+                        txtNombreProducto.Text = string.Empty;
+                        txtCantidad.Text = 0.ToString();
+                        txtValor.Text = 0.ToString();
                     }
                 }
                 else
@@ -277,6 +285,10 @@ namespace AlmacenYuyitos
                             txtValorAPagar.Text = montoTotal.ToString();
                             dgDetalleR.ItemsSource = null;
                             dgDetalleR.ItemsSource = listRecepcion;
+                            txtCodigoBarra.Text = 0.ToString();
+                            txtNombreProducto.Text = string.Empty;
+                            txtCantidad.Text = 0.ToString();
+                            txtValor.Text = 0.ToString(); 
 
                         }
                     }
@@ -321,6 +333,7 @@ namespace AlmacenYuyitos
                                     GuardarDetalle(detalle.Cantidad, detalle.Id_recepcion, detalle.Nombre_producto, detalle.Codigo_barra, detalle.Valor);
                                 }
                                 await this.ShowMessageAsync("Recepción", "Recepción realizada");
+                                resetAll();
                             }
                             else
                             {
@@ -368,6 +381,82 @@ namespace AlmacenYuyitos
                 await this.ShowMessageAsync("Error", "Ha ocurrido un error");
             }
             
+        }
+
+        private async void btnEliminarP_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                int listaP = 0;
+                foreach (var detalleR in listRecepcion)
+                {
+                    if (detalleR.Codigo_barra == int.Parse(txtCodigoBarra.Text))
+                    {
+                        MessageDialogResult respuesta = await this.ShowMessageAsync("ELIMINAR", "¿Desea Eliminar el producto de la lista?", MessageDialogStyle.AffirmativeAndNegative);
+
+                        if (respuesta == MessageDialogResult.Affirmative)
+                        {
+                            listaP = 1;
+                            montoTotal = montoTotal - (detalleR.Valor * detalleR.Cantidad);
+                            listRecepcion.Remove(detalleR);
+                            dgDetalleR.ItemsSource = null;
+                            dgDetalleR.ItemsSource = listRecepcion;
+                            txtCodigoBarra.Text = 0.ToString();
+                            txtNombreProducto.Text = string.Empty;
+                            txtCantidad.Text = 0.ToString();
+                            txtValor.Text = 0.ToString();
+                            txtValorAPagar.Text = montoTotal.ToString();
+                            await this.ShowMessageAsync("PRODUCTO", "Producto eliminado de la lista");
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+
+                    }
+                }
+                if (listaP == 0)
+                {
+                    await this.ShowMessageAsync("PRODUCTO", "Producto no esta agregado");
+                }
+            }
+            catch (Exception)
+            {
+
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
+        }
+
+        private void resetAll()
+        {
+            GenerarIdRecepcion();
+            txtValorAPagar.Text = 0.ToString();
+            txtCantidad.Text = 0.ToString();
+            txtCodigoBarra.Text = 0.ToString();
+            txtNombreProducto.Text = string.Empty;
+            dpFechaRecepcion.SelectedDate = fecha;
+            txtIdOrdenPedidoR.Text = 0.ToString();
+            txtValor.Text = 0.ToString();
+            txtProveedor.Text = string.Empty;
+            for (int i = listRecepcion.Count - 1; i >= 0; i--)
+            {
+                listRecepcion.RemoveAt(i);
+            }
+            dgDetalleR.ItemsSource = null;
+            dgDetalleR.ItemsSource = listRecepcion;
+            txtMontoO.Text = 0.ToString();
+            txtProveedorO.Text = string.Empty;
+            dpFechaOrden.Text = string.Empty;
+            txtDescripcion.Text = string.Empty;
+            dgOrden.ItemsSource = null;
+            montoTotal = 0;
+
+        }
+
+        private void btnLimpiarCampos_Click(object sender, RoutedEventArgs e)
+        {
+            resetAll();
         }
     }
 }

@@ -198,7 +198,7 @@
             Margin="215,240,0,0"
             VerticalAlignment="Top" 
             Width="40" Height="40" 
-            ToolTip="Eliminar Producto">
+            ToolTip="Eliminar Producto" Click="btnEliminarP_Click">
             <iconPacks:PackIconModern
                 Width="22" Height="22"
                 Kind="ListDelete"/>
@@ -226,16 +226,17 @@
                          Kind="Add"/>
 
         </Button>
-        <Button x:Name="btnTerminarRecepcion" 
-                 Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+        <Button x:Name="btnLimpiarCampos" 
+             Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
                 HorizontalAlignment="Left"
-                Margin="129,530,0,0"
+                Margin="100,540,0,0"
                 VerticalAlignment="Top" 
-                Width="40" Height="40" 
-                ToolTip="Terminar Recepción" Visibility="Hidden">
+                ToolTip="Limpiar Campos"
+                Width="40" Height="40" Click="btnLimpiarCampos_Click">
             <iconPacks:PackIconModern
                          Width="22" Height="22"
-                         Kind="CloudUpload"/>
+                         Kind="Refresh"/>
+
         </Button>
         <DataGrid x:Name="dgDetalleR" HorizontalAlignment="Left" Height="258" Margin="276,212,0,0" VerticalAlignment="Top" Width="339" IsReadOnly="True"/>
         <TextBox x:Name="txtProveedorO" HorizontalAlignment="Left" Margin="641,150,0,0" VerticalAlignment="Top" Width="166" Height="40"
@@ -243,7 +244,7 @@
                  mah:TextBoxHelper.UseFloatingWatermark="True"
                  mah:TextBoxHelper.ClearTextButton="True"
                  IsEnabled="False"/>
-        <DatePicker x:Name="dpFechaOrden" HorizontalAlignment="Left" Margin="921,150,0,0" VerticalAlignment="Top" Width="166" Height="40"
+        <DatePicker x:Name="dpFechaOrden" HorizontalAlignment="Left" Margin="876,150,0,0" VerticalAlignment="Top" Width="211" Height="40"
                     IsEnabled="False"
                     mah:TextBoxHelper.Watermark="FECHA ORDEN DE PEDIDO"
                      mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -272,6 +273,6 @@
                  mah:TextBoxHelper.UseFloatingWatermark="True"
                  IsEnabled="False"
                  />
-        
+
     </Grid>
 </mah:MetroWindow>

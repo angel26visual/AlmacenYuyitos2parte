@@ -148,12 +148,11 @@ namespace AlmacenYuyitos
         private async void btnVisualizarOrden_Click(object sender, RoutedEventArgs e)
         {
             try
-            {
-                VerOrden orden = new VerOrden(nomUsuario);
+            { 
                 DataRowView dataRow = dgOrdenes.SelectedItem as DataRowView;
                 if (dataRow != null)
                 {
-                    orden.ID_orden = int.Parse(dataRow["ID_ORDEN"].ToString());
+                    VerOrden orden = new VerOrden(nomUsuario, Convert.ToInt32(dataRow["ID_ORDEN"].ToString()), Convert.ToInt32(dataRow["MONTO_ORDEN"].ToString()));
                     orden.txtIdOrdenPedidos.Text = dataRow["ID_ORDEN"].ToString();
                     orden.dpFechaOrdenPedido.Text = dataRow["FECH_ORDEN"].ToString();
                     orden.txtMontoTotal.Text = dataRow["MONTO_ORDEN"].ToString();

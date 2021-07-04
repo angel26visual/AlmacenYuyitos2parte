@@ -304,6 +304,7 @@ namespace AlmacenYuyitos
             }
             dgDetalleOrden.ItemsSource = null;
             dgDetalleOrden.ItemsSource = listOrden;
+            montoTotal = 0;
 
         }
 
@@ -406,6 +407,8 @@ namespace AlmacenYuyitos
                 int valor = 0;
                 int cantidad = 0;
                 int cantidadVieja = 0;
+                int valorAntiguo = 0;
+                int totalAntiguo = 0;
                 int cantidadNueva = 0;
                 int cantidadTotal = 0;
                 if (int.Parse(txtCantidad.Text) > 0)
@@ -417,11 +420,14 @@ namespace AlmacenYuyitos
                             cantidad = int.Parse(txtCantidad.Text);
                             valor = int.Parse(txtValor.Text);
                             cantidadVieja = detalle_orden.Cantidad;
+                            valorAntiguo = detalle_orden.Valor;
+                            totalAntiguo = cantidadVieja * valorAntiguo;
+                            montoTotal = montoTotal - totalAntiguo;
                             cantidadNueva = cantidad;
                             cantidadTotal = cantidadVieja + cantidadNueva;
                             detalle_orden.Cantidad = cantidadTotal;
                             total = total + (valor * cantidadTotal);
-                            detalle_orden.Valor = total;
+                            detalle_orden.Valor = valor;
                             montoTotal = montoTotal + total;
                             dgDetalleOrden.ItemsSource = null;
                             dgDetalleOrden.ItemsSource = listOrden;
@@ -543,6 +549,7 @@ namespace AlmacenYuyitos
                     if (detalleO.Codigo_barra == int.Parse(txtCodigoBarra.Text))
                     {
                         listaP = 1;
+                        montoTotal = montoTotal - (detalleO.Valor * detalleO.Cantidad);
                         listOrden.Remove(detalleO);
                         dgDetalleOrden.ItemsSource = null;
                         dgDetalleOrden.ItemsSource = listOrden;
@@ -550,6 +557,7 @@ namespace AlmacenYuyitos
                         txtNombreProducto.Text = string.Empty;
                         txtCantidad.Text = 0.ToString();
                         txtValor.Text = 0.ToString();
+                        txtMontoTotal.Text = montoTotal.ToString();
                         await this.ShowMessageAsync("PRODUCTO", "Producto eliminado de la lista");
                         break;
                     }
