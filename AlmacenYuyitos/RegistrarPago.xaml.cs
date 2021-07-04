@@ -124,7 +124,15 @@ namespace AlmacenYuyitos
                     cmd.Parameters.Add("venta", OracleDbType.Int32, 30).Value = int.Parse(txtTotalVenta.Text);
                     cmd.Parameters.Add("descuento", OracleDbType.Int32, 30).Value = int.Parse(txtTotalDescuento.Text);
                     cmd.Parameters.Add("monto", OracleDbType.Int32, 30).Value = monto_total;
-                    cmd.Parameters.Add("pago", OracleDbType.Int32, 20).Value = int.Parse(txtPago.Text);
+                    int montopago = int.Parse(txtPago.Text);
+                    if (montopago < monto_total)
+                    {
+                        await this.ShowMessageAsync("Error", "Monto de pago no puede ser menor al monto total");
+                        return;
+                    }
+                    else {
+                        cmd.Parameters.Add("pago", OracleDbType.Int32, 20).Value = int.Parse(txtPago.Text);
+                    }
                     cmd.Parameters.Add("rut", OracleDbType.Varchar2, 20).Value = rutTrab;
                     cmd.Parameters.Add("medio_pago", OracleDbType.Int32, 20).Value = cboMedioPago.SelectedValue;
                     int n = cmd.ExecuteNonQuery();
@@ -149,6 +157,7 @@ namespace AlmacenYuyitos
                             this.Close();
                             rp.Show();
                         }
+                        
                     }
                     else
                     {
