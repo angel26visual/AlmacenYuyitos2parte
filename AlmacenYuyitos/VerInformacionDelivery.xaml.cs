@@ -516,10 +516,10 @@ namespace AlmacenYuyitos
                                 tipo = int.Parse(reader["TIPO"].ToString());
                                 if (int.Parse(reader["STOCK"].ToString()) >= cantidad)
                                 {
+                                    detalle_boleta.Cantidad = cantidad;
                                     cantidadVieja = detalle_boleta.Cantidad;
                                     cantidadNueva = int.Parse(txtCantidad.Text);
                                     cantidad = cantidadNueva - cantidadVieja;
-                                    detalle_boleta.Cantidad = cantidad;
                                     total = total + (precio * cantidad);
                                     monto_total = monto_total + total;
                                     txtTotalDelivery.Text = monto_total.ToString();
