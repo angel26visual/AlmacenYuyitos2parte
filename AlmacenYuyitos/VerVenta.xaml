@@ -6,31 +6,262 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AlmacenYuyitos"
         mc:Ignorable="d"
-        Title="Ver Venta - Los Yuyitos" Height="392.23" Width="800" Icon="resources/logo.png" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        Title="Ver Venta - Los Yuyitos" Height="525.191" Width="877.126" Icon="resources/logo.png" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <!--Inicio menu izquierda inicio de sesion-->
+    <mah:MetroWindow.Flyouts>
+        <mah:FlyoutsControl x:Name="ControlesFlyouts">
+            <mah:Flyout x:Name="cuentaFlyouts"
+                                 Position="Top"
+                                 IsPinned="False"
+                                 IsOpen="false"
+                                 AnimateOnPositionChange="False"
+                                 AnimateOpacity="True"
+                                 IsModal="False"
+                                 Theme="Dark"
+                                 ExternalCloseButton="Left"
+                                 CloseButtonVisibility="Hidden"
+                                 TitleVisibility="Hidden"
+                                 AreAnimationsEnabled="True"
+                                 Width="150"
+                                 Height="75"
+                                 Margin="650, 28, 0, 0">
+                <Grid Width="150">
+                    <StackPanel Orientation="Vertical">
+                        <Button x:Name="btnCerrarSesion"
+                                    Height="40" Width="110" Cursor="Hand"
+                                    Margin="10,10, 0,0" 
+                                    Content="Cerrar Sesión" Click="btnCerrarSesion_Click">
+                        </Button>
+                    </StackPanel>
+
+                </Grid>
+
+            </mah:Flyout>
+
+            <mah:Flyout x:Name="VerificarClienteflyouts"
+                                 Header="Verificar Cliente"
+                                 Position="Left"
+                                 IsPinned="False"
+                                 IsOpen="false"
+                                 AnimateOnPositionChange="False"
+                                 AnimateOpacity="True"
+                                 IsModal="False"
+                                 Theme="Dark"
+                                 ExternalCloseButton="Left"
+                                 CloseButtonVisibility="Visible"
+                                 TitleVisibility="Visible"
+                                 AreAnimationsEnabled="True"
+                                 Width="400">
+                <Grid Width="400" Height="508.664">
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10, 10, 10, 10">
+                            <TextBox x:Name="txtRutCli" Margin="20,10,0,0"
+                                     mah:TextBoxHelper.Watermark="Rut del Cliente"
+                                     mah:TextBoxHelper.UseFloatingWatermark="True"
+                                     mah:TextBoxHelper.ClearTextButton="True"
+                                     VerticalContentAlignment="Center"
+                                     HorizontalAlignment="Center"
+                                     Height="40"
+                                     Width="250"/>
+                            <Button x:Name="btnVerificarCli"
+                                    Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
+                                    Height="40" Width="40" Cursor="Hand"
+                                    Margin="10,10,20,0" 
+                                    ToolTip="Verificar Cliente" Click="btnVerificarCli_Click">
+                                <iconPacks:PackIconModern
+                                            Width="22" Height="22"
+                                            Kind="BookList"/>
+
+                            </Button>
+
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <TextBox x:Name="txtNombreCliente" Margin="0,10,0,0"
+                                     mah:TextBoxHelper.Watermark="Nombre del Cliente"
+                                     mah:TextBoxHelper.UseFloatingWatermark="True"
+                                     mah:TextBoxHelper.ClearTextButton="True"
+                                     VerticalContentAlignment="Center"
+                                     HorizontalAlignment="Center"
+                                     Height="40" IsEnabled="False"
+                                     Width="250"/>
+                            <Button x:Name="btnModificarFiado"
+                                    Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
+                                    Height="40" Width="40" Cursor="Hand"
+                                    Margin="10,10,20,0" 
+                                    ToolTip="Modificar Venta" Click="btnModificarFiado_Click">
+                                <iconPacks:PackIconModern
+                                            Width="22" Height="22"
+                                            Kind="FanBox"/>
+
+                            </Button>
+                        </StackPanel>
+
+                    </StackPanel>
+                </Grid>
+
+            </mah:Flyout>
+        </mah:FlyoutsControl>
+    </mah:MetroWindow.Flyouts>
+
+    <!--Inicio menu derecha-->
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            <Button Content="Bienvenido/a" Cursor="Hand" x:Name="btnCuenta" Click="btnCuenta_Click" >
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <iconPacks:PackIconModern Width="22"
+                                    Height="22"
+                                    VerticalAlignment="Center"
+                                    Kind="User"/>
+                            <TextBlock Margin="4, 0, 0, 0"
+                                       VerticalAlignment="Center"
+                                       Text="{Binding}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
     <Grid Background="LightBlue">
-        <Label Content="Id Venta:" HorizontalAlignment="Left" Margin="128,121,0,0" VerticalAlignment="Top"/>
-        <Label Content="Número de Boleta:" HorizontalAlignment="Left" Margin="75,152,0,0" VerticalAlignment="Top"/>
-        <Label Content="Fecha de Venta:" HorizontalAlignment="Left" Margin="91,183,0,0" VerticalAlignment="Top"/>
-        <Label Content="Total:" HorizontalAlignment="Left" Margin="145,214,0,0" VerticalAlignment="Top"/>
-        <Label Content="Total Descuentos:" HorizontalAlignment="Left" Margin="82,240,0,0" VerticalAlignment="Top"/>
-        <Label Content="Total Venta:" HorizontalAlignment="Left" Margin="113,271,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtIdVenta" HorizontalAlignment="Left" Height="23" Margin="209,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtNumeroDeBoleta" HorizontalAlignment="Left" Height="23" Margin="209,152,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <DatePicker x:Name="dpFechaDeVenta" HorizontalAlignment="Left" Margin="209,183,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtTotal" HorizontalAlignment="Left" Height="23" Margin="209,214,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtTotaDescuento" HorizontalAlignment="Left" Height="23" Margin="209,245,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtTotalVenta" HorizontalAlignment="Left" Height="23" Margin="209,276,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnEliminarVenta" Content="ELIMINAR" HorizontalAlignment="Left" Margin="209,307,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnModificarVenta" Content="MODIFICAR" HorizontalAlignment="Left" Margin="75,307,0,0" VerticalAlignment="Top" Width="108"/>
-        <Label Content="Monto de Pago:" HorizontalAlignment="Left" Margin="441,121,0,0" VerticalAlignment="Top"/>
-        <Label Content="Vuelto:" HorizontalAlignment="Left" Margin="489,152,0,0" VerticalAlignment="Top"/>
-        <Label Content="Tipo de Venta:" HorizontalAlignment="Left" Margin="449,183,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtMontoDePago" HorizontalAlignment="Left" Height="23" Margin="540,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtVuelto" HorizontalAlignment="Left" Height="23" Margin="540,152,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <ComboBox x:Name="cboTipoDeVenta" HorizontalAlignment="Left" Margin="540,183,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnVolver" Content="VOLVER" HorizontalAlignment="Left" Margin="709,307,0,0" VerticalAlignment="Top" Width="75" Click="btnVolver_Click"/>
-        <Button x:Name="btnCerrarSesion" Content="CERRAR SESIÓN" HorizontalAlignment="Left" Margin="691,10,0,0" VerticalAlignment="Top" Width="93"/>
-        <Image Source="/resources/logo.png" Margin="340,-18,339.6,259.4" />
+        <Image Source="/resources/logo.png" Width="100" Margin="466,8,305,411"/>
+        <DatePicker x:Name="txtFechaVenta"  Margin="602,18,79,429"
+                     mah:TextBoxHelper.Watermark="FECHA DE VENTA"
+                     mah:TextBoxHelper.UseFloatingWatermark="True"
+                     mah:TextBoxHelper.ClearTextButton="True"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center"
+                    IsEnabled="False"
+                     />
+        <TextBox x:Name="txtNroBoleta" 
+                     Margin="69,18,595,429"
+                     mah:TextBoxHelper.Watermark="NRO. BOLETA"
+                     mah:TextBoxHelper.UseFloatingWatermark="True"
+                     mah:TextBoxHelper.ClearTextButton="True"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center" IsEnabled="False"/>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" Margin="38,71,544,199" >
+            <TextBox x:Name="txtCodigoProducto" 
+                     Margin="10,10,43,10"
+                     mah:TextBoxHelper.Watermark="Código de Producto"
+                     mah:TextBoxHelper.UseFloatingWatermark="True"
+                     mah:TextBoxHelper.ClearTextButton="True"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center" 
+                     Height="40" KeyDown="txtCodigoProducto_KeyDown"/>
+            <TextBox x:Name="txtCantidad" 
+                     Margin="10,10,43,10"
+                     mah:TextBoxHelper.Watermark="Cantidad"
+                     mah:TextBoxHelper.UseFloatingWatermark="True"
+                     mah:TextBoxHelper.ClearTextButton="True"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center" Height="40" KeyDown="txtCantidad_KeyDown"/>
+            <StackPanel Orientation="Horizontal" Margin="10, 10, 10, 10" HorizontalAlignment="Center">
+                <Button x:Name="btnAgregarProducto" Margin="10,10,10,10" 
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Width="40" 
+                    Cursor="Hand" 
+                ToolTip="AgregarProducto" Click="btnAgregarProducto_Click">
+                    <iconPacks:PackIconModern 
+                 Width="25" Height="25"
+                 Kind="ListAdd"  />
+                </Button>
+                <Button x:Name="btnModificarProducto" Margin="20,10,10,10" 
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Width="40" 
+                    Cursor="Hand" 
+                ToolTip="Modificar Producto" Click="btnModificarProducto_Click">
+                    <iconPacks:PackIconModern 
+                 Width="25" Height="25"
+                 Kind="ListReorder"  />
+                </Button>
+            </StackPanel>
+
+        </StackPanel>
+        <Button x:Name="btnVolver" Margin="791,409,40,30" 
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Width="40" 
+                Cursor="Hand" 
+                ToolTip="Volver" Click="btnVolver_Click">
+            <iconPacks:PackIconModern 
+                 Width="25" Height="25"
+                 Kind="Return"  />
+        </Button>
+        <DataGrid x:Name="dgVerProductos"  HorizontalAlignment="Left" Height="213" Margin="332,90,0,0" VerticalAlignment="Top" Width="433" IsReadOnly="True" Grid.ColumnSpan="2"/>
+        <StackPanel Orientation="Horizontal" Margin="361,303,40,91" Grid.ColumnSpan="2">
+            <TextBox x:Name="txtTotalDescuento" 
+                     Margin="20,3,10,0"
+                     mah:TextBoxHelper.Watermark="Descuentos Totales"
+                     mah:TextBoxHelper.UseFloatingWatermark="True"
+                     mah:TextBoxHelper.ClearTextButton="True"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center" 
+                     Height="40" Width="154" IsEnabled="False"/>
+            <TextBox x:Name="txtTotalVenta" 
+                     Margin="20,3,10,0"
+                     mah:TextBoxHelper.Watermark="Total a pagar"
+                     mah:TextBoxHelper.UseFloatingWatermark="True"
+                     mah:TextBoxHelper.ClearTextButton="True"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center" 
+                     Height="40" Width="141" IsEnabled="False"/>
+        </StackPanel>
+        <StackPanel Margin="38,261,544,10">
+            <CheckBox x:Name="checkFiado" RenderTransformOrigin="0.5,0.5" Height="29" Margin="10,10,10,10"  
+                      >
+                <CheckBox.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="2.862"/>
+                        <RotateTransform/>
+                        <TranslateTransform X="0.45"/>
+                    </TransformGroup>
+                </CheckBox.RenderTransform>
+                <Label Content="VENTA FIADO"  Width="240" />
+
+            </CheckBox>
+            <ComboBox x:Name="cboMedioPago" Margin="10,10,39,10"
+                     mah:TextBoxHelper.Watermark="SELECCIONE MEDIO DE PAGO"
+                     mah:TextBoxHelper.UseFloatingWatermark="True"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center" 
+                      Height="43" Loaded="cboMedioPago_Loaded"/>
+            <TextBox x:Name="txtPago" 
+                     Margin="10,10,39,10"
+                     mah:TextBoxHelper.Watermark="Pago"
+                     mah:TextBoxHelper.UseFloatingWatermark="True"
+                     mah:TextBoxHelper.ClearTextButton="True"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center" 
+                     Height="40" KeyDown="txtPago_KeyDown"/>
+            <Button x:Name="btnModificarVenta" 
+                    Margin="-120,10,10,10" 
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Width="40" 
+                    Cursor="Hand" 
+                ToolTip="Modificar Venta" Click="btnModificarVenta_Click" >
+                <iconPacks:PackIconModern 
+                 Width="25" Height="25"
+                 Kind="CellMerge"/>
+            </Button>
+
+            <Button x:Name="btnEliminarVenta" 
+             Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                HorizontalAlignment="Left"
+                Margin="170,-40,0,0"
+                VerticalAlignment="Top" 
+                ToolTip="Eliminar Venta"
+                Width="40" Height="32" Click="btnEliminarVenta_Click" >
+                <iconPacks:PackIconModern
+                         Width="25" Height="25"
+                         Kind="Delete"/>
+            </Button>
+        </StackPanel>
+        <Button x:Name="btnEiminarProducto" 
+                Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Width="40" 
+                    Cursor="Hand" 
+                ToolTip="Eliminar Producto" Margin="791,90,40,354" Click="btnEiminarProducto_Click">
+            <iconPacks:PackIconModern 
+                 Width="25" Height="25"
+                 Kind="ListDelete"/>
+        </Button>
 
     </Grid>
 </mah:MetroWindow>

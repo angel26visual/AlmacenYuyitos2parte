@@ -193,7 +193,7 @@
         <Button x:Name="btnLimpiarCampos" 
              Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
                 HorizontalAlignment="Left"
-                Margin="100,550,0,0"
+                Margin="170,550,0,0"
                 VerticalAlignment="Top" 
                 ToolTip="Limpiar Campos"
                 Width="40" Height="40" Click="btnLimpiarCampos_Click">
@@ -205,7 +205,7 @@
         <Button x:Name="btnGuardarOrdenPedido"  
                 Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
                 HorizontalAlignment="Left"
-                Margin="170,550,0,0"
+                Margin="100,550,0,0"
                 VerticalAlignment="Top" 
                 ToolTip="Guardar Orden de Pedido"
                 Width="40" Height="40" Click="btnGuardarOrdenPedido_Click">

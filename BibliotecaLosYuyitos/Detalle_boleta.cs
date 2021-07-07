@@ -13,20 +13,21 @@ namespace BibliotecaLosYuyitos
         private string nombre_producto;
         private int cantidad;
         private int precio;
+        private int tipo;
 
         public Detalle_boleta()
         {
                 
         }
 
-        public Detalle_boleta (int boleta, int producto, string nombre, int canti_producto, int precio_venta)
+        public Detalle_boleta (int boleta, int producto, string nombre, int canti_producto, int precio_venta, int tipo_p)
         {
             nro_boleta = boleta;
             codigo_producto = producto;
             nombre_producto = nombre;
             cantidad = canti_producto;
             precio = precio_venta;
-
+            tipo = tipo_p;
         }
 
         public int Nro_boleta
@@ -57,6 +58,12 @@ namespace BibliotecaLosYuyitos
         {
             get { return precio; }
             set { precio = value; }
+        }
+
+        public int Tipo
+        {
+            get { return tipo; }
+            set { tipo = value; }
         }
     }
 }

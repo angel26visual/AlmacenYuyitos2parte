@@ -33,20 +33,17 @@ namespace AlmacenYuyitos
         List<Detalle_boleta> listDboleta = new List<Detalle_boleta>();
         DateTime fecha = DateTime.Today;
         int monto_total = 0;
+        int monto_descuento = 0;
         string rutTrab = string.Empty;
-
+        bool validaciones = true;
+        int verifiCli = 0;
         public RegistrarPago(string usuario)
         {
             this.setConnection();
             InitializeComponent();
-            txtFechaVenta.SelectedDate = fecha;
-            GenerarNroBoleta();
-            txtTotalDescuento.Text = 0.ToString();
-            txtTotalVenta.Text = 0.ToString();
-            txtPago.Text = 0.ToString();
-            txtCantidad.Text = 0.ToString();
             nomUsuario = usuario;
             DatosUsuarios();
+            resetAll();
         }
 
         private async void DatosUsuarios()
@@ -116,52 +113,44 @@ namespace AlmacenYuyitos
             {
                 try
                 {
-                    OracleCommand cmd = new OracleCommand("sp_insertar_venta", con);
-                    
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("boleta", OracleDbType.Int32, 20).Value = int.Parse(txtNroBoleta.Text);
-                    cmd.Parameters.Add("fecha", OracleDbType.Date).Value = txtFechaVenta.SelectedDate;
-                    cmd.Parameters.Add("venta", OracleDbType.Int32, 30).Value = int.Parse(txtTotalVenta.Text);
-                    cmd.Parameters.Add("descuento", OracleDbType.Int32, 30).Value = int.Parse(txtTotalDescuento.Text);
-                    cmd.Parameters.Add("monto", OracleDbType.Int32, 30).Value = monto_total;
-                    int montopago = int.Parse(txtPago.Text);
-                    if (montopago < monto_total)
+                    ValidarN();
+                    if (validaciones)
                     {
-                        await this.ShowMessageAsync("Error", "Monto de pago no puede ser menor al monto total");
-                        return;
-                    }
-                    else {
+                        OracleCommand cmd = new OracleCommand("sp_insertar_venta", con);
+
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("boleta", OracleDbType.Int32, 20).Value = int.Parse(txtNroBoleta.Text);
+                        cmd.Parameters.Add("fecha", OracleDbType.Date).Value = txtFechaVenta.SelectedDate;
+                        cmd.Parameters.Add("venta", OracleDbType.Int32, 30).Value = int.Parse(txtTotalVenta.Text) + int.Parse(txtTotalDescuento.Text);
+                        cmd.Parameters.Add("descuento", OracleDbType.Int32, 30).Value = int.Parse(txtTotalDescuento.Text);
+                        cmd.Parameters.Add("monto", OracleDbType.Int32, 30).Value = monto_total;
                         cmd.Parameters.Add("pago", OracleDbType.Int32, 20).Value = int.Parse(txtPago.Text);
-                    }
-                    cmd.Parameters.Add("rut", OracleDbType.Varchar2, 20).Value = rutTrab;
-                    cmd.Parameters.Add("medio_pago", OracleDbType.Int32, 20).Value = cboMedioPago.SelectedValue;
-                    int n = cmd.ExecuteNonQuery();
-                    if (n < 0)
-                    {
-                        foreach (var detalle_Boleta in listDboleta)
+                        cmd.Parameters.Add("rut", OracleDbType.Varchar2, 20).Value = rutTrab;
+                        cmd.Parameters.Add("medio_pago", OracleDbType.Int32, 20).Value = cboMedioPago.SelectedValue;
+                        int n = cmd.ExecuteNonQuery();
+                        if (n < 0)
                         {
-                            GuardarDetalle(detalle_Boleta.Nro_boleta, detalle_Boleta.Codigo_producto, detalle_Boleta.Cantidad);
-                        }
-                        int vuelto = int.Parse(txtPago.Text)-monto_total;
-                        if (vuelto>0)
-                        {
-                            await this.ShowMessageAsync("VENTA REALIZADA", "El vuelto del cliente es:"+" $ " + vuelto +" "+ "pesos");
-                            RegistrarPago rp = new RegistrarPago(nomUsuario);
-                            this.Close();
-                            rp.Show();
+                            foreach (var detalle_Boleta in listDboleta)
+                            {
+                                GuardarDetalle(detalle_Boleta.Nro_boleta, detalle_Boleta.Codigo_producto, detalle_Boleta.Cantidad);
+                            }
+                            int vuelto = int.Parse(txtPago.Text) - monto_total;
+                            if (vuelto > 0)
+                            {
+                                await this.ShowMessageAsync("VENTA REALIZADA", "El vuelto del cliente es:" + " $ " + vuelto + " " + "pesos");
+                                resetAll();
+                            }
+                            else
+                            {
+                                await this.ShowMessageAsync("VENTA REALIZADA", "venta ingresada sin vuelto al cliente");
+                                resetAll();
+                            }
+
                         }
                         else
                         {
-                            await this.ShowMessageAsync("VENTA REALIZADA", "venta ingresada sin vuelto al cliente");
-                            RegistrarPago rp = new RegistrarPago(nomUsuario);
-                            this.Close();
-                            rp.Show();
+                            await this.ShowMessageAsync("VENTA", "Venta no realizada");
                         }
-                        
-                    }
-                    else
-                    {
-                        await this.ShowMessageAsync("VENTA", "Venta no realizada");
                     }
                 }
                 catch (Exception)
@@ -198,7 +187,7 @@ namespace AlmacenYuyitos
                 int tipo = 0;
                 int total = 0;
                 int cantidad = 0;
-                string nombre = null;
+                string nombre = "";
                 int cantidadVieja = 0;
                 int cantidadNueva = 0;
                 int productoEnlista = 0;
@@ -228,12 +217,14 @@ namespace AlmacenYuyitos
                                     cantidad = cantidadNueva + cantidadVieja;
                                     detalle_boleta.Cantidad = cantidad;
                                     total = total + (precio * cantidad);
-                                    txtTotalVenta.Text = (int.Parse(txtTotalVenta.Text) + total).ToString();
                                     monto_total = monto_total + total;
+                                    txtTotalVenta.Text = monto_total.ToString();
                                     dgVerProductos.ItemsSource = null;
                                     dgVerProductos.ItemsSource = listDboleta;
-                                    DesCalcularPromocionCantidad(tipo, precio, cantidadVieja, cantidadNueva);
-                                    CalcularPromocionCantidad(tipo, precio, cantidadVieja, cantidadNueva);
+                                    txtCodigoProducto.Text = 0.ToString();
+                                    txtCantidad.Text = 0.ToString();
+                                    DesCalcularPromocionCantidad(tipo, precio, cantidadVieja);
+                                    CalcularPromocionCantidad(tipo, precio, cantidadNueva);
                                 }
                                 else
                                 {
@@ -249,15 +240,17 @@ namespace AlmacenYuyitos
                                 precio = int.Parse(reader["PRECIO_VENTA"].ToString());
                                 total = total + (precio * int.Parse(txtCantidad.Text));
                                 tipo = int.Parse(reader["TIPO"].ToString());
-                                Detalle_boleta detalle_Boleta = new Detalle_boleta(int.Parse(txtNroBoleta.Text), int.Parse(txtCodigoProducto.Text), nombre, int.Parse(txtCantidad.Text), precio);
+                                Detalle_boleta detalle_Boleta = new Detalle_boleta(int.Parse(txtNroBoleta.Text), int.Parse(txtCodigoProducto.Text), nombre, int.Parse(txtCantidad.Text), precio, tipo);
                                 listDboleta.Add(detalle_Boleta);
                                 dgVerProductos.ItemsSource = null;
                                 dgVerProductos.ItemsSource = listDboleta;
                                 cantidadNueva = int.Parse(txtCantidad.Text);
                                 CalcularPromocionTipo(tipo, precio);
-                                CalcularPromocionCantidad(tipo, precio, cantidadVieja, cantidadNueva);
-                                txtTotalVenta.Text = (int.Parse(txtTotalVenta.Text) + total).ToString();
+                                CalcularPromocionCantidad(tipo, precio, cantidadNueva);
                                 monto_total = monto_total + total;
+                                txtTotalVenta.Text = monto_total.ToString();
+                                txtCodigoProducto.Text = 0.ToString();
+                                txtCantidad.Text = 0.ToString();
                             }
                             else
                             {
@@ -302,8 +295,10 @@ namespace AlmacenYuyitos
                     porcentaje = porcentaje + (precio * int.Parse(reader["PORCENTAJE"].ToString()));
                     efectivo = efectivo + int.Parse(reader["EFECTIVO"].ToString());
                 }
-                txtTotalDescuento.Text = (int.Parse(txtTotalDescuento.Text) + (porcentaje + efectivo)).ToString();
-                txtTotalVenta.Text = (int.Parse(txtTotalVenta.Text) - (porcentaje + efectivo)).ToString();
+                monto_descuento = monto_descuento + (porcentaje + efectivo);
+                txtTotalDescuento.Text = monto_descuento.ToString();
+                monto_total = monto_total - (porcentaje + efectivo);
+                txtTotalVenta.Text = monto_total.ToString();
                 
             }
             catch (Exception)
@@ -313,7 +308,7 @@ namespace AlmacenYuyitos
             }
 
         }
-        private async void CalcularPromocionCantidad(int tipo, int precio, int cantidadVieja, int cantidadNueva)
+        private async void CalcularPromocionCantidad(int tipo, int precio, int cantidadNueva)
         {
             int porcentaje = 0;
             int efectivo = 0;
@@ -329,17 +324,8 @@ namespace AlmacenYuyitos
                 OracleDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
-                    if (cantidadVieja > 0)
-                    {
-                        porcentaje = porcentaje + (precio * int.Parse(reader["PORCENTAJE"].ToString()));
-                        efectivo = efectivo + int.Parse(reader["EFECTIVO"].ToString());
-                    }
-                    else
-                    {
-                        porcentaje = porcentaje + (precio * int.Parse(reader["PORCENTAJE"].ToString()));
-                        efectivo = efectivo + int.Parse(reader["EFECTIVO"].ToString());
-                    }
-
+                    porcentaje = porcentaje + (precio * int.Parse(reader["PORCENTAJE"].ToString()));
+                    efectivo = efectivo + int.Parse(reader["EFECTIVO"].ToString());
                 }
                 OracleCommand cmd3 = con.CreateCommand();
                 cmd3.CommandText = "SELECT NVL(SUM(DESCUENTO_PORCENTAJE)/100, 0) AS PORCENTAJE, NVL(SUM(DESCUENTO_EFECTIVO), 0) AS EFECTIVO FROM PROMOCION WHERE FECHA_INICIO_PROMO <= :FECHA_INICIO AND FECHA_FIN_PROMO >= :FECHA_FIN AND CANT_PRODUCTO >= :CANTIDAD AND TIPO_PROMOCION_ID_TIPOPROMO = 2 AND TIPO_PRODUCTO_ID_TIPPRODUC = NULL";
@@ -350,21 +336,13 @@ namespace AlmacenYuyitos
                 OracleDataReader reader3 = cmd3.ExecuteReader();
                 if (reader3.Read())
                 {
-                    if (cantidadVieja > 0)
-                    {
-                        porcentaje = porcentaje + (precio * int.Parse(reader3["PORCENTAJE"].ToString()));
-                        efectivo = efectivo + int.Parse(reader3["EFECTIVO"].ToString());
-                    }
-                    else
-                    {
-                        porcentaje = porcentaje + (precio * int.Parse(reader3["PORCENTAJE"].ToString()));
-                        efectivo = efectivo + int.Parse(reader3["EFECTIVO"].ToString());
-                    }
-
+                    porcentaje = porcentaje + (precio * int.Parse(reader3["PORCENTAJE"].ToString()));
+                    efectivo = efectivo + int.Parse(reader3["EFECTIVO"].ToString());
                 }
-
-                txtTotalDescuento.Text = (int.Parse(txtTotalDescuento.Text) + (porcentaje + efectivo)).ToString();
-                txtTotalVenta.Text = (int.Parse(txtTotalVenta.Text) - (porcentaje + efectivo)).ToString();
+                monto_descuento = monto_descuento + (porcentaje + efectivo);
+                txtTotalDescuento.Text = monto_descuento.ToString();
+                monto_total = monto_total - (porcentaje + efectivo);
+                txtTotalVenta.Text = monto_total.ToString();
 
             }
             catch (Exception)
@@ -374,10 +352,11 @@ namespace AlmacenYuyitos
             }
         }
 
-        private async void DesCalcularPromocionCantidad(int tipo, int precio, int cantidadVieja, int cantidadNueva)
+        private async void DesCalcularPromocionCantidad(int tipo, int precio, int cantidadVieja)
         {
             int porcentaje = 0;
             int efectivo = 0;
+            int descuento = 0;
             try
             {
                 OracleCommand cmd = con.CreateCommand();
@@ -390,43 +369,26 @@ namespace AlmacenYuyitos
                 OracleDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
-                    if (cantidadVieja > 0)
-                    {
-                        porcentaje = porcentaje + (precio * int.Parse(reader["PORCENTAJE"].ToString()));
-                        efectivo = efectivo + int.Parse(reader["EFECTIVO"].ToString());
-                    }
-                    else
-                    {
-                        porcentaje = porcentaje + (precio * int.Parse(reader["PORCENTAJE"].ToString()));
-                        efectivo = efectivo + int.Parse(reader["EFECTIVO"].ToString());
-                    }
-
+                    porcentaje = porcentaje + (precio * int.Parse(reader["PORCENTAJE"].ToString()));
+                    efectivo = efectivo + int.Parse(reader["EFECTIVO"].ToString());
                 }
                 OracleCommand cmd3 = con.CreateCommand();
                 cmd3.CommandText = "SELECT NVL(SUM(DESCUENTO_PORCENTAJE)/100, 0) AS PORCENTAJE, NVL(SUM(DESCUENTO_EFECTIVO), 0) AS EFECTIVO FROM PROMOCION WHERE FECHA_INICIO_PROMO <= :FECHA_INICIO AND FECHA_FIN_PROMO >= :FECHA_FIN AND CANT_PRODUCTO >= :CANTIDAD AND TIPO_PROMOCION_ID_TIPOPROMO = 2 AND TIPO_PRODUCTO_ID_TIPPRODUC = NULL";
                 cmd3.CommandType = CommandType.Text;
                 cmd3.Parameters.Add("FECHA_INICIO", OracleDbType.Date).Value = fecha;
                 cmd3.Parameters.Add("FECHA_FIN", OracleDbType.Date).Value = fecha;
-                cmd3.Parameters.Add("CANTIDAD", OracleDbType.Int32, 40).Value = cantidadNueva;
+                cmd3.Parameters.Add("CANTIDAD", OracleDbType.Int32, 40).Value = cantidadVieja;
                 OracleDataReader reader3 = cmd3.ExecuteReader();
                 if (reader3.Read())
                 {
-                    if (cantidadVieja > 0)
-                    {
-                        porcentaje = porcentaje + (precio * int.Parse(reader3["PORCENTAJE"].ToString()));
-                        efectivo = efectivo + int.Parse(reader3["EFECTIVO"].ToString());
-                    }
-                    else
-                    {
-                        porcentaje = porcentaje + (precio * int.Parse(reader3["PORCENTAJE"].ToString()));
-                        efectivo = efectivo + int.Parse(reader3["EFECTIVO"].ToString());
-                    }
-
+                    porcentaje = porcentaje + (precio * int.Parse(reader3["PORCENTAJE"].ToString()));
+                    efectivo = efectivo + int.Parse(reader3["EFECTIVO"].ToString());
                 }
-
-                txtTotalDescuento.Text = (int.Parse(txtTotalDescuento.Text) - (porcentaje + efectivo)).ToString();
-                txtTotalVenta.Text = (int.Parse(txtTotalVenta.Text) + (porcentaje + efectivo)).ToString();
-
+                descuento = porcentaje + efectivo;
+                monto_descuento = monto_descuento - descuento;
+                txtTotalDescuento.Text = monto_descuento.ToString();
+                monto_total = monto_total + descuento;
+                txtTotalVenta.Text = monto_total.ToString();
             }
             catch (Exception)
             {
@@ -491,9 +453,38 @@ namespace AlmacenYuyitos
             }
         }
 
-        private void btnEiminarProducto_Click(object sender, RoutedEventArgs e)
+        private async void btnEiminarProducto_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                int Enlista = 0;
+                foreach (var boleta in listDboleta)
+                {
+                    if (boleta.Codigo_producto == int.Parse(txtCodigoProducto.Text))
+                    {
+                        Enlista = 1;
+                        monto_total = monto_total - (boleta.Precio * boleta.Cantidad);
+                        DescalcularPromocionTipoE(boleta.Tipo, boleta.Precio);
+                        DesCalcularPromocionCantidad(boleta.Tipo, boleta.Precio, boleta.Cantidad);
+                        listDboleta.Remove(boleta);
+                        dgVerProductos.ItemsSource = null;
+                        dgVerProductos.ItemsSource = listDboleta;
+                        txtCodigoProducto.Text = 0.ToString();
+                        txtCantidad.Text = 0.ToString();
+                        await this.ShowMessageAsync("PRODUCTO", "Producto eliminado de la lista");
+                        break;
+                    }
+                }
+                if (Enlista == 0)
+                {
+                    await this.ShowMessageAsync("PRODUCTO", "Producto no esta agregado");
+                }
+            }
+            catch (Exception)
+            {
 
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
         }
 
         private void btnModificarProducto_Click(object sender, RoutedEventArgs e)
@@ -537,19 +528,19 @@ namespace AlmacenYuyitos
                                     cantidad = cantidadNueva - cantidadVieja;
                                     detalle_boleta.Cantidad = cantidad;
                                     total = total + (precio * cantidad);
-                                    txtTotalVenta.Text = (int.Parse(txtTotalVenta.Text) + total).ToString();
                                     monto_total = monto_total + total;
+                                    txtTotalVenta.Text = monto_total.ToString();
                                     dgVerProductos.ItemsSource = null;
                                     dgVerProductos.ItemsSource = listDboleta;
-                                    DesCalcularPromocionCantidad(tipo, precio, cantidadVieja, cantidadNueva);
-                                    CalcularPromocionCantidad(tipo, precio, cantidadVieja, cantidadNueva);
+                                    DesCalcularPromocionCantidad(tipo, precio, cantidadVieja);
+                                    CalcularPromocionCantidad(tipo, precio, cantidadNueva);
+                                    txtCantidad.Text = 0.ToString();
+                                    txtCodigoProducto.Text = 0.ToString();
                                 }
                                 else
                                 {
                                     await this.ShowMessageAsync("PRODUCTO", "Producto con stock insuficiente");
                                 }
-
-                                detalle_boleta.Cantidad = int.Parse(txtCantidad.Text);
                             }
                         }
                     }
@@ -577,6 +568,7 @@ namespace AlmacenYuyitos
                 OracleDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
+                    verifiCli = 1;
                     txtNombreCliente.Text = reader["NOMBRE_CLI"].ToString();
                 }
                 else
@@ -596,33 +588,35 @@ namespace AlmacenYuyitos
         {
             try
             {
-                OracleCommand cmd = new OracleCommand("sp_insertar_fiado", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("boleta", OracleDbType.Int32, 20).Value = int.Parse(txtNroBoleta.Text);
-                cmd.Parameters.Add("fecha", OracleDbType.Date).Value = txtFechaVenta.SelectedDate;
-                cmd.Parameters.Add("venta", OracleDbType.Int32, 30).Value = int.Parse(txtTotalVenta.Text);
-                cmd.Parameters.Add("descuento", OracleDbType.Int32, 30).Value = int.Parse(txtTotalDescuento.Text);
-                cmd.Parameters.Add("monto", OracleDbType.Int32, 30).Value = monto_total;
-                cmd.Parameters.Add("pago", OracleDbType.Int32, 20).Value = int.Parse(txtPago.Text);
-                cmd.Parameters.Add("rutT", OracleDbType.Varchar2, 20).Value = rutTrab;
-                cmd.Parameters.Add("rutC", OracleDbType.Varchar2, 40).Value = txtRutCli.Text;
-                cmd.Parameters.Add("cliente", OracleDbType.Varchar2, 100).Value = txtNombreCliente.Text;
-                cmd.Parameters.Add("medio_pago", OracleDbType.Int32, 20).Value = cboMedioPago.SelectedValue;
-                int n = cmd.ExecuteNonQuery();
-                if (n < 0)
+                ValidarF();
+                if (validaciones)
                 {
-                    foreach (var detalle_Boleta in listDboleta)
+                    OracleCommand cmd = new OracleCommand("sp_insertar_fiado", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("boleta", OracleDbType.Int32, 20).Value = int.Parse(txtNroBoleta.Text);
+                    cmd.Parameters.Add("fecha", OracleDbType.Date).Value = txtFechaVenta.SelectedDate;
+                    cmd.Parameters.Add("venta", OracleDbType.Int32, 30).Value = int.Parse(txtTotalVenta.Text) + int.Parse(txtTotalDescuento.Text);
+                    cmd.Parameters.Add("descuento", OracleDbType.Int32, 30).Value = int.Parse(txtTotalDescuento.Text);
+                    cmd.Parameters.Add("monto", OracleDbType.Int32, 30).Value = monto_total;
+                    cmd.Parameters.Add("pago", OracleDbType.Int32, 20).Value = int.Parse(txtPago.Text);
+                    cmd.Parameters.Add("rutT", OracleDbType.Varchar2, 20).Value = rutTrab;
+                    cmd.Parameters.Add("rutC", OracleDbType.Varchar2, 40).Value = txtRutCli.Text;
+                    cmd.Parameters.Add("cliente", OracleDbType.Varchar2, 100).Value = txtNombreCliente.Text;
+                    cmd.Parameters.Add("medio_pago", OracleDbType.Int32, 20).Value = cboMedioPago.SelectedValue;
+                    int n = cmd.ExecuteNonQuery();
+                    if (n < 0)
                     {
-                        GuardarDetalle(detalle_Boleta.Nro_boleta, detalle_Boleta.Codigo_producto, detalle_Boleta.Cantidad);
+                        foreach (var detalle_Boleta in listDboleta)
+                        {
+                            GuardarDetalle(detalle_Boleta.Nro_boleta, detalle_Boleta.Codigo_producto, detalle_Boleta.Cantidad);
+                        }
+                        await this.ShowMessageAsync("VENTA", "Venta realizada como fiado");
+                        resetAll();
                     }
-                    await this.ShowMessageAsync("VENTA", "Venta realizada como fiado");
-                    RegistrarPago rp = new RegistrarPago(nomUsuario);
-                    this.Close();
-                    rp.Show();
-                }
-                else
-                {
-                    await this.ShowMessageAsync("VENTA", "Venta no realizada");
+                    else
+                    {
+                        await this.ShowMessageAsync("VENTA", "Venta no realizada");
+                    }
                 }
             }
             catch (Exception)
@@ -700,6 +694,135 @@ namespace AlmacenYuyitos
                 e.Handled = true;
 
                 await this.ShowMessageAsync("Error", "El Monto pagado debe contener sólo números");
+            }
+        }
+
+        private void resetAll()
+        {
+            txtFechaVenta.SelectedDate = fecha;
+            GenerarNroBoleta();
+            txtTotalDescuento.Text = 0.ToString();
+            txtTotalVenta.Text = 0.ToString();
+            txtPago.Text = 0.ToString();
+            txtCantidad.Text = 0.ToString();
+            txtCodigoProducto.Text = 0.ToString();
+            txtRutCli.Text = string.Empty;
+            txtNombreCliente.Text = string.Empty;
+            cboMedioPago.SelectedValue = 1;
+            VerificarClienteflyouts.IsOpen = false;
+            checkFiado.IsChecked = false;
+            for (int i = listDboleta.Count() - 1; i >= 0 ; i--)
+            {
+                listDboleta.RemoveAt(i);
+            }
+            dgVerProductos.ItemsSource = null;
+            dgVerProductos.ItemsSource = listDboleta;
+            monto_total = 0;
+            monto_descuento = 0;
+        }
+
+        private void btnLimpiarCampos_Click(object sender, RoutedEventArgs e)
+        {
+            resetAll();
+        }
+
+        private async void DescalcularPromocionTipoE(int tipo, int precio)
+        {
+            int porcentaje = 0;
+            int efectivo = 0;
+            int descuento = 0;
+            try
+            {
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandText = "SELECT NVL(SUM(DESCUENTO_PORCENTAJE)/100, 0) AS PORCENTAJE, NVL(SUM(DESCUENTO_EFECTIVO), 0) AS EFECTIVO FROM PROMOCION WHERE FECHA_INICIO_PROMO <= :FECHA_INICIO AND FECHA_FIN_PROMO >= :FECHA_FIN AND TIPO_PRODUCTO_ID_TIPPRODUC = :TIPO_PRODUCTO AND TIPO_PROMOCION_ID_TIPOPROMO = 1";
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.Add("FECHA_INICIO", OracleDbType.Date).Value = fecha;
+                cmd.Parameters.Add("FECHA_FIN", OracleDbType.Date).Value = fecha;
+                cmd.Parameters.Add("TIPO_PRODUCTO", OracleDbType.Int32, 40).Value = tipo;
+                OracleDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    porcentaje = porcentaje + (precio * int.Parse(reader["PORCENTAJE"].ToString()));
+                    efectivo = efectivo + int.Parse(reader["EFECTIVO"].ToString());
+                }
+                descuento = porcentaje + efectivo;
+                monto_descuento = monto_descuento - descuento;
+                txtTotalDescuento.Text = monto_descuento.ToString();
+                monto_total = monto_total + descuento;
+                txtTotalVenta.Text = monto_total.ToString();
+
+            }
+            catch (Exception)
+            {
+
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
+
+        }
+
+        private async void ValidarN()
+        {
+            try
+            {
+                int validar = 0;
+                if (listDboleta.Count() <= 0)
+                {
+                    validar = 1;
+                    await this.ShowMessageAsync("VENTA", "No hay productos agregados a la lista");
+                }
+                if (Convert.ToInt32(txtPago.Text) < monto_total && validar == 0) 
+                {
+                    validar = 1;
+                    await this.ShowMessageAsync("VENTA", "El monto de pago es menor al monto total de la venta");
+                }
+
+                if (validar == 0)
+                {
+                    validaciones = true;
+                }else if (validar == 1){
+                    validaciones = false;
+                }
+
+            }
+            catch (Exception)
+            {
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
+            }
+        }
+
+        private async void ValidarF()
+        {
+            try
+            {
+                int validar = 0;
+                if (listDboleta.Count() <= 0)
+                {
+                    validar = 1;
+                    await this.ShowMessageAsync("VENTA", "No hay productos agregados a la lista");
+                }
+                if (Convert.ToInt32(txtPago.Text) < 0 && validar == 0)
+                {
+                    validar = 1;
+                    await this.ShowMessageAsync("VENTA", "El monto de pago no puede ser menor a 0");
+                }
+                if(verifiCli == 0 && validar == 0)
+                {
+                    validar = 1;
+                    await this.ShowMessageAsync("VENTA", "No se ha verificado al cliente");
+                }
+
+                if (validar == 0)
+                {
+                    validaciones = true;
+                }
+                else if (validar == 1)
+                {
+                    validaciones = false;
+                }
+            }
+            catch (Exception)
+            {
+                await this.ShowMessageAsync("Error", "Ha ocurrido un error");
             }
         }
     }

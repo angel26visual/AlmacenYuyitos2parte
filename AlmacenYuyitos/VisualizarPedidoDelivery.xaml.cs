@@ -29,7 +29,7 @@ namespace AlmacenYuyitos
         int cargo = 0;
         string nombre = string.Empty;
         string apellido = string.Empty;
-        string commandtable = " SELECT NRO_BOLETA,FECHA_VENTA , FECHA_ENTREGA ,MONTO_TOTAL,NOM_CLIENTE , DIRECCION_CLIENTE , FONO_CONTACTO ,TOTAL_DESCUENTOS , TOTAL_VENTA , ESTADO_PED_ID_ESTADELIVERY FROM BOLETA WHERE TIPO_VENTA_ID_TIPVENTA = 3";
+        string commandtable = " SELECT NRO_BOLETA,FECHA_VENTA , FECHA_ENTREGA ,MONTO_TOTAL,NOM_CLIENTE , DIRECCION_CLIENTE , FONO_CONTACTO ,TOTAL_DESCUENTOS , TOTAL_VENTA , MONTO_PAGO , ESTADO_PED_ID_ESTADELIVERY FROM BOLETA WHERE TIPO_VENTA_ID_TIPVENTA = 3";
         public VisualizarPedidoDelivery(string usuario)
         {
             this.setConnection();
@@ -118,30 +118,22 @@ namespace AlmacenYuyitos
 
         private void btnVerInfoDelivery_Click(object sender, RoutedEventArgs e)
         {
-            
-
-            VerInformacionDelivery vid = new VerInformacionDelivery(nomUsuario);
             DataRowView datos = dgPedidosDelivery.SelectedItem as DataRowView;
             if (datos != null)
             {
-                vid.txtNumeroDeBoleta.Text = datos["NRO_BOLETA"].ToString();
-                vid.dpFechaDePedido.Text = datos["FECHA_VENTA"].ToString();
-                vid.dpFechaDeEntrega.Text = datos["FECHA_ENTREGA"].ToString();
-                vid.txtNombreDeCliente.Text = datos["NOM_CLIENTE"].ToString();
-                vid.txtDireccion.Text = datos["DIRECCION_CLIENTE"].ToString();
+                VerInformacionDelivery vid = new VerInformacionDelivery(nomUsuario, int.Parse(datos["MONTO_TOTAL"].ToString()), int.Parse(datos["TOTAL_DESCUENTOS"].ToString()), int.Parse(datos["NRO_BOLETA"].ToString()));
+                vid.txtNumeroBoleta.Text = datos["NRO_BOLETA"].ToString();
+                vid.txtFechaVenta.Text = datos["FECHA_VENTA"].ToString();
+                vid.dpFechaeEntrega.Text = datos["FECHA_ENTREGA"].ToString();
+                vid.txtNombreCliente.Text = datos["NOM_CLIENTE"].ToString();
+                vid.txtDireccionDelivery.Text = datos["DIRECCION_CLIENTE"].ToString();
                 vid.txtTelefonoContacto.Text = datos["FONO_CONTACTO"].ToString();
                 vid.txtTotalDescuentos.Text = datos["TOTAL_DESCUENTOS"].ToString();
-                vid.txtMontoTotal.Text = datos["MONTO_TOTAL"].ToString();
-                vid.txtMontoFinal.Text = datos["TOTAL_VENTA"].ToString();
+                vid.txtTotalDelivery.Text = datos["MONTO_TOTAL"].ToString();
                 vid.cboEstado.SelectedValue = int.Parse(datos["ESTADO_PED_ID_ESTADELIVERY"].ToString());
-
-               
-                
-
-
+                vid.txtValorDespacho.Text = (int.Parse(datos["TOTAL_VENTA"].ToString()) - (int.Parse(datos["MONTO_TOTAL"].ToString()) + int.Parse(datos["TOTAL_DESCUENTOS"].ToString()))).ToString();
+                vid.txtPago.Text = datos["MONTO_PAGO"].ToString();
                 vid.Show();
-                vid.txtNumeroDeBoleta.IsEnabled = false;
-                vid.dpFechaDePedido.IsEnabled = false; ;
                 this.Close();
 
             }
@@ -163,7 +155,7 @@ namespace AlmacenYuyitos
         {
             try
             {
-                String sql = " SELECT NRO_BOLETA,FECHA_VENTA , FECHA_ENTREGA ,MONTO_TOTAL,NOM_CLIENTE , DIRECCION_CLIENTE , FONO_CONTACTO ,TOTAL_DESCUENTOS , TOTAL_VENTA , ESTADO_PED_ID_ESTADELIVERY FROM BOLETA WHERE TIPO_VENTA_ID_TIPVENTA = 3 and FECHA_VENTA = :FECHA_VENTA";
+                String sql = " SELECT NRO_BOLETA,FECHA_VENTA , FECHA_ENTREGA ,MONTO_TOTAL,NOM_CLIENTE , DIRECCION_CLIENTE , FONO_CONTACTO ,TOTAL_DESCUENTOS , TOTAL_VENTA , MONTO_PAGO , ESTADO_PED_ID_ESTADELIVERY FROM BOLETA WHERE TIPO_VENTA_ID_TIPVENTA = 3 and FECHA_VENTA >= :FECHA_VENTA";
                 this.AUD(sql,0);
             }
             catch (Exception)
@@ -238,7 +230,7 @@ namespace AlmacenYuyitos
         {
             try
             {
-                String sql = " SELECT NRO_BOLETA,FECHA_VENTA , FECHA_ENTREGA ,MONTO_TOTAL,NOM_CLIENTE , DIRECCION_CLIENTE , FONO_CONTACTO ,TOTAL_DESCUENTOS , TOTAL_VENTA , ESTADO_PED_ID_ESTADELIVERY FROM BOLETA WHERE TIPO_VENTA_ID_TIPVENTA = 3 and FECHA_ENTREGA = :FECHA_";
+                String sql = " SELECT NRO_BOLETA,FECHA_VENTA , FECHA_ENTREGA ,MONTO_TOTAL,NOM_CLIENTE , DIRECCION_CLIENTE , FONO_CONTACTO ,TOTAL_DESCUENTOS , TOTAL_VENTA , MONTO_PAGO , ESTADO_PED_ID_ESTADELIVERY FROM BOLETA WHERE TIPO_VENTA_ID_TIPVENTA = 3 and FECHA_ENTREGA = :FECHA_";
                 this.AUD(sql, 1);
             }
             catch (Exception)

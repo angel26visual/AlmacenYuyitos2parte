@@ -451,7 +451,6 @@ namespace AlmacenYuyitos
             txtDescripcion.Text = string.Empty;
             dgOrden.ItemsSource = null;
             montoTotal = 0;
-
         }
 
         private void btnLimpiarCampos_Click(object sender, RoutedEventArgs e)

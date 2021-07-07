@@ -125,8 +125,8 @@
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
 
-    <Grid Margin="0,0,0,1">
-        <Image Source="/resources/logo.png" Width="100" Height="100 " Margin="385,-1,224.497,380"/>
+    <Grid Margin="0,0,0,1" Background="LightBlue">
+        <Image Source="/resources/logo.png" Width="100" Margin="466,7,305,410"/>
         <DatePicker x:Name="txtFechaVenta"  Margin="602,18,79,429"
                      mah:TextBoxHelper.Watermark="FECHA DE VENTA"
                      mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -234,7 +234,7 @@
                      HorizontalContentAlignment="Center" 
                      Height="40" KeyDown="txtPago_KeyDown"/>
             <Button x:Name="btnRegistrarVenta" 
-                    Margin="10,10,10,10" 
+                    Margin="-120,10,10,10" 
                 Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Width="40" 
                     Cursor="Hand" 
                 ToolTip="Realizar Venta" Click="btnRealizarPago_Click">
@@ -242,11 +242,23 @@
                  Width="25" Height="25"
                  Kind="Forsale"/>
             </Button>
+
+            <Button x:Name="btnLimpiarCampos" 
+             Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                HorizontalAlignment="Left"
+                Margin="170,-40,0,0"
+                VerticalAlignment="Top" 
+                ToolTip="Limpiar Campos"
+                Width="40" Height="32" Click="btnLimpiarCampos_Click">
+                <iconPacks:PackIconModern
+                         Width="25" Height="25"
+                         Kind="Refresh"/>
+            </Button>
         </StackPanel>
         <Button x:Name="btnEiminarProducto" 
                 Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Width="40" 
                     Cursor="Hand" 
-                ToolTip="Eliminar Producto" Margin="791,90,40,345" Click="btnEiminarProducto_Click">
+                ToolTip="Eliminar Producto" Margin="791,90,40,354" Click="btnEiminarProducto_Click">
             <iconPacks:PackIconModern 
                  Width="25" Height="25"
                  Kind="ListDelete"/>

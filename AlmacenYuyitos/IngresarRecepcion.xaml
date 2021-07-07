@@ -213,6 +213,7 @@
                  Width="166"
                  mah:TextBoxHelper.Watermark="Monto a Pagar"
                  mah:TextBoxHelper.UseFloatingWatermark="True"
+                 IsEnabled="False"
                  />
         <Button x:Name="btnGuardarRecepcion"
                  Style="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
