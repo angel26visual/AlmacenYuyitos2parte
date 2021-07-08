@@ -166,7 +166,8 @@ namespace AlmacenYuyitos
             catch (Exception)
             {
 
-                throw;
+                await this.ShowMessageAsync("Error","Proveedor se encuentra inserto en un pedido actual , no se puede eliminar");
+                return;
             }
         }
 
